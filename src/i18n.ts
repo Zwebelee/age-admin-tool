@@ -1,35 +1,19 @@
 import i18n from "i18next";
+import i18nBackend from "i18next-http-backend";
 import {initReactI18next} from "react-i18next";
 
-i18n.use(initReactI18next).init({
-    lng: "en",
-    fallbackLng: "en",
-    interpolation: {
-        escapeValue: false
-    },
-    resources: {
-        en: {
-            translation: {
-                "app-title": "AGE Administration Tool",
-                "home": "Home",
-                "about": "About"
-            }
+i18n
+    .use(i18nBackend)
+    .use(initReactI18next)
+    .init({
+        lng: "en",
+        fallbackLng: "en",
+        interpolation: {
+            escapeValue: false
         },
-        de: {
-            translation: {
-                "app-title": "AGE Verwaltungstool",
-                "home": "Startseite",
-                "about": "Über"
-            }
-        },
-        fr: {
-            translation: {
-                "app-title": "Outil de gestion AGE",
-                "home": "Accueil",
-                "about": "À propos"
-            }
+        backend: {
+            loadPath: `${window.location.origin}/i18n/{{lng}}.json`
         }
-    }
-});
+    });
 
 export default i18n;
