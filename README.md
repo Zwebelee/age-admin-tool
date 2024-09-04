@@ -1,3 +1,9 @@
+# TODO Eigene Angaben & Readme überarbeiten
+Develop starten
+```sh
+npm run dev
+```
+
 # React + TypeScript + Vite
 
 Projectsetup with: https://nx.dev/getting-started/tutorials/react-standalone-tutorial
