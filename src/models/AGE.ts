@@ -8,7 +8,7 @@ export class AGE implements IAGE{
     guid: string;
     name: string;
 
-    constructor(data : AGE) {
+    constructor(data : IAGE) {
         this.guid = crypto.randomUUID();
         this.name = data.name;
 
