@@ -1,7 +1,7 @@
 import viteLogo from "/vite.svg";
 import reactLogo from "../assets/react.svg";
 import {useState} from "react";
-import AppSidebar from "../components/AppSidebar.tsx";
+import {SampleMaterialUiComponent} from "../components/SampleMaterialUiComponent.tsx";
 
 
 export const HomeScreen = () => {
@@ -33,6 +33,6 @@ export const HomeScreen = () => {
         <p className="read-the-docs">
             Click on the Vite and React logos to learn more
         </p>
-        <AppSidebar/>
+        <SampleMaterialUiComponent/>
     </>
 };
