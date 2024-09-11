@@ -1,3 +1,18 @@
+# TODO Eigene Angaben & Readme überarbeiten
+Develop starten
+```sh
+npm run dev
+```
+
+# Installationsabfolge
+
+npm install
+
+npm install react-router-dom --> #brauchts das spezifisch ooder ist das autoamtisch dann im npm install drin ?!
+
+npm install i18next react-i18next --> ebenfalls ?! 
+
+
 # React + TypeScript + Vite
 
 Projectsetup with: https://nx.dev/getting-started/tutorials/react-standalone-tutorial
