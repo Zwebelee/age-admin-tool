@@ -4,7 +4,7 @@ export interface IAGE {
 }
 
 
-export class AGE implements IAGE{
+export class Age implements IAGE{
     guid: string;
     name: string;
 

@@ -1,6 +1,8 @@
-import {Grid2, Box} from "@mui/material";
+import {Grid2, Box, Typography} from "@mui/material";
 import {SampleCard} from "./SampleCard.tsx";
 import {tempSampleData} from "../models/tempgeneralsampledata.ts";
+import {useRootStore} from "../stores/root-store.ts";
+import {observer} from "mobx-react-lite";
 
 
 
@@ -9,7 +11,9 @@ const sampleCardData = [
     "Card 1", tempSampleData.users.total, "Card3", "Card4", "Card5", "Card6", "Card7", "Card8"
 ]
 
-export const MainGrid = () => {
+export const MainGrid = observer(() => {
+    const store = useRootStore();
+
     return (
         <Box sx={{ width: '100%', maxWidth: {sm:'100%', md:'2000px'} }}>
         <Grid2
@@ -24,7 +28,10 @@ export const MainGrid = () => {
                 </Grid2>
             ))}
         </Grid2>
+            <Typography variant="h4" component="div">
+                MOBX Count: {store.testStore.testCount}
+            </Typography>
         </Box>
 
     )
-}
+});
