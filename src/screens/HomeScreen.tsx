@@ -1,38 +1,22 @@
-import viteLogo from "/vite.svg";
-import reactLogo from "../assets/react.svg";
-import {useState} from "react";
-import AppSidebar from "../components/AppSidebar.tsx";
+import {SampleMaterialUiComponent} from "../components/SampleMaterialUiComponent.tsx";
+import Sidecar from "../components/Sidecar.tsx";
+import Box from "@mui/material/Box";
+import {MainGrid} from "../components/MainGrid.tsx";
+import Button from "@mui/material/Button";
+import {useRootStore} from "../stores/root-store.ts";
 
 
 export const HomeScreen = () => {
-    const [count, setCount] = useState(0)
-
-
-    return <>
-        <main>
-            <h1>Multi-language app</h1>
-            <span>Select another language!</span>
-        </main>
-        <div>
-            <a href="https://vitejs.dev" target="_blank">
-                <img src={viteLogo} className="logo" alt="Vite logo"/>
-            </a>
-            <a href="https://react.dev" target="_blank">
-                <img src={reactLogo} className="logo react" alt="React logo"/>
-            </a>
-        </div>
-        <h1>Vite + React</h1>
-        <div className="card">
-            <button onClick={() => setCount((count) => count + 1)}>
-                count is {count}
-            </button>
-            <p>
-                Edit <code>src/App.tsx</code> and save to test HMR
-            </p>
-        </div>
-        <p className="read-the-docs">
-            Click on the Vite and React logos to learn more
-        </p>
-        <AppSidebar/>
-    </>
+    const store = useRootStore();
+    return (
+        <Box sx={{display: 'flex'}}>
+            <Sidecar/>
+            <Box
+                component="main">
+                <MainGrid/>
+                <SampleMaterialUiComponent/>
+            </Box>
+            <Button variant="contained" onClick={() => store.testStore.increment()}>MOBX Count +1</Button>
+        </Box>
+    )
 };
