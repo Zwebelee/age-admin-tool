@@ -5,6 +5,7 @@
 Module for loading the settings for a given environment from json file
 """
 import collections
+import collections.abc
 import json
 import os
 

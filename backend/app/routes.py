@@ -1,6 +1,6 @@
 # app/routes.py
-from flask import Blueprint, jsonify
-from .models import User
+from flask import Blueprint, jsonify, request
+from .models import User, Test
 from . import db
 
 main = Blueprint('main', __name__)
@@ -12,4 +12,19 @@ def home():
 @main.route('/users')
 def get_users():
     users = User.query.all()
-    return jsonify([{"id": user.id, "username": user.username, "email": user.email} for user in users])
+    print(users)
+    return jsonify([{"guid": user.guid, "name": user.name} for user in users])
+
+@main.route('/tests')
+def get_test():
+    tests = Test.query.all()
+    print(tests)
+    return jsonify([{"id": test.id, "nr": test.nr} for test in tests])
+
+@main.route('/test', methods=['POST'])
+def add_test():
+    data = request.get_json()
+    new_test = Test(id=data['id'], nr=data['nr'])
+    db.session.add(new_test)
+    db.session.commit()
+    return jsonify({"message": "Test object created successfully"}), 201

@@ -2,6 +2,7 @@
   "db_connection": {
     "host": "localhost",
     "user": "root",
-    "name": "test_db_prompt"
+    "name": "test_db_prompt",
+    "db_name": "testing"
   }
 }

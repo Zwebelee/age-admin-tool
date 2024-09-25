@@ -2,14 +2,19 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from modules.settings import settings
+from .db import db
 
 
 class Config:
     db_connection = settings.get('db_connection')
-    SQLALCHEMY_DATABASE_URI = f"mariadb+mariadbconnector://{db_connection['host']}:{db_connection['password']}@{db_connection['host']}/{db_connection['name']}" #TODO: FIX
+    host = db_connection['host']
+    user = db_connection['user']
+    password = db_connection['password']
+    db_name = db_connection['db_name']
+    SQLALCHEMY_DATABASE_URI = f"mariadb+mariadbconnector://{user}:{password}@{host}/{db_name}" #TODO: FIX
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-db = SQLAlchemy()
+
 
 def create_app():
     app = Flask(__name__)
