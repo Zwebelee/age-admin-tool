@@ -2,7 +2,7 @@ import {Grid2, Box, Typography} from "@mui/material";
 import {SampleCard} from "./SampleCard.tsx";
 import {tempSampleData} from "../models/tempgeneralsampledata.ts";
 import {useRootStore} from "../stores/root-store.ts";
-import {observer} from "mobx-react-lite";
+import {observer} from "mobx-react-lite"
 
 
 
