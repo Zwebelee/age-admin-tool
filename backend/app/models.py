@@ -1,13 +1,15 @@
 from .db import db
+from sqlalchemy import UUID
 
-# TODO: sqlacodegen -> generate files!
+
 class User(db.Model):
-    guid = db.Column(db.String(80), primary_key=True)
+    __tablename__ = 'portalusers'
+    guid = db.Column(UUID, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     # email = db.Column(db.String(120), unique=True, nullable=False)
 
     def __repr__(self):
-        return f"<User {self.username}>"
+        return f"<User {self.name}>"
 
 
 class Test(db.Model):

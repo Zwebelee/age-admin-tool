@@ -1,0 +1,7 @@
+- Init
+  - Install MariaDB (will run as Service in the background)
+  - Install Python 
+  - pip install -r requirements.txt
+  - run ./utils/db_scheme_writer.py to init the database and tables
+- Run FlaskApp
+  - main.py
