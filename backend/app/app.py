@@ -1,4 +1,5 @@
 from flask import Flask
+from flasgger import Swagger
 from modules.settings import settings
 from .db import db
 from pathlib import Path
@@ -22,6 +23,7 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)
+    swagger = Swagger(app)
 
     with app.app_context():
         # Import routes
