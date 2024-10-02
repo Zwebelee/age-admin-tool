@@ -1,6 +1,10 @@
 from modules.settings import settings
 from pathlib import Path
 
+"""
+    This script drops and (re-)creates the database and tables for the models defined in app/models.py.
+"""
+
 # TODO: Fix so imports can be top level but settings are always first initialized!!!
 #  move out of app init
 
