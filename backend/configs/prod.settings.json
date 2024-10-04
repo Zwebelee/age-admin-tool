@@ -2,7 +2,6 @@
   "db_connection": {
     "host": "localhost",
     "user": "root",
-    "name": "test_db_prompt",
     "db_name": "ageadmintool"
   }
 }
