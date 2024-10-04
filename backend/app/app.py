@@ -23,18 +23,22 @@ class Config:
     SQLALCHEMY_DATABASE_URI = f"mariadb+mariadbconnector://{user}:{password}@{host}/{db_name}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+def register_extensions(app):
+    """Register Flask extensions."""
+    db.init_app(app)
+    swagger = Swagger(app) # TODO check - whats needed?
+    return None
+
+def register_blueprints(app):
+    """Register Flask blueprints."""
+    app.register_blueprint(home_bp)
+    app.register_blueprint(users_bp)
+    app.register_blueprint(tests_bp)
+    return None
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-
-    db.init_app(app)
-    swagger = Swagger(app)
-
-    with app.app_context():
-        # Import routes
-        app.register_blueprint(home_bp)
-        app.register_blueprint(users_bp)
-        app.register_blueprint(tests_bp)
-
+    register_extensions(app)
+    register_blueprints(app)
     return app

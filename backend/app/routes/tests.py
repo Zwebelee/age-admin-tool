@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flasgger import swag_from
 from ..models import Test
-from .. import db
+from app.db import db
 
 tests_bp = Blueprint('tests', __name__)
 
@@ -13,9 +13,39 @@ def get_tests():
 
 
 @tests_bp.route('/test', methods=['POST'])
+@swag_from({
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'id': {'type': 'integer'},
+                    'nr': {'type': 'integer'}
+                },
+                'required': ['id', 'nr']
+            }
+        }
+    ],
+    'responses': {
+        201: {
+            'description': 'Test object created successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
 def add_test():
     data = request.get_json()
     new_test = Test(id=data['id'], nr=data['nr'])
+    print(db)
+    print(type(db))
     db.session.add(new_test)
     db.session.commit()
     return jsonify({"message": "Test object created successfully"}), 201
