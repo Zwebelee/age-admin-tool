@@ -2,6 +2,7 @@ import {Suspense} from "react";
 import './App.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {HomeScreen} from "./screens/HomeScreen.tsx";
+import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
 import {AboutScreen} from "./screens/AboutScreen.tsx";
 import {AppHeader} from "./components/AppHeader.tsx";
 import {Alert, LinearProgress} from "@mui/material";
@@ -18,6 +19,7 @@ const AppObserver = observer(() => {
                     <AppHeader/>
                     <Routes>
                         <Route path="/" element={<HomeScreen/>}/>
+                        <Route path="/experimental" element={<ExperimentalScreen/>}/>
                         <Route path="/about" element={<AboutScreen/>}/>
                     </Routes>
                 </BrowserRouter>

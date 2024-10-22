@@ -22,9 +22,15 @@ export const LanguageSelector = () => {
                             {t("home")}
                         </NavLink>
                     </li>
-                    <li><NavLink className={isActive} to="/about">
-                        {t("about")}
-                    </NavLink>
+                    <li>
+                        <NavLink className={isActive} to="/experimental">
+                            {t("experimental")}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={isActive} to="/about">
+                            {t("about")}
+                        </NavLink>
                     </li>
                 </ul>
             </div>

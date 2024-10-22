@@ -1,5 +1,6 @@
 {
+  "about": "À propos",
   "app-title": "Outil de gestion AGE",
-  "home": "Accueil",
-  "about": "À propos"
+  "experimental": "Expérimental",
+  "home": "Accueil"
 }
