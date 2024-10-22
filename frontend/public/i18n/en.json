@@ -1,6 +1,10 @@
 {
-  "about": "About",
-  "app-title": "AGE Administration Tool",
-  "experimental": "Experimental",
-  "home": "Home"
+    "app-title": "AGE Administration Tool",
+    "components": "Components",
+    "contents": "Contents",
+    "experimental": "Experimental",
+    "groups": "Groups",
+    "overview": "Overview",
+    "tasks": "Tasks",
+    "users": "Users"
 }

@@ -1,6 +1,10 @@
 {
-  "about": "Über",
-  "app-title": "AGE Verwaltungstool",
-  "experimental": "Experimentell",
-  "home": "Start"
+    "app-title": "AGE Verwaltungstool",
+    "components": "Komponenten",
+    "contents": "Inhalte",
+    "experimental": "Experimentell",
+    "groups": "Gruppen",
+    "overview": "Übersicht",
+    "tasks": "Aufgaben",
+    "users": "Benutzer"
 }

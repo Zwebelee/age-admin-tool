@@ -1,10 +1,10 @@
 import {useTranslation} from "react-i18next";
 
-export const HomeScreen = () => {
+export const OverviewScreen = () => {
     const {t} = useTranslation();
     return (
         <main>
-            <h1>{t("home")}</h1>
+            <h1>{t("overview")}</h1>
         </main>
     );
 };

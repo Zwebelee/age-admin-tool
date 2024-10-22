@@ -1,6 +1,10 @@
 {
-  "about": "À propos",
-  "app-title": "Outil de gestion AGE",
-  "experimental": "Expérimental",
-  "home": "Accueil"
+    "app-title": "Outil de gestion AGE",
+    "components": "Composants",
+    "contents": "Contenu",
+    "experimental": "Expérimental",
+    "groups": "Groupes",
+    "overview": "Aperçu",
+    "tasks": "Tâches",
+    "users": "Utilisateurs"
 }

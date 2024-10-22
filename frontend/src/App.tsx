@@ -1,9 +1,13 @@
 import {Suspense} from "react";
 import './App.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {HomeScreen} from "./screens/HomeScreen.tsx";
+import {OverviewScreen} from "./screens/OverviewScreen.tsx";
+import {UsersScreen} from "./screens/UsersScreen.tsx";
+import {ContentsScreen} from "./screens/ContentsScreen.tsx";
+import {TasksScreen} from "./screens/TasksScreen.tsx";
+import {GroupsScreen} from "./screens/GroupsScreen.tsx";
+import {ComponentsScreen} from "./screens/ComponentsScreen.tsx";
 import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
-import {AboutScreen} from "./screens/AboutScreen.tsx";
 import {AppHeader} from "./components/AppHeader.tsx";
 import {Alert, LinearProgress} from "@mui/material";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
@@ -18,9 +22,13 @@ const AppObserver = observer(() => {
                 <BrowserRouter>
                     <AppHeader/>
                     <Routes>
-                        <Route path="/" element={<HomeScreen/>}/>
+                        <Route path="/" element={<OverviewScreen/>}/>
+                        <Route path="/users" element={<UsersScreen/>}/>
+                        <Route path="/contents" element={<ContentsScreen/>}/>
+                        <Route path="/tasks" element={<TasksScreen/>}/>
+                        <Route path="/groups" element={<GroupsScreen/>}/>
+                        <Route path="/components" element={<ComponentsScreen/>}/>
                         <Route path="/experimental" element={<ExperimentalScreen/>}/>
-                        <Route path="/about" element={<AboutScreen/>}/>
                     </Routes>
                 </BrowserRouter>
             </Suspense>

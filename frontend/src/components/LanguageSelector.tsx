@@ -19,7 +19,32 @@ export const LanguageSelector = () => {
                 <ul>
                     <li>
                         <NavLink className={isActive} to="/">
-                            {t("home")}
+                            {t("overview")}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={isActive} to="/users">
+                            {t("users")}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={isActive} to="/contents">
+                            {t("contents")}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={isActive} to="/tasks">
+                            {t("tasks")}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={isActive} to="/groups">
+                            {t("groups")}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className={isActive} to="/components">
+                            {t("components")}
                         </NavLink>
                     </li>
                     <li>
@@ -27,17 +52,12 @@ export const LanguageSelector = () => {
                             {t("experimental")}
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink className={isActive} to="/about">
-                            {t("about")}
-                        </NavLink>
-                    </li>
                 </ul>
             </div>
             <select defaultValue={"en"} onChange={onChangeLanguage}>
                 {LANGUAGES.map(({code, label}) => (
                     <option key={code} value={code}>
-                        {label}
+                    {label}
                     </option>
                 ))}
             </select>
