@@ -3,7 +3,7 @@ import {LANGUAGES} from "../constants";
 import {useTranslation} from "react-i18next";
 import "./LanguageSelector.scss";
 
-const isActive = ({isActive}: any) => `${isActive ? "navLink active" : "navLink"}`;
+const isActive = ({isActive}: {isActive: boolean}) => `${isActive ? "navLink active" : "navLink"}`;
 
 export const LanguageSelector = () => {
     const {i18n, t} = useTranslation();

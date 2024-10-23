@@ -1,11 +1,11 @@
 .navLink {
-  background-color: red;
-  padding: 5px;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #d6ec1b;
+    background-color: red;
+    padding: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #d6ec1b;
 
-  &.active {
-    font-weight: bold;
-  }
+    &.active {
+        font-weight: bold;
+    }
 }
