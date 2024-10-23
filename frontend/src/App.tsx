@@ -8,7 +8,7 @@ import {TasksScreen} from "./screens/TasksScreen.tsx";
 import {GroupsScreen} from "./screens/GroupsScreen.tsx";
 import {ComponentsScreen} from "./screens/ComponentsScreen.tsx";
 import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
-import {AppHeader} from "./components/AppHeader.tsx";
+import {Header} from "./components/Header.tsx";
 import {Sidebar} from "./components/Sidebar.tsx";
 import {Alert, Grid2, LinearProgress} from "@mui/material";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
@@ -23,8 +23,8 @@ const AppObserver = observer(() => {
                 <BrowserRouter>
                     <Grid2 container spacing={0}>
                         <Grid2 size={12}>
-                            <p>App Header</p>
-                            <AppHeader/>
+                            <p>Header</p>
+                            <Header/>
                         </Grid2>
                         <Grid2 size="auto">
                             <p>Sidebar</p>

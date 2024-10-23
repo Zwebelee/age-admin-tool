@@ -1,0 +1,20 @@
+.mainMenu {
+    background-color: darkblue;
+}
+.mainMenuList {
+    padding: 0;
+    list-style: none;
+}
+.mainMenuListItem {
+
+}
+.navLink {
+    padding: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+
+    &.active {
+        font-weight: bold;
+    }
+}

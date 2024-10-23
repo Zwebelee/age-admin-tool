@@ -1,15 +1,16 @@
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import "./MainMenu.scss";
 
 const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "navLink active" : "navLink"}`;
 
 export const MainMenu = () => {
     const {t} = useTranslation();
     return (
-        <nav>
+        <nav className="mainMenu">
             <div>
-                <ul>
-                    <li>
+                <ul className="mainMenuList">
+                    <li className="mainMenuListItem">
                         <NavLink className={isActive} to="/">
                             {t("overview")}
                         </NavLink>

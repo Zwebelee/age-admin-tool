@@ -5,6 +5,7 @@ import {MainGrid} from "../components/MainGrid.tsx";
 import Button from "@mui/material/Button";
 import {useRootStore} from "../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
+import {AppHeader} from "../components/AppHeader.tsx";
 
 
 export const ExperimentalScreen = () => {
@@ -17,6 +18,7 @@ export const ExperimentalScreen = () => {
                 <Sidecar/>
                 <Box
                     component="main">
+                    <AppHeader/>
                     <MainGrid/>
                     <SampleMaterialUiComponent/>
                 </Box>

@@ -1,6 +1,5 @@
 import {LANGUAGES} from "../constants";
 import {useTranslation} from "react-i18next";
-import "./LanguageSelector.scss";
 
 
 export const LanguageSelector = () => {
