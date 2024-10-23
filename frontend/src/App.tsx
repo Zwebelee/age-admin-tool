@@ -9,7 +9,8 @@ import {GroupsScreen} from "./screens/GroupsScreen.tsx";
 import {ComponentsScreen} from "./screens/ComponentsScreen.tsx";
 import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
 import {AppHeader} from "./components/AppHeader.tsx";
-import {Alert, LinearProgress} from "@mui/material";
+import {Sidebar} from "./components/Sidebar.tsx";
+import {Alert, Grid2, LinearProgress} from "@mui/material";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 
@@ -20,16 +21,28 @@ const AppObserver = observer(() => {
         return (
             <Suspense fallback="loading">
                 <BrowserRouter>
-                    <AppHeader/>
-                    <Routes>
-                        <Route path="/" element={<OverviewScreen/>}/>
-                        <Route path="/users" element={<UsersScreen/>}/>
-                        <Route path="/contents" element={<ContentsScreen/>}/>
-                        <Route path="/tasks" element={<TasksScreen/>}/>
-                        <Route path="/groups" element={<GroupsScreen/>}/>
-                        <Route path="/components" element={<ComponentsScreen/>}/>
-                        <Route path="/experimental" element={<ExperimentalScreen/>}/>
-                    </Routes>
+                    <Grid2 container spacing={0}>
+                        <Grid2 size={12}>
+                            <p>App Header</p>
+                            <AppHeader/>
+                        </Grid2>
+                        <Grid2 size="auto">
+                            <p>Sidebar</p>
+                            <Sidebar/>
+                        </Grid2>
+                        <Grid2 size="auto">
+                            <p>Main</p>
+                            <Routes>
+                                <Route path="/" element={<OverviewScreen/>}/>
+                                <Route path="/users" element={<UsersScreen/>}/>
+                                <Route path="/contents" element={<ContentsScreen/>}/>
+                                <Route path="/tasks" element={<TasksScreen/>}/>
+                                <Route path="/groups" element={<GroupsScreen/>}/>
+                                <Route path="/components" element={<ComponentsScreen/>}/>
+                                <Route path="/experimental" element={<ExperimentalScreen/>}/>
+                            </Routes>
+                        </Grid2>
+                    </Grid2>
                 </BrowserRouter>
             </Suspense>
         )
