@@ -5,3 +5,4 @@
   - run ./utils/db_scheme_writer.py to init the database and tables
 - Run FlaskApp
   - main.py
+- Swagger: localhost:5000/apidocs
