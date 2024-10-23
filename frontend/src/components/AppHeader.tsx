@@ -3,6 +3,7 @@ import {AppBar, Toolbar, Typography} from "@mui/material";
 import reactLogo from "../assets/react.svg";
 import {exampleAGE} from "../models/exampleAGE.ts";
 import {LanguageSelector} from "./LanguageSelector.tsx";
+import {MainMenu} from "./MainMenu.tsx";
 
 export const AppHeader = () => {
     const {t} = useTranslation()
@@ -16,6 +17,7 @@ export const AppHeader = () => {
                     {t("app-title")} - {exampleAGE.name}
                 </Typography>
                 <LanguageSelector/>
+                <MainMenu/>
             </Toolbar>
         </AppBar>
     )

@@ -4,9 +4,6 @@ import {tempSampleData} from "../models/tempgeneralsampledata.ts";
 import {useRootStore} from "../stores/root-store.ts";
 import {observer} from "mobx-react-lite"
 
-
-
-
 const sampleCardData = [
     "Card 1", tempSampleData.users.total, "Card3", "Card4", "Card5", "Card6", "Card7", "Card8"
 ]
