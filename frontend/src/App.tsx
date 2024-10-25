@@ -27,10 +27,9 @@ const AppObserver = observer(() => {
         palette: {
             mode: toggleTheme ? "light" : "dark",
             primary: {
-                main: "#90caf9",
-            },
-            secondary: {
-                main: "#f48fb1",
+                light: "#EEEEEE",
+                main: "#009FE3",
+                dark: "#424242"
             },
         },
     });
