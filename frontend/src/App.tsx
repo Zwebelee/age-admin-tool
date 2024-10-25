@@ -1,5 +1,5 @@
 import {Suspense, useState} from "react";
-import './App.css'
+import "./App.css";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {OverviewScreen} from "./screens/OverviewScreen.tsx";
 import {UsersScreen} from "./screens/UsersScreen.tsx";
@@ -42,29 +42,29 @@ const AppObserver = observer(() => {
         <Suspense fallback="loading">
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
-                        <CssBaseline />
-                        <Grid container spacing={0}>
-                            <Grid size={12}>
-                                <p>Header</p>
-                                <Header toggleTheme={toggleTheme} onChange={toggleSwitch} />
-                            </Grid>
-                            <Grid size="auto">
-                                <p>Sidebar</p>
-                                <Sidebar/>
-                            </Grid>
-                            <Grid size="auto">
-                                <p>Main</p>
-                                <Routes>
-                                    <Route path="/" element={<OverviewScreen/>}/>
-                                    <Route path="/users" element={<UsersScreen/>}/>
-                                    <Route path="/contents" element={<ContentsScreen/>}/>
-                                    <Route path="/tasks" element={<TasksScreen/>}/>
-                                    <Route path="/groups" element={<GroupsScreen/>}/>
-                                    <Route path="/components" element={<ComponentsScreen/>}/>
-                                    <Route path="/experimental" element={<ExperimentalScreen/>}/>
-                                </Routes>
-                            </Grid>
+                    <CssBaseline />
+                    <Grid container spacing={0}>
+                        <Grid size={12}>
+                            <p>Header</p>
+                            <Header toggleTheme={toggleTheme} onChange={toggleSwitch}/>
                         </Grid>
+                        <Grid size="auto">
+                            <p>Sidebar</p>
+                            <Sidebar/>
+                        </Grid>
+                        <Grid size="auto">
+                            <p>Main</p>
+                            <Routes>
+                                <Route path="/" element={<OverviewScreen/>}/>
+                                <Route path="/users" element={<UsersScreen/>}/>
+                                <Route path="/contents" element={<ContentsScreen/>}/>
+                                <Route path="/tasks" element={<TasksScreen/>}/>
+                                <Route path="/groups" element={<GroupsScreen/>}/>
+                                <Route path="/components" element={<ComponentsScreen/>}/>
+                                <Route path="/experimental" element={<ExperimentalScreen/>}/>
+                            </Routes>
+                        </Grid>
+                    </Grid>
                 </ThemeProvider>
             </BrowserRouter>
         </Suspense>
