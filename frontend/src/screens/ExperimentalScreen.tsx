@@ -1,11 +1,11 @@
 import {SampleMaterialUiComponent} from "../components/SampleMaterialUiComponent.tsx";
-import Sidecar from "../components/Sidecar.tsx";
+import SampleSidecar from "../components/SampleSidecar.tsx";
 import Box from "@mui/material/Box";
-import {MainGrid} from "../components/MainGrid.tsx";
+import {SampleGrid} from "../components/SampleGrid.tsx";
 import Button from "@mui/material/Button";
 import {useRootStore} from "../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
-import {AppHeader} from "../components/AppHeader.tsx";
+import {SampleHeader} from "../components/SampleHeader.tsx";
 
 
 export const ExperimentalScreen = () => {
@@ -15,11 +15,11 @@ export const ExperimentalScreen = () => {
         <main>
             <h1>{t("experimental")}</h1>
             <Box sx={{display: 'flex'}}>
-                <Sidecar/>
+                <SampleSidecar/>
                 <Box
                     component="main">
-                    <AppHeader/>
-                    <MainGrid/>
+                    <SampleHeader/>
+                    <SampleGrid/>
                     <SampleMaterialUiComponent/>
                 </Box>
                 <Button variant="contained" onClick={() => store.testStore.increment()}>MOBX Count +1</Button>

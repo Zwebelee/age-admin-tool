@@ -8,7 +8,7 @@ const sampleCardData = [
     "Card 1", tempSampleData.users.total, "Card3", "Card4", "Card5", "Card6", "Card7", "Card8"
 ]
 
-export const MainGrid = observer(() => {
+export const SampleGrid = observer(() => {
     const store = useRootStore();
 
     return (

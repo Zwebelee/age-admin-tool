@@ -11,7 +11,7 @@ import MailIcon from '@mui/icons-material/Mail';
 
 const drawerWidth = 240;
 
-export default function Sidecar() {
+export default function SampleSidecar() {
     return (
         <Drawer
             variant="permanent"
