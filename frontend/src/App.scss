@@ -1,0 +1,27 @@
+#root {
+    width: 100%;
+    height: 100%;
+}
+.themeLight,
+.themeDark {
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.themeLight {
+    background-image: url("./assets/background-light.jpg"); /* Fallback "image-set" */
+    background-image: image-set(
+            url("./assets/background-light.avif") type("image/avif"),
+            url("./assets/background-light.webp") type("image/webp"),
+            url("./assets/background-light.jpg") type("image/jpeg")
+    );
+}
+.themeDark {
+    background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */
+    background-image: image-set(
+            url("./assets/background-dark.avif") type("image/avif"),
+            url("./assets/background-dark.webp") type("image/webp"),
+            url("./assets/background-dark.jpg") type("image/jpeg")
+    );
+}
