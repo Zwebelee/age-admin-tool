@@ -3,6 +3,9 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
+html {
+    background-color: var(--lightness3) !important;
+}
 #root {
     width: 100%;
     height: 100%;
@@ -28,7 +31,7 @@
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
+    min-height: 100vh;
     padding: pxToRem(20);
     .app {
         max-width: pxToRem(1800);
