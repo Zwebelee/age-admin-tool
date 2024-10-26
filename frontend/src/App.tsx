@@ -7,6 +7,7 @@ import {Alert, LinearProgress} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import "./globalVariables.scss";
 import "./App.scss";
 
 import {OverviewScreen} from "./screens/OverviewScreen.tsx";
@@ -72,7 +73,6 @@ const AppObserver = observer(() => {
                                     <Header toggleTheme={toggleTheme} onChange={toggleSwitch}/>
                                 </Grid>
                                 <Grid size="auto">
-                                    <p>Sidebar</p>
                                     <Sidebar/>
                                 </Grid>
                                 <Grid size="auto">

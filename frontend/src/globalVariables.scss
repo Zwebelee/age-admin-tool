@@ -1,0 +1,19 @@
+/* Colors Dark Theme */
+#root {
+    --lightness1:   rgba(  0,   0,   0, 1.00);
+    --lightness1-1: rgba(  0,   0,   0, 0.70);
+    --lightness1-2: rgba(  0,   0,   0, 0.55);
+    --lightness2:   rgba(255, 255, 255, 1.00);
+    --lightness2-1: rgba(255, 255, 255, 0.20);
+    --color1:       rgba(  0, 159, 227, 1.00);
+    --color1-1:     rgba(  0, 159, 227, 0.25);
+}
+
+/* Colors Light Theme */
+.themeLight {
+    --lightness1:   rgba(255, 255, 255, 1.00);
+    --lightness1-1: rgba(255, 255, 255, 0.85);
+    --lightness1-2: rgba(255, 255, 255, 0.55);
+    --lightness2:   rgba(  0,   0,   0, 1.00);
+    --lightness2-1: rgba(  0,   0,   0, 0.15);
+}
