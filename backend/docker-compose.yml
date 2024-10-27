@@ -1,0 +1,23 @@
+services:
+  mariadb:
+    image: mariadb:11.5
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3310:3306"
+
+  app:
+    build: .
+    restart: always
+    container_name: flask-app
+    depends_on:
+      - mariadb
+    environment:
+        DATABASE_URL: mariadb+mariadbconnector://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
+    ports:
+      - "5000:5000"

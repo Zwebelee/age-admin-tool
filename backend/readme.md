@@ -1,4 +1,6 @@
 - copy env.example to .env and fill out the vavlues
+- docker-compose up --build
+ 
 - Init
   - Install MariaDB (will run as Service in the background)
   - Install Python 
