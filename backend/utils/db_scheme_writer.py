@@ -1,37 +1,33 @@
-from app.models import Test
-from modules.settings import settings
-from pathlib import Path
-
 """
     This script drops and (re-)creates the database and tables for the models defined in app/models.py.
 """
 
-# TODO: Fix so imports can be top level but settings are always first initialized!!!
-#  move out of app init
+import os
+from dotenv import load_dotenv
 
-# init settings
-config_path = Path(__file__).parent.parent / 'configs'
-settings.init(config_path, "prod")
+load_dotenv()
 
+from app.models import Test
 from sqlalchemy.orm import sessionmaker
 from app.db import db
 from sqlalchemy import create_engine,text, inspect
 from sqlalchemy_utils import database_exists, create_database
+import os
 
 Base = db.Model
 
 if __name__ == '__main__':
 
-    db_connection = settings.get('db_connection')
-    host = db_connection['host']
-    user = db_connection['user']
-    password = db_connection['password']
-    db_name = db_connection['db_name']
+    host = "localhost"
+    user = os.getenv("DB_USER")
+    password = os.getenv("DB_PASSWORD")
+    db_name = os.getenv("DB_NAME")
+    port = os.getenv("DB_PORT")
 
     # Create the database db_name if not exists
     print("Creating database if not exists...")
 
-    db_uri = f"mariadb+mariadbconnector://{user}:{password}@{host}/{db_name}"
+    db_uri = f"mariadb+mariadbconnector://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{host}:{port}/{os.getenv('DB_NAME')}"
     if not database_exists(db_uri):
         create_database(db_uri)
         print("Database created successfully.")
