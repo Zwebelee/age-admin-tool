@@ -1,3 +1,4 @@
+- copy env.example to .env and fill out the vavlues
 - Init
   - Install MariaDB (will run as Service in the background)
   - Install Python 

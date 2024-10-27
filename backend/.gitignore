@@ -1,3 +1,4 @@
 /.idea
 
 /configs/*secrets.json
+.env
