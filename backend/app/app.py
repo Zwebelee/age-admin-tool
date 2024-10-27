@@ -39,4 +39,8 @@ def create_app():
     app.config.from_object(Config)
     register_extensions(app)
     register_blueprints(app)
+
+    with app.app_context():
+        db.create_all()
+
     return app
