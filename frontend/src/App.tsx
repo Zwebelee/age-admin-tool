@@ -25,33 +25,40 @@ import {Sidebar} from "./components/Sidebar.tsx";
 
 const AppObserver = observer(() => {
 
+    const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
+    const color1 = getColor("--color1");
+    const lightness1 = getColor("--lightness1");
+    const lightness2 = getColor("--lightness2");
+    const lightness3 = getColor("--lightness3");
+    const lightness4 = getColor("--lightness4");
+
     const [toggleTheme, setToggleTheme] = useState(false);
     const toggleSwitch = () => {
         setToggleTheme(!toggleTheme);
     };
-    const themeLight = createTheme({
-        palette: {
-            background: {
-                default: "#EEEEEE"
-            },
-            text: {
-                primary: "#000000"
-            },
-            primary: {
-                main: "#009FE3",
-            },
-        }
-    });
     const themeDark = createTheme({
         palette: {
             background: {
-                default: "#424242"
+                default: lightness3,
             },
             text: {
-                primary: "#FFFFFF"
+                primary: lightness2,
             },
             primary: {
-                main: "#009FE3",
+                main: color1,
+            },
+        }
+    });
+    const themeLight = createTheme({
+        palette: {
+            background: {
+                default: lightness4,
+            },
+            text: {
+                primary: lightness1,
+            },
+            primary: {
+                main: color1,
             },
         }
     });
