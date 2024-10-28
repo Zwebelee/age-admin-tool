@@ -25,4 +25,4 @@ users_bp = Blueprint('users', __name__)
 })
 def get_users():
     users = User.query.all()
-    return jsonify([{"guid": user.guid, "name": user.name} for user in users])
+    return jsonify([{"guid": user.guid, "username": user.username} for user in users])
