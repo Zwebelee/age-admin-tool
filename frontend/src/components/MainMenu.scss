@@ -1,6 +1,7 @@
 @import "../globalFunctions";
 
 .mainMenu {
+    width: pxToRem(100);
     border-radius: 0 0 0 pxToRem(10);
     background-color: var(--color1-1);
 }
@@ -16,7 +17,7 @@
 }
 .navLink {
     display: block;
-    padding: pxToRem(10);
+    padding: pxToRem(10) 0;
     text-decoration: none;
     color: var(--lightness2);
     transition: var(--transition1);
@@ -37,7 +38,7 @@
         content: "";
         position: absolute;
         top: pxToRem(7);
-        left: pxToRem(95);
+        left: pxToRem(97.25);
         width: pxToRem(5.5);
         height: pxToRem(85);
         border-radius: pxToRem(5);
