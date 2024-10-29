@@ -78,7 +78,7 @@ const AppObserver = observer(() => {
                         <div className="app">
                             <Grid container spacing={0}>
                                 <Grid size={12}>
-                                    <Header toggleTheme={toggleTheme} onChange={toggleSwitch}/>
+                                    <Header/>
                                 </Grid>
                                 <Grid size="auto">
                                     <Sidebar/>
@@ -93,7 +93,7 @@ const AppObserver = observer(() => {
                                         <Route path="/components" element={<ComponentsScreen/>}/>
                                         <Route path="/experimental" element={<ExperimentalScreen/>}/>
                                         <Route path="/tools" element={<ToolsScreen/>}/>
-                                        <Route path="/my-account" element={<MyAccountScreen/>}/>
+                                        <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChange={toggleSwitch}/>}/>
                                     </Routes>
                                 </Grid>
                             </Grid>
