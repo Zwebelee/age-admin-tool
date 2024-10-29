@@ -12,53 +12,53 @@ import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 
 
 
-const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "navLink active" : "navLink"}`;
+const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "mainMenu__navLink mainMenu__navLink--active" : "mainMenu__navLink"}`;
 
 export const MainMenu = () => {
     const {t} = useTranslation();
     return (
         <nav className="mainMenu">
             <div>
-                <ul className="mainMenuList">
-                    <li className="mainMenuListItem">
+                <ul className="mainMenu__list">
+                    <li className="mainMenu__listItem">
                         <NavLink className={isActive} to="/">
-                            <span className="mainMenuIcon"><GridViewOutlinedIcon/></span>
+                            <span className="mainMenu__icon"><GridViewOutlinedIcon/></span>
                             {t("overview")}
                         </NavLink>
                     </li>
-                    <li className="mainMenuListItem">
+                    <li className="mainMenu__listItem">
                         <NavLink className={isActive} to="/users">
-                            <span className="mainMenuIcon"><PeopleAltOutlinedIcon /></span>
+                            <span className="mainMenu__icon"><PeopleAltOutlinedIcon /></span>
                             {t("users")}
                         </NavLink>
                     </li>
-                    <li className="mainMenuListItem">
+                    <li className="mainMenu__listItem">
                         <NavLink className={isActive} to="/contents">
-                            <span className="mainMenuIcon"><ContentCopyOutlinedIcon/></span>
+                            <span className="mainMenu__icon"><ContentCopyOutlinedIcon/></span>
                             {t("contents")}
                         </NavLink>
                     </li>
-                    <li className="mainMenuListItem">
+                    <li className="mainMenu__listItem">
                         <NavLink className={isActive} to="/tasks">
-                            <span className="mainMenuIcon"><TaskAltOutlinedIcon/></span>
+                            <span className="mainMenu__icon"><TaskAltOutlinedIcon/></span>
                             {t("tasks")}
                         </NavLink>
                     </li>
-                    <li className="mainMenuListItem">
+                    <li className="mainMenu__listItem">
                         <NavLink className={isActive} to="/groups">
-                            <span className="mainMenuIcon"><HolidayVillageOutlinedIcon/></span>
+                            <span className="mainMenu__icon"><HolidayVillageOutlinedIcon/></span>
                             {t("groups")}
                         </NavLink>
                     </li>
-                    <li className="mainMenuListItem">
+                    <li className="mainMenu__listItem">
                         <NavLink className={isActive} to="/components">
-                            <span className="mainMenuIcon"><SettingsInputComponentOutlinedIcon/></span>
+                            <span className="mainMenu__icon"><SettingsInputComponentOutlinedIcon/></span>
                             {t("components")}
                         </NavLink>
                     </li>
-                    <li className="mainMenuListItem">
+                    <li className="mainMenu__listItem">
                         <NavLink className={isActive} to="/experimental">
-                            <span className="mainMenuIcon"><ScienceOutlinedIcon/></span>
+                            <span className="mainMenu__icon"><ScienceOutlinedIcon/></span>
                             {t("experimental")}
                         </NavLink>
                     </li>

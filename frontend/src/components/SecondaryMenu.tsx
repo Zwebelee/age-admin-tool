@@ -5,23 +5,23 @@ import HomeRepairServiceOutlinedIcon from '@mui/icons-material/HomeRepairService
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 
-const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "navLink active" : "navLink"}`;
+const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "secondaryMenu__navLink secondaryMenu__navLink--active" : "secondaryMenu__navLink"}`;
 
 export const SecondaryMenu = () => {
     const {t} = useTranslation();
     return (
         <nav className="secondaryMenu">
             <div>
-                <ul className="secondaryMenuList">
-                    <li className="secondaryMenuListItem">
+                <ul className="secondaryMenu__List">
+                    <li className="secondaryMenu__ListItem">
                         <NavLink className={isActive} to="/tools">
-                            <span className="secondaryMenuListIcon"><HomeRepairServiceOutlinedIcon/></span>
+                            <span className="secondaryMenu__icon"><HomeRepairServiceOutlinedIcon/></span>
                             {t("tools")}
                         </NavLink>
                     </li>
                     <li className="secondaryMenuListItem">
                         <NavLink className={isActive} to="/my-account">
-                            <span className="secondaryMenuListIcon"><PersonOutlineOutlinedIcon/></span>
+                            <span className="secondaryMenu__icon"><PersonOutlineOutlinedIcon/></span>
                             {t("my-account")}
                         </NavLink>
                     </li>

@@ -74,7 +74,7 @@ const AppObserver = observer(() => {
             <BrowserRouter>
                 <ThemeProvider theme={toggleTheme ? themeLight : themeDark}>
                     <CssBaseline/>
-                    <div className={toggleTheme ? "themeLight" : "themeDark"}>
+                    <div className={toggleTheme ? "theme--light" : "theme--dark"}>
                         <div className="app">
                             <Grid container spacing={0}>
                                 <Grid size={12}>

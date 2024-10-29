@@ -5,7 +5,7 @@ html {
     height: 100%;
     font: 400 medium/1.5 Roboto, sans-serif;
 }
-.themeDark {
+.theme--dark {
     background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */
     background-image: image-set(
         url("./assets/background-dark.avif") type("image/avif"),
@@ -13,7 +13,7 @@ html {
         url("./assets/background-dark.jpg") type("image/jpeg")
     );
 }
-.themeLight {
+.theme--light {
     background-image: url("./assets/background-light.jpg"); /* Fallback "image-set" */
     background-image: image-set(
         url("./assets/background-light.avif") type("image/avif"),
@@ -21,8 +21,8 @@ html {
         url("./assets/background-light.jpg") type("image/jpeg")
     );
 }
-.themeDark,
-.themeLight {
+.theme--dark,
+.theme--light {
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
