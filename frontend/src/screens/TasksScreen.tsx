@@ -4,7 +4,7 @@ export const TasksScreen = () => {
     const {t} = useTranslation();
     return (
         <main>
-            <h1>{t("tasks")}</h1>
+            <h2>{t("tasks")}</h2>
         </main>
     );
 };

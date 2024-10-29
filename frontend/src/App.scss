@@ -5,6 +5,9 @@ html {
     height: 100%;
     font: 400 medium/1.5 Roboto, sans-serif;
 }
+.main {
+    padding: pxToRem(25);
+}
 .theme--dark {
     background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */
     background-image: image-set(

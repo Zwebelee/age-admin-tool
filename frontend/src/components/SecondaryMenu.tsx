@@ -1,6 +1,7 @@
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
+import "./SecondaryMenu.scss";
 import HomeRepairServiceOutlinedIcon from '@mui/icons-material/HomeRepairServiceOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
@@ -12,14 +13,14 @@ export const SecondaryMenu = () => {
     return (
         <nav className="secondaryMenu">
             <div>
-                <ul className="secondaryMenu__List">
-                    <li className="secondaryMenu__ListItem">
+                <ul className="secondaryMenu__list">
+                    <li className="secondaryMenu__listItem">
                         <NavLink className={isActive} to="/tools">
                             <span className="secondaryMenu__icon"><HomeRepairServiceOutlinedIcon/></span>
                             {t("tools")}
                         </NavLink>
                     </li>
-                    <li className="secondaryMenuListItem">
+                    <li className="secondaryMenu__listItem">
                         <NavLink className={isActive} to="/my-account">
                             <span className="secondaryMenu__icon"><PersonOutlineOutlinedIcon/></span>
                             {t("my-account")}

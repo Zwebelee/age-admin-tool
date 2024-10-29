@@ -4,7 +4,7 @@ export const OverviewScreen = () => {
     const {t} = useTranslation();
     return (
         <main>
-            <h1>{t("overview")}</h1>
+            <h2>{t("overview")}</h2>
         </main>
     );
 };

@@ -5,7 +5,7 @@ export const MyAccountScreen = ({ toggleTheme, onChange }: { toggleTheme: boolea
     const {t} = useTranslation();
     return (
         <main>
-            <h1>{t("my-account")}</h1>
+            <h2>{t("my-account")}</h2>
             <UserSettings toggleTheme={toggleTheme} onChange={onChange}/>
         </main>
     );

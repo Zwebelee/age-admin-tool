@@ -13,7 +13,7 @@ export const ExperimentalScreen = () => {
     const {t} = useTranslation();
     return (
         <main>
-            <h1>{t("experimental")}</h1>
+            <h2>{t("experimental")}</h2>
             <Box sx={{display: 'flex'}}>
                 <SampleSidecar/>
                 <Box

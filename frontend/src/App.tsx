@@ -78,23 +78,25 @@ const AppObserver = observer(() => {
                         <div className="app">
                             <Grid container spacing={0}>
                                 <Grid size={12}>
-                                    <Header/>
+                                    <Header toggleTheme={toggleTheme}/>
                                 </Grid>
                                 <Grid size="auto">
                                     <Sidebar/>
                                 </Grid>
                                 <Grid size="auto">
-                                    <Routes>
-                                        <Route path="/" element={<OverviewScreen/>}/>
-                                        <Route path="/users" element={<UsersScreen/>}/>
-                                        <Route path="/contents" element={<ContentsScreen/>}/>
-                                        <Route path="/tasks" element={<TasksScreen/>}/>
-                                        <Route path="/groups" element={<GroupsScreen/>}/>
-                                        <Route path="/components" element={<ComponentsScreen/>}/>
-                                        <Route path="/experimental" element={<ExperimentalScreen/>}/>
-                                        <Route path="/tools" element={<ToolsScreen/>}/>
-                                        <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChange={toggleSwitch}/>}/>
-                                    </Routes>
+                                    <div className="main">
+                                        <Routes>
+                                            <Route path="/" element={<OverviewScreen/>}/>
+                                            <Route path="/users" element={<UsersScreen/>}/>
+                                            <Route path="/contents" element={<ContentsScreen/>}/>
+                                            <Route path="/tasks" element={<TasksScreen/>}/>
+                                            <Route path="/groups" element={<GroupsScreen/>}/>
+                                            <Route path="/components" element={<ComponentsScreen/>}/>
+                                            <Route path="/experimental" element={<ExperimentalScreen/>}/>
+                                            <Route path="/tools" element={<ToolsScreen/>}/>
+                                            <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChange={toggleSwitch}/>}/>
+                                        </Routes>
+                                    </div>
                                 </Grid>
                             </Grid>
                         </div>

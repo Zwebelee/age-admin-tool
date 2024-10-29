@@ -4,7 +4,7 @@ export const ComponentsScreen = () => {
     const {t} = useTranslation();
     return (
         <main>
-            <h1>{t("components")}</h1>
+            <h2>{t("components")}</h2>
         </main>
     );
 };

@@ -4,7 +4,7 @@ export const GroupsScreen = () => {
     const {t} = useTranslation();
     return (
         <main>
-            <h1>{t("groups")}</h1>
+            <h2>{t("groups")}</h2>
         </main>
     );
 };

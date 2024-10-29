@@ -4,7 +4,7 @@ export const ToolsScreen = () => {
     const {t} = useTranslation();
     return (
         <main>
-            <h1>{t("tools")}</h1>
+            <h2>{t("tools")}</h2>
         </main>
     );
 };
