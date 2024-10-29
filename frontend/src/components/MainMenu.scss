@@ -25,8 +25,8 @@
     &:focus {
         color: var(--color1);
     }
-    &:hover .icon,
-    &:focus .icon {
+    &:hover .mainMenuIcon,
+    &:focus .mainMenuIcon {
         color: var(--lightness2);
         background-color: var(--color1);
         transform: scale(1.1);
@@ -45,7 +45,7 @@
         background-color: var(--color1);
     }
 }
-.icon {
+.mainMenuIcon {
     display: block;
     width: pxToRem(50);
     height: pxToRem(50);

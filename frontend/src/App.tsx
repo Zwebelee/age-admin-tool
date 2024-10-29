@@ -17,6 +17,8 @@ import {TasksScreen} from "./screens/TasksScreen.tsx";
 import {GroupsScreen} from "./screens/GroupsScreen.tsx";
 import {ComponentsScreen} from "./screens/ComponentsScreen.tsx";
 import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
+import {ToolsScreen} from "./screens/ToolsScreen.tsx";
+import {MyAccountScreen} from "./screens/MyAccountScreen.tsx";
 
 import {Header} from "./components/Header.tsx";
 import {Sidebar} from "./components/Sidebar.tsx";
@@ -90,6 +92,8 @@ const AppObserver = observer(() => {
                                         <Route path="/groups" element={<GroupsScreen/>}/>
                                         <Route path="/components" element={<ComponentsScreen/>}/>
                                         <Route path="/experimental" element={<ExperimentalScreen/>}/>
+                                        <Route path="/tools" element={<ToolsScreen/>}/>
+                                        <Route path="/my-account" element={<MyAccountScreen/>}/>
                                     </Routes>
                                 </Grid>
                             </Grid>

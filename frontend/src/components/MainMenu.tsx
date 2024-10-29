@@ -22,43 +22,43 @@ export const MainMenu = () => {
                 <ul className="mainMenuList">
                     <li className="mainMenuListItem">
                         <NavLink className={isActive} to="/">
-                            <span className="icon"><GridViewOutlinedIcon/></span>
+                            <span className="mainMenuIcon"><GridViewOutlinedIcon/></span>
                             {t("overview")}
                         </NavLink>
                     </li>
                     <li className="mainMenuListItem">
                         <NavLink className={isActive} to="/users">
-                            <span className="icon"><PeopleAltOutlinedIcon /></span>
+                            <span className="mainMenuIcon"><PeopleAltOutlinedIcon /></span>
                             {t("users")}
                         </NavLink>
                     </li>
                     <li className="mainMenuListItem">
                         <NavLink className={isActive} to="/contents">
-                            <span className="icon"><ContentCopyOutlinedIcon/></span>
+                            <span className="mainMenuIcon"><ContentCopyOutlinedIcon/></span>
                             {t("contents")}
                         </NavLink>
                     </li>
                     <li className="mainMenuListItem">
                         <NavLink className={isActive} to="/tasks">
-                            <span className="icon"><TaskAltOutlinedIcon/></span>
+                            <span className="mainMenuIcon"><TaskAltOutlinedIcon/></span>
                             {t("tasks")}
                         </NavLink>
                     </li>
                     <li className="mainMenuListItem">
                         <NavLink className={isActive} to="/groups">
-                            <span className="icon"><HolidayVillageOutlinedIcon/></span>
+                            <span className="mainMenuIcon"><HolidayVillageOutlinedIcon/></span>
                             {t("groups")}
                         </NavLink>
                     </li>
                     <li className="mainMenuListItem">
                         <NavLink className={isActive} to="/components">
-                            <span className="icon"><SettingsInputComponentOutlinedIcon/></span>
+                            <span className="mainMenuIcon"><SettingsInputComponentOutlinedIcon/></span>
                             {t("components")}
                         </NavLink>
                     </li>
                     <li className="mainMenuListItem">
                         <NavLink className={isActive} to="/experimental">
-                            <span className="icon"><ScienceOutlinedIcon/></span>
+                            <span className="mainMenuIcon"><ScienceOutlinedIcon/></span>
                             {t("experimental")}
                         </NavLink>
                     </li>
