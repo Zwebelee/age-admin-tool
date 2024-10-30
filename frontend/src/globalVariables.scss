@@ -1,0 +1,27 @@
+/* All Colors, Colors Dark Theme */
+:root {
+    --lightness1:   rgba(  0,   0,   0, 1.00); // Black
+    --lightness1-1: rgba(  0,   0,   0, 0.70); // Black Opacity 70%
+    --lightness1-2: rgba(  0,   0,   0, 0.55); // Black Opacity 55%
+    --lightness2:   rgba(255, 255, 255, 1.00); // White
+    --lightness2-1: rgba(255, 255, 255, 0.20); // White Opacity 20%
+    --lightness3:   rgba( 66,  66,  66, 1.00); // Dark Grey
+    --lightness4:   rgba(238, 238, 238, 1.00); // Light Grey
+    --color1:       rgba(  0, 159, 227, 1.00); // Blue
+    --color1-1:     rgba(  0, 159, 227, 0.25); // Blue Opacity 25%
+}
+
+/* Colors Light Theme */
+.theme--light {
+    --lightness1:   rgba(255, 255, 255, 1.00); // White
+    --lightness1-1: rgba(255, 255, 255, 0.85); // White Opacity 85%
+    --lightness1-2: rgba(255, 255, 255, 0.55); // White Opacity 55%
+    --lightness2:   rgba(  0,   0,   0, 1.00); // Black
+    --lightness2-1: rgba(  0,   0,   0, 0.15); // Black Opacity 15%
+    --lightness3:   rgba(238, 238, 238, 1.00); // Light Grey
+}
+
+/* Transitions */
+:root {
+    --transition1: all 300ms ease-in-out;
+}

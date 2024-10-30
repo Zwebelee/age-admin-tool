@@ -1,5 +1,12 @@
 {
-  "app-title": "Outil de gestion AGE",
-  "home": "Accueil",
-  "about": "À propos"
+    "app-title": "Outil de gestion AGE",
+    "components": "Composants",
+    "contents": "Contenu",
+    "experimental": "Expérimental",
+    "groups": "Groupes",
+    "my-account": "Mon compte",
+    "overview": "Aperçu",
+    "tasks": "Tâches",
+    "tools": "Outils",
+    "users": "Utilisateurs"
 }

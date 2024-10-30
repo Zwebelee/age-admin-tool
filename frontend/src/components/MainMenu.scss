@@ -1,0 +1,61 @@
+@import "../globalFunctions";
+
+.mainMenu {
+    width: pxToRem(100);
+    border-radius: 0 0 0 pxToRem(10);
+    background-color: var(--color1-1);
+
+    &__list {
+        padding: pxToRem(10) 0;
+        margin: 0;
+        text-align: center;
+        list-style: none;
+        font-size: pxToRem(13);
+    }
+
+    &__listItem {
+        position: relative;
+    }
+
+    &__navLink {
+        display: block;
+        padding: pxToRem(10) 0;
+        text-decoration: none;
+        color: var(--lightness2);
+        transition: var(--transition1);
+        &:hover,
+        &:focus {
+            color: var(--color1);
+        }
+        &:hover .mainMenu__icon,
+        &:focus .mainMenu__icon {
+            color: var(--lightness2);
+            background-color: var(--color1);
+            transform: scale(1.1);
+        }
+        &--active {
+            background-color: var(--lightness1-2);
+        }
+        &--active::after {
+            content: "";
+            position: absolute;
+            top: pxToRem(7);
+            left: pxToRem(97.25);
+            width: pxToRem(5.5);
+            height: pxToRem(85);
+            border-radius: pxToRem(5);
+            background-color: var(--color1);
+        }
+    }
+
+    &__icon {
+        display: block;
+        width: pxToRem(50);
+        height: pxToRem(50);
+        padding: pxToRem(12) 0;
+        margin: pxToRem(5) auto;
+        border-radius: 50%;
+        background-color: var(--lightness2-1);
+        transition: var(--transition1);
+    }
+}
