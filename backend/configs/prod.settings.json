@@ -1,0 +1,7 @@
+{
+  "db_connection": {
+    "host": "localhost",
+    "user": "root",
+    "db_name": "ageadmintool"
+  }
+}

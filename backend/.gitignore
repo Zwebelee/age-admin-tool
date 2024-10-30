@@ -1,0 +1,4 @@
+/.idea
+__pycache__/
+/configs/*secrets.json
+.env
