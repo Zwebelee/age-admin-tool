@@ -1,5 +1,4 @@
 import {runInAction, computed, observable, makeObservable, action} from "mobx";
-import { RootStore } from "./root-store.ts";
 import { TestEntry } from "../models/test-entry.ts";
 import {AbstractStore} from "./abstract-store.ts";
 
@@ -9,7 +8,7 @@ export class TestStore extends AbstractStore {
 
     items = observable.map<string, TestEntry>();
 
-    constructor(private rootStore: RootStore) {
+    constructor() {
         super();
         makeObservable(this, {
             testCount: observable,
