@@ -12,7 +12,7 @@ def get_tests():
     return jsonify([{"id": test.id, "nr": test.nr} for test in tests])
 
 
-@tests_bp.route('/test', methods=['POST'])
+@tests_bp.route('/tests', methods=['POST'])
 @swag_from({
     'parameters': [
         {
@@ -34,7 +34,8 @@ def get_tests():
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'message': {'type': 'string'}
+                    'id': {'type': 'integer'},
+                    'nr': {'type': 'integer'}
                 }
             }
         }
@@ -45,7 +46,7 @@ def add_test():
     new_test = Test(nr=data['nr'])
     db.session.add(new_test)
     db.session.commit()
-    return jsonify({"message": "Test object created successfully"}), 201
+    return jsonify({"id": new_test.id, "nr": new_test.nr}), 201
 
 
 @tests_bp.route('/test/<int:id>', methods=['GET'])
