@@ -22,10 +22,9 @@ def get_tests():
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
                     'nr': {'type': 'integer'}
                 },
-                'required': ['id', 'nr']
+                'required': ['nr']
             }
         }
     ],
@@ -43,9 +42,7 @@ def get_tests():
 })
 def add_test():
     data = request.get_json()
-    new_test = Test(id=data['id'], nr=data['nr'])
-    print(db)
-    print(type(db))
+    new_test = Test(nr=data['nr'])
     db.session.add(new_test)
     db.session.commit()
     return jsonify({"message": "Test object created successfully"}), 201
