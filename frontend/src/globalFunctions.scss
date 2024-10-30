@@ -1,0 +1,10 @@
+$baseFont: 16px;
+@function pxToRem($px, $ref: $baseFont) {
+    @return toRem(calc(toPx($px) / toPx($ref)));
+}
+@function toRem($val) {
+    @return ($val + 0rem);
+}
+@function toPx($val) {
+    @return ($val + 0px);
+}

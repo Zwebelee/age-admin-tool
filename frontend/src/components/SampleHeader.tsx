@@ -4,7 +4,7 @@ import reactLogo from "../assets/react.svg";
 import {exampleAGE} from "../models/exampleAGE.ts";
 import {LanguageSelector} from "./LanguageSelector.tsx";
 
-export const AppHeader = () => {
+export const SampleHeader = () => {
     const {t} = useTranslation()
     return (
         <AppBar
