@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 from flasgger import Swagger
 from .db import db
 from .routes.home import home_bp
@@ -37,6 +38,7 @@ def register_blueprints(app):
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, ressources={r"/*": {"origins": "http://localhost:5000"}})
     app.config.from_object(Config)
     register_extensions(app)
     register_blueprints(app)
