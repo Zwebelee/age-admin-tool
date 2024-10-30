@@ -12,7 +12,7 @@ export class TestStore {
 
     async loadData() {
         try {
-            const response = await fetch('http://localhost:5000/tests');
+            const response = await fetch('http://localhost:5001/tests');
             const data = await response.json();
             runInAction(() => {
                 console.log('data', data);
@@ -24,7 +24,7 @@ export class TestStore {
     }
     async postData(nr: number) {
         try {
-            const response = await fetch('http://localhost:5000/test', {
+            const response = await fetch('http://localhost:5001/test', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

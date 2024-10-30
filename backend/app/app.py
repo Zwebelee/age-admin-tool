@@ -38,7 +38,7 @@ def register_blueprints(app):
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, ressources={r"/*": {"origins": "http://localhost:5000"}})
+    CORS(app, ressources={r"/*": {"origins": "http://localhost:5001"}})
     app.config.from_object(Config)
     register_extensions(app)
     register_blueprints(app)
