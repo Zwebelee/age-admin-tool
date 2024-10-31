@@ -1,3 +1,4 @@
+/* Functions */
 $baseFont: 16px;
 @function pxToRem($px, $ref: $baseFont) {
     @return toRem(calc(toPx($px) / toPx($ref)));
@@ -7,4 +8,21 @@ $baseFont: 16px;
 }
 @function toPx($val) {
     @return ($val + 0px);
+}
+
+/* Mixins */
+@mixin media($size) {
+    @if $size == "mobile" {
+        @media only all and (max-width: 640px) {
+            @content;
+        }
+    } @else if $size == "tablet" {
+        @media only all and (max-width: 960px) {
+            @content;
+        }
+    } @else if $size == "desktop" {
+        @media only all and (max-width: 1440px) {
+            @content;
+        }
+    }
 }
