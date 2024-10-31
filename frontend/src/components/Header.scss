@@ -7,11 +7,24 @@
     min-height: pxToRem(135);
     padding: 0 pxToRem(15) 0 pxToRem(45);
     border-bottom: solid pxToRem(4) var(--color1);
-    &__title {
-        font-weight: 300;
+    @include media("tablet") {
+        min-height: pxToRem(90);
+        padding: 0 pxToRem(15);
+    }
+    @include media("mobile") {
+        padding: 0 pxToRem(5);
     }
 }
 .logo {
     height: pxToRem(70);
     padding: pxToRem(10);
+    @include media("desktop") {
+        height: pxToRem(60);
+    }
+    @include media("tablet") {
+        height: pxToRem(50);
+    }
+    @include media("mobile") {
+        height: pxToRem(45);
+    }
 }

@@ -7,6 +7,9 @@
         text-align: center;
         list-style: none;
         font-size: pxToRem(13);
+        @include media("tablet") {
+            display: none;
+        }
     }
 
     &__listItem {
@@ -33,7 +36,7 @@
             transform: scale(1.1);
         }
         &--active {
-            background-color: var(--lightness1-2);
+            background-color: var(--color1-1);
         }
         &--active::after {
             content: "";

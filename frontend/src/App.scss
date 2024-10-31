@@ -7,6 +7,21 @@ html {
 }
 .main {
     padding: pxToRem(25);
+    @include media("tablet") {
+        padding: pxToRem(15);
+    }
+}
+h1 {
+    font-weight: 300;
+    @include media("desktop") {
+        font-size: pxToRem(28);
+    }
+    @include media("tablet") {
+        font-size: pxToRem(22);
+    }
+    @include media("mobile") {
+        font-size: pxToRem(18);
+    }
 }
 .theme--dark {
     background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */

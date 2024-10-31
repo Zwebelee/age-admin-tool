@@ -4,6 +4,9 @@
     width: pxToRem(100);
     border-radius: 0 0 0 pxToRem(10);
     background-color: var(--color1-1);
+    @include media("tablet") {
+        display: none;
+    }
 
     &__list {
         padding: pxToRem(10) 0;

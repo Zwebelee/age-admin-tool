@@ -16,7 +16,7 @@ export const Header = ({ toggleTheme }: { toggleTheme: boolean }) => {
             <NavLink to="/">
                 <img src={logo} alt="Logo Kanton Luzern" className="logo"/>
             </NavLink>
-            <h1 className="header__title">{t("app-title")}</h1>
+            <h1>{t("app-title")}</h1>
             <SecondaryMenu/>
         </div>
     )
