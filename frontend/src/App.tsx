@@ -19,6 +19,7 @@ import {ComponentsScreen} from "./screens/ComponentsScreen.tsx";
 import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
 import {ToolsScreen} from "./screens/ToolsScreen.tsx";
 import {MyAccountScreen} from "./screens/MyAccountScreen.tsx";
+import {MobileMenuScreen} from "./screens/MobileMenuScreen.tsx";
 
 import {Header} from "./components/Header.tsx";
 import {Sidebar} from "./components/Sidebar.tsx";
@@ -95,6 +96,7 @@ const AppObserver = observer(() => {
                                             <Route path="/experimental" element={<ExperimentalScreen/>}/>
                                             <Route path="/tools" element={<ToolsScreen/>}/>
                                             <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChange={toggleSwitch}/>}/>
+                                            <Route path="/mobile-menu" element={<MobileMenuScreen/>}/>
                                         </Routes>
                                     </div>
                                 </Grid>

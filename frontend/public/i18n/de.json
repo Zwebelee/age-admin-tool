@@ -1,9 +1,11 @@
 {
     "app-title": "AGE Verwaltungstool",
+    "close": "Schliessen",
     "components": "Komponenten",
     "contents": "Inhalte",
     "experimental": "Experimentell",
     "groups": "Gruppen",
+    "menu": "Menu",
     "my-account": "Mein Konto",
     "overview": "Übersicht",
     "tasks": "Aufgaben",

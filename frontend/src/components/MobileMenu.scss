@@ -1,0 +1,83 @@
+@import "../globalFunctions";
+
+.mobileMenu {
+    display: none;
+    @include media("tablet") {
+        display: block;
+    }
+
+    &__list {
+        list-style: none;
+        font-size: pxToRem(13);
+        text-align: center;
+    }
+
+    &__listItem {
+        position: relative;
+        padding: 0 pxToRem(5);
+    }
+
+    &__navLink {
+        display: block;
+        height: pxToRem(80);
+        width: pxToRem(70);
+        text-decoration: none;
+        color: var(--lightness2);
+        transition: var(--transition1);
+        &:hover,
+        &:focus {
+            color: var(--color1);
+        }
+    }
+
+    &__iconCircle {
+        display: block;
+        width: pxToRem(50);
+        height: pxToRem(50);
+        padding: pxToRem(12) 0;
+        margin: pxToRem(5) auto;
+        border-radius: 50%;
+        background-color: var(--lightness2-1);
+    }
+
+    &__icon {
+        top: pxToRem(24);
+        right: pxToRem(27);
+    }
+
+    &__icon,
+    &__icon::before,
+    &__icon::after {
+        position: absolute;
+        display: block;
+        width: pxToRem(25);
+        height: pxToRem(2);
+        background: var(--lightness2);
+        transition: top 300ms ease-in-out,
+                    transform 300ms ease-in-out;
+    }
+
+    &__icon::before,
+    &__icon::after {
+        content: "";
+    }
+
+    &__icon::before {
+        top: pxToRem(-7);
+    }
+
+    &__icon::after {
+        top: pxToRem(7);
+    }
+
+    &__navLink--active + &__icon {
+        transform: rotate(225deg);
+    }
+
+    &__navLink--active + &__icon::before,
+    &__navLink--active + &__icon::after {
+        transform: rotate(-450deg);
+        top: 0;
+    }
+
+}
