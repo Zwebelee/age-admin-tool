@@ -1,11 +1,15 @@
 import json
 from pathlib import Path
+from sqlalchemy import UUID
 
+from app.models.ageportal import Ageportal
+from app.models.arcgisenterprise import Arcgisenterprise
+from app.models.portalcomponents import Agecomponent
 from app.models.portallicenses import Portallicense
 from app.models.tests import Test
 from app.models.portaluser import Portaluser
 from app.db import db
-from uuid import UUID
+from uuid import UUID as UUIDType
 
 
 def load_sample_data():
@@ -18,8 +22,10 @@ def load_sample_data():
 def initialize_sample_data(model, data):
     if model.query.first() is None:
         for item in data:
-            if 'guid' in item:
-                item['guid'] = UUID(item['guid'])
+            for column in model.__table__.columns:
+                if isinstance(column.type, UUID):
+                    if column.name in item:
+                        item[column.name] = UUIDType(item[column.name])
             new_item = model(**item)
             db.session.add(new_item)
         db.session.commit()
@@ -33,3 +39,6 @@ def init_all_sample_data():
     initialize_sample_data(Test, data["tests"])
     initialize_sample_data(Portaluser, data["portalusers"])
     initialize_sample_data(Portallicense, data["portallicenses"])
+    initialize_sample_data(Arcgisenterprise, data["arcgisenterprise"])
+    initialize_sample_data(Agecomponent, data["agecomponents"])
+    initialize_sample_data(Ageportal, data["ageportal"])
