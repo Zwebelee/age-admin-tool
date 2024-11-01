@@ -9,6 +9,7 @@ portalusers_bp = Blueprint('portalusers', __name__)
 
 @portalusers_bp.route('/portalusers')
 @swag_from({
+    'tags': ['Portalusers'],
     'responses': {
         200: {
             'description': 'List of portalusers',
@@ -60,6 +61,7 @@ def get_users():
 # route for getting a single portaluser
 @portalusers_bp.route('/portaluser/<guid>')
 @swag_from({
+    'tags': ['Portalusers'],
     'parameters': [
         {
             'name': 'guid',

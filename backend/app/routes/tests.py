@@ -14,6 +14,7 @@ def get_tests():
 
 @tests_bp.route('/tests', methods=['POST'])
 @swag_from({
+    'tags': ['Tests'],
     'parameters': [
         {
             'name': 'body',
@@ -51,6 +52,7 @@ def add_test():
 
 @tests_bp.route('/test/<int:id>', methods=['GET'])
 @swag_from({
+    'tags': ['Tests'],
     'parameters': [
         {
             'name': 'id',

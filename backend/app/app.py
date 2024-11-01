@@ -18,6 +18,16 @@ class Config:
         'uiversion': 3,
         'version': '0.0.1',
         'description': 'API for the AGE-Admin-TOOL',
+        'tags': [
+            {
+                'name': 'Portalusers',
+                'description': 'Operations about portalusers'
+            },
+            {
+                'name': 'Tests',
+                'description': 'Operations about tests'
+            }
+        ]
     }
 
 
