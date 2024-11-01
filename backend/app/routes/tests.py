@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flasgger import swag_from
-from ..models import Test
+from app.models.tests import Test
 from app.db import db
 
 tests_bp = Blueprint('tests', __name__)

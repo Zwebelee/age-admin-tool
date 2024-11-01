@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flasgger import Swagger
 from .db import db
 from .routes.home import home_bp
-from .routes.users import users_bp
+from .routes.portalusers import portalusers_bp
 from .routes.tests import tests_bp
 from .utils.load_sample_data import load_sample_data, init_all_sample_data
 
@@ -31,7 +31,7 @@ def register_extensions(app):
 def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(home_bp)
-    app.register_blueprint(users_bp)
+    app.register_blueprint(portalusers_bp)
     app.register_blueprint(tests_bp)
     return None
 

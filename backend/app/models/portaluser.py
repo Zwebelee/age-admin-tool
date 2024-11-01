@@ -52,7 +52,7 @@ class Portaluser(db.Model):
             "email": self.email,
             "homepage": self.homepage,
             "description": self.description,
-            "status": self.status,
+            "status": self.status.name if self.status else None,
             "lastlogin": self.lastlogin,
             "modified": self.modified,
             "created": self.created,

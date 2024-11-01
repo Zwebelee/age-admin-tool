@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
-from app.models import Test, User
+from app.models.tests import Test
+from app.models.portaluser import Portaluser
 from app.db import db
 from uuid import UUID
 
@@ -15,7 +16,7 @@ def load_sample_data():
 def initialize_sample_data(model, data):
     if model.query.first() is None:
         for item in data:
-            if model == User and 'guid' in item:
+            if model == Portaluser and 'guid' in item:
                 item['guid'] = UUID(item['guid'])
             new_item = model(**item)
             db.session.add(new_item)
@@ -28,4 +29,4 @@ def initialize_sample_data(model, data):
 def init_all_sample_data():
     data = load_sample_data()
     initialize_sample_data(Test, data["tests"])
-    initialize_sample_data(User, data["portalusers"])
+    initialize_sample_data(Portaluser, data["portalusers"])
