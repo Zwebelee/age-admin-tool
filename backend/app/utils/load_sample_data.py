@@ -28,4 +28,4 @@ def initialize_sample_data(model, data):
 def init_all_sample_data():
     data = load_sample_data()
     initialize_sample_data(Test, data["tests"])
-    initialize_sample_data(User, data["users"])
+    initialize_sample_data(User, data["portalusers"])

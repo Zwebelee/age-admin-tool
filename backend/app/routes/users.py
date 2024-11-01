@@ -1,11 +1,12 @@
 from flask import Blueprint, jsonify
 from flasgger import swag_from
-from ..models import User
 
-users_bp = Blueprint('users', __name__)
+from app.models.portaluser import Portaluser
+
+portalusers_bp = Blueprint('portalusers', __name__)
 
 
-@users_bp.route('/users')
+@portalusers_bp.route('/portalusers')
 @swag_from({
     'responses': {
         200: {
@@ -24,5 +25,5 @@ users_bp = Blueprint('users', __name__)
     }
 })
 def get_users():
-    users = User.query.all()
-    return jsonify([{"guid": user.guid, "username": user.username} for user in users])
+    portalusers = Portaluser.query.all()
+    return jsonify([{"guid": portaluser.guid, "username": portaluser.username} for portaluser in portalusers])
