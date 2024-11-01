@@ -8,4 +8,3 @@ class Agecomponent(db.Model):
     ageguid = db.Column(UUID, ForeignKey('arcgisenterprise.guid'), nullable=False)
     refguid = db.Column(UUID, nullable=False)
     reftype = db.Column(db.String(120), nullable=False)
-

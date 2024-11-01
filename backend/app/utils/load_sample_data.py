@@ -36,9 +36,9 @@ def initialize_sample_data(model, data):
 
 def init_all_sample_data():
     data = load_sample_data()
-    initialize_sample_data(Ageportal, data["ageportals"])
-    initialize_sample_data(Test, data["tests"])
-    initialize_sample_data(Portaluser, data["portalusers"])
-    initialize_sample_data(Portallicense, data["portallicenses"])
-    initialize_sample_data(Arcgisenterprise, data["arcgisenterprises"])
-    initialize_sample_data(Agecomponent, data["agecomponents"])
+    initialize_sample_data(Ageportal, data["ageportals"])  # type: ignore[attr-defined]
+    initialize_sample_data(Test, data["tests"])  # type: ignore[attr-defined]
+    initialize_sample_data(Portaluser, data["portalusers"])  # type: ignore[attr-defined]
+    initialize_sample_data(Portallicense, data["portallicenses"])  # type: ignore[attr-defined]
+    initialize_sample_data(Arcgisenterprise, data["arcgisenterprises"])  # type: ignore[attr-defined]
+    initialize_sample_data(Agecomponent, data["agecomponents"])  # type: ignore[attr-defined]
