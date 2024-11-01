@@ -41,7 +41,6 @@ export const TestCard = ({testEntry}: {testEntry: TestEntry | undefined}) => {
     if (!testEntry) {
         return <Card><CardContent>No entries yet</CardContent></Card>;
     }
-    console.log('TestCard rendering with entry:', testEntry);
 
     return (
         <Card>

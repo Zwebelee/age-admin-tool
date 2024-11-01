@@ -25,7 +25,6 @@ export class TestStore extends AbstractStore {
 
     async initialize() {
         await this.loadData();
-        console.log('debug items:', this.items);
 
     }
 
@@ -53,7 +52,6 @@ export class TestStore extends AbstractStore {
                 body: JSON.stringify({ nr }),
             });
             const newEntry: TestEntry = await response.json();
-            console.log('newEntry:', newEntry);
             runInAction(() => {
                 this.testEntries.push(newEntry);
             });
