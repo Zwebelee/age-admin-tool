@@ -1,5 +1,7 @@
 import json
 from pathlib import Path
+
+from app.models.portallicenses import Portallicense
 from app.models.tests import Test
 from app.models.portaluser import Portaluser
 from app.db import db
@@ -16,7 +18,7 @@ def load_sample_data():
 def initialize_sample_data(model, data):
     if model.query.first() is None:
         for item in data:
-            if model == Portaluser and 'guid' in item:
+            if 'guid' in item:
                 item['guid'] = UUID(item['guid'])
             new_item = model(**item)
             db.session.add(new_item)
@@ -30,3 +32,4 @@ def init_all_sample_data():
     data = load_sample_data()
     initialize_sample_data(Test, data["tests"])
     initialize_sample_data(Portaluser, data["portalusers"])
+    initialize_sample_data(Portallicense, data["portallicenses"])

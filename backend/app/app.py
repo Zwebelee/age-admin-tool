@@ -4,9 +4,10 @@ from flask_cors import CORS
 from flasgger import Swagger
 from .db import db
 from .routes.home import home_bp
+from .routes.portallicenses import portallicenses_bp
 from .routes.portalusers import portalusers_bp
 from .routes.tests import tests_bp
-from .utils.load_sample_data import load_sample_data, init_all_sample_data
+from .utils.load_sample_data import init_all_sample_data
 
 
 class Config:
@@ -22,6 +23,10 @@ class Config:
             {
                 'name': 'Portalusers',
                 'description': 'Operations about portalusers'
+            },
+            {
+                'name': 'Portallicenses',
+                'description': 'Operations about portallicenses'
             },
             {
                 'name': 'Tests',
@@ -42,6 +47,7 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(home_bp)
     app.register_blueprint(portalusers_bp)
+    app.register_blueprint(portallicenses_bp)
     app.register_blueprint(tests_bp)
     return None
 
@@ -56,7 +62,6 @@ def create_app():
     with app.app_context():
         db.create_all()
         if os.getenv('INIT_SAMPLE_DATA'):
-            print('init sample data')
             init_all_sample_data()
 
     return app

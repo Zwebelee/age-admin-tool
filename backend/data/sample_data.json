@@ -2,23 +2,28 @@
   "tests": [
     {
       "id": 1,
-      "nr": 55
+      "nr": 55,
+      "guid": "123e4567-e89b-12d3-a456-426614174000"
     },
     {
       "id": 2,
-      "nr": 5
+      "nr": 5,
+      "guid": "123e4567-e89b-12d3-a456-426614174001"
     },
     {
       "id": 3,
-      "nr": 123
+      "nr": 123,
+      "guid": "123e4567-e89b-12d3-a456-426614174002"
     },
     {
       "id": 4,
-      "nr": 5
+      "nr": 5,
+      "guid": "123e4567-e89b-12d3-a456-426614174003"
     },
     {
       "id": 5,
-      "nr": 16
+      "nr": 16,
+      "guid": "123e4567-e89b-12d3-a456-426614174004"
     }
   ],
   "portalusers": [
@@ -176,6 +181,35 @@
       "division2": "divisionR",
       "division3": "divisionS",
       "division4": "divisionT"
+    }
+  ],
+  "portallicenses": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174005",
+      "id": "creatorUT",
+      "name": "Creator",
+      "description": "Creator",
+      "level": "2",
+      "state": "active",
+      "maxusers": 287
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174006",
+      "id": "editorUT",
+      "name": "Editor",
+      "description": "Editor",
+      "level": "11",
+      "state": "active",
+      "maxusers": 150
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174007",
+      "id": "viewerUT",
+      "name": "Viewer",
+      "description": "Viewer",
+      "level": "1",
+      "state": "active",
+      "maxusers": 2000
     }
   ]
 }
