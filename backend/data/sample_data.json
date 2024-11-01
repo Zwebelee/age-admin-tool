@@ -212,13 +212,15 @@
       "maxusers": 2000
     }
   ],
-  "arcgisenterprises": [{
-    "guid": "123e4567-e89b-12d3-a456-426614174008",
-    "name": "ArcGIS Enterprise",
-    "alias": "GIS - Core",
-    "description": "Central Enterprise GIS"
-  }],
-    "agecomponents": [
+  "arcgisenterprises": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174008",
+      "name": "ArcGIS Enterprise",
+      "alias": "GIS - Core",
+      "description": "Central Enterprise GIS"
+    }
+  ],
+  "agecomponents": [
     {
       "guid": "123e4567-e89b-12d3-a456-426614174009",
       "ageguid": "123e4567-e89b-12d3-a456-426614174008",
@@ -236,6 +238,39 @@
       "type": "portal",
       "ishosted": true,
       "status": "active"
+    }
+  ],
+  "agewebadaptors": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614333011",
+      "machineName": "TESTNAME-V099T",
+      "machineIP": "33.88.99.11",
+      "webAdaptorURL": "https://sampe.webadaptor.ch/core-blabli",
+      "id": "e6f238b1-9412-412f-b37c-12b028becfaf",
+      "description": "",
+      "httpPort": 99,
+      "httpsPort": 444,
+      "refreshServerListInterval": 1,
+      "reconnectServerOnFailureInterval": 1
+    }
+  ],
+  "agedatastores": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174011",
+      "name": "Sample Data Store"
+    }
+  ],
+  "ageservers": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174012",
+      "id": "jiCabcde3fgWz8Qn",
+      "name": "sampleserver-v088t.domain.ch:6444",
+      "adminUrl": "https://sampleserver-v088t.domain.ch:6444/arcgis",
+      "url": "https://webadaptor.sample.ch/gisstuff",
+      "isHosted": true,
+      "serverType": "ArcGIS",
+      "serverRole": "HOSTING_SERVER",
+      "serverFunction": ""
     }
   ]
 }
