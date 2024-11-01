@@ -211,5 +211,31 @@
       "state": "active",
       "maxusers": 2000
     }
+  ],
+  "arcgisenterprises": [{
+    "guid": "123e4567-e89b-12d3-a456-426614174008",
+    "name": "ArcGIS Enterprise",
+    "alias": "GIS - Core",
+    "description": "Central Enterprise GIS"
+  }],
+    "agecomponents": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174009",
+      "ageguid": "123e4567-e89b-12d3-a456-426614174008",
+      "refguid": "123e4567-e89b-12d3-a456-426614174010",
+      "reftype": "portal"
+    }
+  ],
+  "ageportals": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174010",
+      "name": "sampleagp-v099t.domain.ch:6443",
+      "alias": "GIS - Core Portal",
+      "description": "Enterprise Portal",
+      "url": "http://example.com/coreportal",
+      "type": "portal",
+      "ishosted": true,
+      "status": "active"
+    }
   ]
 }

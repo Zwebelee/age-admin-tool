@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flasgger import swag_from
-from uuid import UUID
+from sqlalchemy import UUID
 
 from app.models.portaluser import Portaluser
 
