@@ -10,14 +10,21 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3310:3306"
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   app:
     build: .
     restart: always
     container_name: flask-app
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     environment:
-        DATABASE_URL: mariadb+mariadbconnector://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
+      DATABASE_URL: mariadb+mariadbconnector://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
     ports:
       - "5001:5001"
