@@ -5,10 +5,12 @@ from sqlalchemy import UUID
 from app.models.agedatastore import Agedatastore
 from app.models.ageportal import Ageportal
 from app.models.ageserver import Ageserver
+from app.models.ageservice import Ageservice
 from app.models.agewebadaptor import Agewebadaptor
 from app.models.arcgisenterprise import Arcgisenterprise
 from app.models.portalcomponent import Agecomponent
 from app.models.portallicense import Portallicense
+from app.models.portalusergroup import Portalusergroup
 from app.models.tests import Test
 from app.models.portaluser import Portaluser
 from app.db import db
@@ -48,5 +50,7 @@ def init_all_sample_data():
     initialize_sample_data(Agewebadaptor, data["agewebadaptors"])
     initialize_sample_data(Agedatastore, data["agedatastores"])
     initialize_sample_data(Ageserver, data["ageservers"])
+    initialize_sample_data(Ageservice, data["ageservices"])
+    initialize_sample_data(Portalusergroup, data["portalusergroups"])
 
 
