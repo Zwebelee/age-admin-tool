@@ -4,8 +4,8 @@ from sqlalchemy import UUID
 
 from app.models.ageportal import Ageportal
 from app.models.arcgisenterprise import Arcgisenterprise
-from app.models.portalcomponents import Agecomponent
-from app.models.portallicenses import Portallicense
+from app.models.portalcomponent import Agecomponent
+from app.models.portallicense import Portallicense
 from app.models.tests import Test
 from app.models.portaluser import Portaluser
 from app.db import db

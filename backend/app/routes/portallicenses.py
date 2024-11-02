@@ -1,7 +1,7 @@
 from flasgger import swag_from
 from flask import Blueprint, jsonify
 
-from app.models.portallicenses import Portallicense
+from app.models.portallicense import Portallicense
 
 portallicenses_bp = Blueprint('portallicenses', __name__)
 
