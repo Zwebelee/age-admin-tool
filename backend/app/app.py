@@ -3,6 +3,7 @@ from flask import Flask
 from flask_cors import CORS
 from flasgger import Swagger
 from .db import db
+from .configs.swagger_config import SWAGGER_CONFIG
 from .routes.home import home_bp
 from .routes.portallicenses import portallicenses_bp
 from .routes.portalusers import portalusers_bp
@@ -14,26 +15,7 @@ class Config:
     """Set Flask configuration variables."""
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SWAGGER = {
-        'title': 'AGE-Admin-TOOL API',
-        'uiversion': 3,
-        'version': '0.0.1',
-        'description': 'API for the AGE-Admin-TOOL',
-        'tags': [
-            {
-                'name': 'Portalusers',
-                'description': 'Operations about portalusers'
-            },
-            {
-                'name': 'Portallicenses',
-                'description': 'Operations about portallicenses'
-            },
-            {
-                'name': 'Tests',
-                'description': 'Operations about tests'
-            }
-        ]
-    }
+    SWAGGER = SWAGGER_CONFIG
 
 
 def register_extensions(app):
