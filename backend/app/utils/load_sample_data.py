@@ -8,7 +8,7 @@ from app.models.ageserver import Ageserver
 from app.models.ageservice import Ageservice
 from app.models.agewebadaptor import Agewebadaptor
 from app.models.arcgisenterprise import Arcgisenterprise
-from app.models.portalcomponent import Agecomponent
+from app.models.agecomponent import Agecomponent
 from app.models.portallicense import Portallicense
 from app.models.portalusergroup import Portalusergroup
 from app.models.tests import Test
