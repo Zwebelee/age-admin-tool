@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flasgger import Swagger
 from .db import db
 from .configs.swagger_config import SWAGGER_CONFIG
+from .routes.arcgisenterprises import arcgisenterprise_bp
 from .routes.home import home_bp
 from .routes.portallicenses import portallicenses_bp
 from .routes.portalusers import portalusers_bp
@@ -31,6 +32,7 @@ def register_blueprints(app):
     app.register_blueprint(portalusers_bp)
     app.register_blueprint(portallicenses_bp)
     app.register_blueprint(tests_bp)
+    app.register_blueprint(arcgisenterprise_bp)
     return None
 
 

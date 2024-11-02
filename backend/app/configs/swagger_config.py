@@ -5,6 +5,10 @@ SWAGGER_CONFIG = {
     'description': 'API for the AGE-Admin-TOOL',
     'tags': [
         {
+            'name': 'Tests',
+            'description': 'Operations about tests'
+        },
+        {
             'name': 'Portalusers',
             'description': 'Operations about portalusers'
         },
@@ -13,8 +17,8 @@ SWAGGER_CONFIG = {
             'description': 'Operations about portallicenses'
         },
         {
-            'name': 'Tests',
-            'description': 'Operations about tests'
+            'name': 'Arcgisenterprise',
+            'description': 'Operations about arcgisenterprise'
         }
     ]
 }
