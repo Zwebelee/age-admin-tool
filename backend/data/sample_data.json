@@ -631,5 +631,29 @@
       "task_id": 1,
       "tooluser_id": 1
     }
+  ],
+  "toolroles": [
+    {
+      "id": 1,
+      "name": "admin"
+    },
+    {
+      "id": 2,
+      "name": "editor"
+    },
+    {
+      "id": 3,
+      "name": "viewer"
+    }
+  ],
+  "tooluser_role": [
+    {
+      "tooluser_id": 1,
+      "toolrole_id": 1
+    },
+    {
+      "tooluser_id": 2,
+      "toolrole_id": 3
+    }
   ]
 }
