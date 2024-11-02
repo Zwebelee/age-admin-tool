@@ -35,10 +35,15 @@ def load_sample_data():
 
 def initialize_sample_data(model, data):
     if isinstance(model, db.Table):
-        # Handle insertion for association tables
-        for entry in data:
-            db.session.execute(model.insert().values(**entry))
-        db.session.commit()
+        # Check if data is already present for association tables
+        if db.session.execute(model.select()).fetchone() is None:
+            # Handle insertion for association tables
+            for entry in data:
+                db.session.execute(model.insert().values(**entry))
+            db.session.commit()
+            print(f"Sample data initialized for {model.name}.")
+        else:
+            print(f"Sample data already exists for {model.name}.")
     else:
         # Handle insertion for regular models
         if model.query.first() is None:

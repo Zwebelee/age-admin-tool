@@ -111,3 +111,61 @@ def get_test_by_id(id):
         return jsonify(test.to_dict())
     else:
         return jsonify({"message": "Test object not found"}), 404
+
+
+@tests_bp.route('/test/<int:id>', methods=['PUT'])
+@swag_from({
+    'tags': ['Tests'],
+    'parameters': [
+        {
+            'name': 'id',
+            'in': 'path',
+            'type': 'integer',
+            'required': True,
+            'description': 'ID of the test entry to update'
+        },
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'nr': {'type': 'integer'}
+                },
+                'required': ['nr']
+            }
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Test entry updated successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'id': {'type': 'integer'},
+                    'nr': {'type': 'integer'},
+                    'guid': {'type': 'string'}
+                }
+            }
+        },
+        404: {
+            'description': 'Test object not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def update_test(id):
+    data = request.get_json()
+    test = Test.query.get(id)
+    if test:
+        test.nr = data['nr']
+        db.session.commit()
+        return jsonify(test.to_dict())
+    else:
+        return jsonify({"message": "Test object not found"}), 404
