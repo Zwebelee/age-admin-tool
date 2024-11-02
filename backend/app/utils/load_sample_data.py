@@ -9,7 +9,9 @@ from app.models.ageservice import Ageservice
 from app.models.agewebadaptor import Agewebadaptor
 from app.models.arcgisenterprise import Arcgisenterprise
 from app.models.agecomponent import Agecomponent
+from app.models.portalitem import Portalitem
 from app.models.portallicense import Portallicense
+from app.models.portalmembercategory import Portalusercategory
 from app.models.portalusergroup import Portalusergroup
 from app.models.tests import Test
 from app.models.portaluser import Portaluser
@@ -52,5 +54,7 @@ def init_all_sample_data():
     initialize_sample_data(Ageserver, data["ageservers"])
     initialize_sample_data(Ageservice, data["ageservices"])
     initialize_sample_data(Portalusergroup, data["portalusergroups"])
+    initialize_sample_data(Portalitem, data["portalitems"])
+    initialize_sample_data(Portalusercategory, data["portalusercategories"])
 
 

@@ -8,8 +8,8 @@ class Portalusergroup(db.Model):
     id = db.Column(db.String(120), nullable=False)
     capabilities = db.Column(db.String(255), nullable=True)
     owner = db.Column(db.String(120), nullable=False)
-    created_at = db.Column(db.String(120), nullable=False)
-    modified_at = db.Column(db.String(120), nullable=False)
+    createdat = db.Column(db.String(120), nullable=False)
+    modifiedat = db.Column(db.String(120), nullable=False)
     access = db.Column(db.String(120), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(500), nullable=True)
@@ -34,8 +34,8 @@ class Portalusergroup(db.Model):
             "id": self.id,
             "capabilities": self.capabilities,
             "owner": self.owner,
-            "created_at": self.created_at,
-            "modified_at": self.modified_at,
+            "createdat": self.createdat,
+            "modifiedat": self.modifiedat,
             "access": self.access,
             "title": self.title,
             "description": self.description,
