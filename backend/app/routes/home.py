@@ -16,8 +16,8 @@ html_content = '''
 </html>
 '''
 
-@home_bp.route('/')
 
+@home_bp.route('/')
 @home_bp.route('/')
 @swag_from({
     'responses': {
