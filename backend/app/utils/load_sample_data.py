@@ -2,7 +2,10 @@ import json
 from pathlib import Path
 from sqlalchemy import UUID
 
+from app.models.agedatastore import Agedatastore
 from app.models.ageportal import Ageportal
+from app.models.ageserver import Ageserver
+from app.models.agewebadaptor import Agewebadaptor
 from app.models.arcgisenterprise import Arcgisenterprise
 from app.models.portalcomponent import Agecomponent
 from app.models.portallicense import Portallicense
@@ -42,3 +45,8 @@ def init_all_sample_data():
     initialize_sample_data(Portallicense, data["portallicenses"])  # type: ignore[attr-defined]
     initialize_sample_data(Arcgisenterprise, data["arcgisenterprises"])  # type: ignore[attr-defined]
     initialize_sample_data(Agecomponent, data["agecomponents"])  # type: ignore[attr-defined]
+    initialize_sample_data(Agewebadaptor, data["agewebadaptors"])
+    initialize_sample_data(Agedatastore, data["agedatastores"])
+    initialize_sample_data(Ageserver, data["ageservers"])
+
+

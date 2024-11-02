@@ -2,8 +2,8 @@ from ..db import db
 from sqlalchemy import UUID
 
 
-class Ageportal(db.Model):
-    __tablename__ = 'agewebadaptor'
+class Agewebadaptor(db.Model):
+    __tablename__ = 'agewebadaptors'
     guid = db.Column(UUID, primary_key=True, nullable=False, unique=True)
     machineName = db.Column(db.String(120), nullable=False)
     machineIP = db.Column(db.String(120), nullable=False)

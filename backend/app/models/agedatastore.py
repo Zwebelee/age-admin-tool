@@ -3,7 +3,7 @@ from sqlalchemy import UUID
 
 
 class Agedatastore(db.Model):
-    __tablename__ = 'agedatastore'
+    __tablename__ = 'agedatastores'
 
     guid = db.Column(UUID, primary_key=True, nullable=False, unique=True)
     name = db.Column(db.String(120), nullable=False)
