@@ -28,7 +28,7 @@ export class TestStore extends AbstractStore {
 
     }
 
-    //TODO: WIP
+    //TODO: WIP / Experimental -> Abstract-store for generelles add/update + fetch als ausgelagerte service/function
     async loadData() {
         try {
             const response = await fetch('http://localhost:5001/tests');
@@ -57,6 +57,28 @@ export class TestStore extends AbstractStore {
             });
         } catch (error) {
             console.error('Failed to post data', error);
+        }
+    }
+
+    async updateData(id: number, updatedData: Partial<TestEntry>) {
+        try {
+            const response = await fetch(`http://localhost:5001/test/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData),
+            });
+            if (!response.ok) {
+                throw new Error(`Failed to update data: ${response.statusText}`);
+            }
+            const updatedEntry: TestEntry = await response.json();
+            runInAction(() => {
+                this.testEntries = this.testEntries.map(entry => entry.id === id ? updatedEntry : entry);
+            });
+        } catch (error) {
+            console.error('Failed to update data', error);
         }
     }
 

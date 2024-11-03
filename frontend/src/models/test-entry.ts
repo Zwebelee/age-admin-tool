@@ -1,4 +1,4 @@
 export interface TestEntry {
-    id: string;
+    id: number;
     nr: number;
 }
