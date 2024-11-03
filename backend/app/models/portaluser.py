@@ -1,13 +1,15 @@
-from .db import db
+from ..db import db
 from sqlalchemy import UUID
 import enum
+
 
 class StatusEnum(enum.Enum):
     active = 'active'
     deleted = 'deleted'
     pending = 'pending'
 
-class User(db.Model):
+
+class Portaluser(db.Model):
     __tablename__ = 'portalusers'
     guid = db.Column(UUID, primary_key=True, nullable=False, unique=True)
     userid = db.Column(db.String(120), nullable=False, unique=True)
@@ -39,13 +41,38 @@ class User(db.Model):
     division3 = db.Column(db.String(120), nullable=False)
     division4 = db.Column(db.String(120), nullable=False)
 
+    def to_dict(self):
+        return {
+            "guid": self.guid,
+            "userid": self.userid,
+            "username": self.username,
+            "lastname": self.lastname,
+            "firstname": self.firstname,
+            "fullname": self.fullname,
+            "email": self.email,
+            "homepage": self.homepage,
+            "description": self.description,
+            "status": self.status.name if self.status else None,
+            "lastlogin": self.lastlogin,
+            "modified": self.modified,
+            "created": self.created,
+            "provider": self.provider,
+            "role": self.role,
+            "roleid": self.roleid,
+            "customrole": self.customrole,
+            "disabled": self.disabled,
+            "licensetype": self.licensetype,
+            "usertype": self.usertype,
+            "access": self.access,
+            "storeage": self.storeage,
+            "itemcount": self.itemcount,
+            "groupcount": self.groupcount,
+            "adstatus": self.adstatus,
+            "division1": self.division1,
+            "division2": self.division2,
+            "division3": self.division3,
+            "division4": self.division4
+        }
+
     def __repr__(self):
         return f"<Username {self.username}>"
-
-
-class Test(db.Model):
-    __tablename__ = 'test'
-    id= db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nr = db.Column(db.Integer, nullable=False)
-    def __repr__(self):
-        return f"<Test {self.id} - {self.nr}>"

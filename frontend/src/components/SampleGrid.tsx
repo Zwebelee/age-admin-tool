@@ -25,8 +25,11 @@ export const SampleGrid = observer(() => {
                 </Grid2>
             ))}
         </Grid2>
-            <Typography variant="h4" component="div">
-                MOBX Count: {store.testStore.testCount}
+            <Typography variant="h5" component="div">
+                MOBX Count - own component, gets updated directly as observer of store
+            </Typography>
+            <Typography variant="h3" component="div">
+                MOBX Test-Entry-Count: {store.testStore.testCount}
             </Typography>
         </Box>
 
