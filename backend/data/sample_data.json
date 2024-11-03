@@ -2,26 +2,31 @@
   "tests": [
     {
       "id": 1,
-      "nr": 55
+      "nr": 55,
+      "guid": "123e4567-e89b-12d3-a456-426614174000"
     },
     {
       "id": 2,
-      "nr": 5
+      "nr": 5,
+      "guid": "123e4567-e89b-12d3-a456-426614174001"
     },
     {
       "id": 3,
-      "nr": 123
+      "nr": 123,
+      "guid": "123e4567-e89b-12d3-a456-426614174002"
     },
     {
       "id": 4,
-      "nr": 5
+      "nr": 5,
+      "guid": "123e4567-e89b-12d3-a456-426614174003"
     },
     {
       "id": 5,
-      "nr": 16
+      "nr": 16,
+      "guid": "123e4567-e89b-12d3-a456-426614174004"
     }
   ],
-  "users": [
+  "portalusers": [
     {
       "guid": "123e4567-e89b-12d3-a456-426614174000",
       "userid": "user1",
@@ -176,6 +181,479 @@
       "division2": "divisionR",
       "division3": "divisionS",
       "division4": "divisionT"
+    }
+  ],
+  "portallicenses": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174005",
+      "id": "creatorUT",
+      "name": "Creator",
+      "description": "Creator",
+      "level": "2",
+      "state": "active",
+      "maxusers": 287
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174006",
+      "id": "editorUT",
+      "name": "Editor",
+      "description": "Editor",
+      "level": "11",
+      "state": "active",
+      "maxusers": 150
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174007",
+      "id": "viewerUT",
+      "name": "Viewer",
+      "description": "Viewer",
+      "level": "1",
+      "state": "active",
+      "maxusers": 2000
+    }
+  ],
+  "arcgisenterprises": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174008",
+      "name": "ArcGIS Enterprise",
+      "alias": "GIS - Core",
+      "description": "Central Enterprise GIS"
+    }
+  ],
+  "agecomponents": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174009",
+      "ageguid": "123e4567-e89b-12d3-a456-426614174008",
+      "refguid": "123e4567-e89b-12d3-a456-426614174010",
+      "reftype": "portal"
+    }
+  ],
+  "ageportals": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174010",
+      "name": "sampleagp-v099t.domain.ch:6443",
+      "alias": "GIS - Core Portal",
+      "description": "Enterprise Portal",
+      "url": "http://example.com/coreportal",
+      "type": "portal",
+      "ishosted": true,
+      "status": "active"
+    }
+  ],
+  "agewebadaptors": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614333011",
+      "machineName": "TESTNAME-V099T",
+      "machineIP": "33.88.99.11",
+      "webAdaptorURL": "https://sampe.webadaptor.ch/core-blabli",
+      "id": "e6f238b1-9412-412f-b37c-12b028becfaf",
+      "description": "",
+      "httpPort": 99,
+      "httpsPort": 444,
+      "refreshServerListInterval": 1,
+      "reconnectServerOnFailureInterval": 1
+    }
+  ],
+  "agedatastores": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174011",
+      "name": "Sample Data Store"
+    }
+  ],
+  "ageservers": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174012",
+      "id": "jiCabcde3fgWz8Qn",
+      "name": "sampleserver-v088t.domain.ch:6444",
+      "adminUrl": "https://sampleserver-v088t.domain.ch:6444/arcgis",
+      "url": "https://webadaptor.sample.ch/gisstuff",
+      "isHosted": true,
+      "serverType": "ArcGIS",
+      "serverRole": "HOSTING_SERVER",
+      "serverFunction": ""
+    }
+  ],
+  "ageservices": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174000",
+      "status": "active",
+      "name": "Sample Service 1",
+      "type": "Feature Service",
+      "serverurl": "https://example.com/server1",
+      "folder": "Folder1",
+      "url": "https://example.com/service1",
+      "serviceurl": "https://example.com/service1/FeatureServer",
+      "username": "user1"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174001",
+      "status": "inactive",
+      "name": "Sample Service 2",
+      "type": "Map Service",
+      "serverurl": "https://example.com/server2",
+      "folder": "Folder2",
+      "url": "https://example.com/service2",
+      "serviceurl": "https://example.com/service2/MapServer",
+      "username": "user2"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174002",
+      "status": "active",
+      "name": "Sample Service 3",
+      "type": "Image Service",
+      "serverurl": "https://example.com/server3",
+      "folder": "Folder3",
+      "url": "https://example.com/service3",
+      "serviceurl": "https://example.com/service3/ImageServer",
+      "username": "user3"
+    }
+  ],
+  "portalusergroups": [
+    {
+      "guid": "64f551dd0ac34e87bf78cfa6dd3abf7e",
+      "id": "64f551dd0ac34e87bf78cfa6dd3abf7e",
+      "capabilities": "",
+      "owner": "johndoe",
+      "createdat": "2020-10-15T12:15:03",
+      "modifiedat": "2021-02-24T12:25:55",
+      "access": "private",
+      "title": "Energie",
+      "description": "lorem ipsum lorem lorem",
+      "snippet": "lorem ipsum",
+      "thumbnail": "thumbnail1602776551354.jpeg",
+      "homepage": null,
+      "tags": "test, bla, bli",
+      "membercount": 2,
+      "contentcount": 0,
+      "leavingdisallowed": false,
+      "isreadonly": false,
+      "isviewonly": false,
+      "isprotected": true,
+      "hiddenmembers": true,
+      "isinvitationonly": true,
+      "iseditinggroup": false,
+      "type": "Organisation"
+    },
+    {
+      "guid": "551d575bb409427990c1efc82b49794e",
+      "id": "551d575bb409427990c1efc82b49794e",
+      "capabilities": "",
+      "owner": "johndoe",
+      "createdat": "2021-04-28T12:18:19",
+      "modifiedat": "2021-04-28T12:18:19",
+      "access": "private",
+      "title": "Sharing_AE",
+      "description": null,
+      "snippet": "Sharing_AE",
+      "thumbnail": null,
+      "homepage": null,
+      "tags": "test",
+      "membercount": 0,
+      "contentcount": 0,
+      "leavingdisallowed": false,
+      "isreadonly": false,
+      "isviewonly": true,
+      "isprotected": false,
+      "hiddenmembers": false,
+      "isinvitationonly": true,
+      "iseditinggroup": false,
+      "type": "Private"
+    },
+    {
+      "guid": "0ac120f85ef9467a9dd2336b38dcc675",
+      "id": "0ac120f85ef9467a9dd2336b38dcc675",
+      "capabilities": "updateitemcontrol",
+      "owner": "janedoe",
+      "createdat": "2022-06-14T12:11:15",
+      "modifiedat": "2022-06-14T12:11:15",
+      "access": "private",
+      "title": "TestTitle",
+      "description": null,
+      "snippet": "Testing Testing",
+      "thumbnail": null,
+      "homepage": null,
+      "tags": "lorem, ipsum, tada, test",
+      "membercount": 3,
+      "contentcount": 2,
+      "leavingdisallowed": false,
+      "isreadonly": false,
+      "isviewonly": false,
+      "isprotected": false,
+      "hiddenmembers": false,
+      "isinvitationonly": true,
+      "iseditinggroup": false,
+      "type": "Administrative"
+    }
+  ],
+  "portalitems": [
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174000",
+      "id": "item1",
+      "title": "Sample Item 1",
+      "type": "Feature Layer",
+      "owner": "user1",
+      "homepage": "http://example.com/item1",
+      "url": "http://example.com/item1",
+      "sizebyte": 1024,
+      "sharing": "public",
+      "groupsharing": "group1,group2",
+      "folder": "Folder1",
+      "editable": true,
+      "viewcount": 100,
+      "usagequota": 500,
+      "categories": "category1,category2",
+      "contentstatus": "active",
+      "createdat": "2023-01-01T12:00:00",
+      "modifiedat": "2023-01-02T12:00:00",
+      "snippet": "This is a sample item 1",
+      "description": "Description for sample item 1",
+      "thumbnail": "thumbnail1.png",
+      "tags": "tag1,tag2"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174001",
+      "id": "item2",
+      "title": "Sample Item 2",
+      "type": "Map",
+      "owner": "user2",
+      "homepage": "http://example.com/item2",
+      "url": "http://example.com/item2",
+      "sizebyte": 2048,
+      "sharing": "private",
+      "groupsharing": "group3",
+      "folder": "Folder2",
+      "editable": false,
+      "viewcount": 200,
+      "usagequota": 1000,
+      "categories": "category3",
+      "contentstatus": "inactive",
+      "createdat": "2023-02-01T12:00:00",
+      "modifiedat": "2023-02-02T12:00:00",
+      "snippet": "This is a sample item 2",
+      "description": "Description for sample item 2",
+      "thumbnail": "thumbnail2.png",
+      "tags": "tag3,tag4"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174002",
+      "id": "item3",
+      "title": "Sample Item 3",
+      "type": "Image Layer",
+      "owner": "user3",
+      "homepage": "http://example.com/item3",
+      "url": "http://example.com/item3",
+      "sizebyte": 3072,
+      "sharing": "org",
+      "groupsharing": "group4,group5",
+      "folder": "Folder3",
+      "editable": true,
+      "viewcount": 300,
+      "usagequota": 1500,
+      "categories": "category4,category5",
+      "contentstatus": "active",
+      "createdat": "2023-03-01T12:00:00",
+      "modifiedat": "2023-03-02T12:00:00",
+      "snippet": "This is a sample item 3",
+      "description": "Description for sample item 3",
+      "thumbnail": "thumbnail3.png",
+      "tags": "tag5,tag6"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174003",
+      "id": "item4",
+      "title": "Sample Item 4",
+      "type": "Document",
+      "owner": "user4",
+      "homepage": "http://example.com/item4",
+      "url": "http://example.com/item4",
+      "sizebyte": 4096,
+      "sharing": "public",
+      "groupsharing": "group6",
+      "folder": "Folder4",
+      "editable": false,
+      "viewcount": 400,
+      "usagequota": 2000,
+      "categories": "category6",
+      "contentstatus": "inactive",
+      "createdat": "2023-04-01T12:00:00",
+      "modifiedat": "2023-04-02T12:00:00",
+      "snippet": "This is a sample item 4",
+      "description": "Description for sample item 4",
+      "thumbnail": "thumbnail4.png",
+      "tags": "tag7,tag8"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614174004",
+      "id": "item5",
+      "title": "Sample Item 5",
+      "type": "Web Map",
+      "owner": "user5",
+      "homepage": "http://example.com/item5",
+      "url": "http://example.com/item5",
+      "sizebyte": 5120,
+      "sharing": "org",
+      "groupsharing": "group7,group8",
+      "folder": "Folder5",
+      "editable": true,
+      "viewcount": 500,
+      "usagequota": 2500,
+      "categories": "category7,category8",
+      "contentstatus": "active",
+      "createdat": "2023-05-01T12:00:00",
+      "modifiedat": "2023-05-02T12:00:00",
+      "snippet": "This is a sample item 5",
+      "description": "Description for sample item 5",
+      "thumbnail": "thumbnail5.png",
+      "tags": "tag9,tag10"
+    }
+  ],
+  "portalusercategories": [
+    {
+      "id": 1,
+      "title": "Main Category 1",
+      "parent_id": null
+    },
+    {
+      "id": 2,
+      "title": "Sub Category 1.1",
+      "parent_id": 1
+    },
+    {
+      "id": 3,
+      "title": "Sub Sub Category 1.1.1",
+      "parent_id": 2
+    },
+    {
+      "id": 4,
+      "title": "Sub Sub Category 1.1.2",
+      "parent_id": 2
+    },
+    {
+      "id": 5,
+      "title": "Sub Category 1.2",
+      "parent_id": 1
+    },
+    {
+      "id": 6,
+      "title": "Sub Sub Category 1.2.1",
+      "parent_id": 5
+    },
+    {
+      "id": 7,
+      "title": "Main Category 2",
+      "parent_id": null
+    },
+    {
+      "id": 8,
+      "title": "Sub Category 2.1",
+      "parent_id": 7
+    },
+    {
+      "id": 9,
+      "title": "Sub Sub Category 2.1.1",
+      "parent_id": 8
+    },
+    {
+      "id": 10,
+      "title": "Main Category 3",
+      "parent_id": null
+    },
+    {
+      "id": 11,
+      "title": "Sub Category 3.1",
+      "parent_id": 10
+    },
+    {
+      "id": 12,
+      "title": "Sub Sub Category 3.1.1",
+      "parent_id": 11
+    },
+    {
+      "id": 13,
+      "title": "Sub Sub Category 3.1.2",
+      "parent_id": 11
+    },
+    {
+      "id": 14,
+      "title": "Sub Category 3.2",
+      "parent_id": 10
+    }
+  ],
+  "flagrules": [
+    {
+      "id": 1,
+      "name": "Inactive User",
+      "condition": "lastlogin > 30 days",
+      "action": "flag"
+    },
+    {
+      "id": 2,
+      "name": "New User",
+      "condition": "created_at < 7 days",
+      "action": "welcome"
+    }
+  ],
+  "toolusers": [
+    {
+      "id": 1,
+      "name": "Alice"
+    },
+    {
+      "id": 2,
+      "name": "Bob"
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "description": "Review inactive user accounts",
+      "created_at": "2023-10-01T12:00:00",
+      "updated_at": "2023-10-01T12:00:00",
+      "flagrule_id": 1
+    },
+    {
+      "id": 2,
+      "description": "Welcome new users",
+      "created_at": "2023-10-02T12:00:00",
+      "updated_at": "2023-10-02T12:00:00",
+      "flagrule_id": 2
+    },
+    {
+      "id": 3,
+      "description": "Update user profiles",
+      "created_at": "2023-10-03T12:00:00",
+      "updated_at": "2023-10-03T12:00:00",
+      "flagrule_id": 1
+    }
+  ],
+  "task_tooluser": [
+    {
+      "task_id": 1,
+      "tooluser_id": 1
+    }
+  ],
+  "toolroles": [
+    {
+      "id": 1,
+      "name": "admin"
+    },
+    {
+      "id": 2,
+      "name": "editor"
+    },
+    {
+      "id": 3,
+      "name": "viewer"
+    }
+  ],
+  "tooluser_role": [
+    {
+      "tooluser_id": 1,
+      "toolrole_id": 1
+    },
+    {
+      "tooluser_id": 2,
+      "toolrole_id": 3
     }
   ]
 }
