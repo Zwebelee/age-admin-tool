@@ -4,7 +4,10 @@ from flask_cors import CORS
 from flasgger import Swagger
 from .db import db
 from .configs.swagger_config import SWAGGER_CONFIG
+from .routes.agedatastore import agedatastore_bp
+from .routes.ageportal import ageportal_bp
 from .routes.ageserver import ageserver_bp
+from .routes.agewebadaptor import agewebadaptor_bp
 from .routes.arcgisenterprises import arcgisenterprise_bp
 from .routes.home import home_bp
 from .routes.portallicenses import portallicenses_bp
@@ -35,6 +38,9 @@ def register_blueprints(app):
     app.register_blueprint(tests_bp)
     app.register_blueprint(arcgisenterprise_bp)
     app.register_blueprint(ageserver_bp)
+    app.register_blueprint(ageportal_bp)
+    app.register_blueprint(agedatastore_bp)
+    app.register_blueprint(agewebadaptor_bp)
     return None
 
 

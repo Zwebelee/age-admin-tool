@@ -6,6 +6,7 @@ from flasgger import swag_from
 from ..models.agecomponent import Agecomponent
 from ..models.ageserver import Ageserver
 from ..db import db
+from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
 ageserver_bp = Blueprint('ageserver', __name__)
@@ -148,10 +149,10 @@ def create_ageserver():
     db.session.commit()
 
     # Add entry to agecomponents table
-    agecomponent_data = Agecomponent.query.first()
+    ageguid = Arcgisenterprise.query.first().guid
     new_agecomponent = Agecomponent(
         guid=uuid.uuid4(),
-        ageguid=agecomponent_data.ageguid,
+        ageguid=ageguid,
         refguid=new_ageserver.guid,
         reftype='Server'
     )
