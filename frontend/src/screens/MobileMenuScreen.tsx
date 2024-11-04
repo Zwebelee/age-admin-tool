@@ -1,7 +1,11 @@
+import {SecondaryMenu} from "../components/SecondaryMenu.tsx";
+import {MainMenu} from "../components/MainMenu.tsx";
+
 export const MobileMenuScreen = () => {
     return (
         <main>
-            <h2>Mobile Menu</h2>
+            <MainMenu position="mainMenuMobile"/>
+            <SecondaryMenu position="secondaryMenuMobile"/>
         </main>
     );
 };

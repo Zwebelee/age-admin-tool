@@ -7,24 +7,24 @@
     min-height: pxToRem(135);
     padding: 0 pxToRem(15) 0 pxToRem(45);
     border-bottom: solid pxToRem(4) var(--color1);
-    @include media("tablet") {
+    @include media("md") {
         min-height: pxToRem(90);
         padding: 0 pxToRem(15);
     }
-    @include media("mobile") {
+    @include media("sm") {
         padding: 0 pxToRem(5);
     }
 }
 .logo {
     height: pxToRem(70);
     padding: pxToRem(10);
-    @include media("desktop") {
+    @include media("lg") {
         height: pxToRem(60);
     }
-    @include media("tablet") {
+    @include media("md") {
         height: pxToRem(50);
     }
-    @include media("mobile") {
+    @include media("sm") {
         height: pxToRem(45);
     }
 }

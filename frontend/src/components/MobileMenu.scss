@@ -2,7 +2,7 @@
 
 .mobileMenu {
     display: none;
-    @include media("tablet") {
+    @include media("md") {
         display: block;
     }
 
@@ -14,22 +14,17 @@
     }
 
     &__listItem {
-        position: relative;
         padding: 0 pxToRem(5);
     }
 
     &__navLink {
+        position: relative;
         display: block;
         height: pxToRem(75);
         width: pxToRem(70);
         padding-top: pxToRem(1);
         text-decoration: none;
         color: var(--lightness2);
-        transition: var(--transition1);
-        &:hover,
-        &:focus {
-            color: var(--color1);
-        }
     }
 
     &__iconCircle {
@@ -42,8 +37,8 @@
     }
 
     &__icon {
-        top: pxToRem(27);
-        right: pxToRem(27);
+        top: pxToRem(27.5);
+        right: pxToRem(22.5);
     }
 
     &__icon,
@@ -54,8 +49,7 @@
         width: pxToRem(25);
         height: pxToRem(2);
         background: var(--lightness2);
-        transition: top 300ms ease-in-out,
-                    transform 300ms ease-in-out;
+        transition: all var(--transition1);
     }
 
     &__icon::before,

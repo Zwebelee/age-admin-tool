@@ -6,11 +6,11 @@ import HomeRepairServiceOutlinedIcon from '@mui/icons-material/HomeRepairService
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 
-export const SecondaryMenu = () => {
+export const SecondaryMenu = ({position}: {position: string}) => {
     const {t} = useTranslation();
     const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "secondaryMenu__navLink secondaryMenu__navLink--active" : "secondaryMenu__navLink"}`;
     return (
-        <nav className="secondaryMenu">
+        <nav className={"secondaryMenu " + position}>
             <ul className="secondaryMenu__list">
                 <li className="secondaryMenu__listItem">
                     <NavLink className={isActive} to="/tools">

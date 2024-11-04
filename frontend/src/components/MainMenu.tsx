@@ -11,11 +11,11 @@ import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInpu
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 
 
-export const MainMenu = () => {
+export const MainMenu = ({position}: {position: string}) => {
     const {t} = useTranslation();
     const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "mainMenu__navLink mainMenu__navLink--active" : "mainMenu__navLink"}`;
     return (
-        <nav className="mainMenu">
+        <nav className={"mainMenu " + position}>
             <ul className="mainMenu__list">
                 <li className="mainMenu__listItem">
                     <NavLink className={isActive} to="/">

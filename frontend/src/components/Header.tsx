@@ -18,7 +18,7 @@ export const Header = ({ toggleTheme }: { toggleTheme: boolean }) => {
                 <img src={logo} alt="Logo Kanton Luzern" className="logo"/>
             </NavLink>
             <h1>{t("app-title")}</h1>
-            <SecondaryMenu/>
+            <SecondaryMenu position="secondaryMenuDesktop"/>
             <MobileMenu/>
         </div>
     )

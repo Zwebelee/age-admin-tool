@@ -1,5 +1,10 @@
 @import "../globalFunctions";
 
+.secondaryMenuDesktop {
+    @include media("md") {
+        display: none;
+    }
+}
 .secondaryMenu {
 
     &__list {
@@ -7,9 +12,6 @@
         text-align: center;
         list-style: none;
         font-size: pxToRem(13);
-        @include media("tablet") {
-            display: none;
-        }
     }
 
     &__listItem {
@@ -24,7 +26,7 @@
         padding-top: pxToRem(12);
         text-decoration: none;
         color: var(--lightness2);
-        transition: var(--transition1);
+        transition: all var(--transition1);
         &:hover,
         &:focus {
             color: var(--color1);
@@ -58,6 +60,25 @@
         margin: pxToRem(5) auto;
         border-radius: 50%;
         background-color: var(--lightness2-1);
-        transition: var(--transition1);
+        transition: all var(--transition1);
+    }
+}
+.secondaryMenuMobile {
+    display: none;
+    width: 100%;
+    border: pxToRem(1) solid var(--color1);
+    border-radius: pxToRem(10);
+    margin-top: pxToRem(25);
+    background-color: var(--color1-1);
+    @include media("md") {
+        display: block;
+    }
+    & .secondaryMenu__list {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: left;
+    }
+    & .secondaryMenu__listItem {
+        padding: 0 pxToRem(10);
     }
 }

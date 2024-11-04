@@ -7,19 +7,22 @@ html {
 }
 .main {
     padding: pxToRem(25);
-    @include media("tablet") {
+    @include media("md") {
         padding: pxToRem(15);
+    }
+    @include media("sm") {
+        padding: pxToRem(10);
     }
 }
 h1 {
     font-weight: 300;
-    @include media("desktop") {
+    @include media("lg") {
         font-size: pxToRem(28);
     }
-    @include media("tablet") {
+    @include media("md") {
         font-size: pxToRem(22);
     }
-    @include media("mobile") {
+    @include media("sm") {
         font-size: pxToRem(18);
     }
 }
@@ -46,17 +49,24 @@ h1 {
     background-repeat: no-repeat;
     min-height: 100vh;
     padding: pxToRem(20);
-    @include media("tablet") {
+    @include media("md") {
         padding: pxToRem(12);
     }
-    @include media("mobile") {
+    @include media("sm") {
         padding: pxToRem(7);
     }
 
     .app {
+        min-height: calc(100vh - pxToRem(40));
         max-width: pxToRem(1800);
         border-radius: pxToRem(10);
         margin: 0 auto;
         background-color: var(--lightness1-1);
+        @include media("md") {
+            min-height: calc(100vh - pxToRem(24));
+        }
+        @include media("sm") {
+            min-height: calc(100vh - pxToRem(14));
+        }
     }
 }

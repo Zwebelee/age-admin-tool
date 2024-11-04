@@ -35,11 +35,27 @@ const AppObserver = observer(() => {
     const lightness3 = getColor("--lightness3");
     const lightness4 = getColor("--lightness4");
 
+    const getBreakpoint = (breakpoint: string) => parseInt(getComputedStyle(document.body).getPropertyValue(breakpoint), 10);
+    const xs = getBreakpoint("--xs");
+    const sm = getBreakpoint("--sm");
+    const md = getBreakpoint("--md");
+    const lg = getBreakpoint("--lg");
+    const xl = getBreakpoint("--xl");
+
     const [toggleTheme, setToggleTheme] = useState(false);
     const toggleSwitch = () => {
         setToggleTheme(!toggleTheme);
     };
     const themeDark = createTheme({
+        breakpoints: {
+            values: {
+                xs: xs,
+                sm: sm,
+                md: md,
+                lg: lg,
+                xl: xl
+            },
+        },
         palette: {
             background: {
                 default: lightness3,
@@ -50,9 +66,18 @@ const AppObserver = observer(() => {
             primary: {
                 main: color1,
             },
-        }
+        },
     });
     const themeLight = createTheme({
+        breakpoints: {
+            values: {
+                xs: xs,
+                sm: sm,
+                md: md,
+                lg: lg,
+                xl: xl
+            },
+        },
         palette: {
             background: {
                 default: lightness4,
@@ -63,7 +88,7 @@ const AppObserver = observer(() => {
             primary: {
                 main: color1,
             },
-        }
+        },
     });
 
     if (!useRootStore().init) {
@@ -84,7 +109,7 @@ const AppObserver = observer(() => {
                                 <Grid size="auto">
                                     <Sidebar/>
                                 </Grid>
-                                <Grid size="auto">
+                                <Grid size={{xs: 12, sm: 12, md: "auto", lg: "auto", xl: "auto"}}>
                                     <div className="main">
                                         <Routes>
                                             <Route path="/" element={<OverviewScreen/>}/>
