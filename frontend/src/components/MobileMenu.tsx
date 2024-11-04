@@ -9,34 +9,25 @@ export const MobileMenu = () => {
     const {t} = useTranslation();
 
     const location = useLocation();
-    const locationMobileMenu = location.pathname === "/mobile-menu";
-    let navlink;
-    if (locationMobileMenu) {
-        navlink =
-            <NavLink className="mobileMenu__navLink mobileMenu__navLink--active" to=".." onClick={(e) => {
-                e.preventDefault();
-                navigate(-1);
-            }}>
-                <span className="mobileMenu__iconCircle"></span>
-                {t("close")}
-            </NavLink>
-    } else {
-        navlink =
-            <NavLink className="mobileMenu__navLink" to="/mobile-menu">
-                <span className="mobileMenu__iconCircle"></span>
-                {t("menu")}
-            </NavLink>
-    }
+    const pathMobileMenu = location.pathname === "/mobile-menu";
 
     return (
         <nav className="mobileMenu">
             <ul className="mobileMenu__list">
                 <li className="mobileMenu__listItem">
-                    {navlink}
-                    <span className="mobileMenu__icon"></span>
-                </li>
-                <li className="mobileMenu__listItem">
-
+                    <NavLink
+                        className={pathMobileMenu ? "mobileMenu__navLink mobileMenu__navLink--active" : "mobileMenu__navLink"}
+                        to={pathMobileMenu ? ".." : "/mobile-menu"}
+                        onClick={pathMobileMenu ? (e) => {
+                            e.preventDefault();
+                            navigate(-1);
+                        } : () => {}}
+                    >
+                        <span className="mobileMenu__iconCircle">
+                            <span className="mobileMenu__icon"></span>
+                        </span>
+                        {pathMobileMenu ? t("close") : t("menu")}
+                    </NavLink>
                 </li>
             </ul>
         </nav>

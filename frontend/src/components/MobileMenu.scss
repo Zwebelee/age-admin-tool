@@ -7,6 +7,7 @@
     }
 
     &__list {
+        margin: pxToRem(6) 0;
         list-style: none;
         font-size: pxToRem(13);
         text-align: center;
@@ -19,8 +20,9 @@
 
     &__navLink {
         display: block;
-        height: pxToRem(80);
+        height: pxToRem(75);
         width: pxToRem(70);
+        padding-top: pxToRem(1);
         text-decoration: none;
         color: var(--lightness2);
         transition: var(--transition1);
@@ -34,14 +36,13 @@
         display: block;
         width: pxToRem(50);
         height: pxToRem(50);
-        padding: pxToRem(12) 0;
-        margin: pxToRem(5) auto;
+        margin: pxToRem(2.5) auto;
         border-radius: 50%;
         background-color: var(--lightness2-1);
     }
 
     &__icon {
-        top: pxToRem(24);
+        top: pxToRem(27);
         right: pxToRem(27);
     }
 
@@ -70,12 +71,12 @@
         top: pxToRem(7);
     }
 
-    &__navLink--active + &__icon {
+    &__navLink--active &__icon {
         transform: rotate(225deg);
     }
 
-    &__navLink--active + &__icon::before,
-    &__navLink--active + &__icon::after {
+    &__navLink--active &__icon::before,
+    &__navLink--active &__icon::after {
         transform: rotate(-450deg);
         top: 0;
     }
