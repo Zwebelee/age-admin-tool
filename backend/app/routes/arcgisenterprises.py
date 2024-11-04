@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
+from ..utils.validate_required_fields import validate_required_fields
 
 arcgisenterprise_bp = Blueprint('arcgisenterprise', __name__)
 
@@ -86,6 +87,8 @@ def get_arcgisenterprise():
 })
 def update_arcgisenterprise():
     data = request.get_json()
+    validate_required_fields(Arcgisenterprise, data)
+
     arcgisenterprise = Arcgisenterprise.query.first()
     if arcgisenterprise:
         arcgisenterprise.name = data['name']
