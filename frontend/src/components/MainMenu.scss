@@ -29,19 +29,23 @@
         text-decoration: none;
         color: var(--lightness2);
         transition: all var(--transition1);
+
         &:hover,
         &:focus {
             color: var(--color1);
         }
+
         &:hover .mainMenu__icon,
         &:focus .mainMenu__icon {
             color: var(--lightness2);
             background-color: var(--color1);
             transform: scale(1.1);
         }
+
         &--active {
             background-color: var(--lightness1-2);
         }
+
         &--active::after {
             content: "";
             position: absolute;
@@ -74,16 +78,30 @@
     @include media("md") {
         display: block;
     }
+
     & .mainMenu__list {
         display: flex;
         flex-flow: row wrap;
         justify-content: left;
     }
+
     & .mainMenu__listItem {
         padding: 0 pxToRem(10);
     }
+
     & .mainMenu__navLink {
         height: pxToRem(100);
         width: pxToRem(100);
+
+        &--active {
+            border-radius: pxToRem(5);
+        }
+
+        &--active::after {
+            height: pxToRem(5.5);
+            width: pxToRem(85);
+            top: pxToRem(97.25);
+            left: pxToRem(17.5);
+        }
     }
 }

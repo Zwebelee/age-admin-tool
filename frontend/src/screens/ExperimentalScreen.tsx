@@ -12,7 +12,7 @@ export const ExperimentalScreen = () => {
     const store = useRootStore();
     const {t} = useTranslation();
     return (
-        <main>
+        <>
             <h2>{t("experimental")}</h2>
             <Box sx={{display: 'flex'}}>
                 <SampleSidecar/>
@@ -24,6 +24,6 @@ export const ExperimentalScreen = () => {
                 </Box>
                 <Button variant="contained" onClick={() => store.testStore.increment()}>MOBX Count +1</Button>
             </Box>
-        </main>
+        </>
     )
 };

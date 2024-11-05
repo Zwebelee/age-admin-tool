@@ -17,14 +17,16 @@
         padding: 0 pxToRem(5);
     }
 
-    &__navLink {
+    &__button {
         position: relative;
         display: block;
         height: pxToRem(75);
-        width: pxToRem(70);
+        width: pxToRem(75);
         padding-top: pxToRem(1);
-        text-decoration: none;
+        border: none;
         color: var(--lightness2);
+        text-decoration: none;
+        background: none;
     }
 
     &__iconCircle {
@@ -37,8 +39,8 @@
     }
 
     &__icon {
-        top: pxToRem(27.5);
-        right: pxToRem(22.5);
+        top: pxToRem(28.5);
+        right: pxToRem(25);
     }
 
     &__icon,
@@ -65,14 +67,13 @@
         top: pxToRem(7);
     }
 
-    &__navLink--active &__icon {
+    &__button--active &__icon {
         transform: rotate(225deg);
     }
 
-    &__navLink--active &__icon::before,
-    &__navLink--active &__icon::after {
+    &__button--active &__icon::before,
+    &__button--active &__icon::after {
         transform: rotate(-450deg);
         top: 0;
     }
-
 }

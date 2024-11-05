@@ -26,6 +26,10 @@ h1 {
         font-size: pxToRem(18);
     }
 }
+.main__contentHidden,
+.main__mobileMenuHidden {
+    display: none;
+}
 .theme--dark {
     background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */
     background-image: image-set(

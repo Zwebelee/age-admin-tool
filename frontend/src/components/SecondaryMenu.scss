@@ -27,19 +27,24 @@
         text-decoration: none;
         color: var(--lightness2);
         transition: all var(--transition1);
+
         &:hover,
         &:focus {
             color: var(--color1);
         }
+
         &:hover .secondaryMenu__icon,
         &:focus .secondaryMenu__icon {
             color: var(--lightness2);
             background-color: var(--color1);
             transform: scale(1.1);
         }
+
         &--active {
             background-color: var(--color1-1);
+            border-radius: pxToRem(5);
         }
+
         &--active::after {
             content: "";
             position: absolute;
@@ -73,12 +78,26 @@
     @include media("md") {
         display: block;
     }
+
     & .secondaryMenu__list {
         display: flex;
         flex-flow: row wrap;
         justify-content: left;
     }
+
     & .secondaryMenu__listItem {
         padding: 0 pxToRem(10);
+    }
+
+    & .secondaryMenu__navLink {
+
+        &--active {
+            background-color: var(--lightness1-2);
+        }
+
+        &--active::after {
+            top: pxToRem(97.25);
+            left: pxToRem(17.5);
+        }
     }
 }

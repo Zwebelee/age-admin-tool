@@ -1,4 +1,4 @@
-import {Suspense, useState} from "react";
+import {Suspense, useState, useEffect} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
 import {observer} from "mobx-react-lite";
@@ -7,7 +7,6 @@ import {Alert, LinearProgress} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import "./globalVariables.scss";
 import "./App.scss";
 
 import {OverviewScreen} from "./screens/OverviewScreen.tsx";
@@ -19,11 +18,11 @@ import {ComponentsScreen} from "./screens/ComponentsScreen.tsx";
 import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
 import {ToolsScreen} from "./screens/ToolsScreen.tsx";
 import {MyAccountScreen} from "./screens/MyAccountScreen.tsx";
-import {MobileMenuScreen} from "./screens/MobileMenuScreen.tsx";
 
 import {Header} from "./components/Header.tsx";
 import {Sidebar} from "./components/Sidebar.tsx";
-
+import {MainMenu} from "./components/MainMenu.tsx";
+import {SecondaryMenu} from "./components/SecondaryMenu.tsx";
 
 
 const AppObserver = observer(() => {
@@ -42,8 +41,16 @@ const AppObserver = observer(() => {
     const lg = getBreakpoint("--lg");
     const xl = getBreakpoint("--xl");
 
+    const [toggleMenu, setToggleMenu] = useState(false);
+    const menuSwitch = () => {
+        setToggleMenu(!toggleMenu);
+    };
+    const menuClose = () => {
+        setToggleMenu(false);
+    };
+
     const [toggleTheme, setToggleTheme] = useState(false);
-    const toggleSwitch = () => {
+    const themeSwitch = () => {
         setToggleTheme(!toggleTheme);
     };
     const themeDark = createTheme({
@@ -95,6 +102,13 @@ const AppObserver = observer(() => {
         return <LinearProgress/>;
     }
 
+    useEffect(() => {
+        window.addEventListener("resize", menuClose);
+        return () => {
+            window.removeEventListener("resize", menuClose);
+        };
+    }, []);
+
     return (
         <Suspense fallback="loading">
             <BrowserRouter>
@@ -104,26 +118,31 @@ const AppObserver = observer(() => {
                         <div className="app">
                             <Grid container spacing={0}>
                                 <Grid size={12}>
-                                    <Header toggleTheme={toggleTheme}/>
+                                    <Header toggleTheme={toggleTheme} toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
                                 </Grid>
                                 <Grid size="auto">
                                     <Sidebar/>
                                 </Grid>
                                 <Grid size={{xs: 12, sm: 12, md: "auto", lg: "auto", xl: "auto"}}>
-                                    <div className="main">
-                                        <Routes>
-                                            <Route path="/" element={<OverviewScreen/>}/>
-                                            <Route path="/users" element={<UsersScreen/>}/>
-                                            <Route path="/contents" element={<ContentsScreen/>}/>
-                                            <Route path="/tasks" element={<TasksScreen/>}/>
-                                            <Route path="/groups" element={<GroupsScreen/>}/>
-                                            <Route path="/components" element={<ComponentsScreen/>}/>
-                                            <Route path="/experimental" element={<ExperimentalScreen/>}/>
-                                            <Route path="/tools" element={<ToolsScreen/>}/>
-                                            <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChange={toggleSwitch}/>}/>
-                                            <Route path="/mobile-menu" element={<MobileMenuScreen/>}/>
-                                        </Routes>
-                                    </div>
+                                    <main className="main">
+                                        <div className={toggleMenu ? "main__contentHidden" : "main__content"}>
+                                            <Routes>
+                                                <Route path="/" element={<OverviewScreen/>}/>
+                                                <Route path="/users" element={<UsersScreen/>}/>
+                                                <Route path="/contents" element={<ContentsScreen/>}/>
+                                                <Route path="/tasks" element={<TasksScreen/>}/>
+                                                <Route path="/groups" element={<GroupsScreen/>}/>
+                                                <Route path="/components" element={<ComponentsScreen/>}/>
+                                                <Route path="/experimental" element={<ExperimentalScreen/>}/>
+                                                <Route path="/tools" element={<ToolsScreen/>}/>
+                                                <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChange={themeSwitch}/>}/>
+                                            </Routes>
+                                        </div>
+                                        <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>
+                                            <MainMenu position="mainMenuMobile" onClick={menuClose}/>
+                                            <SecondaryMenu position="secondaryMenuMobile" onClick={menuClose}/>
+                                        </div>
+                                    </main>
                                 </Grid>
                             </Grid>
                         </div>
