@@ -27,4 +27,7 @@
     @include media("sm") {
         height: pxToRem(45);
     }
+    @include media("xs") {
+        height: pxToRem(35);
+    }
 }
