@@ -18,7 +18,9 @@ services:
       retries: 3
 
   app:
-    build: .
+    build:
+        context: ./backend
+        dockerfile: Dockerfile
     restart: always
     container_name: flask-app
     depends_on:
