@@ -18,7 +18,7 @@ export const Header = ({ toggleTheme, toggleMenu, onClickMenu, onClickLogo }: { 
                 <img src={logo} alt="Logo Kanton Luzern" className="logo"/>
             </NavLink>
             <h1>{t("app-title")}</h1>
-            <SecondaryMenu position="secondaryMenuDesktop" onClick={() => {}}/>
+            <SecondaryMenu position="secondaryMenuDesktop" onClickMenuItem={() => {}}/>
             <MobileMenu toggleMenu={toggleMenu} onClickMenu={onClickMenu}/>
         </div>
     )
