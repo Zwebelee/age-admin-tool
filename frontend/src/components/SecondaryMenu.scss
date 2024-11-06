@@ -1,5 +1,10 @@
 @import "../globalFunctions";
 
+.secondaryMenuDesktop {
+    @include media("md") {
+        display: none;
+    }
+}
 .secondaryMenu {
 
     &__list {
@@ -21,20 +26,25 @@
         padding-top: pxToRem(12);
         text-decoration: none;
         color: var(--lightness2);
-        transition: var(--transition1);
+        transition: all var(--transition1);
+
         &:hover,
         &:focus {
             color: var(--color1);
         }
+
         &:hover .secondaryMenu__icon,
         &:focus .secondaryMenu__icon {
             color: var(--lightness2);
             background-color: var(--color1);
             transform: scale(1.1);
         }
+
         &--active {
-            background-color: var(--lightness1-2);
+            background-color: var(--color1-1);
+            border-radius: pxToRem(5);
         }
+
         &--active::after {
             content: "";
             position: absolute;
@@ -55,6 +65,39 @@
         margin: pxToRem(5) auto;
         border-radius: 50%;
         background-color: var(--lightness2-1);
-        transition: var(--transition1);
+        transition: all var(--transition1);
+    }
+}
+.secondaryMenuMobile {
+    display: none;
+    width: 100%;
+    border: pxToRem(1) solid var(--color1);
+    border-radius: pxToRem(10);
+    margin-top: pxToRem(25);
+    background-color: var(--color1-1);
+    @include media("md") {
+        display: block;
+    }
+
+    & .secondaryMenu__list {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: left;
+    }
+
+    & .secondaryMenu__listItem {
+        padding: 0 pxToRem(10);
+    }
+
+    & .secondaryMenu__navLink {
+
+        &--active {
+            background-color: var(--lightness1-2);
+        }
+
+        &--active::after {
+            top: pxToRem(97.25);
+            left: pxToRem(17.5);
+        }
     }
 }

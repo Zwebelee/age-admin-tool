@@ -5,8 +5,54 @@ html {
     height: 100%;
     font: 400 medium/1.5 Roboto, sans-serif;
 }
+body {
+    letter-spacing: 0 !important;
+}
+.app {
+    min-height: calc(100vh - pxToRem(40));
+    min-width: pxToRem(300);
+    max-width: pxToRem(1800);
+    border-radius: pxToRem(10);
+    margin: 0 auto;
+    background-color: var(--lightness1-1);
+    @include media("md") {
+        min-height: calc(100vh - pxToRem(24));
+    }
+    @include media("sm") {
+        min-height: calc(100vh - pxToRem(14));
+    }
+    @include media("xs") {
+        min-height: 100vh;
+        border-radius: 0;
+    }
+}
 .main {
     padding: pxToRem(25);
+    @include media("md") {
+        padding: pxToRem(15);
+    }
+    @include media("sm") {
+        padding: pxToRem(10);
+    }
+}
+.main__contentHidden,
+.main__mobileMenuHidden {
+    display: none;
+}
+h1 {
+    font-weight: 300;
+    @include media("lg") {
+        font-size: pxToRem(28);
+    }
+    @include media("md") {
+        font-size: pxToRem(22);
+    }
+    @include media("sm") {
+        font-size: pxToRem(18);
+    }
+    @include media("xs") {
+        font-size: pxToRem(14);
+    }
 }
 .theme--dark {
     background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */
@@ -29,12 +75,18 @@ html {
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
-    min-height: 100vh;
+    background-attachment: fixed;
+    overflow: auto;
+    height: 100vh;
+    width: 100%;
     padding: pxToRem(20);
-    .app {
-        max-width: pxToRem(1800);
-        border-radius: pxToRem(10);
-        margin: 0 auto;
-        background-color: var(--lightness1-1);
+    @include media("md") {
+        padding: pxToRem(12);
+    }
+    @include media("sm") {
+        padding: pxToRem(7);
+    }
+    @include media("xs") {
+        padding: 0;
     }
 }

@@ -1,9 +1,11 @@
 {
     "app-title": "AGE Administration Tool",
+    "close": "Close",
     "components": "Components",
     "contents": "Contents",
     "experimental": "Experimental",
     "groups": "Groups",
+    "menu": "Menu",
     "my-account": "My Account",
     "overview": "Overview",
     "tasks": "Tasks",

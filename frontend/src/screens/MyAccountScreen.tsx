@@ -1,12 +1,12 @@
 import {useTranslation} from "react-i18next";
 import {UserSettings} from "../components/UserSettings.tsx";
 
-export const MyAccountScreen = ({ toggleTheme, onChange }: { toggleTheme: boolean; onChange: () => void }) => {
+export const MyAccountScreen = ({ toggleTheme, onChangeTheme }: { toggleTheme: boolean; onChangeTheme: () => void }) => {
     const {t} = useTranslation();
     return (
-        <main>
+        <>
             <h2>{t("my-account")}</h2>
-            <UserSettings toggleTheme={toggleTheme} onChange={onChange}/>
-        </main>
+            <UserSettings toggleTheme={toggleTheme} onChange={onChangeTheme}/>
+        </>
     );
 };

@@ -26,7 +26,7 @@ export const ExperimentalScreen = observer(() => {
 
 
     return (
-        <main>
+        <>
             <h2>{t("experimental")}</h2>
             <h3>Testing stuff - Fokus funktionalität, nicht implementierung an sich (weder Design noch Code)</h3>
             <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
@@ -83,7 +83,7 @@ export const ExperimentalScreen = observer(() => {
                     </Box>
                 </Box>
             </Box>
-        </main>
+        </>
     )
 });
 

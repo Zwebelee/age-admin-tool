@@ -1,9 +1,11 @@
 {
     "app-title": "Outil de gestion AGE",
+    "close": "Fermer",
     "components": "Composants",
     "contents": "Contenu",
     "experimental": "Expérimental",
     "groups": "Groupes",
+    "menu": "Menu",
     "my-account": "Mon compte",
     "overview": "Aperçu",
     "tasks": "Tâches",

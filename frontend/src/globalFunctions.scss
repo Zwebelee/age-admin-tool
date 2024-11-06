@@ -1,3 +1,6 @@
+@import "globalVariables";
+
+/* Functions */
 $baseFont: 16px;
 @function pxToRem($px, $ref: $baseFont) {
     @return toRem(calc(toPx($px) / toPx($ref)));
@@ -7,4 +10,29 @@ $baseFont: 16px;
 }
 @function toPx($val) {
     @return ($val + 0px);
+}
+
+/* Mixins */
+@mixin media($size) {
+    @if $size == "xs" {
+        @media only all and (max-width: pxToRem($xs)) {
+            @content;
+        }
+    } @else if $size == "sm" {
+        @media only all and (max-width: pxToRem($sm)) {
+            @content;
+        }
+    } @else if $size == "md" {
+        @media only all and (max-width: pxToRem($md)) {
+            @content;
+        }
+    } @else if $size == "lg" {
+        @media only all and (max-width: pxToRem($lg)) {
+            @content;
+        }
+    } @else if $size == "xl" {
+        @media only all and (max-width: pxToRem($xl)) {
+            @content;
+        }
+    }
 }
