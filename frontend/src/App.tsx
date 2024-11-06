@@ -135,12 +135,12 @@ const AppObserver = observer(() => {
                                                 <Route path="/components" element={<ComponentsScreen/>}/>
                                                 <Route path="/experimental" element={<ExperimentalScreen/>}/>
                                                 <Route path="/tools" element={<ToolsScreen/>}/>
-                                                <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChange={themeSwitch}/>}/>
+                                                <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChangeTheme={themeSwitch}/>}/>
                                             </Routes>
                                         </div>
                                         <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>
-                                            <MainMenu position="mainMenuMobile" onClick={menuClose}/>
-                                            <SecondaryMenu position="secondaryMenuMobile" onClick={menuClose}/>
+                                            <MainMenu position="mainMenuMobile" onClickMenuItem={menuClose}/>
+                                            <SecondaryMenu position="secondaryMenuMobile" onClickMenuItem={menuClose}/>
                                         </div>
                                     </main>
                                 </Grid>
