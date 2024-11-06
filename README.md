@@ -55,3 +55,5 @@ npm run dev
 | Swagger     | [http://localhost:5001/apidocs](http://localhost:5001/apidocs) |
 | DB          | [http://localhost:3310](http://localhost:3310)                 |
 
+# Projectsetup
+Projectsetup with: https://nx.dev/getting-started/tutorials/react-standalone-tutorial
