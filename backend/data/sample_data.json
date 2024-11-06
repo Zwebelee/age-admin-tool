@@ -225,7 +225,25 @@
       "guid": "123e4567-e89b-12d3-a456-426614174009",
       "ageguid": "123e4567-e89b-12d3-a456-426614174008",
       "refguid": "123e4567-e89b-12d3-a456-426614174010",
-      "reftype": "portal"
+      "reftype": "Portal"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614155010",
+        "ageguid": "123e4567-e89b-12d3-a456-426614174008",
+        "refguid": "123e4567-e89b-12d3-a456-426614333011",
+        "reftype": "WebAdaptor"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614155011",
+        "ageguid": "123e4567-e89b-12d3-a456-426614174008",
+        "refguid": "123e4567-e89b-12d3-a456-426614174011",
+        "reftype": "DataStore"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-a456-426614155012",
+        "ageguid": "123e4567-e89b-12d3-a456-426614174008",
+        "refguid": "123e4567-e89b-12d3-a456-426614174012",
+        "reftype": "Server"
     }
   ],
   "ageportals": [
@@ -257,7 +275,15 @@
   "agedatastores": [
     {
       "guid": "123e4567-e89b-12d3-a456-426614174011",
-      "name": "Sample Data Store"
+      "name": "Sample Data Store",
+      "alias": "Dada Data Store",
+      "type": "Relational Database",
+      "ishosted": true,
+      "description": "Sample Data Store",
+      "url": "http://example.com/datastore",
+      "status": "active",
+      "capacity_gb": 280,
+      "used_gb": 123
     }
   ],
   "ageservers": [
@@ -596,11 +622,13 @@
   "toolusers": [
     {
       "id": 1,
-      "name": "Alice"
+      "username": "Alice",
+      "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd"
     },
     {
       "id": 2,
-      "name": "Bob"
+      "username": "Bob",
+      "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd"
     }
   ],
   "tasks": [

@@ -25,6 +25,6 @@ services:
       mariadb:
         condition: service_healthy
     environment:
-      DATABASE_URL: mariadb+mariadbconnector://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
+      DATABASE_URL: ${DATABASE_URL_PREFIX}${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
     ports:
       - "5001:5001"
