@@ -1,10 +1,14 @@
-from flask import Blueprint, request, jsonify, session, redirect, request, url_for, flash
+from flask import Blueprint, jsonify
 from flasgger import swag_from
-from ..db import db
-from ..models.tooluser import Tooluser
+from flask_jwt_extended import jwt_required, get_jwt
+import os
+
+from app.extensions.jwtmanager import jwt_redis_blocklist
 
 logout_bp = Blueprint('logout', __name__)
-@logout_bp.route('/logout', methods=['POST'])
+
+@logout_bp.route('/logout', methods=['DELETE'])
+@jwt_required(verify_type=False)
 @swag_from({
     'tags': ['Logout'],
     'responses': {
@@ -20,8 +24,8 @@ logout_bp = Blueprint('logout', __name__)
     }
 })
 def logout():
-    session.pop('username', None)
-    return jsonify({
-        'message': 'Logout successful'
-    })
-
+    token = get_jwt()
+    jti = token["jti"]
+    ttype = token["type"]
+    jwt_redis_blocklist.set(jti, "", ex=os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
+    return jsonify(msg=f"{ttype.capitalize()} token successfully revoked")

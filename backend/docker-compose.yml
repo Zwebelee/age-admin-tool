@@ -24,7 +24,16 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+      redis:
+        condition: service_started
     environment:
       DATABASE_URL: ${DATABASE_URL_PREFIX}${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
     ports:
       - "5001:5001"
+
+  redis:
+    image: redis:7.4
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"

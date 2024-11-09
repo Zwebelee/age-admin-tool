@@ -1,4 +1,6 @@
 import os
+
+import redis
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import (
@@ -8,6 +10,7 @@ from flask_jwt_extended import (
 from flasgger import Swagger
 from .db import db
 from .configs.swagger_config import SWAGGER_CONFIG
+from .extensions.jwtmanager import jwt
 from .routes.agedatastore import agedatastore_bp
 from .routes.ageportal import ageportal_bp
 from .routes.ageserver import ageserver_bp
@@ -23,6 +26,10 @@ from .routes.refresh import refresh_bp
 from .routes.register import register_bp
 from .routes.tests import tests_bp
 from .utils.load_sample_data import init_all_sample_data
+
+
+
+
 
 
 def get_db_uri():
@@ -56,6 +63,7 @@ def register_extensions(app):
     """Register Flask extensions."""
     db.init_app(app)
     Swagger(app)
+    jwt.init_app(app)
     return None
 
 
@@ -83,7 +91,6 @@ def create_app():
     app.secret_key = os.getenv('APP_SECRET_KEY')
     CORS(app, ressources={r"/*": {"origins": "http://localhost:5001"}})
     app.config.from_object(Config)
-    JWTManager(app)
     register_extensions(app)
     register_blueprints(app)
 
