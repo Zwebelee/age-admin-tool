@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import "./MobileMenu.scss";
 
 
-export const MobileMenu = ({toggleMenu, onClickMenu}: {toggleMenu:boolean, onClickMenu: () => void}) => {
+export const MobileMenu = ({toggleMenu, onClickMenu}: {toggleMenu: boolean, onClickMenu: () => void}) => {
     const {t} = useTranslation();
     return (
         <nav className="mobileMenu">

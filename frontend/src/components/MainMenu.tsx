@@ -25,7 +25,7 @@ export const MainMenu = ({position, onClickMenuItem = () => {}}: {position: stri
                 </li>
                 <li className="mainMenu__listItem">
                     <NavLink className={isActive} to="/users" onClick={onClickMenuItem}>
-                        <span className="mainMenu__icon"><PeopleAltOutlinedIcon /></span>
+                        <span className="mainMenu__icon"><PeopleAltOutlinedIcon/></span>
                         {t("users")}
                     </NavLink>
                 </li>

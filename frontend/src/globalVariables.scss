@@ -20,12 +20,18 @@ $xl: 1920;
     --lightness1:   rgba(  0,   0,   0, 1.00); // Black
     --lightness1-1: rgba(  0,   0,   0, 0.70); // Black Opacity 70%
     --lightness1-2: rgba(  0,   0,   0, 0.55); // Black Opacity 55%
+    --lightness1-3: rgba(  0,   0,   0, 0.30); // Black Opacity 30%
     --lightness2:   rgba(255, 255, 255, 1.00); // White
     --lightness2-1: rgba(255, 255, 255, 0.20); // White Opacity 20%
     --lightness3:   rgba( 66,  66,  66, 1.00); // Dark Grey
     --lightness4:   rgba(238, 238, 238, 1.00); // Light Grey
     --color1:       rgba(  0, 159, 227, 1.00); // Blue
     --color1-1:     rgba(  0, 159, 227, 0.25); // Blue Opacity 25%
+    --color2:       rgba(255, 241, 117, 1.00); // Yellow
+    --color3:       rgba(255, 183,  77, 1.00); // Orange
+    --color4:       rgba(229, 115, 115, 1.00); // Red
+    --color5:       rgba(206, 147, 216, 1.00); // Pink
+    --color6:       rgba(129, 199, 132, 1.00); // Green
 }
 
 
@@ -34,9 +40,15 @@ $xl: 1920;
     --lightness1:   rgba(255, 255, 255, 1.00); // White
     --lightness1-1: rgba(255, 255, 255, 0.85); // White Opacity 85%
     --lightness1-2: rgba(255, 255, 255, 0.55); // White Opacity 55%
+    --lightness1-3: rgba(  0,   0,   0, 0.20); // Black Opacity 20%
     --lightness2:   rgba(  0,   0,   0, 1.00); // Black
     --lightness2-1: rgba(  0,   0,   0, 0.15); // Black Opacity 15%
     --lightness3:   rgba(238, 238, 238, 1.00); // Light Grey
+    --color2:       rgba(184, 128,   0, 1.00); // Yellow
+    --color3:       rgba(245, 124,   0, 1.00); // Orange
+    --color4:       rgba(216,  27,  96, 1.00); // Red
+    --color5:       rgba(142,  36, 170, 1.00); // Pink
+    --color6:       rgba( 56, 142,  60, 1.00); // Green
 }
 
 

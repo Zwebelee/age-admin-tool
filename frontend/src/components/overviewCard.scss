@@ -1,0 +1,38 @@
+@import "../globalFunctions";
+
+.overviewCard {
+    border: pxToRem(1) solid var(--color1);
+    border-radius: pxToRem(10);
+    background-color: var(--color1-1);
+
+    &__link {
+        text-decoration: none;
+    }
+
+    &__title {
+        display: block;
+        padding: pxToRem(10);
+        margin: pxToRem(4);
+        border-radius: pxToRem(6);
+        text-align: center;
+        background-image: linear-gradient(to bottom, var(--color1), transparent);
+    }
+
+    &__icon {
+        display: block;
+        width: pxToRem(80);
+        height: pxToRem(80);
+        padding: pxToRem(22) 0;
+        border-radius: 50%;
+        margin: 0 auto;
+        color: var(--lightness2);
+        background-color: var(--lightness1-3);
+    }
+
+    &__name {
+        color: var(--lightness2);
+        font-size: pxToRem(16);
+        font-weight: 400;
+        margin: pxToRem(10) 0 0 0;
+    }
+}
