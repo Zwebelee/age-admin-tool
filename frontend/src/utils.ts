@@ -1,4 +1,4 @@
-const tools = {
+const utils = {
 
     addSeparators: (number: string) => {
         number = "" + number;
@@ -20,4 +20,4 @@ const tools = {
 
 }
 
-export { tools };
+export { utils };

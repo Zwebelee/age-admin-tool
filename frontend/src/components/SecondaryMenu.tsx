@@ -13,7 +13,7 @@ export const SecondaryMenu = ({position, onClickMenuItem}: {position: string, on
         <nav className={"secondaryMenu " + position}>
             <ul className="secondaryMenu__list">
                 <li className="secondaryMenu__listItem">
-                    <NavLink className={isActive} to="/tools" onClick={onClickMenuItem}>
+                    <NavLink className={isActive} to="/utils" onClick={onClickMenuItem}>
                         <span className="secondaryMenu__icon"><HomeRepairServiceOutlinedIcon/></span>
                         {t("tools")}
                     </NavLink>

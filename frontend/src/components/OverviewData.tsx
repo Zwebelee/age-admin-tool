@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {tools} from "../tools.ts";
+import {utils} from "../utils.ts";
 import "./OverviewData.scss";
 
 
@@ -16,11 +16,13 @@ export const OverviewData = ({
 }) => {
     const {t} = useTranslation();
     const dynamicClass = "overviewData overviewData" + color;
-    const dynamicValue = maxValue ? tools.addSeparators(value.toString()) + " / " + tools.addSeparators(maxValue.toString()) : tools.addSeparators(value.toString());
+    const dynamicValue = maxValue ? utils.addSeparators(value.toString()) + " / " + utils.addSeparators(maxValue.toString()) : utils.addSeparators(value.toString());
     return (
         <div className={dynamicClass}>
-            <p className="overviewData__value">{dynamicValue}</p>
-            <p className="overviewData__name">{t(name)}</p>
+            <div className="overviewData__line">
+                <p className="overviewData__value">{dynamicValue}</p>
+                <p className="overviewData__name">{t(name)}</p>
+            </div>
         </div>
     );
     };

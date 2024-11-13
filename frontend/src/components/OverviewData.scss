@@ -1,10 +1,35 @@
 @import "../globalFunctions";
 
 .overviewData {
+    padding: pxToRem(10);
     border-radius: pxToRem(6);
     margin: pxToRem(10);
     text-align: center;
     background-color: var(--lightness1-2);
+
+    &__line {
+        border-left: pxToRem(1) solid var(--color1);
+    }
+
+    &--color2 &__line {
+        border-color: var(--color2);
+    }
+
+    &--color3 &__line {
+        border-color: var(--color3);
+    }
+
+    &--color4 &__line {
+        border-color: var(--color4);
+    }
+
+    &--color5 &__line {
+        border-color: var(--color5);
+    }
+
+    &--color6 &__line {
+        border-color: var(--color6);
+    }
 
     &__name {
         padding-bottom: pxToRem(20);

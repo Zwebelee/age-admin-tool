@@ -134,7 +134,7 @@ const AppObserver = observer(() => {
                                                 <Route path="/groups" element={<GroupsScreen/>}/>
                                                 <Route path="/components" element={<ComponentsScreen/>}/>
                                                 <Route path="/experimental" element={<ExperimentalScreen/>}/>
-                                                <Route path="/tools" element={<ToolsScreen/>}/>
+                                                <Route path="/utils" element={<ToolsScreen/>}/>
                                                 <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChangeTheme={themeSwitch}/>}/>
                                             </Routes>
                                         </div>
