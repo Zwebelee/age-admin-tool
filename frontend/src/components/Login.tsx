@@ -1,12 +1,14 @@
 // src/components/LoginPage.tsx
 import {useState} from "react";
 import {observer} from "mobx-react-lite";
-import {authStore} from "../stores/auth-store";
-import apiClient from "../services/auth.service";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
+import {useRootStore} from "../stores/root-store.ts";
 
 const LoginPage = observer(() => {
+    const rootStore = useRootStore();
+    const authStore = rootStore.authStore;
+    const apiClient = rootStore.authService.getApiClient();
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [protectedData, setProtectedData] = useState<Record<string, any> | null>(null);
