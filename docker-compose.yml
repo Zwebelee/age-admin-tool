@@ -9,7 +9,7 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3310:3306"
+      - "${DB_PORT}:3306"
     healthcheck:
       test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
       start_period: 10s
@@ -17,10 +17,12 @@ services:
       timeout: 5s
       retries: 3
 
-  app:
-    build: .
+  backend-app:
+    build:
+        context: ./backend
+        dockerfile: Dockerfile
     restart: always
-    container_name: flask-app
+    container_name: backend-flask-app
     depends_on:
       mariadb:
         condition: service_healthy
@@ -28,8 +30,10 @@ services:
         condition: service_started
     environment:
       DATABASE_URL: ${DATABASE_URL_PREFIX}${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}
+    env_file:
+      - .env
     ports:
-      - "5001:5001"
+      - "${BACKEND_OUTPORT}:5001"
 
   redis:
     image: redis:7.4
@@ -37,3 +41,16 @@ services:
     restart: always
     ports:
       - "6379:6379"
+
+  frontend-app:
+    image: node:20-alpine
+    container_name: frontend-app
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+        - "${FRONTEND_OUTPORT}:3000"
+    command: sh -c "npm install && npm run dev-docker"
+    environment:
+        - NODE_ENV=development
