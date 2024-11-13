@@ -89,7 +89,7 @@ def register_blueprints(app):
 def create_app():
     app = Flask(__name__)
     app.secret_key = os.getenv('APP_SECRET_KEY')
-    CORS(app, ressources={r"/*": {"origins": "http://localhost:5001"}})
+    CORS(app, ressources={r"/*": {"origins": "http://localhost:5001"}}, supports_credentials=True)
     app.config.from_object(Config)
     register_extensions(app)
     register_blueprints(app)
