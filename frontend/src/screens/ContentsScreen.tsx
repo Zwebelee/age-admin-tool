@@ -1,10 +1,17 @@
-import {useTranslation} from "react-i18next";
+import {OverviewLink} from "../components/Overview/OverviewLink.tsx";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 
 export const ContentsScreen = () => {
-    const {t} = useTranslation();
     return (
-        <>
-            <h2>{t("contents")}</h2>
-        </>
+        <OverviewLink
+            card="contents"
+            icon={<ContentCopyOutlinedIcon fontSize="large"/>}
+            color="--color3"
+            link={false}
+            data={[{
+                name: "users",
+                value: 12458,
+            }]}
+        ></OverviewLink>
     );
 };
