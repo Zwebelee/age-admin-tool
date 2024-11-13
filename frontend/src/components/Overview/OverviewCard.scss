@@ -1,13 +1,9 @@
-@import "../globalFunctions";
+@import "../../globalFunctions";
 
 .overviewCard {
     border: pxToRem(1) solid var(--color1);
     border-radius: pxToRem(10);
     background-color: var(--color1-1);
-
-    &__link {
-        text-decoration: none;
-    }
 
     &__title {
         display: block;

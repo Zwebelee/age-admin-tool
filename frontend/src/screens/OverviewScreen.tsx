@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid2";
-import {OverviewCard} from "../components/OverviewCard.tsx";
+import {OverviewLink} from "../components/Overview/OverviewLink.tsx";
 
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
@@ -10,10 +10,11 @@ import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInpu
 export const OverviewScreen = () => {
     return (
         <Grid container spacing={3}>
-            <OverviewCard
+            <OverviewLink
                 card="users"
-                icon={ <PeopleAltOutlinedIcon fontSize="large" /> }
+                icon={<PeopleAltOutlinedIcon fontSize="large"/>}
                 color="--color2"
+                link={true}
                 data={[{
                     name: "users",
                     value: 12458,
@@ -26,43 +27,47 @@ export const OverviewScreen = () => {
                     value: 4895,
                     maxValue: 8000
                 }]}
-            ></OverviewCard>
-            <OverviewCard
+            ></OverviewLink>
+            <OverviewLink
                 card="contents"
-                icon={ <ContentCopyOutlinedIcon fontSize="large" /> }
+                icon={<ContentCopyOutlinedIcon fontSize="large"/>}
                 color="--color3"
+                link={true}
                 data={[{
                     name: "users",
                     value: 12458,
                 }]}
-            ></OverviewCard>
-            <OverviewCard
+            ></OverviewLink>
+            <OverviewLink
                 card="tasks"
-                icon={ <TaskAltOutlinedIcon fontSize="large" /> }
+                icon={<TaskAltOutlinedIcon fontSize="large"/>}
                 color="--color4"
+                link={true}
                 data={[{
                     name: "users",
                     value: 12458,
                 }]}
-            ></OverviewCard>
-            <OverviewCard
+            ></OverviewLink>
+            <OverviewLink
                 card="groups"
-                icon={ <HolidayVillageOutlinedIcon fontSize="large" /> }
+                icon={<HolidayVillageOutlinedIcon fontSize="large"/>}
                 color="--color5"
+                link={true}
                 data={[{
                     name: "users",
                     value: 12458,
                 }]}
-            ></OverviewCard>
-            <OverviewCard
+            ></OverviewLink>
+            <OverviewLink
                 card="components"
-                icon={ <SettingsInputComponentOutlinedIcon fontSize="large" /> }
+                icon={<SettingsInputComponentOutlinedIcon fontSize="large"/>}
                 color="--color6"
+                link={true}
                 data={[{
                     name: "users",
                     value: 12458,
                 }]}
-            ></OverviewCard>
+            ></OverviewLink>
         </Grid>
     );
 };
