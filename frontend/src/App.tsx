@@ -23,6 +23,8 @@ import {Header} from "./components/Header.tsx";
 import {Sidebar} from "./components/Sidebar.tsx";
 import {MainMenu} from "./components/MainMenu.tsx";
 import {SecondaryMenu} from "./components/SecondaryMenu.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import {SignInScreen} from "./screens/SignInScreen.tsx";
 
 
 const AppObserver = observer(() => {
@@ -136,6 +138,8 @@ const AppObserver = observer(() => {
                                                 <Route path="/experimental" element={<ExperimentalScreen/>}/>
                                                 <Route path="/tools" element={<ToolsScreen/>}/>
                                                 <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChangeTheme={themeSwitch}/>}/>
+                                                <Route path="/login" element={<SignInScreen/>}/>
+                                                <Route path="/testsecret" element={<ProtectedRoute><h1>This is the secret screen only available when logged in</h1></ProtectedRoute>}/>
                                             </Routes>
                                         </div>
                                         <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>
