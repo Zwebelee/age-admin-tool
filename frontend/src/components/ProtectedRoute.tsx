@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute = observer(({children}: ProtectedRouteProps) => {
     const rootStore = useRootStore();
     if (!rootStore.authStore.isLoggedIn) {
-        return <Navigate to="/testlogin"/>;
+        return <Navigate to="/login"/>;
     }
     return <>{children}</>;
 });

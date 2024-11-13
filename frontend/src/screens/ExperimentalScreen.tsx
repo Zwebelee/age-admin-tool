@@ -7,7 +7,7 @@ import {Card, CardContent, Typography, FormControl, TextField, FormLabel} from "
 import {TestEntry} from "../models/test-entry.ts";
 import {observer} from "mobx-react-lite";
 import {useState} from "react";
-import LoginPage from "../components/Login.tsx";
+import {SignInMask} from "../components/SignInMask.tsx";
 
 
 export const ExperimentalScreen = observer(() => {
@@ -36,7 +36,7 @@ export const ExperimentalScreen = observer(() => {
                     component="main">
                     <SampleGrid/>
                 </Box>
-                <LoginPage/>
+                <SignInMask/>
                 <Box sx={{border: '3px solid blue', margin: '2px', padding: '10px', borderRadius: '8px'}}>
                     <h3>Button in outer component - Testing if mobx is working properly (updates through the
                         mobx-store)</h3>
