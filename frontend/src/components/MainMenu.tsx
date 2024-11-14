@@ -23,31 +23,31 @@ export const MainMenu = ({position, onClickMenuItem = () => {}}: {position: stri
                         {t("overview")}
                     </NavLink>
                 </li>
-                <li className="mainMenu__listItem">
+                <li className="mainMenu__listItem mainMenu__listItem--color2">
                     <NavLink className={isActive} to="/users" onClick={onClickMenuItem}>
                         <span className="mainMenu__icon"><PeopleAltOutlinedIcon/></span>
                         {t("users")}
                     </NavLink>
                 </li>
-                <li className="mainMenu__listItem">
+                <li className="mainMenu__listItem mainMenu__listItem--color3">
                     <NavLink className={isActive} to="/contents" onClick={onClickMenuItem}>
                         <span className="mainMenu__icon"><ContentCopyOutlinedIcon/></span>
                         {t("contents")}
                     </NavLink>
                 </li>
-                <li className="mainMenu__listItem">
+                <li className="mainMenu__listItem mainMenu__listItem--color4">
                     <NavLink className={isActive} to="/tasks" onClick={onClickMenuItem}>
                         <span className="mainMenu__icon"><TaskAltOutlinedIcon/></span>
                         {t("tasks")}
                     </NavLink>
                 </li>
-                <li className="mainMenu__listItem">
+                <li className="mainMenu__listItem mainMenu__listItem--color5">
                     <NavLink className={isActive} to="/groups" onClick={onClickMenuItem}>
                         <span className="mainMenu__icon"><HolidayVillageOutlinedIcon/></span>
                         {t("groups")}
                     </NavLink>
                 </li>
-                <li className="mainMenu__listItem">
+                <li className="mainMenu__listItem mainMenu__listItem--color6">
                     <NavLink className={isActive} to="/components" onClick={onClickMenuItem}>
                         <span className="mainMenu__icon"><SettingsInputComponentOutlinedIcon/></span>
                         {t("components")}
