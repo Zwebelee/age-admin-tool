@@ -1,6 +1,7 @@
 @import "../globalFunctions";
 
 .mainMenuDesktop {
+    grid-area: sidebar;
     @include media("md") {
         display: none;
     }
@@ -8,7 +9,6 @@
 .mainMenu {
     height: 100%;
     min-height: calc(100vh - pxToRem(175));
-    width: pxToRem(100);
     border-radius: 0 0 0 pxToRem(10);
     background-color: var(--color1-1);
 

@@ -1,0 +1,7 @@
+@import "../globalFunctions";
+
+.overviewScreen {
+    display: flex;
+    flex-flow: row wrap;
+    gap: pxToRem(20);
+}

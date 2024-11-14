@@ -5,14 +5,14 @@
     --sm:  640;
     --md:  960;
     --lg: 1440;
-    --xl: 1920;
+    --xl: 1840;
 }
-// For Mixins in globalFunctions.scss:
-$xs:  320;
-$sm:  640;
-$md:  960;
-$lg: 1440;
-$xl: 1920;
+// For Mixins in globalFunctions.scss (1 pixel smaller than in App.tsx):
+$xs:  319;
+$sm:  639;
+$md:  959;
+$lg: 1439;
+$xl: 1839;
 
 
 /* All Colors, Colors Dark Theme */

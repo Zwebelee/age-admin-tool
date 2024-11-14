@@ -3,12 +3,7 @@ import {utils} from "../../utils.ts";
 import "./OverviewData.scss";
 
 
-export const OverviewData = ({
-        color,
-        name,
-        value,
-        maxValue
-    }: {
+export const OverviewData = ({ color, name, value, maxValue }: {
         color: string;
         name: string,
         value: number,

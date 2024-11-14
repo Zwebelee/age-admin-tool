@@ -1,5 +1,5 @@
-import Grid from "@mui/material/Grid2";
 import {OverviewLink} from "../components/Overview/OverviewLink.tsx";
+import "./OverviewScreen.scss";
 
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
@@ -9,7 +9,7 @@ import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInpu
 
 export const OverviewScreen = () => {
     return (
-        <Grid container spacing={3}>
+        <div className="overviewScreen">
             <OverviewLink
                 card="users"
                 icon={<PeopleAltOutlinedIcon fontSize="large"/>}
@@ -68,6 +68,6 @@ export const OverviewScreen = () => {
                     value: 12458,
                 }]}
             ></OverviewLink>
-        </Grid>
+        </div>
     );
 };

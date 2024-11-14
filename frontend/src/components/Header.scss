@@ -1,18 +1,19 @@
 @import "../globalFunctions";
 
 .header {
+    grid-area: header;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: pxToRem(135);
+    height: pxToRem(135);
     padding: 0 pxToRem(15) 0 pxToRem(45);
     border-bottom: solid pxToRem(4) var(--color1);
     @include media("md") {
-        min-height: pxToRem(90);
-        padding: 0 pxToRem(15);
+        height: pxToRem(90);
+        padding: 0 0 0 pxToRem(15);
     }
     @include media("sm") {
-        padding: 0 pxToRem(5);
+        padding: 0 0 0 pxToRem(5);
     }
 }
 .logo {

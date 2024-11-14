@@ -1,10 +1,9 @@
-import Grid from "@mui/material/Grid2";
 import "./OverviewLink.scss";
 
 import {NavLink} from "react-router-dom";
 import {OverviewCard} from "./OverviewCard.tsx";
 
-export const OverviewLink = ({card, icon, color, link, data }: {
+export const OverviewLink = ({ card, icon, color, link, data }: {
     card: string,
     icon: JSX.Element,
     color: string,
@@ -12,7 +11,7 @@ export const OverviewLink = ({card, icon, color, link, data }: {
     data: Array<{ name: string; value: number; maxValue?: number; }>
 }) => {
     return (
-        <Grid size={{xs: 12, sm: 6, md: 4, lg: 4, xl: 4}}>
+        <div>
             {link ?
                 <NavLink className="overviewLink" to={card}>
                     <OverviewCard
@@ -29,6 +28,6 @@ export const OverviewLink = ({card, icon, color, link, data }: {
                     data={data}>
                 </OverviewCard>
             }
-        </Grid>
+        </div>
     );
 };
