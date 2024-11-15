@@ -24,9 +24,14 @@
         position: relative;
     }
 
+    &__innerListItem {
+        padding: pxToRem(10) 0;
+    }
+
     &__navLink {
         display: block;
-        padding: pxToRem(10) 0;
+        border-radius: pxToRem(8);
+        outline-offset: pxToRem(-8);
         text-decoration: none;
         color: var(--lightness2);
         transition: all var(--transition1);
@@ -38,7 +43,7 @@
             transform: scale(1.1);
         }
 
-        &--active {
+        &--active .mainMenu__innerListItem {
             background-color: var(--lightness1-2);
         }
 
@@ -113,13 +118,14 @@
 
     & .mainMenu__listItem {
         padding: 0 pxToRem(10);
+        margin: pxToRem(5);
     }
 
     & .mainMenu__navLink {
         height: pxToRem(100);
         width: pxToRem(100);
 
-        &--active {
+        &--active .mainMenu__innerListItem {
             border-radius: pxToRem(5);
         }
 

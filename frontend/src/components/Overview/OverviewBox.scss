@@ -1,0 +1,14 @@
+@import "../../globalFunctions";
+
+.overviewBox {
+    padding: pxToRem(4);
+    border: pxToRem(1) solid var(--color1);
+    border-radius: pxToRem(10);
+
+    &__link {
+        display: block;
+        border-radius: pxToRem(8);
+        outline-offset: pxToRem(-7);
+        text-decoration: none;
+    }
+}

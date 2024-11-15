@@ -1,4 +1,4 @@
-import {OverviewLink} from "../components/Overview/OverviewLink.tsx";
+import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
 import "./OverviewScreen.scss";
 
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
@@ -10,7 +10,7 @@ import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInpu
 export const OverviewScreen = () => {
     return (
         <div className="overviewScreen">
-            <OverviewLink
+            <OverviewBox
                 card="users"
                 icon={<PeopleAltOutlinedIcon fontSize="large"/>}
                 color="--color2"
@@ -27,8 +27,8 @@ export const OverviewScreen = () => {
                     value: 4895,
                     maxValue: 8000
                 }]}
-            ></OverviewLink>
-            <OverviewLink
+            ></OverviewBox>
+            <OverviewBox
                 card="contents"
                 icon={<ContentCopyOutlinedIcon fontSize="large"/>}
                 color="--color3"
@@ -37,8 +37,8 @@ export const OverviewScreen = () => {
                     name: "users",
                     value: 12458,
                 }]}
-            ></OverviewLink>
-            <OverviewLink
+            ></OverviewBox>
+            <OverviewBox
                 card="tasks"
                 icon={<TaskAltOutlinedIcon fontSize="large"/>}
                 color="--color4"
@@ -47,8 +47,8 @@ export const OverviewScreen = () => {
                     name: "users",
                     value: 12458,
                 }]}
-            ></OverviewLink>
-            <OverviewLink
+            ></OverviewBox>
+            <OverviewBox
                 card="groups"
                 icon={<HolidayVillageOutlinedIcon fontSize="large"/>}
                 color="--color5"
@@ -57,8 +57,8 @@ export const OverviewScreen = () => {
                     name: "users",
                     value: 12458,
                 }]}
-            ></OverviewLink>
-            <OverviewLink
+            ></OverviewBox>
+            <OverviewBox
                 card="components"
                 icon={<SettingsInputComponentOutlinedIcon fontSize="large"/>}
                 color="--color6"
@@ -67,7 +67,7 @@ export const OverviewScreen = () => {
                     name: "users",
                     value: 12458,
                 }]}
-            ></OverviewLink>
+            ></OverviewBox>
         </div>
     );
 };

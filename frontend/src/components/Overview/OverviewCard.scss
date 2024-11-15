@@ -1,17 +1,24 @@
 @import "../../globalFunctions";
 
 .overviewCard {
-    border: pxToRem(1) solid var(--color1);
-    border-radius: pxToRem(10);
+    display: grid;
+    grid: "data title"
+          "data title" /
+          auto auto;
+    padding: 0 pxToRem(10) 0 0;
+    border-radius: pxToRem(6);
     background-color: var(--color1-1);
+    background-image: linear-gradient(to left, var(--color1), transparent);
 
     &__title {
-        display: block;
+        grid-area: title;
+        display: flex;
+        flex-flow: row-reverse nowrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: pxToRem(25);
         padding: pxToRem(10);
-        margin: pxToRem(4);
         border-radius: pxToRem(6);
-        text-align: center;
-        background-image: linear-gradient(to bottom, var(--color1), transparent);
     }
 
     &__icon {
@@ -20,15 +27,14 @@
         height: pxToRem(80);
         padding: pxToRem(22) 0;
         border-radius: 50%;
-        margin: 0 auto;
+        text-align: center;
         color: var(--lightness2);
         background-color: var(--lightness1-3);
     }
 
     &__name {
         color: var(--lightness2);
-        font-size: pxToRem(16);
+        font-size: pxToRem(24);
         font-weight: 400;
-        margin: pxToRem(10) 0 0 0;
     }
 }

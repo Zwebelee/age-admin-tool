@@ -10,7 +10,7 @@ export const OverviewData = ({ color, name, value, maxValue }: {
         maxValue?: number,
 }) => {
     const {t} = useTranslation();
-    const dynamicClass = "overviewData overviewData" + color;
+    const dynamicClass = "overviewData__item overviewData" + color;
     const dynamicValue = maxValue ?
         utils.addSeparators(value.toString())
         + " / "

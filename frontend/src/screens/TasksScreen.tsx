@@ -1,9 +1,9 @@
-import {OverviewLink} from "../components/Overview/OverviewLink.tsx";
+import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 export const TasksScreen = () => {
     return (
-        <OverviewLink
+        <OverviewBox
             card="tasks"
             icon={<TaskAltOutlinedIcon fontSize="large"/>}
             color="--color4"
@@ -12,6 +12,6 @@ export const TasksScreen = () => {
                 name: "users",
                 value: 12458,
             }]}
-        ></OverviewLink>
+        ></OverviewBox>
     );
 };

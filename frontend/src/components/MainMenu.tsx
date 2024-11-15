@@ -19,47 +19,61 @@ export const MainMenu = ({position, onClickMenuItem = () => {}}: {position: stri
             <ul className="mainMenu__list">
                 <li className="mainMenu__listItem">
                     <NavLink className={isActive} to="/" onClick={onClickMenuItem}>
-                        <span className="mainMenu__icon"><GridViewOutlinedIcon/></span>
-                        {t("overview")}
+                        <div className="mainMenu__innerListItem">
+                            <span className="mainMenu__icon"><GridViewOutlinedIcon/></span>
+                            {t("overview")}
+                        </div>
                     </NavLink>
                 </li>
                 <li className="mainMenu__listItem mainMenu__listItem--color2">
                     <NavLink className={isActive} to="/users" onClick={onClickMenuItem}>
-                        <span className="mainMenu__icon"><PeopleAltOutlinedIcon/></span>
-                        {t("users")}
+                        <div className="mainMenu__innerListItem">
+                            <span className="mainMenu__icon"><PeopleAltOutlinedIcon/></span>
+                            {t("users")}
+                        </div>
                     </NavLink>
                 </li>
                 <li className="mainMenu__listItem mainMenu__listItem--color3">
                     <NavLink className={isActive} to="/contents" onClick={onClickMenuItem}>
-                        <span className="mainMenu__icon"><ContentCopyOutlinedIcon/></span>
-                        {t("contents")}
+                        <div className="mainMenu__innerListItem">
+                            <span className="mainMenu__icon"><ContentCopyOutlinedIcon/></span>
+                            {t("contents")}
+                        </div>
                     </NavLink>
                 </li>
                 <li className="mainMenu__listItem mainMenu__listItem--color4">
                     <NavLink className={isActive} to="/tasks" onClick={onClickMenuItem}>
-                        <span className="mainMenu__icon"><TaskAltOutlinedIcon/></span>
-                        {t("tasks")}
+                        <div className="mainMenu__innerListItem">
+                            <span className="mainMenu__icon"><TaskAltOutlinedIcon/></span>
+                            {t("tasks")}
+                        </div>
                     </NavLink>
                 </li>
                 <li className="mainMenu__listItem mainMenu__listItem--color5">
                     <NavLink className={isActive} to="/groups" onClick={onClickMenuItem}>
-                        <span className="mainMenu__icon"><HolidayVillageOutlinedIcon/></span>
-                        {t("groups")}
+                        <div className="mainMenu__innerListItem">
+                            <span className="mainMenu__icon"><HolidayVillageOutlinedIcon/></span>
+                            {t("groups")}
+                        </div>
                     </NavLink>
                 </li>
                 <li className="mainMenu__listItem mainMenu__listItem--color6">
                     <NavLink className={isActive} to="/components" onClick={onClickMenuItem}>
-                        <span className="mainMenu__icon"><SettingsInputComponentOutlinedIcon/></span>
-                        {t("components")}
+                        <div className="mainMenu__innerListItem">
+                            <span className="mainMenu__icon"><SettingsInputComponentOutlinedIcon/></span>
+                            {t("components")}
+                        </div>
                     </NavLink>
                 </li>
                 <li className="mainMenu__listItem">
                     <NavLink className={isActive} to="/experimental" onClick={onClickMenuItem}>
-                        <span className="mainMenu__icon"><ScienceOutlinedIcon/></span>
-                        {t("experimental")}
+                        <div className="mainMenu__innerListItem">
+                            <span className="mainMenu__icon"><ScienceOutlinedIcon/></span>
+                            {t("experimental")}
+                        </div>
                     </NavLink>
                 </li>
             </ul>
         </nav>
-    )
+)
 }

@@ -1,9 +1,9 @@
-import {OverviewLink} from "../components/Overview/OverviewLink.tsx";
+import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
 import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
 
 export const GroupsScreen = () => {
     return (
-        <OverviewLink
+        <OverviewBox
             card="groups"
             icon={<HolidayVillageOutlinedIcon fontSize="large"/>}
             color="--color5"
@@ -12,6 +12,6 @@ export const GroupsScreen = () => {
                 name: "users",
                 value: 12458,
             }]}
-        ></OverviewLink>
+        ></OverviewBox>
     );
 };

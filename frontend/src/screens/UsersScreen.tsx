@@ -1,9 +1,9 @@
-import {OverviewLink} from "../components/Overview/OverviewLink.tsx";
+import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 
 export const UsersScreen = () => {
     return (
-        <OverviewLink
+        <OverviewBox
             card="users"
             icon={<PeopleAltOutlinedIcon fontSize="large"/>}
             color="--color2"
@@ -20,6 +20,6 @@ export const UsersScreen = () => {
                 value: 4895,
                 maxValue: 8000
             }]}
-        ></OverviewLink>
+        ></OverviewBox>
     );
 };

@@ -1,11 +1,19 @@
 @import "../../globalFunctions";
 
 .overviewData {
+    grid-area: data;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: pxToRem(7);
     padding: pxToRem(10);
-    border-radius: pxToRem(6);
-    margin: pxToRem(10);
-    text-align: center;
-    background-color: var(--lightness1-2);
+
+    &__item {
+        width: pxToRem(145);
+        padding: pxToRem(10) 0 pxToRem(10) pxToRem(10);
+        border-radius: pxToRem(6);
+        text-align: center;
+        background-color: var(--lightness1-2);
+    }
 
     &__line {
         border-left: pxToRem(1) solid var(--color1);
@@ -32,14 +40,14 @@
     }
 
     &__name {
-        padding-bottom: pxToRem(20);
+        padding: 0 pxToRem(5) pxToRem(20) pxToRem(5);
         margin: 0;
         font-size: pxToRem(13);
         color: var(--lightness2);
     }
 
     &__value {
-        padding-top: pxToRem(20);
+        padding: pxToRem(20) pxToRem(5) 0 pxToRem(5);
         margin: 0;
         font-size: pxToRem(20);
         font-weight: 300;

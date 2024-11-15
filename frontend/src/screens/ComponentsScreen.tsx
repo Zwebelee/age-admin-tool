@@ -1,9 +1,9 @@
-import {OverviewLink} from "../components/Overview/OverviewLink.tsx";
+import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
 import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInputComponentOutlined";
 
 export const ComponentsScreen = () => {
     return (
-        <OverviewLink
+        <OverviewBox
             card="components"
             icon={<SettingsInputComponentOutlinedIcon fontSize="large"/>}
             color="--color6"
@@ -12,6 +12,6 @@ export const ComponentsScreen = () => {
                 name: "users",
                 value: 12458,
             }]}
-        ></OverviewLink>
+        ></OverviewBox>
     );
 };

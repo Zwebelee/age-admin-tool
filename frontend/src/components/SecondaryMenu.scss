@@ -19,11 +19,16 @@
         padding: 0 pxToRem(5);
     }
 
+    &__innerListItem {
+        padding: pxToRem(10) 0;
+    }
+
     &__navLink {
         display: block;
         height: pxToRem(100);
         width: pxToRem(100);
-        padding-top: pxToRem(12);
+        border-radius: pxToRem(8);
+        outline-offset: pxToRem(-8);
         text-decoration: none;
         color: var(--lightness2);
         transition: all var(--transition1);
@@ -40,7 +45,7 @@
             transform: scale(1.1);
         }
 
-        &--active {
+        &--active .secondaryMenu__innerListItem {
             background-color: var(--color1-1);
             border-radius: pxToRem(5);
         }
@@ -87,6 +92,7 @@
 
     & .secondaryMenu__listItem {
         padding: 0 pxToRem(10);
+        margin: pxToRem(5);
     }
 
     & .secondaryMenu__navLink {
