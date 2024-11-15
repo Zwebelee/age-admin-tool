@@ -31,7 +31,7 @@ const AppObserver = observer(() => {
     const lightness1 = getColor("--lightness1");
     const lightness2 = getColor("--lightness2");
     const lightness3 = getColor("--lightness3");
-    const lightness4 = getColor("--lightness4");
+    const lightness4 = getColor("--lightness5");
 
     const getBreakpoint = (breakpoint: string) => parseInt(getComputedStyle(document.body).getPropertyValue(breakpoint), 10);
     const xs = getBreakpoint("--xs");

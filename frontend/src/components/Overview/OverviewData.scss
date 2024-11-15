@@ -3,12 +3,16 @@
 .overviewData {
     grid-area: data;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     gap: pxToRem(7);
     padding: pxToRem(10);
+    @include media("md") {
+        flex-flow: row nowrap;
+        overflow: auto;
+    }
 
     &__item {
-        width: pxToRem(145);
+        min-width: pxToRem(145);
         padding: pxToRem(10) 0 pxToRem(10) pxToRem(10);
         border-radius: pxToRem(6);
         text-align: center;

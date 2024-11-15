@@ -87,6 +87,7 @@ h1 {
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow: auto scroll;
+    scrollbar-color: var(--lightness4) var(--lightness1-4);
     height: 100vh;
     width: 100%;
     padding: pxToRem(20);

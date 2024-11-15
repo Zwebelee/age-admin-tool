@@ -19,6 +19,28 @@ export const UsersScreen = () => {
                 name: "viewer",
                 value: 4895,
                 maxValue: 8000
+            }, {
+                name: "users",
+                value: 12458,
+            }, {
+                name: "creators",
+                value: 1819,
+                maxValue: 4000
+            }, {
+                name: "viewer",
+                value: 4895,
+                maxValue: 8000
+            }, {
+                name: "users",
+                value: 12458,
+            }, {
+                name: "creators",
+                value: 1819,
+                maxValue: 4000
+            }, {
+                name: "viewer",
+                value: 4895,
+                maxValue: 8000
             }]}
         ></OverviewBox>
     );

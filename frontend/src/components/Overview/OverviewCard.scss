@@ -3,12 +3,15 @@
 .overviewCard {
     display: grid;
     grid: "data title"
-          "data title" /
-          auto auto;
-    padding: 0 pxToRem(10) 0 0;
+          "data title";
     border-radius: pxToRem(6);
     background-color: var(--color1-1);
     background-image: linear-gradient(to left, var(--color1), transparent);
+    @include media("md") {
+        grid: "title"
+              "data ";
+        background-image: none;
+    }
 
     &__title {
         grid-area: title;
@@ -17,8 +20,12 @@
         align-items: center;
         justify-content: flex-start;
         gap: pxToRem(25);
-        padding: pxToRem(10);
+        padding: pxToRem(10) pxToRem(20) pxToRem(10) pxToRem(10);
         border-radius: pxToRem(6);
+        @include media("md") {
+            padding: pxToRem(2) pxToRem(15) pxToRem(2) pxToRem(2);
+            background-image: linear-gradient(to left, var(--color1), transparent);
+        }
     }
 
     &__icon {
@@ -30,11 +37,25 @@
         text-align: center;
         color: var(--lightness2);
         background-color: var(--lightness1-3);
+        @include media("md") {
+            width: pxToRem(50);
+            height: pxToRem(50);
+            padding: pxToRem(12) 0;
+        }
+    }
+
+    &__icon .MuiSvgIcon-root {
+        @include media("md") {
+            font-size: pxToRem(22);
+        }
     }
 
     &__name {
         color: var(--lightness2);
         font-size: pxToRem(24);
         font-weight: 400;
+        @include media("md") {
+            font-size: pxToRem(20);
+        }
     }
 }
