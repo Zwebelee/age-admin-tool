@@ -1,10 +1,11 @@
 from flasgger import swag_from
 from flask import Blueprint, jsonify, request
 from app.models.portallicense import Portallicense
-from app import db
+from ..db import db
 import uuid
 
 portallicenses_bp = Blueprint('portallicenses', __name__)
+
 
 @portallicenses_bp.route('/portallicenses')
 @swag_from({
@@ -34,6 +35,7 @@ portallicenses_bp = Blueprint('portallicenses', __name__)
 def get_portallicenses():
     portallicenses = Portallicense.query.all()
     return jsonify([license.to_dict() for license in portallicenses])
+
 
 @portallicenses_bp.route('/portallicenses', methods=['POST'])
 @swag_from({
@@ -92,6 +94,7 @@ def create_portallicense():
     db.session.add(new_portallicense)
     db.session.commit()
     return jsonify(new_portallicense.to_dict()), 201
+
 
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['PUT'])
 @swag_from({
@@ -162,6 +165,7 @@ def update_portallicense(guid):
     portallicense.currentusers = data['currentusers']
     db.session.commit()
     return jsonify(portallicense.to_dict())
+
 
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['DELETE'])
 @swag_from({

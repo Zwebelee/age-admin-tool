@@ -1,4 +1,4 @@
-import {observable, ObservableMap} from "mobx";
+import {observable, ObservableMap, runInAction} from "mobx";
 import {Age} from "../models/age.ts";
 import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
@@ -61,6 +61,18 @@ export abstract class AbstractStore<T> implements IAbstractStore {
         } catch (error) {
             console.error('Failed to load data', error);
             this.status = "error";
+        }
+    }
+
+    async addItem(item: ItemType) {
+        try {
+            const response = await this.authService.getApiClient().post(this.getEndpoint(), item);
+            const newItem = response.data;
+            runInAction(() => {
+                this.items.set(newItem.guid, newItem);
+            });
+        } catch (error) {
+            console.error('Failed to add item', error);
         }
     }
 

@@ -1,6 +1,7 @@
 import { CircularProgress, Box, Typography } from "@mui/material";
 import {useRootStore} from "../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
+import {PortalLicense} from "../models/portallicense.ts";
 
 export const TestStoreComponent = observer(() => {
    return (
@@ -8,6 +9,7 @@ export const TestStoreComponent = observer(() => {
            <Typography variant="h3">TestStoreComponent</Typography>
            <TestAgeStore />
            <TestLicenseStore/>
+           <TestAddLicense/>
        </Box>
    );
 });
@@ -58,3 +60,26 @@ export const TestLicenseStore = observer(() => {
 
     return <Typography variant="body1">Error loading data</Typography>
 });
+
+export const TestAddLicense = observer(() => {
+    const rootstore = useRootStore();
+    const licenseStore = rootstore.portalLicenseStore;
+
+    const newLicesnse: PortalLicense= {
+        class: "",
+        id: "",
+        level: "",
+        state: "",
+        guid: '123',
+        name: 'New License',
+        currentusers: 0,
+        maxusers: 10
+    }
+
+    return (
+        <Box>
+            <Typography variant="h5">Add License</Typography>
+            <button onClick={() => licenseStore.addItem(newLicesnse)}>Add License</button>
+        </Box>
+    )
+})
