@@ -25,7 +25,7 @@ export class RootStore {
         this.authStore = new AuthStore(this);
         this.authService = new AuthService(this)
 
-        this.testStore = new TestStore(this);
+        this.testStore = new TestStore(this.authService);
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);
         this.portalLicenseStore = new PortalLicenseStore(this.authService);
