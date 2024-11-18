@@ -191,7 +191,8 @@
       "description": "Creator",
       "level": "2",
       "state": "active",
-      "maxusers": 287
+      "maxusers": 287,
+      "currentusers": 168
     },
     {
       "guid": "123e4567-e89b-12d3-a456-426614174006",
@@ -200,7 +201,8 @@
       "description": "Editor",
       "level": "11",
       "state": "active",
-      "maxusers": 150
+      "maxusers": 150,
+      "currentusers": 78
     },
     {
       "guid": "123e4567-e89b-12d3-a456-426614174007",
@@ -209,7 +211,8 @@
       "description": "Viewer",
       "level": "1",
       "state": "active",
-      "maxusers": 2000
+      "maxusers": 2000,
+      "currentusers": 1235
     }
   ],
   "arcgisenterprises": [

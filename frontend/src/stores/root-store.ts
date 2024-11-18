@@ -4,12 +4,16 @@ import {makeAutoObservable} from "mobx";
 import {AuthStore} from "./auth-store.ts";
 import {AuthService} from "../services/auth.service.ts";
 import {AgeStore} from "./age-store.ts";
+import {PortaluserStore} from "./portaluser-store.ts";
+import {PortalLicenseStore} from "./portallicense-store.ts";
 
 export class RootStore {
     testStore: TestStore;
     authStore: AuthStore;
     authService: AuthService;
     ageStore: AgeStore;
+    portalUserStore: PortaluserStore;
+    portalLicenseStore: PortalLicenseStore;
 
     get init() {
         // TODO: Test
@@ -23,6 +27,8 @@ export class RootStore {
 
         this.testStore = new TestStore(this);
         this.ageStore = new AgeStore(this.authService);
+        this.portalUserStore = new PortaluserStore(this.authService);
+        this.portalLicenseStore = new PortalLicenseStore(this.authService);
 
     }
 

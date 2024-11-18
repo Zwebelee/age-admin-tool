@@ -1,8 +1,10 @@
 import {TestEntry} from "../models/test-entry.ts";
 import {observable} from "mobx";
 import {Age} from "../models/age.ts";
+import {PortalUser} from "../models/portaluser.ts";
+import {PortalLicenseStore} from "./portallicense-store.ts";
 
-export type ItemType = TestEntry | Age;
+export type ItemType = TestEntry | Age | PortalUser | PortalLicenseStore;
 
 export type status = "loading" | "loaded" | "error";
 

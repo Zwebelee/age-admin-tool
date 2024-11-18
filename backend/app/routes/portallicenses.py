@@ -23,7 +23,8 @@ portallicenses_bp = Blueprint('portallicenses', __name__)
                         'description': {'type': 'string'},
                         'level': {'type': 'string'},
                         'state': {'type': 'string'},
-                        'maxusers': {'type': 'integer'}
+                        'maxusers': {'type': 'integer'},
+                        'currentusers': {'type': 'integer'}
                     }
                 }
             }
@@ -50,9 +51,10 @@ def get_portallicenses():
                     'description': {'type': 'string', 'example': 'Description'},
                     'level': {'type': 'string', 'example': 'Level'},
                     'state': {'type': 'string', 'example': 'State'},
-                    'maxusers': {'type': 'integer', 'example': 100}
+                    'maxusers': {'type': 'integer', 'example': 100},
+                    'currentusers': {'type': 'integer', 'example': 0}
                 },
-                'required': ['id', 'name', 'level', 'state', 'maxusers']
+                'required': ['id', 'name', 'level', 'state', 'maxusers', 'currentusers']
             }
         }
     ],
@@ -68,7 +70,8 @@ def get_portallicenses():
                     'description': {'type': 'string'},
                     'level': {'type': 'string'},
                     'state': {'type': 'string'},
-                    'maxusers': {'type': 'integer'}
+                    'maxusers': {'type': 'integer'},
+                    'currentusers': {'type': 'integer'}
                 }
             }
         }
@@ -83,7 +86,8 @@ def create_portallicense():
         description=data.get('description'),
         level=data['level'],
         state=data['state'],
-        maxusers=data['maxusers']
+        maxusers=data['maxusers'],
+        currentusers=data['currentusers']
     )
     db.session.add(new_portallicense)
     db.session.commit()
@@ -111,9 +115,10 @@ def create_portallicense():
                     'description': {'type': 'string', 'example': 'Description'},
                     'level': {'type': 'string', 'example': 'Level'},
                     'state': {'type': 'string', 'example': 'State'},
-                    'maxusers': {'type': 'integer', 'example': 100}
+                    'maxusers': {'type': 'integer', 'example': 100},
+                    'currentusers': {'type': 'integer', 'example': 0}
                 },
-                'required': ['id', 'name', 'level', 'state', 'maxusers']
+                'required': ['id', 'name', 'level', 'state', 'maxusers', 'currentusers']
             }
         }
     ],
@@ -129,7 +134,8 @@ def create_portallicense():
                     'description': {'type': 'string'},
                     'level': {'type': 'string'},
                     'state': {'type': 'string'},
-                    'maxusers': {'type': 'integer'}
+                    'maxusers': {'type': 'integer'},
+                    'currentusers': {'type': 'integer'}
                 }
             }
         },
@@ -153,6 +159,7 @@ def update_portallicense(guid):
     portallicense.level = data['level']
     portallicense.state = data['state']
     portallicense.maxusers = data['maxusers']
+    portallicense.currentusers = data['currentusers']
     db.session.commit()
     return jsonify(portallicense.to_dict())
 
