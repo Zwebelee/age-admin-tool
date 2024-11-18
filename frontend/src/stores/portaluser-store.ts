@@ -2,18 +2,14 @@ import {makeObservable, observable, runInAction} from "mobx";
 import {AbstractStore} from "./abstract-store.ts";
 import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
-import {Age} from "../models/age.ts";
 
 
-export class PortaluserStore extends AbstractStore{
-
-    private authService: AuthService; //TODO is it private needed?
+export class PortaluserStore extends AbstractStore<PortalUser> {
 
     items = observable.map<string, PortalUser>();
 
     constructor(authService: AuthService){
-        super();
-        this.authService = authService;
+        super(authService);
         makeObservable(this, {
             status: observable,
             items: observable
@@ -23,6 +19,10 @@ export class PortaluserStore extends AbstractStore{
     }
     async initialize() {
         await this.loadData();
+    }
+
+    getEndpoint(): string {
+        return '/portallicenses';
     }
 
     async loadData() {

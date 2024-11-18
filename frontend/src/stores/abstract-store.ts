@@ -1,28 +1,23 @@
-import {TestEntry} from "../models/test-entry.ts";
-import {observable} from "mobx";
+import {observable, ObservableMap} from "mobx";
 import {Age} from "../models/age.ts";
 import {PortalUser} from "../models/portaluser.ts";
-import {PortalLicenseStore} from "./portallicense-store.ts";
+import {AuthService} from "../services/auth.service.ts";
+import {PortalLicense} from "../models/portallicense.ts";
 
-export type ItemType = TestEntry | Age | PortalUser | PortalLicenseStore;
+export type ItemType = Age |PortalUser | PortalLicense;
 
 export type status = "loading" | "loaded" | "error";
 
 export interface IAbstractStore {
-    addItem(item: ItemType | Map<string, ItemType>): void
+    loadItems(): Promise<void>
+    getEndpoint(): string;
 
     get isLoading(): boolean;
     get isLoaded(): boolean;
+    get isError(): boolean;
 }
 
-export abstract class AbstractStore implements IAbstractStore {
-
-    /**
-     * Loaded items (local store)
-     */
-    items = observable.map<string, ItemType>();
-
-    status: status = "loading";
+export abstract class AbstractStore<T> implements IAbstractStore {
 
     /**
      * TODO: Add more functionality:
@@ -33,55 +28,51 @@ export abstract class AbstractStore implements IAbstractStore {
      * ...
      */
 
-    protected constructor() {
+    /**
+     * Loaded items (local store)
+     */
+    // items = observable.map<string, ItemType>();
+    items: ObservableMap<string, T> = observable.map<string, T>();
+
+
+    status: status = "loading";
+    protected authService: AuthService;
+
+    abstract getEndpoint(): string;
+
+
+    protected constructor(autService: AuthService) {
+        this.authService = autService;
     }
 
-
-    // async loadItems() {
-    //     this.status = "loading";
-    //     try {
-    //         const response = await this.authService.getApiClient().get('/arcgisenterprise');
-    //         const data: Age = response.data;
-    //         runInAction(() => {
-    //             this.age = data;
-    //             this.items.set(data.guid, data);
-    //             // make a delay
-    //             setTimeout(() => {
-    //                 this.status = "loaded";
-    //                 console.log('lalala loaded');
-    //             }, 5000);
-    //         });
-    //     } catch (error) {
-    //         console.error('Failed to load data', error);
-    //         this.status = "error";
-    //     }
-    // }
-
-    /**
-     * Add one or multiple items to the store
-     * @param item One item or a map with multiple items with ID/GUID as key
-     */
-
-    addItem(item: ItemType | Map<string, ItemType>): void {
-        // TODO: switch id to guid !!!
-        if (item instanceof Map) {
-            // multiple items
-            this.items.merge(item);
-        } else {
-            // single item
-            if (this.items.has(item.id)){
-                // update, no duplicates allowed
-                this.items.delete(item.id)
-            }
-            this.items.set(item.id, item);
+    async loadItems(){
+        this.status = "loading";
+        try {
+            const response = await this.authService.getApiClient().get(this.getEndpoint());
+            const data: ItemType[] = response.data;
+            data.forEach(item => {
+                this.items.set(item.guid, item as T);
+            });
+            setTimeout(() => {
+                this.status = "loaded";
+                console.log('loaded');
+                //TODO: REMOVE LATER !!! JUST TO SEE THE LOADED :)
+            }, 5000);
+        } catch (error) {
+            console.error('Failed to load data', error);
+            this.status = "error";
         }
-        console.log('addItem', item);
-    };
+    }
+
 
     get isLoading(): boolean {
         return this.status === "loading";
     }
     get isLoaded(): boolean {
         return this.status === "loaded";
+    }
+
+    get isError(): boolean {
+        return this.status === "error";
     }
 }

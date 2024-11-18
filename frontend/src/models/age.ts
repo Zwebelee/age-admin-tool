@@ -1,3 +1,5 @@
+import {AbstractModel} from "./abstract-models.ts";
+
 export interface IAGE {
     guid: string;
     name: string;
@@ -5,13 +7,16 @@ export interface IAGE {
     description?: string;
 }
 
-export class Age implements IAGE {
+export class Age extends AbstractModel {
+    class: string = 'Age';
+
     guid: string;
     name: string;
     alias: string;
     description?: string;
 
     constructor(data: IAGE) {
+        super();
         this.guid = data.guid;
         this.name = data.name;
         this.alias = data.alias;
