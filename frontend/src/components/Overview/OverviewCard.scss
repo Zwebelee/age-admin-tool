@@ -63,7 +63,7 @@
 .overviewScreen .overviewCard {
     grid: "data title" /
           auto pxToRem(114);
-    min-height: pxToRem(362.5); // For 3 Item-Rows (Padding: 20px + every Item 109.5px + every Gap 7px)
+    min-height: overviewDataRows();
     background-image: none;
 
     &__title {

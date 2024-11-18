@@ -1,7 +1,10 @@
 @import "globalVariables";
 
-/* Functions */
+/* Settings */
 $baseFont: 16px;
+$overviewDataRows: 3; // For Desktops, 2 or more
+
+/* Functions */
 @function pxToRem($px, $ref: $baseFont) {
     @return toRem(calc(toPx($px) / toPx($ref)));
 }
@@ -10,6 +13,17 @@ $baseFont: 16px;
 }
 @function toPx($val) {
     @return ($val + 0px);
+}
+@function overviewDataRows() {
+    $padding: 20;
+    $items: $overviewDataRows * 109.5;
+    $gap: ($overviewDataRows - 1) * 7;
+    $total: $padding + $items + $gap;
+    @if ($total > 246) {
+        @return pxToRem($total)
+    } @else {
+        @return pxToRem(246)
+    }
 }
 
 /* Mixins */
