@@ -88,6 +88,18 @@ export abstract class AbstractStore<T> implements IAbstractStore {
         }
     }
 
+    async deleteItem(item: ItemType) {
+        try {
+            await this.authService.getApiClient().delete(`${this.getEndpoint()}/${item.guid}`);
+            runInAction(() => {
+                this.items.delete(item.guid);
+            });
+        } catch (error) {
+            console.error('Failed to delete item', error);
+        }
+    }
+
+
 
     get isLoading(): boolean {
         return this.status === "loading";

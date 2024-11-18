@@ -143,25 +143,40 @@ export const TestUpdateLicense = observer(() => {
         }
     };
 
+    const handleDelete = () => {
+        if (selectedLicense) {
+            licenseStore.deleteItem(selectedLicense);
+            setSelectedLicense(null);
+            setFormData({
+                name: "",
+                description: "",
+                level: "",
+                state: "",
+                maxusers: 0,
+                currentusers: 0
+            });
+        }
+    };
+
     return (
         <Box>
-            <Typography variant="h5">Update License</Typography>
+            <Typography variant="h5">Update / Delete a License</Typography>
             <FormControl fullWidth>
                 <InputLabel id="license-select-label">Select License</InputLabel>
-                <Select
+                <Select sx={{ mt: 1, backgroundColor:'grey' }}
                     labelId="license-select-label"
                     value={selectedLicense ? selectedLicense.guid : ""}
                     onChange={handleSelectChange}
                 >
                     {Array.from(licenseStore.items.values()).map((license) => (
-                        <MenuItem key={license.guid} value={license.guid}>
+                        <MenuItem sx={{backgroundColor:'grey'}} key={license.guid} value={license.guid}>
                             {license.name}
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
             {selectedLicense && (
-                <Box component="form" sx={{ mt: 2 }}>
+                <Box component="form" sx={{ mt: 2, backgroundColor:'grey' }}>
                     <TextField
                         fullWidth
                         label="Name"
@@ -214,6 +229,9 @@ export const TestUpdateLicense = observer(() => {
                     />
                     <Button variant="contained" color="primary" onClick={handleUpdate} sx={{ mt: 2 }}>
                         Update License
+                    </Button>
+                    <Button variant="contained" color="secondary" onClick={handleDelete} sx={{ mt: 2, ml: 2 }}>
+                        Delete License
                     </Button>
                 </Box>
             )}
