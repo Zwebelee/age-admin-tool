@@ -76,6 +76,18 @@ export abstract class AbstractStore<T> implements IAbstractStore {
         }
     }
 
+    async updateItem(item: ItemType) {
+        try {
+            const response = await this.authService.getApiClient().put(`${this.getEndpoint()}/${item.guid}`, item);
+            const updatedItem = response.data;
+            runInAction(() => {
+                this.items.set(updatedItem.guid, updatedItem);
+            });
+        } catch (error) {
+            console.error('Failed to update item', error);
+        }
+    }
+
 
     get isLoading(): boolean {
         return this.status === "loading";

@@ -156,15 +156,28 @@ def create_portallicense():
 def update_portallicense(guid):
     data = request.get_json()
     portallicense = Portallicense.query.get_or_404(guid)
-    portallicense.id = data['id']
-    portallicense.name = data['name']
-    portallicense.description = data.get('description')
-    portallicense.level = data['level']
-    portallicense.state = data['state']
-    portallicense.maxusers = data['maxusers']
-    portallicense.currentusers = data['currentusers']
-    db.session.commit()
-    return jsonify(portallicense.to_dict())
+
+    # Validate input data
+    required_fields = ['id', 'name', 'level', 'state', 'maxusers', 'currentusers']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'message': f'Missing required field: {field}'}), 400
+
+    # Update fields if present in request data
+    portallicense.id = data.get('id', portallicense.id)
+    portallicense.name = data.get('name', portallicense.name)
+    portallicense.description = data.get('description', portallicense.description)
+    portallicense.level = data.get('level', portallicense.level)
+    portallicense.state = data.get('state', portallicense.state)
+    portallicense.maxusers = data.get('maxusers', portallicense.maxusers)
+    portallicense.currentusers = data.get('currentusers', portallicense.currentusers)
+
+    try:
+        db.session.commit()
+        return jsonify(portallicense.to_dict())
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': 'Internal server error'}), 500
 
 
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['DELETE'])

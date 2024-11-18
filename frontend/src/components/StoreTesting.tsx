@@ -1,7 +1,20 @@
-import { CircularProgress, Box, Typography } from "@mui/material";
+import {
+    Box,
+    Typography,
+    TextField,
+    Button,
+    MenuItem,
+    Select,
+    FormControl,
+    InputLabel,
+    CircularProgress,
+    SelectChangeEvent
+} from "@mui/material";
 import {useRootStore} from "../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {PortalLicense} from "../models/portallicense.ts";
+import {useState} from "react";
+
 
 export const TestStoreComponent = observer(() => {
    return (
@@ -10,6 +23,7 @@ export const TestStoreComponent = observer(() => {
            <TestAgeStore />
            <TestLicenseStore/>
            <TestAddLicense/>
+           <TestUpdateLicense/>
        </Box>
    );
 });
@@ -83,3 +97,127 @@ export const TestAddLicense = observer(() => {
         </Box>
     )
 })
+
+// compontent which lets us pick and update and portallicense
+
+export const TestUpdateLicense = observer(() => {
+    const rootstore = useRootStore();
+    const licenseStore = rootstore.portalLicenseStore;
+    const [selectedLicense, setSelectedLicense] = useState<PortalLicense | null>(null);
+    const [formData, setFormData] = useState({
+        name: "",
+        description: "",
+        level: "",
+        state: "",
+        maxusers: 0,
+        currentusers: 0
+    });
+
+    const handleSelectChange = (event: SelectChangeEvent<string>) => {
+        const license = licenseStore.items.get(event.target.value as string);
+        if (license) {
+            setSelectedLicense(license);
+            setFormData({
+                name: license.name,
+                description: license.description || "",
+                level: license.level,
+                state: license.state,
+                maxusers: license.maxusers,
+                currentusers: license.currentusers
+            });
+        }
+    };
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    const handleUpdate = () => {
+        if (selectedLicense) {
+            const updatedLicense = { ...selectedLicense, ...formData };
+            licenseStore.updateItem(updatedLicense);
+        }
+    };
+
+    return (
+        <Box>
+            <Typography variant="h5">Update License</Typography>
+            <FormControl fullWidth>
+                <InputLabel id="license-select-label">Select License</InputLabel>
+                <Select
+                    labelId="license-select-label"
+                    value={selectedLicense ? selectedLicense.guid : ""}
+                    onChange={handleSelectChange}
+                >
+                    {Array.from(licenseStore.items.values()).map((license) => (
+                        <MenuItem key={license.guid} value={license.guid}>
+                            {license.name}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            {selectedLicense && (
+                <Box component="form" sx={{ mt: 2 }}>
+                    <TextField
+                        fullWidth
+                        label="Name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        label="Description"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleInputChange}
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        label="Level"
+                        name="level"
+                        value={formData.level}
+                        onChange={handleInputChange}
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        label="State"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleInputChange}
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        label="Max Users"
+                        name="maxusers"
+                        type="number"
+                        value={formData.maxusers}
+                        onChange={handleInputChange}
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        label="Current Users"
+                        name="currentusers"
+                        type="number"
+                        value={formData.currentusers}
+                        onChange={handleInputChange}
+                        margin="normal"
+                    />
+                    <Button variant="contained" color="primary" onClick={handleUpdate} sx={{ mt: 2 }}>
+                        Update License
+                    </Button>
+                </Box>
+            )}
+        </Box>
+    );
+});
+
