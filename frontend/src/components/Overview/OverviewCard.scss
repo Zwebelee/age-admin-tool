@@ -59,3 +59,21 @@
         }
     }
 }
+
+.overviewScreen .overviewCard {
+    grid: "data title" /
+          auto pxToRem(114);
+    min-height: pxToRem(362.5); // For 3 Item-Rows (Padding: 20px + every Item 109.5px + every Gap 7px)
+    background-image: none;
+
+    &__title {
+        flex-flow: column nowrap;
+        justify-content: center;
+        gap: 0;
+        padding: pxToRem(10);
+        background-image: linear-gradient(to bottom, var(--color1), transparent);
+    }
+    &__name {
+        font-size: pxToRem(16);
+    }
+}

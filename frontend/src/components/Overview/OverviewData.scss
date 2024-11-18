@@ -79,3 +79,13 @@
 
 }
 
+.overviewScreen .overviewData {
+    display: grid;
+    grid: auto-flow / 1fr 1fr;
+    align-content: start;
+
+    &__item {
+        max-height: pxToRem(109.5);
+    }
+}
+

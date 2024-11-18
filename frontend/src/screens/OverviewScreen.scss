@@ -1,7 +1,7 @@
 @import "../globalFunctions";
 
 .overviewScreen {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid: auto-flow / 1fr 1fr 1fr;
     gap: pxToRem(20);
 }
