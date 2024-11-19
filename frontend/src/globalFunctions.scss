@@ -2,7 +2,7 @@
 
 /* Settings */
 $baseFont: 16px;
-$overviewDataRows: 3; // For Desktops, 2 or more
+$overviewDataRows: 3; // 2 or more
 
 /* Functions */
 @function pxToRem($px, $ref: $baseFont) {
@@ -14,15 +14,16 @@ $overviewDataRows: 3; // For Desktops, 2 or more
 @function toPx($val) {
     @return ($val + 0px);
 }
-@function overviewDataRows() {
-    $padding: 20;
-    $items: $overviewDataRows * 109.5;
-    $gap: ($overviewDataRows - 1) * 7;
+@function overviewDataRows($titleValue, $paddingValue, $itemValue, $gapValue) {
+    $padding: $titleValue + $paddingValue;
+    $items: $overviewDataRows * $itemValue;
+    $gap: ($overviewDataRows - 1) * $gapValue;
     $total: $padding + $items + $gap;
-    @if ($total > 246) {
+    $minValue: $titleValue + $paddingValue + (2 * $itemValue) + $gapValue;
+    @if ($total > $minValue) {
         @return pxToRem($total)
     } @else {
-        @return pxToRem(246)
+        @return pxToRem($minValue)
     }
 }
 

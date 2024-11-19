@@ -86,6 +86,22 @@
 
     &__item {
         max-height: pxToRem(109.5);
+        min-width: auto;
+    }
+
+    &__name {
+        @include media("xl") {
+            font-size: pxToRem(12);
+        }
+    }
+
+    &__value {
+        @include media("xl") {
+            font-size: pxToRem(18);
+        }
+        @include media("lg") {
+            font-size: pxToRem(16);
+        }
     }
 }
 

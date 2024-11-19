@@ -44,6 +44,9 @@ export const OverviewScreen = () => {
                 data={[{
                     name: "users",
                     value: 12458,
+                }, {
+                    name: "users",
+                    value: 12458,
                 }]}
             ></OverviewBox>
             <OverviewBox
@@ -52,6 +55,9 @@ export const OverviewScreen = () => {
                 color="--color4"
                 link={true}
                 data={[{
+                    name: "users",
+                    value: 12458,
+                }, {
                     name: "users",
                     value: 12458,
                 }]}
