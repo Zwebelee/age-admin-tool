@@ -6,6 +6,8 @@
     flex-flow: row wrap;
     gap: pxToRem(7);
     padding: pxToRem(10);
+    border-radius: pxToRem(5);
+    outline-offset: pxToRem(-3);
     @include media("md") {
         flex-flow: row nowrap;
         overflow: auto;

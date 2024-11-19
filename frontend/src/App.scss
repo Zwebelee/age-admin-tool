@@ -60,9 +60,6 @@ h1 {
     @include media("sm") {
         font-size: pxToRem(18);
     }
-    @include media("xs") {
-        font-size: pxToRem(14);
-    }
 }
 .theme--dark {
     background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */
