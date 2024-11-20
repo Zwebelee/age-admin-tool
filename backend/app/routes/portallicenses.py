@@ -7,9 +7,9 @@ import uuid
 portallicenses_bp = Blueprint('portallicenses', __name__)
 
 
-@portallicenses_bp.route('/portallicenses')
+@portallicenses_bp.route('/portallicenses', methods=['GET'])
 @swag_from({
-    'tags': ['Portallicenses'],
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'responses': {
         200: {
             'description': 'List of portal licenses',
@@ -34,12 +34,12 @@ portallicenses_bp = Blueprint('portallicenses', __name__)
 })
 def get_portallicenses():
     portallicenses = Portallicense.query.all()
-    return jsonify([license.to_dict() for license in portallicenses])
+    return jsonify([portallicense.to_dict() for portallicense in portallicenses])
 
 
 @portallicenses_bp.route('/portallicenses', methods=['POST'])
 @swag_from({
-    'tags': ['Portallicenses'],
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
         {
             'name': 'body',
@@ -96,9 +96,53 @@ def create_portallicense():
     return jsonify(new_portallicense.to_dict()), 201
 
 
+@portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['GET'])
+@swag_from({
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Retrieve a specific portal license',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'guid': {'type': 'string'},
+                    'id': {'type': 'string'},
+                    'name': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'level': {'type': 'string'},
+                    'state': {'type': 'string'},
+                    'maxusers': {'type': 'integer'},
+                    'currentusers': {'type': 'integer'}
+                }
+            }
+        },
+        404: {
+            'description': 'Portallicense not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def get_portallicense(guid):
+    portallicense = Portallicense.query.get_or_404(guid)
+    return jsonify(portallicense.to_dict())
+
+
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['PUT'])
 @swag_from({
-    'tags': ['Portallicenses'],
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
         {
             'name': 'guid',
@@ -177,12 +221,12 @@ def update_portallicense(guid):
         return jsonify(portallicense.to_dict())
     except Exception as e:
         db.session.rollback()
-        return jsonify({'message': 'Internal server error'}), 500
+        return jsonify({'message': f'Internal server error {e}'}), 500
 
 
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['DELETE'])
 @swag_from({
-    'tags': ['Portallicenses'],
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
         {
             'name': 'guid',

@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flasgger import swag_from
 from app.models.portaluser import Portaluser
 
-portalusers_bp = Blueprint('portalusers', __name__)
+portalusers_bp = Blueprint('portaluser', __name__)
 
 
 @portalusers_bp.route('/portalusers', methods=['GET'])
