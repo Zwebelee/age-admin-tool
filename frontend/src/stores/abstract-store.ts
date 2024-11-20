@@ -1,4 +1,4 @@
-import {observable, ObservableMap, runInAction} from "mobx";
+import {computed, makeObservable, observable, ObservableMap, runInAction} from "mobx";
 import {Age} from "../models/age.ts";
 import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
@@ -33,8 +33,6 @@ export abstract class AbstractStore<T> implements IAbstractStore {
      */
     // items = observable.map<string, ItemType>();
     items: ObservableMap<string, T> = observable.map<string, T>();
-
-
     status: status = "loading";
     protected authService: AuthService;
 
@@ -43,6 +41,15 @@ export abstract class AbstractStore<T> implements IAbstractStore {
 
     protected constructor(autService: AuthService) {
         this.authService = autService;
+        makeObservable(this, {
+            visibleItems: computed
+        })
+        //TODO: is makeOberserable not supported for derived classes and visibileItems has to be  makeObservable in each
+        // class which extends abstractstore?
+    }
+
+    get visibleItems(): T[] {
+        return [...this.items.values()];
     }
 
     async loadItems(){

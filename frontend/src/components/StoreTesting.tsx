@@ -22,6 +22,7 @@ export const TestStoreComponent = observer(() => {
            <Typography variant="h3">TestStoreComponent</Typography>
            <TestAgeStore />
            <TestLicenseStore/>
+           <TestVisItems/>
            <TestAddLicense/>
            <TestUpdateLicense/>
        </Box>
@@ -239,3 +240,26 @@ export const TestUpdateLicense = observer(() => {
     );
 });
 
+export const TestVisItems = observer(() => {
+    const rootstore = useRootStore();
+    const licenseStore = rootstore.portalLicenseStore;
+
+    if (licenseStore.isLoading) {
+        return <CircularProgress />;
+    }
+
+    if (licenseStore.isLoaded) {
+        return (
+            <Box sx={{border: '3px solid blue', margin: '2px', padding: '10px', borderRadius: '8px'}}>
+                <Typography variant="h5">License VisItems</Typography>
+                {Array.from(licenseStore.visibleItems.values()).map((item) => {
+                    return (
+                        <Typography key={item.guid} variant="body1">License: {item.name}: {item.currentusers}/{item.maxusers}</Typography>
+                    )
+                })}
+            </Box>
+        )
+    }
+
+    return <Typography variant="body1">Error loading data</Typography>
+});
