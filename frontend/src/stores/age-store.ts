@@ -22,14 +22,14 @@ export class AgeStore extends AbstractStore<Age> {
     }
 
     getEndpoint(): string {
-        return '/arcgisenterprise';
+        return '/arcgisenterprises';
     }
 
     async loadData() {
         this.status = "loading";
         try {
-            const response = await this.authService.getApiClient().get('/arcgisenterprise');
-            const data: Age = response.data;
+            const response = await this.authService.getApiClient().get(this.getEndpoint());
+            const data: Age = response.data[0]; //only one single AGE supported
             runInAction(() => {
                 this.age = data;
                 this.items.set(data.guid, data);
