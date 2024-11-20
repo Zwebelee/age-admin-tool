@@ -15,7 +15,7 @@ from .routes.agedatastore import agedatastore_bp
 from .routes.ageportal import ageportal_bp
 from .routes.ageserver import ageserver_bp
 from .routes.agewebadaptor import agewebadaptor_bp
-from .routes.arcgisenterprises import arcgisenterprise_bp
+from .routes.arcgisenterprise import arcgisenterprise_bp
 from .routes.home import home_bp
 from .routes.login import login_bp
 from .routes.logout import logout_bp
