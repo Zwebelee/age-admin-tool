@@ -24,5 +24,6 @@ SWAGGER_CONFIG = {
             'name': 'Protected',
             'description': 'Protected test route'
         }
-    ]
+    ],
+    'doc_expansion': 'none'
 }
