@@ -53,10 +53,10 @@
       "itemcount": 10,
       "groupcount": 5,
       "adstatus": "active",
-      "division1": "divisionA",
-      "division2": "divisionB",
-      "division3": "divisionC",
-      "division4": "divisionD"
+      "department": "divisionA",
+      "agency": "divisionB",
+      "division": "divisionC",
+      "team": "divisionD"
     },
     {
       "guid": "123e4567-e89b-12d3-a456-426614174001",
@@ -84,10 +84,10 @@
       "itemcount": 20,
       "groupcount": 10,
       "adstatus": "pending",
-      "division1": "divisionA",
-      "division2": "divisionB",
-      "division3": "divisionG",
-      "division4": "divisionH"
+      "department": "divisionA",
+      "agency": "divisionB",
+      "division": "divisionG",
+      "team": "divisionH"
     },
     {
       "guid": "123e4567-e89b-12d3-a456-426614174002",
@@ -115,10 +115,10 @@
       "itemcount": 30,
       "groupcount": 15,
       "adstatus": "deleted",
-      "division1": "divisionI",
-      "division2": "divisionJ",
-      "division3": "divisionK",
-      "division4": "divisionL"
+      "department": "divisionI",
+      "agency": "divisionJ",
+      "division": "divisionK",
+      "team": "divisionL"
     },
     {
       "guid": "123e4567-e89b-12d3-a456-426614174003",
@@ -146,10 +146,10 @@
       "itemcount": 40,
       "groupcount": 20,
       "adstatus": "active",
-      "division1": "divisionM",
-      "division2": "divisionN",
-      "division3": "divisionO",
-      "division4": "divisionP"
+      "department": "divisionM",
+      "agency": "divisionN",
+      "division": "divisionO",
+      "team": "divisionP"
     },
     {
       "guid": "123e4567-e89b-12d3-a456-426614174004",
@@ -177,10 +177,10 @@
       "itemcount": 50,
       "groupcount": 25,
       "adstatus": "pending",
-      "division1": "divisionQ",
-      "division2": "divisionR",
-      "division3": "divisionS",
-      "division4": "divisionT"
+      "department": "divisionQ",
+      "agency": "divisionR",
+      "division": "divisionS",
+      "team": "divisionT"
     }
   ],
   "portallicenses": [
