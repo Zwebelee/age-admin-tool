@@ -6,10 +6,10 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-arcgisenterprise_bp = Blueprint('arcgisenterprise', __name__)
+arcgisenterprises_bp = Blueprint('arcgisenterprises', __name__)
 
 
-@arcgisenterprise_bp.route('/arcgisenterprises', methods=['GET'])
+@arcgisenterprises_bp.route('/arcgisenterprises', methods=['GET'])
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'responses': {
@@ -45,7 +45,7 @@ def get_arcgisenterprises():
         return jsonify([arcgisenterprise.to_dict() for arcgisenterprise in arcgisenterprises])
 
 
-@arcgisenterprise_bp.route('/arcgisenterprises', methods=['POST'])
+@arcgisenterprises_bp.route('/arcgisenterprises', methods=['POST'])
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'parameters': [
@@ -103,7 +103,7 @@ def create_arcgisenterprise():
     return jsonify(new_arcgisenterprise.to_dict()), 201
 
 
-@arcgisenterprise_bp.route('/arcgisenterprises/<uuid:guid>', methods=['GET'])
+@arcgisenterprises_bp.route('/arcgisenterprises/<uuid:guid>', methods=['GET'])
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'parameters': [
@@ -143,7 +143,7 @@ def get_arcgisenterprise(guid):
     return jsonify(arcgisenterprise.to_dict())
 
 
-@arcgisenterprise_bp.route('/arcgisenterprises/<uuid:guid>', methods=['PUT'])
+@arcgisenterprises_bp.route('/arcgisenterprises/<uuid:guid>', methods=['PUT'])
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'parameters': [
@@ -204,7 +204,7 @@ def update_arcgisenterprise(guid):
     return jsonify(arcgisenterprise.to_dict())
 
 
-@arcgisenterprise_bp.route('/arcgisenterprises/<uuid:guid>', methods=['DELETE'])
+@arcgisenterprises_bp.route('/arcgisenterprises/<uuid:guid>', methods=['DELETE'])
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'parameters': [

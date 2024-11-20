@@ -7,10 +7,10 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-agewebadaptor_bp = Blueprint('agewebadaptor', __name__)
+agewebadaptors_bp = Blueprint('agewebadaptor', __name__)
 
 
-@agewebadaptor_bp.route('/agewebadaptors', methods=['GET'])
+@agewebadaptors_bp.route('/agewebadaptors', methods=['GET'])
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'responses': {
@@ -48,7 +48,7 @@ def get_agewebadaptors():
     return jsonify([agewebadaptor.to_dict() for agewebadaptor in agewebadaptors])
 
 
-@agewebadaptor_bp.route('/agewebadaptors', methods=['POST'])
+@agewebadaptors_bp.route('/agewebadaptors', methods=['POST'])
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
@@ -126,7 +126,7 @@ def create_agewebadaptor():
     return jsonify(new_agewebadaptor.to_dict()), 201
 
 
-@agewebadaptor_bp.route('/agewebadaptors/<uuid:guid>', methods=['GET'])
+@agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['GET'])
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
@@ -171,7 +171,7 @@ def get_agewebadaptor(guid):
     agewebadaptor = Agewebadaptor.query.get_or_404(guid)
     return jsonify(agewebadaptor.to_dict())
 
-@agewebadaptor_bp.route('/agewebadaptors/<uuid:guid>', methods=['PUT'])
+@agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['PUT'])
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
@@ -251,7 +251,7 @@ def update_agewebadaptor(guid):
     return jsonify(agewebadaptor.to_dict())
 
 
-@agewebadaptor_bp.route('/agewebadaptors/<uuid:guid>', methods=['DELETE'])
+@agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['DELETE'])
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [

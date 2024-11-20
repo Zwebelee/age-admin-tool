@@ -1,23 +1,21 @@
 import uuid
-
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
-
 from ..models.agecomponent import Agecomponent
-from ..models.ageportal import Ageportal
+from ..models.agedatastore import Agedatastore
 from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-ageportal_bp = Blueprint('ageportal', __name__)
+agedatastores_bp = Blueprint('agedatastores', __name__)
 
 
-@ageportal_bp.route('/ageportals', methods=['GET'])
+@agedatastores_bp.route('/agedatastores', methods=['GET'])
 @swag_from({
-    'tags': ['AGE - Portals', 'AGE'],
+    'tags': ['AGE - Datastore', 'AGE'],
     'responses': {
         200: {
-            'description': 'Retrieve the ageportals',
+            'description': 'Retrieve the agedatastores',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -28,12 +26,14 @@ ageportal_bp = Blueprint('ageportal', __name__)
                     'url': {'type': 'string'},
                     'type': {'type': 'string'},
                     'ishosted': {'type': 'boolean'},
-                    'status': {'type': 'string'}
+                    'status': {'type': 'string'},
+                    'capacity_gb': {'type': 'integer'},
+                    'used_gb': {'type': 'integer'}
                 }
             }
         },
         404: {
-            'description': 'Ageportal not found',
+            'description': 'Agedatastore not found',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -43,14 +43,14 @@ ageportal_bp = Blueprint('ageportal', __name__)
         }
     }
 })
-def get_ageportals():
-    ageportals = Ageportal.query.all()
-    return jsonify([ageportal.to_dict() for ageportal in ageportals])
+def get_agedatastores():
+    agedatastores = Agedatastore.query.all()
+    return jsonify([agedatastore.to_dict() for agedatastore in agedatastores])
 
 
-@ageportal_bp.route('/ageportals', methods=['POST'])
+@agedatastores_bp.route('/agedatastores', methods=['POST'])
 @swag_from({
-    'tags': ['AGE - Portals', 'AGE'],
+    'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
         {
             'name': 'body',
@@ -59,21 +59,23 @@ def get_ageportals():
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'name': {'type': 'string', 'example': 'Portal Name'},
-                    'alias': {'type': 'string', 'example': 'Portal Alias'},
+                    'name': {'type': 'string', 'example': 'Datastore Name'},
+                    'alias': {'type': 'string', 'example': 'Datastore Alias'},
                     'description': {'type': 'string', 'example': 'Description'},
                     'url': {'type': 'string', 'example': 'http://url'},
                     'type': {'type': 'string', 'example': 'Type'},
                     'ishosted': {'type': 'boolean', 'example': True},
-                    'status': {'type': 'string', 'example': 'Active'}
+                    'status': {'type': 'string', 'example': 'Active'},
+                    'capacity_gb': {'type': 'integer', 'example': 100},
+                    'used_gb': {'type': 'integer', 'example': 50}
                 },
-                'required': ['name', 'alias', 'ishosted', 'status']
+                'required': ['name', 'alias', 'ishosted', 'status', 'capacity_gb', 'used_gb']
             }
         }
     ],
     'responses': {
         201: {
-            'description': 'Ageportal created',
+            'description': 'Agedatastore created',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -84,15 +86,17 @@ def get_ageportals():
                     'url': {'type': 'string'},
                     'type': {'type': 'string'},
                     'ishosted': {'type': 'boolean'},
-                    'status': {'type': 'string'}
+                    'status': {'type': 'string'},
+                    'capacity_gb': {'type': 'integer'},
+                    'used_gb': {'type': 'integer'}
                 }
             }
         }
     }
 })
-def create_ageportal():
+def create_agedatastore():
     data = request.get_json()
-    new_ageportal = Ageportal(
+    new_agedatastore = Agedatastore(
         guid=uuid.uuid4(),
         name=data['name'],
         alias=data['alias'],
@@ -100,9 +104,11 @@ def create_ageportal():
         url=data.get('url'),
         type=data.get('type'),
         ishosted=data['ishosted'],
-        status=data['status']
+        status=data['status'],
+        capacity_gb=data['capacity_gb'],
+        used_gb=data['used_gb']
     )
-    db.session.add(new_ageportal)
+    db.session.add(new_agedatastore)
     db.session.commit()
 
     # Add entry to agecomponents table
@@ -110,18 +116,18 @@ def create_ageportal():
     new_agecomponent = Agecomponent(
         guid=uuid.uuid4(),
         ageguid=ageguid,
-        refguid=new_ageportal.guid,
-        reftype='Portal'
+        refguid=new_agedatastore.guid,
+        reftype='DataStore'
     )
     db.session.add(new_agecomponent)
     db.session.commit()
 
-    return jsonify(new_ageportal.to_dict()), 201
+    return jsonify(new_agedatastore.to_dict()), 201
 
 
-@ageportal_bp.route('/ageportals/<uuid:guid>', methods=['GET'])
+@agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['GET'])
 @swag_from({
-    'tags': ['AGE - Portals', 'AGE'],
+    'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
         {
             'name': 'guid',
@@ -132,7 +138,7 @@ def create_ageportal():
     ],
     'responses': {
         200: {
-            'description': 'Retrieve a specific ageportal',
+            'description': 'Retrieve a specific agedatastore',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -143,12 +149,14 @@ def create_ageportal():
                     'url': {'type': 'string'},
                     'type': {'type': 'string'},
                     'ishosted': {'type': 'boolean'},
-                    'status': {'type': 'string'}
+                    'status': {'type': 'string'},
+                    'capacity_gb': {'type': 'integer'},
+                    'used_gb': {'type': 'integer'}
                 }
             }
         },
         404: {
-            'description': 'Ageportal not found',
+            'description': 'Agedatastore not found',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -158,14 +166,14 @@ def create_ageportal():
         }
     }
 })
-def get_ageportal(guid):
-    ageportal = Ageportal.query.get_or_404(guid)
-    return jsonify(ageportal.to_dict())
+def get_agedatastore(guid):
+    agedatastore = Agedatastore.query.get_or_404(guid)
+    return jsonify(agedatastore.to_dict())
 
 
-@ageportal_bp.route('/ageportals/<uuid:guid>', methods=['PUT'])
+@agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['PUT'])
 @swag_from({
-    'tags': ['AGE - Portals', 'AGE'],
+    'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
         {
             'name': 'guid',
@@ -180,21 +188,23 @@ def get_ageportal(guid):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'name': {'type': 'string', 'example': 'Portal Name'},
-                    'alias': {'type': 'string', 'example': 'Portal Alias'},
+                    'name': {'type': 'string', 'example': 'Datastore Name'},
+                    'alias': {'type': 'string', 'example': 'Datastore Alias'},
                     'description': {'type': 'string', 'example': 'Description'},
                     'url': {'type': 'string', 'example': 'http://url'},
                     'type': {'type': 'string', 'example': 'Type'},
                     'ishosted': {'type': 'boolean', 'example': True},
-                    'status': {'type': 'string', 'example': 'Active'}
+                    'status': {'type': 'string', 'example': 'Active'},
+                    'capacity_gb': {'type': 'integer', 'example': 100},
+                    'used_gb': {'type': 'integer', 'example': 50}
                 },
-                'required': ['name', 'alias', 'ishosted', 'status']
+                'required': ['name', 'alias', 'ishosted', 'status', 'capacity_gb', 'used_gb']
             }
         }
     ],
     'responses': {
         200: {
-            'description': 'Ageportal updated',
+            'description': 'Agedatastore updated',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -205,12 +215,14 @@ def get_ageportal(guid):
                     'url': {'type': 'string'},
                     'type': {'type': 'string'},
                     'ishosted': {'type': 'boolean'},
-                    'status': {'type': 'string'}
+                    'status': {'type': 'string'},
+                    'capacity_gb': {'type': 'integer'},
+                    'used_gb': {'type': 'integer'}
                 }
             }
         },
         404: {
-            'description': 'Ageportal not found',
+            'description': 'Agedatastore not found',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -220,25 +232,27 @@ def get_ageportal(guid):
         }
     }
 })
-def update_ageportal(guid):
+def update_agedatastore(guid):
     data = request.get_json()
-    validate_required_fields(Ageportal, data)
+    validate_required_fields(Agedatastore, data)
 
-    ageportal = Ageportal.query.get_or_404(guid)
-    ageportal.name = data['name']
-    ageportal.alias = data['alias']
-    ageportal.description = data.get('description')
-    ageportal.url = data.get('url')
-    ageportal.type = data.get('type')
-    ageportal.ishosted = data['ishosted']
-    ageportal.status = data['status']
+    agedatastore = Agedatastore.query.get_or_404(guid)
+    agedatastore.name = data['name']
+    agedatastore.alias = data['alias']
+    agedatastore.description = data.get('description')
+    agedatastore.url = data.get('url')
+    agedatastore.type = data.get('type')
+    agedatastore.ishosted = data['ishosted']
+    agedatastore.status = data['status']
+    agedatastore.capacity_gb = data['capacity_gb']
+    agedatastore.used_gb = data['used_gb']
     db.session.commit()
-    return jsonify(ageportal.to_dict())
+    return jsonify(agedatastore.to_dict())
 
 
-@ageportal_bp.route('/ageportals/<uuid:guid>', methods=['DELETE'])
+@agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['DELETE'])
 @swag_from({
-    'tags': ['AGE - Portals', 'AGE'],
+    'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
         {
             'name': 'guid',
@@ -249,10 +263,10 @@ def update_ageportal(guid):
     ],
     'responses': {
         204: {
-            'description': 'Ageportal deleted'
+            'description': 'Agedatastore deleted'
         },
         404: {
-            'description': 'Ageportal not found',
+            'description': 'Agedatastore not found',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -262,12 +276,12 @@ def update_ageportal(guid):
         }
     }
 })
-def delete_ageportal(guid):
-    ageportal = Ageportal.query.get_or_404(guid)
+def delete_agedatastore(guid):
+    agedatastore = Agedatastore.query.get_or_404(guid)
 
     # Delete related agecomponent entries
     Agecomponent.query.filter_by(refguid=guid).delete()
 
-    db.session.delete(ageportal)
+    db.session.delete(agedatastore)
     db.session.commit()
     return '', 204

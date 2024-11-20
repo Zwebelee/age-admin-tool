@@ -9,10 +9,10 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-ageserver_bp = Blueprint('ageserver', __name__)
+ageservers_bp = Blueprint('ageservers', __name__)
 
 
-@ageserver_bp.route('/ageservers', methods=['GET'])
+@ageservers_bp.route('/ageservers', methods=['GET'])
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'responses': {
@@ -43,7 +43,7 @@ def get_ageservers():
     return jsonify([ageserver.to_dict() for ageserver in ageservers])
 
 
-@ageserver_bp.route('/ageservers', methods=['POST'])
+@ageservers_bp.route('/ageservers', methods=['POST'])
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
@@ -117,7 +117,7 @@ def create_ageserver():
     return jsonify(new_ageserver.to_dict()), 201
 
 
-@ageserver_bp.route('/ageservers/<uuid:guid>', methods=['GET'])
+@ageservers_bp.route('/ageservers/<uuid:guid>', methods=['GET'])
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
@@ -162,7 +162,7 @@ def get_ageserver(guid):
     return jsonify(ageserver.to_dict())
 
 
-@ageserver_bp.route('/ageservers/<uuid:guid>', methods=['PUT'])
+@ageservers_bp.route('/ageservers/<uuid:guid>', methods=['PUT'])
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
@@ -238,7 +238,7 @@ def update_ageserver(guid):
     return jsonify(ageserver.to_dict())
 
 
-@ageserver_bp.route('/ageservers/<uuid:guid>', methods=['DELETE'])
+@ageservers_bp.route('/ageservers/<uuid:guid>', methods=['DELETE'])
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
