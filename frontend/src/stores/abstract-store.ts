@@ -34,6 +34,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
     // items = observable.map<string, ItemType>();
     items: ObservableMap<string, T> = observable.map<string, T>();
     status: status = "loading";
+    filters: string[] = [];
     protected authService: AuthService;
 
     abstract getEndpoint(): string;
@@ -62,7 +63,6 @@ export abstract class AbstractStore<T> implements IAbstractStore {
             });
             setTimeout(() => {
                 this.status = "loaded";
-                console.log('loaded');
                 //TODO: REMOVE LATER !!! JUST TO SEE THE LOADED :)
             }, 5000);
         } catch (error) {
@@ -117,5 +117,9 @@ export abstract class AbstractStore<T> implements IAbstractStore {
 
     get isError(): boolean {
         return this.status === "error";
+    }
+
+    clearFilters(): void {
+        this.filters = [];
     }
 }

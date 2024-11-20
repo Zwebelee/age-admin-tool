@@ -2,6 +2,7 @@ import {makeObservable, observable, action, computed} from "mobx";
 import {AbstractStore} from "./abstract-store.ts";
 import { PortalLicense } from "../models/portallicense.ts";
 import { AuthService } from "../services/auth.service.ts";
+import {PortallicenseNameFilter} from "../filters/portallicense-name-filter.ts";
 
 export class PortalLicenseStore extends AbstractStore<PortalLicense> {
     public portalLicense: PortalLicense | null = null;
@@ -16,6 +17,7 @@ export class PortalLicenseStore extends AbstractStore<PortalLicense> {
             // visibleItems: computed, //TODO: remove if it works within abstracts-store
             loadData: action,
             status: observable,
+            filters: observable
         });
         this.initialize();
     }
@@ -34,8 +36,11 @@ export class PortalLicenseStore extends AbstractStore<PortalLicense> {
 
     get visibleItems(): PortalLicense[] {
         let filtered = [...this.items.values()];
-        // only take the first 2 items
-        return [...filtered].slice(0, 2);
-        // return [...filtered]
+
+        // filter items by filters
+        if (this.filters && this.filters.length > 0) {
+            filtered = PortallicenseNameFilter.apply(filtered, this.filters);
+        }
+        return [...filtered]
     }
 }
