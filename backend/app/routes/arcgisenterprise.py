@@ -6,7 +6,7 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-arcgisenterprise_bp = Blueprint('arcgisenterprises', __name__)
+arcgisenterprise_bp = Blueprint('arcgisenterprise', __name__)
 
 
 @arcgisenterprise_bp.route('/arcgisenterprises', methods=['GET'])

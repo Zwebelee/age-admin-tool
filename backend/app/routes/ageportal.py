@@ -9,7 +9,7 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-ageportal_bp = Blueprint('ageportals', __name__)
+ageportal_bp = Blueprint('ageportal', __name__)
 
 
 @ageportal_bp.route('/ageportals', methods=['GET'])
