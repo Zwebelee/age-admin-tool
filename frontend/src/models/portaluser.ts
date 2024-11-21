@@ -1,5 +1,4 @@
 import {AbstractModel} from "./abstract-models.ts";
-import {makeObservable, observable} from 'mobx';
 
 export enum StatusEnum {
     Active = 'active',
@@ -106,7 +105,8 @@ export class PortalUser extends AbstractModel {
     }
 }
 
-// export class PortalUser extends AbstractModel {
+// //TODO: Check alternative:
+//  export class PortalUser extends AbstractModel {
 //     class: string = 'PortalUser';
 //     guid: string = '';
 //     userid: string = '';
