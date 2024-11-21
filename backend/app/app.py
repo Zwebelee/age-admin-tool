@@ -13,6 +13,7 @@ from .routes.arcgisenterprises import arcgisenterprises_bp
 from .routes.home import home_bp
 from .routes.login import login_bp
 from .routes.logout import logout_bp
+from .routes.portalitems import portalitems_bp
 from .routes.portallicenses import portallicenses_bp
 from .routes.portalusers import portalusers_bp
 from .routes.proteced import proteced_bp
@@ -62,6 +63,7 @@ def register_blueprints(app):
     app.register_blueprint(home_bp)
     app.register_blueprint(portalusers_bp)
     app.register_blueprint(portallicenses_bp)
+    app.register_blueprint(portalitems_bp)
     app.register_blueprint(tests_bp)
     app.register_blueprint(arcgisenterprises_bp)
     app.register_blueprint(ageservers_bp)

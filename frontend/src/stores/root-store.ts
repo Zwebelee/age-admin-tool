@@ -6,6 +6,11 @@ import {AuthService} from "../services/auth.service.ts";
 import {AgeStore} from "./age-store.ts";
 import {PortaluserStore} from "./portaluser-store.ts";
 import {PortalLicenseStore} from "./portallicense-store.ts";
+import {AgeDatastoreStoreStore} from "./age-datastore-store.ts";
+import {AgeportalStore} from "./age-portal-store.ts";
+import {AgeserverStore} from "./age-server-store.ts";
+import {AgewebadaptorStore} from "./age-webadaptor-store.ts";
+import {PortalItemStore} from "./portal-store.ts";
 
 export class RootStore {
     testStore: TestStore;
@@ -14,6 +19,11 @@ export class RootStore {
     ageStore: AgeStore;
     portalUserStore: PortaluserStore;
     portalLicenseStore: PortalLicenseStore;
+    ageDataStoreStore : AgeDatastoreStoreStore;
+    agePortalStore: AgeportalStore
+    ageServerStore: AgeserverStore
+    ageWebAdaptorStore: AgewebadaptorStore
+    portalItemStore: PortalItemStore;
 
     get init() {
         // TODO: Test
@@ -29,9 +39,12 @@ export class RootStore {
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);
         this.portalLicenseStore = new PortalLicenseStore(this.authService);
-
+        this.ageDataStoreStore = new AgeDatastoreStoreStore(this.authService)
+        this.agePortalStore = new AgeportalStore(this.authService)
+        this.ageServerStore = new AgeserverStore(this.authService);
+        this.ageWebAdaptorStore = new AgewebadaptorStore(this.authService)
+        this.portalItemStore = new PortalItemStore(this.authService);
     }
-
 }
 
 export const RootStoreContext = createContext<RootStore>({} as RootStore);

@@ -26,6 +26,7 @@ export const TestStoreComponent = observer(() => {
            <PortalLicenseFilter/>
            <TestAddLicense/>
            <TestUpdateLicense/>
+           <TestGeneralStore/>
        </Box>
    );
 });
@@ -33,7 +34,6 @@ export const TestStoreComponent = observer(() => {
 export const TestAgeStore = observer(() => {
     const rootstore = useRootStore();
     const ageStore = rootstore.ageStore;
-
 
     if (ageStore.isLoading) {
         return <CircularProgress />;
@@ -241,3 +241,19 @@ export const TestUpdateLicense = observer(() => {
     );
 });
 
+export const TestGeneralStore = observer( () => {
+    const rootstore = useRootStore();
+    const store = rootstore.ageDataStoreStore;
+
+    if (store.isLoading){
+        return <CircularProgress />;
+    }
+
+    if (store.isLoaded) {
+        console.log('ok')
+        console.log(store.items)
+        return <Typography>hi</Typography>
+
+    }
+
+})
