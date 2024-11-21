@@ -16,7 +16,6 @@ from app.models.portalmembercategory import Portalusercategory
 from app.models.portalusergroup import Portalusergroup
 from app.models.tasktooluser import task_tooluser
 from app.models.task import Task
-from app.models.tests import Test
 from app.models.portaluser import Portaluser
 from app.db import db
 from uuid import UUID as UUIDType
@@ -63,7 +62,6 @@ def initialize_sample_data(model, data):
 def init_all_sample_data():
     data = load_sample_data()
     initialize_sample_data(Ageportal, data["ageportals"])
-    initialize_sample_data(Test, data["tests"])
     initialize_sample_data(Portaluser, data["portalusers"])
     initialize_sample_data(Portallicense, data["portallicenses"])
     initialize_sample_data(Arcgisenterprise, data["arcgisenterprises"])
