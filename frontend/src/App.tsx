@@ -4,7 +4,6 @@ import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts
 import {observer} from "mobx-react-lite";
 
 import {Alert, LinearProgress} from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import "./App.scss";
@@ -34,7 +33,7 @@ const AppObserver = observer(() => {
     const lightness1 = getColor("--lightness1");
     const lightness2 = getColor("--lightness2");
     const lightness3 = getColor("--lightness3");
-    const lightness4 = getColor("--lightness4");
+    const lightness4 = getColor("--lightness5");
 
     const getBreakpoint = (breakpoint: string) => parseInt(getComputedStyle(document.body).getPropertyValue(breakpoint), 10);
     const xs = getBreakpoint("--xs");
@@ -118,37 +117,29 @@ const AppObserver = observer(() => {
                     <CssBaseline/>
                     <div className={toggleTheme ? "theme--light" : "theme--dark"}>
                         <div className="app">
-                            <Grid container spacing={0}>
-                                <Grid size={12}>
-                                    <Header toggleTheme={toggleTheme} toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
-                                </Grid>
-                                <Grid size="auto">
-                                    <Sidebar/>
-                                </Grid>
-                                <Grid size={{xs: 12, sm: 12, md: "auto", lg: "auto", xl: "auto"}}>
-                                    <main className="main">
-                                        <div className={toggleMenu ? "main__contentHidden" : "main__content"}>
-                                            <Routes>
-                                                <Route path="/" element={<OverviewScreen/>}/>
-                                                <Route path="/users" element={<UsersScreen/>}/>
-                                                <Route path="/contents" element={<ContentsScreen/>}/>
-                                                <Route path="/tasks" element={<TasksScreen/>}/>
-                                                <Route path="/groups" element={<GroupsScreen/>}/>
-                                                <Route path="/components" element={<ComponentsScreen/>}/>
-                                                <Route path="/experimental" element={<ExperimentalScreen/>}/>
-                                                <Route path="/tools" element={<ToolsScreen/>}/>
-                                                <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChangeTheme={themeSwitch}/>}/>
-                                                <Route path="/login" element={<SignInScreen/>}/>
-                                                <Route path="/testsecret" element={<ProtectedRoute><h1>This is the secret screen only available when logged in</h1></ProtectedRoute>}/>
-                                            </Routes>
-                                        </div>
-                                        <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>
-                                            <MainMenu position="mainMenuMobile" onClickMenuItem={menuClose}/>
-                                            <SecondaryMenu position="secondaryMenuMobile" onClickMenuItem={menuClose}/>
-                                        </div>
-                                    </main>
-                                </Grid>
-                            </Grid>
+                            <Header toggleTheme={toggleTheme} toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
+                            <Sidebar/>
+                            <main className="main">
+                                <div className={toggleMenu ? "main__contentHidden" : "main__content"}>
+                                    <Routes>
+                                        <Route path="/" element={<OverviewScreen/>}/>
+                                        <Route path="/users" element={<UsersScreen/>}/>
+                                        <Route path="/contents" element={<ContentsScreen/>}/>
+                                        <Route path="/tasks" element={<TasksScreen/>}/>
+                                        <Route path="/groups" element={<GroupsScreen/>}/>
+                                        <Route path="/components" element={<ComponentsScreen/>}/>
+                                        <Route path="/experimental" element={<ExperimentalScreen/>}/>
+                                        <Route path="/utils" element={<ToolsScreen/>}/>
+                                        <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChangeTheme={themeSwitch}/>}/>
+                                        <Route path="/login" element={<SignInScreen/>}/>
+                                        <Route path="/testsecret" element={<ProtectedRoute><h1>This is the secret screen only available when logged in</h1></ProtectedRoute>}/>
+                                    </Routes>
+                                </div>
+                                <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>
+                                    <MainMenu position="mainMenuMobile" onClickMenuItem={menuClose}/>
+                                    <SecondaryMenu position="secondaryMenuMobile" onClickMenuItem={menuClose}/>
+                                </div>
+                            </main>
                         </div>
                     </div>
                 </ThemeProvider>

@@ -3,6 +3,7 @@
     "close": "Close",
     "components": "Components",
     "contents": "Contents",
+    "creators": "Creators",
     "experimental": "Experimental",
     "groups": "Groups",
     "menu": "Menu",
@@ -10,5 +11,6 @@
     "overview": "Overview",
     "tasks": "Tasks",
     "tools": "Tools",
-    "users": "Users"
+    "users": "Users",
+    "viewer": "Viewer"
 }

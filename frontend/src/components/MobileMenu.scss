@@ -1,6 +1,7 @@
 @import "../globalFunctions";
 
 .mobileMenu {
+    justify-self: end;
     display: none;
     @include media("md") {
         display: block;
@@ -27,6 +28,7 @@
         color: var(--lightness2);
         text-decoration: none;
         background: none;
+        cursor: pointer;
     }
 
     &__iconCircle {
@@ -40,7 +42,7 @@
 
     &__icon {
         top: pxToRem(28.5);
-        right: pxToRem(25);
+        right: pxToRem(26);
     }
 
     &__icon,
@@ -48,7 +50,7 @@
     &__icon::after {
         position: absolute;
         display: block;
-        width: pxToRem(25);
+        width: pxToRem(22);
         height: pxToRem(2);
         background: var(--lightness2);
         transition: all var(--transition1);
@@ -60,11 +62,11 @@
     }
 
     &__icon::before {
-        top: pxToRem(-7);
+        top: pxToRem(-6);
     }
 
     &__icon::after {
-        top: pxToRem(7);
+        top: pxToRem(6);
     }
 
     &__button--active &__icon {

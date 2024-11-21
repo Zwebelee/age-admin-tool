@@ -1,10 +1,17 @@
-import {useTranslation} from "react-i18next";
+import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
+import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 export const TasksScreen = () => {
-    const {t} = useTranslation();
     return (
-        <>
-            <h2>{t("tasks")}</h2>
-        </>
+        <OverviewBox
+            card="tasks"
+            icon={<TaskAltOutlinedIcon fontSize="large"/>}
+            color="--color4"
+            link={false}
+            data={[{
+                name: "users",
+                value: 12458,
+            }]}
+        ></OverviewBox>
     );
 };

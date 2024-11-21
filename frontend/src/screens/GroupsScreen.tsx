@@ -1,10 +1,17 @@
-import {useTranslation} from "react-i18next";
+import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
+import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
 
 export const GroupsScreen = () => {
-    const {t} = useTranslation();
     return (
-        <>
-            <h2>{t("groups")}</h2>
-        </>
+        <OverviewBox
+            card="groups"
+            icon={<HolidayVillageOutlinedIcon fontSize="large"/>}
+            color="--color5"
+            link={false}
+            data={[{
+                name: "users",
+                value: 12458,
+            }]}
+        ></OverviewBox>
     );
 };

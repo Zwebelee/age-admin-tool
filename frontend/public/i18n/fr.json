@@ -3,6 +3,7 @@
     "close": "Fermer",
     "components": "Composants",
     "contents": "Contenu",
+    "creators": "Créateurs",
     "experimental": "Expérimental",
     "groups": "Groupes",
     "menu": "Menu",
@@ -10,5 +11,6 @@
     "overview": "Aperçu",
     "tasks": "Tâches",
     "tools": "Outils",
-    "users": "Utilisateurs"
+    "users": "Utilisateurs",
+    "viewer": "Visionneuse"
 }

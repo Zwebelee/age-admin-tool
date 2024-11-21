@@ -9,6 +9,11 @@ body {
     letter-spacing: 0 !important;
 }
 .app {
+    display: grid;
+    grid: "header header" auto
+          "sidebar main" auto /
+          pxToRem(100) auto;
+    align-content: start;
     min-height: calc(100vh - pxToRem(40));
     min-width: pxToRem(300);
     max-width: pxToRem(1800);
@@ -16,6 +21,9 @@ body {
     margin: 0 auto;
     background-color: var(--lightness1-1);
     @include media("md") {
+        grid: "header header" auto
+              "main main" auto /
+              auto;
         min-height: calc(100vh - pxToRem(24));
     }
     @include media("sm") {
@@ -27,6 +35,7 @@ body {
     }
 }
 .main {
+    grid-area: main;
     padding: pxToRem(25);
     @include media("md") {
         padding: pxToRem(15);
@@ -34,10 +43,11 @@ body {
     @include media("sm") {
         padding: pxToRem(10);
     }
-}
-.main__contentHidden,
-.main__mobileMenuHidden {
-    display: none;
+
+    &__contentHidden,
+    &__mobileMenuHidden {
+        display: none;
+    }
 }
 h1 {
     font-weight: 300;
@@ -49,9 +59,6 @@ h1 {
     }
     @include media("sm") {
         font-size: pxToRem(18);
-    }
-    @include media("xs") {
-        font-size: pxToRem(14);
     }
 }
 .theme--dark {
@@ -76,7 +83,8 @@ h1 {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow: auto;
+    overflow: auto scroll;
+    scrollbar-color: var(--lightness4) var(--lightness1-4);
     height: 100vh;
     width: 100%;
     padding: pxToRem(20);
