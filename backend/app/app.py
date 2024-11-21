@@ -19,7 +19,6 @@ from .routes.portalusers import portalusers_bp
 from .routes.proteced import proteced_bp
 from .routes.refresh import refresh_bp
 from .routes.register import register_bp
-from .routes.tests import tests_bp
 from .utils.load_sample_data import init_all_sample_data
 
 
@@ -64,7 +63,6 @@ def register_blueprints(app):
     app.register_blueprint(portalusers_bp)
     app.register_blueprint(portallicenses_bp)
     app.register_blueprint(portalitems_bp)
-    app.register_blueprint(tests_bp)
     app.register_blueprint(arcgisenterprises_bp)
     app.register_blueprint(ageservers_bp)
     app.register_blueprint(ageportals_bp)
