@@ -1,4 +1,4 @@
-import {TestStore} from "./test-store.ts";
+
 import {createContext, useContext} from "react";
 import {makeAutoObservable} from "mobx";
 import {AuthStore} from "./auth-store.ts";
@@ -13,7 +13,6 @@ import {AgewebadaptorStore} from "./age-webadaptor-store.ts";
 import {PortalItemStore} from "./portal-store.ts";
 
 export class RootStore {
-    testStore: TestStore;
     authStore: AuthStore;
     authService: AuthService;
     ageStore: AgeStore;
@@ -35,7 +34,6 @@ export class RootStore {
         this.authStore = new AuthStore(this);
         this.authService = new AuthService(this)
 
-        this.testStore = new TestStore(this.authService);
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);
         this.portalLicenseStore = new PortalLicenseStore(this.authService);

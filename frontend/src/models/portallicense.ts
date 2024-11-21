@@ -1,6 +1,4 @@
 import {AbstractModel} from "./abstract-models.ts";
-import {makeObservable, observable} from "mobx";
-
 export interface PortalLicenseProps {
     guid: string;
     id: string;
