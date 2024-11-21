@@ -7,15 +7,15 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-agedatastore_bp = Blueprint('agedatastore', __name__)
+agedatastores_bp = Blueprint('agedatastores', __name__)
 
 
-@agedatastore_bp.route('/agedatastore', methods=['GET'])
+@agedatastores_bp.route('/agedatastores', methods=['GET'])
 @swag_from({
-    'tags': ['Agedatastore'],
+    'tags': ['AGE - Datastore', 'AGE'],
     'responses': {
         200: {
-            'description': 'Retrieve the agedatastore',
+            'description': 'Retrieve the agedatastores',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -48,9 +48,9 @@ def get_agedatastores():
     return jsonify([agedatastore.to_dict() for agedatastore in agedatastores])
 
 
-@agedatastore_bp.route('/agedatastore', methods=['POST'])
+@agedatastores_bp.route('/agedatastores', methods=['POST'])
 @swag_from({
-    'tags': ['Agedatastore'],
+    'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
         {
             'name': 'body',
@@ -125,9 +125,55 @@ def create_agedatastore():
     return jsonify(new_agedatastore.to_dict()), 201
 
 
-@agedatastore_bp.route('/agedatastore/<uuid:guid>', methods=['PUT'])
+@agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['GET'])
 @swag_from({
-    'tags': ['Agedatastore'],
+    'tags': ['AGE - Datastore', 'AGE'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Retrieve a specific agedatastore',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'guid': {'type': 'string'},
+                    'name': {'type': 'string'},
+                    'alias': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'url': {'type': 'string'},
+                    'type': {'type': 'string'},
+                    'ishosted': {'type': 'boolean'},
+                    'status': {'type': 'string'},
+                    'capacity_gb': {'type': 'integer'},
+                    'used_gb': {'type': 'integer'}
+                }
+            }
+        },
+        404: {
+            'description': 'Agedatastore not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def get_agedatastore(guid):
+    agedatastore = Agedatastore.query.get_or_404(guid)
+    return jsonify(agedatastore.to_dict())
+
+
+@agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['PUT'])
+@swag_from({
+    'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
         {
             'name': 'guid',
@@ -204,9 +250,9 @@ def update_agedatastore(guid):
     return jsonify(agedatastore.to_dict())
 
 
-@agedatastore_bp.route('/agedatastore/<uuid:guid>', methods=['DELETE'])
+@agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['DELETE'])
 @swag_from({
-    'tags': ['Agedatastore'],
+    'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
         {
             'name': 'guid',

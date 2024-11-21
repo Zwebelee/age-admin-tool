@@ -7,6 +7,8 @@ import {Card, CardContent, Typography, FormControl, TextField, FormLabel} from "
 import {TestEntry} from "../models/test-entry.ts";
 import {observer} from "mobx-react-lite";
 import {useState} from "react";
+import {SignInMask} from "../components/SignInMask.tsx";
+import {TestStoreComponent} from "../components/StoreTesting.tsx";
 
 
 export const ExperimentalScreen = observer(() => {
@@ -29,12 +31,14 @@ export const ExperimentalScreen = observer(() => {
         <>
             <h2>{t("experimental")}</h2>
             <h3>Testing stuff - Fokus funktionalität, nicht implementierung an sich (weder Design noch Code)</h3>
+            <TestStoreComponent/>
             <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
                 <Box
                     sx={{border: '3px solid blue', margin: '2px', padding: '10px', borderRadius: '8px'}}
                     component="main">
                     <SampleGrid/>
                 </Box>
+                <SignInMask/>
                 <Box sx={{border: '3px solid blue', margin: '2px', padding: '10px', borderRadius: '8px'}}>
                     <h3>Button in outer component - Testing if mobx is working properly (updates through the
                         mobx-store)</h3>

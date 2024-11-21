@@ -7,12 +7,12 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-agewebadaptor_bp = Blueprint('agewebadaptor', __name__)
+agewebadaptors_bp = Blueprint('agewebadaptor', __name__)
 
 
-@agewebadaptor_bp.route('/agewebadaptor', methods=['GET'])
+@agewebadaptors_bp.route('/agewebadaptors', methods=['GET'])
 @swag_from({
-    'tags': ['Agewebadaptor'],
+    'tags': ['AGE - Webadaptors', 'AGE'],
     'responses': {
         200: {
             'description': 'Retrieve the agewebadaptor',
@@ -48,9 +48,9 @@ def get_agewebadaptors():
     return jsonify([agewebadaptor.to_dict() for agewebadaptor in agewebadaptors])
 
 
-@agewebadaptor_bp.route('/agewebadaptor', methods=['POST'])
+@agewebadaptors_bp.route('/agewebadaptors', methods=['POST'])
 @swag_from({
-    'tags': ['Agewebadaptor'],
+    'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
         {
             'name': 'body',
@@ -126,9 +126,54 @@ def create_agewebadaptor():
     return jsonify(new_agewebadaptor.to_dict()), 201
 
 
-@agewebadaptor_bp.route('/agewebadaptor/<uuid:guid>', methods=['PUT'])
+@agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['GET'])
 @swag_from({
-    'tags': ['Agewebadaptor'],
+    'tags': ['AGE - Webadaptors', 'AGE'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Retrieve a specific agewebadaptor',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'guid': {'type': 'string'},
+                    'machineName': {'type': 'string'},
+                    'machineIP': {'type': 'string'},
+                    'webAdaptorURL': {'type': 'string'},
+                    'id': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'httpPort': {'type': 'integer'},
+                    'httpsPort': {'type': 'integer'},
+                    'refreshServerListInterval': {'type': 'integer'},
+                    'reconnectServerOnFailureInterval': {'type': 'integer'}
+                }
+            }
+        },
+        404: {
+            'description': 'Agewebadaptor not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def get_agewebadaptor(guid):
+    agewebadaptor = Agewebadaptor.query.get_or_404(guid)
+    return jsonify(agewebadaptor.to_dict())
+
+@agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['PUT'])
+@swag_from({
+    'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
         {
             'name': 'guid',
@@ -206,9 +251,9 @@ def update_agewebadaptor(guid):
     return jsonify(agewebadaptor.to_dict())
 
 
-@agewebadaptor_bp.route('/agewebadaptor/<uuid:guid>', methods=['DELETE'])
+@agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['DELETE'])
 @swag_from({
-    'tags': ['Agewebadaptor'],
+    'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
         {
             'name': 'guid',

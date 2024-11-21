@@ -1,13 +1,14 @@
-from flask import Blueprint, request, jsonify, session, redirect, request, url_for, flash
+from flask import Blueprint, request, jsonify
 from flasgger import swag_from
-from ..db import db
+from flask_jwt_extended import create_access_token, create_refresh_token
 from ..models.tooluser import Tooluser
 
 login_bp = Blueprint('login', __name__)
 
+
 @login_bp.route('/login', methods=['POST'])
 @swag_from({
-    'tags': ['Login'],
+    'tags': ['Authentication'],
     'parameters': [
         {
             'name': 'body',
@@ -49,9 +50,10 @@ def login():
 
     tooluser = Tooluser.query.filter_by(username=username).first()
     if tooluser and tooluser.check_password(password):
-        session['username'] = username
-        return jsonify({
-            'message': 'Login successful'
-        }), 200
+        access_token = create_access_token(identity=username)
+        refresh_token = create_refresh_token(identity=username)
+        # response.set_cookie('refresh_token', refresh_token, httponly=True, secure=True, samesite='Strict')
+        return jsonify(access_token=access_token, refresh_token=refresh_token), 200
+
     else:
         return jsonify({"message": "Invalid username or password"}), 401

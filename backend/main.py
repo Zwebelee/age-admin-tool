@@ -1,7 +1,7 @@
 # load and init env first
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('../.env')
 
 import argparse
 from app.app import create_app
