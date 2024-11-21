@@ -9,12 +9,12 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-ageserver_bp = Blueprint('ageserver', __name__)
+ageservers_bp = Blueprint('ageservers', __name__)
 
 
-@ageserver_bp.route('/ageservers', methods=['GET'])
+@ageservers_bp.route('/ageservers', methods=['GET'])
 @swag_from({
-    'tags': ['Ageserver'],
+    'tags': ['AGE - Servers', 'AGE'],
     'responses': {
         200: {
             'description': 'Retrieve all ageservers',
@@ -43,54 +43,9 @@ def get_ageservers():
     return jsonify([ageserver.to_dict() for ageserver in ageservers])
 
 
-@ageserver_bp.route('/ageservers/<uuid:guid>', methods=['GET'])
+@ageservers_bp.route('/ageservers', methods=['POST'])
 @swag_from({
-    'tags': ['Ageserver'],
-    'parameters': [
-        {
-            'name': 'guid',
-            'in': 'path',
-            'required': True,
-            'type': 'string'
-        }
-    ],
-    'responses': {
-        200: {
-            'description': 'Retrieve a specific ageserver',
-            'schema': {
-                'type': 'object',
-                'properties': {
-                    'guid': {'type': 'string'},
-                    'id': {'type': 'string'},
-                    'name': {'type': 'string'},
-                    'adminUrl': {'type': 'string'},
-                    'url': {'type': 'string'},
-                    'isHosted': {'type': 'boolean'},
-                    'serverType': {'type': 'string'},
-                    'serverRole': {'type': 'string'},
-                    'serverFunction': {'type': 'string'}
-                }
-            }
-        },
-        404: {
-            'description': 'Ageserver not found',
-            'schema': {
-                'type': 'object',
-                'properties': {
-                    'message': {'type': 'string'}
-                }
-            }
-        }
-    }
-})
-def get_ageserver(guid):
-    ageserver = Ageserver.query.get_or_404(guid)
-    return jsonify(ageserver.to_dict())
-
-
-@ageserver_bp.route('/ageservers', methods=['POST'])
-@swag_from({
-    'tags': ['Ageserver'],
+    'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
         {
             'name': 'body',
@@ -162,9 +117,54 @@ def create_ageserver():
     return jsonify(new_ageserver.to_dict()), 201
 
 
-@ageserver_bp.route('/ageservers/<uuid:guid>', methods=['PUT'])
+@ageservers_bp.route('/ageservers/<uuid:guid>', methods=['GET'])
 @swag_from({
-    'tags': ['Ageserver'],
+    'tags': ['AGE - Servers', 'AGE'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Retrieve a specific ageserver',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'guid': {'type': 'string'},
+                    'id': {'type': 'string'},
+                    'name': {'type': 'string'},
+                    'adminUrl': {'type': 'string'},
+                    'url': {'type': 'string'},
+                    'isHosted': {'type': 'boolean'},
+                    'serverType': {'type': 'string'},
+                    'serverRole': {'type': 'string'},
+                    'serverFunction': {'type': 'string'}
+                }
+            }
+        },
+        404: {
+            'description': 'Ageserver not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def get_ageserver(guid):
+    ageserver = Ageserver.query.get_or_404(guid)
+    return jsonify(ageserver.to_dict())
+
+
+@ageservers_bp.route('/ageservers/<uuid:guid>', methods=['PUT'])
+@swag_from({
+    'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
         {
             'name': 'guid',
@@ -238,9 +238,9 @@ def update_ageserver(guid):
     return jsonify(ageserver.to_dict())
 
 
-@ageserver_bp.route('/ageservers/<uuid:guid>', methods=['DELETE'])
+@ageservers_bp.route('/ageservers/<uuid:guid>', methods=['DELETE'])
 @swag_from({
-    'tags': ['Ageserver'],
+    'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
         {
             'name': 'guid',

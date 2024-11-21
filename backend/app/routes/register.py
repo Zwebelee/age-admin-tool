@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, session, redirect, request, url_for, flash
+from flask import Blueprint, jsonify, session, request
 from flasgger import swag_from
 from ..db import db
 from ..models.tooluser import Tooluser
@@ -8,7 +8,7 @@ register_bp = Blueprint('register', __name__)
 
 @register_bp.route('/register', methods=['POST'])
 @swag_from({
-    'tags': ['Register'],
+    'tags': ['Authentication'],
     'parameters': [
         {
             'name': 'body',

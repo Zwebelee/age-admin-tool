@@ -21,7 +21,7 @@ export const SignInMask = observer(() => {
     }, []);
 
     const handleLogin = async () => {
-        await authStore.login(username, password);
+        await authStore.login({username, password});
         if (authStore.isLoggedIn) {
             setSigninSuccess("Login successful");
             setSigninError("");

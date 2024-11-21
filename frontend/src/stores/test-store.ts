@@ -1,15 +1,16 @@
 import {runInAction, computed, observable, makeObservable, action} from "mobx";
 import { TestEntry } from "../models/test-entry.ts";
-import {AbstractStore} from "./abstract-store.ts";
+import {AbstractStore, ItemType} from "./abstract-store.ts";
+import {AuthService} from "../services/auth.service.ts";
 
 export class TestStore extends AbstractStore {
     public testCount: number = 0;
     public testEntries: TestEntry[] = [];
 
-    items = observable.map<string, TestEntry>();
+    items = observable.map<string, ItemType>();
 
-    constructor() {
-        super();
+    constructor(authService: AuthService) {
+        super(authService);
         makeObservable(this, {
             testCount: observable,
             testEntries: observable,
@@ -26,6 +27,10 @@ export class TestStore extends AbstractStore {
     async initialize() {
         await this.loadData();
 
+    }
+
+    getEndpoint(): string {
+        return "/tests";
     }
 
     //TODO: WIP / Experimental -> Abstract-store for generelles add/update + fetch als ausgelagerte service/function

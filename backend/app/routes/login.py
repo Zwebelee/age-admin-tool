@@ -1,15 +1,14 @@
-from flask import Blueprint, request, jsonify, session, redirect, request, url_for, flash
+from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from flask_jwt_extended import create_access_token, create_refresh_token
-
-from ..db import db
 from ..models.tooluser import Tooluser
 
 login_bp = Blueprint('login', __name__)
 
+
 @login_bp.route('/login', methods=['POST'])
 @swag_from({
-    'tags': ['Login'],
+    'tags': ['Authentication'],
     'parameters': [
         {
             'name': 'body',

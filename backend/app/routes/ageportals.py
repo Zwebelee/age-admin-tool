@@ -9,15 +9,15 @@ from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
 
-ageportal_bp = Blueprint('ageportal', __name__)
+ageportals_bp = Blueprint('ageportals', __name__)
 
 
-@ageportal_bp.route('/ageportal', methods=['GET'])
+@ageportals_bp.route('/ageportals', methods=['GET'])
 @swag_from({
-    'tags': ['Ageportal'],
+    'tags': ['AGE - Portals', 'AGE'],
     'responses': {
         200: {
-            'description': 'Retrieve the ageportal',
+            'description': 'Retrieve the ageportals',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -48,9 +48,9 @@ def get_ageportals():
     return jsonify([ageportal.to_dict() for ageportal in ageportals])
 
 
-@ageportal_bp.route('/ageportal', methods=['POST'])
+@ageportals_bp.route('/ageportals', methods=['POST'])
 @swag_from({
-    'tags': ['Ageportal'],
+    'tags': ['AGE - Portals', 'AGE'],
     'parameters': [
         {
             'name': 'body',
@@ -119,9 +119,53 @@ def create_ageportal():
     return jsonify(new_ageportal.to_dict()), 201
 
 
-@ageportal_bp.route('/ageportal/<uuid:guid>', methods=['PUT'])
+@ageportals_bp.route('/ageportals/<uuid:guid>', methods=['GET'])
 @swag_from({
-    'tags': ['Ageportal'],
+    'tags': ['AGE - Portals', 'AGE'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Retrieve a specific ageportal',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'guid': {'type': 'string'},
+                    'name': {'type': 'string'},
+                    'alias': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'url': {'type': 'string'},
+                    'type': {'type': 'string'},
+                    'ishosted': {'type': 'boolean'},
+                    'status': {'type': 'string'}
+                }
+            }
+        },
+        404: {
+            'description': 'Ageportal not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def get_ageportal(guid):
+    ageportal = Ageportal.query.get_or_404(guid)
+    return jsonify(ageportal.to_dict())
+
+
+@ageportals_bp.route('/ageportals/<uuid:guid>', methods=['PUT'])
+@swag_from({
+    'tags': ['AGE - Portals', 'AGE'],
     'parameters': [
         {
             'name': 'guid',
@@ -192,9 +236,9 @@ def update_ageportal(guid):
     return jsonify(ageportal.to_dict())
 
 
-@ageportal_bp.route('/ageportal/<uuid:guid>', methods=['DELETE'])
+@ageportals_bp.route('/ageportals/<uuid:guid>', methods=['DELETE'])
 @swag_from({
-    'tags': ['Ageportal'],
+    'tags': ['AGE - Portals', 'AGE'],
     'parameters': [
         {
             'name': 'guid',

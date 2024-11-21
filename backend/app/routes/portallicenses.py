@@ -1,14 +1,15 @@
 from flasgger import swag_from
 from flask import Blueprint, jsonify, request
 from app.models.portallicense import Portallicense
-from app import db
+from ..db import db
 import uuid
 
 portallicenses_bp = Blueprint('portallicenses', __name__)
 
-@portallicenses_bp.route('/portallicenses')
+
+@portallicenses_bp.route('/portallicenses', methods=['GET'])
 @swag_from({
-    'tags': ['Portallicenses'],
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'responses': {
         200: {
             'description': 'List of portal licenses',
@@ -23,7 +24,8 @@ portallicenses_bp = Blueprint('portallicenses', __name__)
                         'description': {'type': 'string'},
                         'level': {'type': 'string'},
                         'state': {'type': 'string'},
-                        'maxusers': {'type': 'integer'}
+                        'maxusers': {'type': 'integer'},
+                        'currentusers': {'type': 'integer'}
                     }
                 }
             }
@@ -32,11 +34,12 @@ portallicenses_bp = Blueprint('portallicenses', __name__)
 })
 def get_portallicenses():
     portallicenses = Portallicense.query.all()
-    return jsonify([license.to_dict() for license in portallicenses])
+    return jsonify([portallicense.to_dict() for portallicense in portallicenses])
+
 
 @portallicenses_bp.route('/portallicenses', methods=['POST'])
 @swag_from({
-    'tags': ['Portallicenses'],
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
         {
             'name': 'body',
@@ -50,9 +53,10 @@ def get_portallicenses():
                     'description': {'type': 'string', 'example': 'Description'},
                     'level': {'type': 'string', 'example': 'Level'},
                     'state': {'type': 'string', 'example': 'State'},
-                    'maxusers': {'type': 'integer', 'example': 100}
+                    'maxusers': {'type': 'integer', 'example': 100},
+                    'currentusers': {'type': 'integer', 'example': 0}
                 },
-                'required': ['id', 'name', 'level', 'state', 'maxusers']
+                'required': ['id', 'name', 'level', 'state', 'maxusers', 'currentusers']
             }
         }
     ],
@@ -68,7 +72,8 @@ def get_portallicenses():
                     'description': {'type': 'string'},
                     'level': {'type': 'string'},
                     'state': {'type': 'string'},
-                    'maxusers': {'type': 'integer'}
+                    'maxusers': {'type': 'integer'},
+                    'currentusers': {'type': 'integer'}
                 }
             }
         }
@@ -83,15 +88,61 @@ def create_portallicense():
         description=data.get('description'),
         level=data['level'],
         state=data['state'],
-        maxusers=data['maxusers']
+        maxusers=data['maxusers'],
+        currentusers=data['currentusers']
     )
     db.session.add(new_portallicense)
     db.session.commit()
     return jsonify(new_portallicense.to_dict()), 201
 
+
+@portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['GET'])
+@swag_from({
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Retrieve a specific portal license',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'guid': {'type': 'string'},
+                    'id': {'type': 'string'},
+                    'name': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'level': {'type': 'string'},
+                    'state': {'type': 'string'},
+                    'maxusers': {'type': 'integer'},
+                    'currentusers': {'type': 'integer'}
+                }
+            }
+        },
+        404: {
+            'description': 'Portallicense not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def get_portallicense(guid):
+    portallicense = Portallicense.query.get_or_404(guid)
+    return jsonify(portallicense.to_dict())
+
+
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['PUT'])
 @swag_from({
-    'tags': ['Portallicenses'],
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
         {
             'name': 'guid',
@@ -111,9 +162,10 @@ def create_portallicense():
                     'description': {'type': 'string', 'example': 'Description'},
                     'level': {'type': 'string', 'example': 'Level'},
                     'state': {'type': 'string', 'example': 'State'},
-                    'maxusers': {'type': 'integer', 'example': 100}
+                    'maxusers': {'type': 'integer', 'example': 100},
+                    'currentusers': {'type': 'integer', 'example': 0}
                 },
-                'required': ['id', 'name', 'level', 'state', 'maxusers']
+                'required': ['id', 'name', 'level', 'state', 'maxusers', 'currentusers']
             }
         }
     ],
@@ -129,7 +181,8 @@ def create_portallicense():
                     'description': {'type': 'string'},
                     'level': {'type': 'string'},
                     'state': {'type': 'string'},
-                    'maxusers': {'type': 'integer'}
+                    'maxusers': {'type': 'integer'},
+                    'currentusers': {'type': 'integer'}
                 }
             }
         },
@@ -147,18 +200,33 @@ def create_portallicense():
 def update_portallicense(guid):
     data = request.get_json()
     portallicense = Portallicense.query.get_or_404(guid)
-    portallicense.id = data['id']
-    portallicense.name = data['name']
-    portallicense.description = data.get('description')
-    portallicense.level = data['level']
-    portallicense.state = data['state']
-    portallicense.maxusers = data['maxusers']
-    db.session.commit()
-    return jsonify(portallicense.to_dict())
+
+    # Validate input data
+    required_fields = ['id', 'name', 'level', 'state', 'maxusers', 'currentusers']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'message': f'Missing required field: {field}'}), 400
+
+    # Update fields if present in request data
+    portallicense.id = data.get('id', portallicense.id)
+    portallicense.name = data.get('name', portallicense.name)
+    portallicense.description = data.get('description', portallicense.description)
+    portallicense.level = data.get('level', portallicense.level)
+    portallicense.state = data.get('state', portallicense.state)
+    portallicense.maxusers = data.get('maxusers', portallicense.maxusers)
+    portallicense.currentusers = data.get('currentusers', portallicense.currentusers)
+
+    try:
+        db.session.commit()
+        return jsonify(portallicense.to_dict())
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': f'Internal server error {e}'}), 500
+
 
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['DELETE'])
 @swag_from({
-    'tags': ['Portallicenses'],
+    'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
         {
             'name': 'guid',

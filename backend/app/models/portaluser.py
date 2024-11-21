@@ -36,10 +36,10 @@ class Portaluser(db.Model):
     itemcount = db.Column(db.Integer, nullable=False)
     groupcount = db.Column(db.Integer, nullable=False)
     adstatus = db.Column(db.String(120), nullable=False)
-    division1 = db.Column(db.String(120), nullable=False)
-    division2 = db.Column(db.String(120), nullable=False)
-    division3 = db.Column(db.String(120), nullable=False)
-    division4 = db.Column(db.String(120), nullable=False)
+    department = db.Column(db.String(120), nullable=False)
+    agency = db.Column(db.String(120), nullable=False)
+    division = db.Column(db.String(120), nullable=False)
+    team = db.Column(db.String(120), nullable=False)
 
     def to_dict(self):
         return {
@@ -68,10 +68,10 @@ class Portaluser(db.Model):
             "itemcount": self.itemcount,
             "groupcount": self.groupcount,
             "adstatus": self.adstatus,
-            "division1": self.division1,
-            "division2": self.division2,
-            "division3": self.division3,
-            "division4": self.division4
+            "department": self.department,
+            "agency": self.agency,
+            "division": self.division,
+            "tean": self.team
         }
 
     def __repr__(self):
