@@ -599,12 +599,16 @@
     {
       "id": 1,
       "username": "Alice",
-      "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd"
+      "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd",
+      "theme": "dark",
+      "language": "en"
     },
     {
       "id": 2,
       "username": "Bob",
-      "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd"
+      "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd",
+      "theme": "light",
+      "language": "de"
     }
   ],
   "tasks": [

@@ -11,6 +11,7 @@ import {AgeportalStore} from "./age-portal-store.ts";
 import {AgeserverStore} from "./age-server-store.ts";
 import {AgewebadaptorStore} from "./age-webadaptor-store.ts";
 import {PortalItemStore} from "./portal-store.ts";
+import {ToolUserStore} from "./tooluser-store.ts";
 
 export class RootStore {
     authStore: AuthStore;
@@ -23,6 +24,7 @@ export class RootStore {
     ageServerStore: AgeserverStore
     ageWebAdaptorStore: AgewebadaptorStore
     portalItemStore: PortalItemStore;
+    toolUserStore : ToolUserStore;
 
     get init() {
         // TODO: Test
@@ -42,6 +44,7 @@ export class RootStore {
         this.ageServerStore = new AgeserverStore(this.authService);
         this.ageWebAdaptorStore = new AgewebadaptorStore(this.authService)
         this.portalItemStore = new PortalItemStore(this.authService);
+        this.toolUserStore = new ToolUserStore(this.authService);
     }
 }
 
