@@ -1,4 +1,4 @@
-import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
+import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 export const TasksScreen = () => {

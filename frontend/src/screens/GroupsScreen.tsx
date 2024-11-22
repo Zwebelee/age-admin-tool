@@ -1,4 +1,4 @@
-import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
+import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
 
 export const GroupsScreen = () => {
