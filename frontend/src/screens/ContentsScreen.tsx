@@ -1,4 +1,4 @@
-import {OverviewBox} from "../components/Overview/OverviewBox.tsx";
+import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 
 export const ContentsScreen = () => {
