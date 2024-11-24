@@ -46,7 +46,7 @@ export const UserSettings = observer(() => {
     const {t} = useTranslation();
 
     const [userRole, setUserRole] = useState("admin")
-    const [switchChecked, setSwitchChecked] = useState(["darkmode"])
+    const [switchChecked, setSwitchChecked] = useState([themeStore.theme] as string[]);
 
     const handleToggle = (value: string) => () => {
         const currentIndex = switchChecked.indexOf(value);
@@ -119,8 +119,8 @@ export const UserSettings = observer(() => {
             <Divider/>
             <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>
                 <Switch
-                    onChange={handleToggle('darkmode')}
-                    checked={switchChecked.includes('darkmode')}
+                    onChange={handleToggle('dark')}
+                    checked={switchChecked.includes('dark')}
                 />
             </SettingListItem>
             <Divider/>
