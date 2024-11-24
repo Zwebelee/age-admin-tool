@@ -1,11 +1,12 @@
 import {LANGUAGES} from "../constants";
-import {useTranslation} from "react-i18next";
 import {MenuItem} from "@mui/material";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
+import {useRootStore} from "../stores/root-store.ts";
+import {observer} from "mobx-react-lite";
 
 
-export const LanguageSelector = () => {
-    const {i18n} = useTranslation();
+export const LanguageSelector = observer(() => {
+    const {languageStore} = useRootStore();
 
     const languages = LANGUAGES.map(
         ({code, label}) => ({
@@ -14,20 +15,20 @@ export const LanguageSelector = () => {
     );
 
     const onChangeLanguage = (e: SelectChangeEvent) => {
-        const lang_code = e.target.value;
-        i18n.changeLanguage(lang_code);
+        const lang_code = e.target.value as "de" | "fr" | "en";
+        languageStore.switchLanguage(lang_code);
     }
 
     return (
         <Select
             labelId="language-select-label"
             id="language-select"
-            value={i18n.language}
-            label={i18n.t("language")}
+            value={languageStore.language}
+            label="Language"
             onChange={onChangeLanguage}
         >
             {languages.map(item =>
                 <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
             )}
         </Select>)
-};
+});

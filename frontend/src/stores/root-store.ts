@@ -13,6 +13,7 @@ import {AgewebadaptorStore} from "./age-webadaptor-store.ts";
 import {PortalItemStore} from "./portal-store.ts";
 import {ToolUserStore} from "./tooluser-store.ts";
 import {ThemeStore} from "./theme-store.ts";
+import {LanguageStore} from "./language-store.ts";
 
 export class RootStore {
     authStore: AuthStore;
@@ -27,6 +28,7 @@ export class RootStore {
     portalItemStore: PortalItemStore;
     toolUserStore : ToolUserStore;
     themeStore: ThemeStore;
+    languageStore: LanguageStore;
 
     get init() {
         // TODO: Test
@@ -48,6 +50,8 @@ export class RootStore {
         this.portalItemStore = new PortalItemStore(this.authService);
         this.toolUserStore = new ToolUserStore(this.authService);
         this.themeStore = new ThemeStore();
+        this.languageStore = new LanguageStore();
+
     }
 }
 
