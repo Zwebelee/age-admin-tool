@@ -18,6 +18,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LanguageIcon from '@mui/icons-material/Language';
 import {LanguageSelector} from "./LanguageSelector.tsx";
 import {useTranslation} from "react-i18next";
+import {observer} from "mobx-react-lite";
 
 interface SettingListItemProps {
     icon: ReactElement;
@@ -39,22 +40,13 @@ const SettingListItem = ({icon, tooltip, primary, children}: SettingListItemProp
 );
 
 
-export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; onChange: () => void }) => {
+export const UserSettings = observer(() => {
 
-    const {toolUserStore, authStore} = useRootStore()
+    const {toolUserStore, authStore, themeStore} = useRootStore()
     const {t} = useTranslation();
-
 
     const [userRole, setUserRole] = useState("admin")
     const [switchChecked, setSwitchChecked] = useState(["darkmode"])
-    const [language, setLanguage] = useState("en");
-
-    const [user, setUser] = useState("");
-    const [username, setUsername] = useState("");
-    const [theme, setTheme] = useState("");
-
-
-    //TODO: useEffect to listen to useState change and write to backend!
 
     const handleToggle = (value: string) => () => {
         const currentIndex = switchChecked.indexOf(value);
@@ -67,12 +59,17 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
         }
 
         setSwitchChecked(newChecked);
-        onChange(); //TODO: temporary - remove later
+        themeStore.toggleTheme();
     };
 
     const handleChange = (event: SelectChangeEvent) => {
         setUserRole(event.target.value as string);
     };
+
+    const roles = [
+        {value: "admin", label: "Admin"},
+        {value: "user", label: "User"}
+    ] //TODO: integrate role-model
 
     // const [userLoaded, setUserLoaded] = useState(false);
     // const [user, setUser] = useState(null);
@@ -86,15 +83,7 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
     //     }
     // }, [authStore, toolUserStore]);
 
-    const themes = [
-        {value: "light", label: "Light"},
-        {value: "dark", label: "Dark"},
-    ];
 
-    const roles = [
-        {value: "admin", label: "Admin"},
-        {value: "user", label: "User"}
-    ]
 
 
     // return (
@@ -140,4 +129,4 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
             </SettingListItem>
         </List>
     );
-}
+});

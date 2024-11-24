@@ -6,12 +6,20 @@ import {MobileMenu} from "./MobileMenu.tsx";
 import "./Header.scss";
 import logoLight from "../assets/logoLight-kantonLuzern.svg";
 import logoDark from "../assets/logoDark-kantonLuzern.svg";
+import {observer} from "mobx-react-lite";
+import {useRootStore} from "../stores/root-store.ts";
 
+interface IHeader {
+    toggleMenu: boolean;
+    onClickMenu: () => void;
+    onClickLogo: () => void;
+}
 
-
-export const Header = ({ toggleTheme, toggleMenu, onClickMenu, onClickLogo }: { toggleTheme: boolean, toggleMenu: boolean, onClickMenu: () => void, onClickLogo: () => void}) => {
+export const Header = observer((
+    {toggleMenu, onClickMenu, onClickLogo }:IHeader ) => {
+    const {themeStore} = useRootStore()
     const {t} = useTranslation()
-    const logo = toggleTheme ? logoLight : logoDark;
+    const logo = themeStore.theme === 'light' ? logoLight : logoDark;
     return (
         <div className="header">
             <div className="header__logo">
@@ -28,4 +36,4 @@ export const Header = ({ toggleTheme, toggleMenu, onClickMenu, onClickLogo }: { 
             </div>
         </div>
     )
-}
+})
