@@ -37,8 +37,8 @@ export class RootStore {
 
     constructor() {
         makeAutoObservable(this);
-        this.authStore = new AuthStore(this);
         this.authService = new AuthService(this)
+        this.authStore = new AuthStore(this, this.authService);
 
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);
@@ -50,7 +50,7 @@ export class RootStore {
         this.portalItemStore = new PortalItemStore(this.authService);
         this.toolUserStore = new ToolUserStore(this.authService);
         this.themeStore = new ThemeStore();
-        this.languageStore = new LanguageStore();
+        this.languageStore = new LanguageStore(this.toolUserStore);
 
     }
 }

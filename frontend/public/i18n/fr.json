@@ -17,5 +17,6 @@
     "username": "Nom d'utilisateur",
     "role": "Rôle",
     "darkmode": "Mode sombre",
-    "language": "Langue"
+    "language": "Langue",
+    "logout": "Déconnexion"
 }

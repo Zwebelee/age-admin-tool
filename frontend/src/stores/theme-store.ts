@@ -17,6 +17,11 @@ export class ThemeStore implements IThemeStore {
         }
     }
 
+    setTheme(theme: "light" | "dark") {
+        this.theme = theme;
+        setCookie('theme', this.theme)
+    }
+
     toggleTheme = () => {
         this.theme = this.theme === "light" ? "dark" : "light";
         setCookie('theme', this.theme)

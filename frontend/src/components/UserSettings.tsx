@@ -1,4 +1,5 @@
 import {
+    Button,
     Divider,
     List,
     ListItem,
@@ -21,6 +22,7 @@ import {useTranslation} from "react-i18next";
 import {observer} from "mobx-react-lite";
 import {SignInMask} from "./SignInMask.tsx";
 import {ToolUser} from "../models/tooluser.ts";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 interface SettingListItemProps {
     icon: ReactElement;
@@ -44,11 +46,15 @@ const SettingListItem = ({icon, tooltip, primary, children}: SettingListItemProp
 
 export const UserSettings = observer(() => {
 
-    const {toolUserStore, authStore, themeStore} = useRootStore()
+    const {toolUserStore, authStore, themeStore, languageStore} = useRootStore()
     const {t} = useTranslation();
 
     const [userRole, setUserRole] = useState("admin")
     const [switchChecked, setSwitchChecked] = useState([themeStore.theme] as string[]);
+
+    const handleLogout = () => {
+        authStore.logout().then();
+    };
 
     const handleToggle = (value: string) => () => {
         const currentIndex = switchChecked.indexOf(value);
@@ -79,15 +85,23 @@ export const UserSettings = observer(() => {
         if (authStore.isLoggedIn) {
             toolUserStore.loadUser().then(() => {
                 setUser(toolUserStore.user ||null);
+                if (toolUserStore.user?.theme){
+                    themeStore.setTheme(toolUserStore.user.theme as "light" | "dark");
+                    setSwitchChecked([toolUserStore.user.theme]);
+                }
+                if (toolUserStore.user?.language) {
+                    languageStore.switchLanguage(toolUserStore.user.language as "de" | "fr" | "en");
+                }
+                console.log('debug - user loaded', toolUserStore.user)
             });
         }
-    }, [authStore, toolUserStore]);
+    }, [authStore, toolUserStore, languageStore, themeStore]);
 
 
     return (
         <>
             {!authStore.isLoggedIn ?
-                <SignInMask/> :
+                <SignInMask redirectUrl={""}/> :
                 <List sx={{width: '100%', backgroundColor: "grey"}}
                       subheader={<ListSubheader>{t("settings")}</ListSubheader>}>
                     <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
@@ -118,7 +132,11 @@ export const UserSettings = observer(() => {
                     <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
                         <LanguageSelector/>
                     </SettingListItem>
-                </List>}
+                    <SettingListItem icon={<LogoutIcon/>} tooltip={t("logout")} primary={t("logout")}>
+                        <Button onClick={handleLogout} variant="contained">{t("logout")}</Button>
+                    </SettingListItem>
+                </List>
+            }
         </>
     );
 });

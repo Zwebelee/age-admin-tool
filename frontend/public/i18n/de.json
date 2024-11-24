@@ -17,5 +17,6 @@
     "username": "Benutzername",
     "role": "Rolle",
     "darkmode": "Dunkelmodus",
-    "language": "Sprache"
+    "language": "Sprache",
+    "logout": "Abmelden"
 }
