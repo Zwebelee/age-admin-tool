@@ -11,11 +11,32 @@ import {
 } from "@mui/material";
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {useRootStore} from "../stores/root-store.ts";
-import {useState} from "react";
+import {ReactElement, ReactNode, useState} from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LanguageIcon from '@mui/icons-material/Language';
+import {LanguageSelector} from "./LanguageSelector.tsx";
+
+interface SettingListItemProps {
+    icon: ReactElement;
+    tooltip: string;
+    primary: string;
+    children: ReactNode;
+}
+
+const SettingListItem = ({icon, tooltip, primary, children}: SettingListItemProps) => (
+    <ListItem>
+        <ListItemIcon>
+            <Tooltip title={tooltip}>
+                {icon}
+            </Tooltip>
+        </ListItemIcon>
+        <ListItemText primary={primary}/>
+        {children}
+    </ListItem>
+);
+
 
 export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; onChange: () => void }) => {
 
@@ -42,17 +63,13 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
         }
 
         setSwitchChecked(newChecked);
+        onChange(); //TODO: temporary - remove later
     };
 
     const handleChange = (event: SelectChangeEvent) => {
         setUserRole(event.target.value as string);
     };
 
-
-    const handleLanguageChange = (event: SelectChangeEvent) => {
-        setLanguage(event.target.value as string);
-
-    }
     // const [userLoaded, setUserLoaded] = useState(false);
     // const [user, setUser] = useState(null);
     //
@@ -68,12 +85,6 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
     const themes = [
         {value: "light", label: "Light"},
         {value: "dark", label: "Dark"},
-    ];
-
-    const languages = [
-        {value: "en", label: "English"},
-        {value: "de", label: "Deutsch"},
-        {value: "fr", label: "Français"},
     ];
 
     const roles = [
@@ -95,26 +106,11 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
 
         <List sx={{width: '100%', backgroundColor: "grey"}}
               subheader={<ListSubheader>Settings</ListSubheader>}>
-            <ListItem>
-                <ListItemIcon>
-                    <Tooltip title="Username">
-                        <PersonIcon/>
-                    </Tooltip>
-                </ListItemIcon>
-                <ListItemText primary='Username'/>
+            <SettingListItem icon={<PersonIcon/>} tooltip="Username" primary="Username">
                 <ListItemText primary='SampleUserName'/>
-            </ListItem>
-
+            </SettingListItem>
             <Divider/>
-
-            <ListItem>
-                <ListItemIcon>
-                    <Tooltip title="Role">
-                        <SupervisorAccountIcon/>
-                    </Tooltip>
-                </ListItemIcon>
-
-                <ListItemText primary='Role'/>
+            <SettingListItem icon={<SupervisorAccountIcon/>} tooltip="Role" primary="Role">
                 <Select
                     labelId="role-select-label"
                     id="role-select"
@@ -126,98 +122,18 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
                         <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
                     )}
                 </Select>
-            </ListItem>
-
+            </SettingListItem>
             <Divider/>
-
-            <ListItem>
-                <ListItemIcon>
-                    <Tooltip title="Darkmode">
-                        <DarkModeIcon/>
-                    </Tooltip>
-                </ListItemIcon>
-
-                <ListItemText primary='Darkmode'/>
+            <SettingListItem icon={<DarkModeIcon/>} tooltip="Darkmode" primary="Darkmode">
                 <Switch
                     onChange={handleToggle('darkmode')}
                     checked={switchChecked.includes('darkmode')}
                 />
-            </ListItem>
-
+            </SettingListItem>
             <Divider/>
-
-            <ListItem>
-                <ListItemIcon>
-                    <Tooltip title="Language">
-                        <LanguageIcon/>
-                    </Tooltip>
-                </ListItemIcon>
-
-                <ListItemText primary='Language'/>
-                <Select
-                    labelId="language-select-label"
-                    id="language-select"
-                    value={language}
-                    label="Language"
-                    onChange={handleLanguageChange}
-                >
-                    {languages.map(item =>
-                        <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
-                    )}
-                </Select>
-            </ListItem>
-
-            <ListItem>
-                <h1>Theme</h1>
-                <p>Dark <Switch checked={toggleTheme} onChange={onChange}/> Light</p>
-            </ListItem>
-
+            <SettingListItem icon={<LanguageIcon/>} tooltip="Language" primary="Language">
+                <LanguageSelector/>
+            </SettingListItem>
         </List>
-
     );
 }
-
-// <Grid2 container direction="column" spacing={2}>
-//     <Grid2 item>
-//         <TextField
-//             label="User"
-//             value={user}
-//             onChange={handleChange(setUser)}
-//         />
-//     </Grid2>
-//     <Grid2 item>
-//         <TextField
-//             label="Username"
-//             value={username}
-//             onChange={handleChange(setUsername)}
-//         />
-//     </Grid2>
-//     <Grid2 item>
-//         <TextField
-//             label="Theme"
-//             select
-//             value={theme}
-//             onChange={handleChange(setTheme)}
-//         >
-//             {themes.map((option) => (
-//                 <MenuItem key={option.value} value={option.value}>
-//                     {option.label}
-//                 </MenuItem>
-//             ))}
-//         </TextField>
-//     </Grid2>
-//     <Grid2 item>
-//         <TextField
-//             label="Language"
-//             select
-//             value={language}
-//             onChange={handleChange(setLanguage)}
-//         >
-//             {languages.map((option) => (
-//                 <MenuItem key={option.value} value={option.value}>
-//                     {option.label}
-//                 </MenuItem>
-//             ))}
-//         </TextField>
-//     </Grid2>
-// </Grid2>
