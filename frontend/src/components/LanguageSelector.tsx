@@ -23,7 +23,7 @@ export const LanguageSelector = () => {
             labelId="language-select-label"
             id="language-select"
             value={i18n.language}
-            label="Language"
+            label={i18n.t("language")}
             onChange={onChangeLanguage}
         >
             {languages.map(item =>

@@ -17,6 +17,7 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LanguageIcon from '@mui/icons-material/Language';
 import {LanguageSelector} from "./LanguageSelector.tsx";
+import {useTranslation} from "react-i18next";
 
 interface SettingListItemProps {
     icon: ReactElement;
@@ -41,6 +42,9 @@ const SettingListItem = ({icon, tooltip, primary, children}: SettingListItemProp
 export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; onChange: () => void }) => {
 
     const {toolUserStore, authStore} = useRootStore()
+    const {t} = useTranslation();
+
+
     const [userRole, setUserRole] = useState("admin")
     const [switchChecked, setSwitchChecked] = useState(["darkmode"])
     const [language, setLanguage] = useState("en");
@@ -105,17 +109,17 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
     return (
 
         <List sx={{width: '100%', backgroundColor: "grey"}}
-              subheader={<ListSubheader>Settings</ListSubheader>}>
-            <SettingListItem icon={<PersonIcon/>} tooltip="Username" primary="Username">
+              subheader={<ListSubheader>{t("settings")}</ListSubheader>}>
+            <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
                 <ListItemText primary='SampleUserName'/>
             </SettingListItem>
             <Divider/>
-            <SettingListItem icon={<SupervisorAccountIcon/>} tooltip="Role" primary="Role">
+            <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("role")} primary={t("role")}>
                 <Select
                     labelId="role-select-label"
                     id="role-select"
                     value={userRole}
-                    label="Role"
+                    label={t("role")}
                     onChange={handleChange}
                 >
                     {roles.map(item =>
@@ -124,14 +128,14 @@ export const UserSettings = ({toggleTheme, onChange}: { toggleTheme: boolean; on
                 </Select>
             </SettingListItem>
             <Divider/>
-            <SettingListItem icon={<DarkModeIcon/>} tooltip="Darkmode" primary="Darkmode">
+            <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>
                 <Switch
                     onChange={handleToggle('darkmode')}
                     checked={switchChecked.includes('darkmode')}
                 />
             </SettingListItem>
             <Divider/>
-            <SettingListItem icon={<LanguageIcon/>} tooltip="Language" primary="Language">
+            <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
                 <LanguageSelector/>
             </SettingListItem>
         </List>

@@ -12,5 +12,10 @@
     "tasks": "Tâches",
     "tools": "Outils",
     "users": "Utilisateurs",
-    "viewer": "Visionneuse"
+    "viewer": "Visionneuse",
+    "settings": "Paramètres",
+    "username": "Nom d'utilisateur",
+    "role": "Rôle",
+    "darkmode": "Mode sombre",
+    "language": "Langue"
 }
