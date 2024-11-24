@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {useRootStore} from "../stores/root-store.ts";
-import {ReactElement, ReactNode, useState} from "react";
+import {ReactElement, ReactNode, useEffect, useState} from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -19,6 +19,8 @@ import LanguageIcon from '@mui/icons-material/Language';
 import {LanguageSelector} from "./LanguageSelector.tsx";
 import {useTranslation} from "react-i18next";
 import {observer} from "mobx-react-lite";
+import {SignInMask} from "./SignInMask.tsx";
+import {ToolUser} from "../models/tooluser.ts";
 
 interface SettingListItemProps {
     icon: ReactElement;
@@ -71,62 +73,52 @@ export const UserSettings = observer(() => {
         {value: "user", label: "User"}
     ] //TODO: integrate role-model
 
-    // const [userLoaded, setUserLoaded] = useState(false);
-    // const [user, setUser] = useState(null);
-    //
-    // useEffect(() => {
-    //     if (authStore.isLoggedIn) {
-    //         toolUserStore.loadUser().then(() => {
-    //             setUser(toolUserStore.user);
-    //             setUserLoaded(true);
-    //         });
-    //     }
-    // }, [authStore, toolUserStore]);
+    const [user, setUser] = useState<ToolUser | null >(null);
+
+    useEffect(() => {
+        if (authStore.isLoggedIn) {
+            toolUserStore.loadUser().then(() => {
+                setUser(toolUserStore.user ||null);
+            });
+        }
+    }, [authStore, toolUserStore]);
 
 
-
-
-    // return (
-    //     <>
-    //         <LanguageSelector/>
-    //         <br/>
-    //         <p>Dark <Switch checked={toggleTheme} onChange={onChange}/> Light</p>
-    //         {authStore.isLoggedIn ? <h1>user logged in</h1> : <h1>user not logged in</h1>}
-    //         {userLoaded ? (user ? <h1>hi {user.username}</h1> : <h1>no user</h1>) : <h1>Loading...</h1>}
-    //     </>
-    // )
     return (
-
-        <List sx={{width: '100%', backgroundColor: "grey"}}
-              subheader={<ListSubheader>{t("settings")}</ListSubheader>}>
-            <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
-                <ListItemText primary='SampleUserName'/>
-            </SettingListItem>
-            <Divider/>
-            <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("role")} primary={t("role")}>
-                <Select
-                    labelId="role-select-label"
-                    id="role-select"
-                    value={userRole}
-                    label={t("role")}
-                    onChange={handleChange}
-                >
-                    {roles.map(item =>
-                        <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
-                    )}
-                </Select>
-            </SettingListItem>
-            <Divider/>
-            <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>
-                <Switch
-                    onChange={handleToggle('dark')}
-                    checked={switchChecked.includes('dark')}
-                />
-            </SettingListItem>
-            <Divider/>
-            <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
-                <LanguageSelector/>
-            </SettingListItem>
-        </List>
+        <>
+            {!authStore.isLoggedIn ?
+                <SignInMask/> :
+                <List sx={{width: '100%', backgroundColor: "grey"}}
+                      subheader={<ListSubheader>{t("settings")}</ListSubheader>}>
+                    <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
+                        <ListItemText primary={user?.username}/>
+                    </SettingListItem>
+                    <Divider/>
+                    <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("role")} primary={t("role")}>
+                        <Select
+                            labelId="role-select-label"
+                            id="role-select"
+                            value={userRole}
+                            label={t("role")}
+                            onChange={handleChange}
+                        >
+                            {roles.map(item =>
+                                <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+                            )}
+                        </Select>
+                    </SettingListItem>
+                    <Divider/>
+                    <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>
+                        <Switch
+                            onChange={handleToggle('dark')}
+                            checked={switchChecked.includes('dark')}
+                        />
+                    </SettingListItem>
+                    <Divider/>
+                    <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
+                        <LanguageSelector/>
+                    </SettingListItem>
+                </List>}
+        </>
     );
 });
