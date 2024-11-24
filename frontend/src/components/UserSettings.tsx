@@ -92,10 +92,9 @@ export const UserSettings = observer(() => {
                 if (toolUserStore.user?.language) {
                     languageStore.switchLanguage(toolUserStore.user.language as "de" | "fr" | "en");
                 }
-                console.log('debug - user loaded', toolUserStore.user)
             });
         }
-    }, [authStore, toolUserStore, languageStore, themeStore]);
+    }, [authStore.isLoggedIn, toolUserStore, languageStore, themeStore]);
 
 
     return (

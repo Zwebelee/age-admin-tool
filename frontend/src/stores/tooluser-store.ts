@@ -15,9 +15,7 @@ export class ToolUserStore {
         try {
             const response = await this.authService.getApiClient().get('/toolusers');
             runInAction(() => {
-                const user: ToolUser = response.data;
-                this.user = user;
-                console.log('debug -> user set');
+                this.user = response.data;
             });
         } catch (error) {
             console.error('Failed to load data', error);
