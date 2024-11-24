@@ -79,13 +79,13 @@ export const UserSettings = observer(() => {
         {value: "user", label: "User"}
     ] //TODO: integrate role-model
 
-    const [user, setUser] = useState<ToolUser | null >(null);
+    const [user, setUser] = useState<ToolUser | null>(null);
 
     useEffect(() => {
         if (authStore.isLoggedIn) {
             toolUserStore.loadUser().then(() => {
-                setUser(toolUserStore.user ||null);
-                if (toolUserStore.user?.theme){
+                setUser(toolUserStore.user || null);
+                if (toolUserStore.user?.theme) {
                     themeStore.setTheme(toolUserStore.user.theme as "light" | "dark");
                     setSwitchChecked([toolUserStore.user.theme]);
                 }
