@@ -57,17 +57,19 @@ export const UserSettings = observer(() => {
     };
 
     const handleToggle = (value: string) => () => {
-        const currentIndex = switchChecked.indexOf(value);
-        const newChecked = [...switchChecked];
+        setSwitchChecked((prevChecked) => {
+            const currentIndex = prevChecked.indexOf(value);
+            const newChecked = [...prevChecked];
 
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
+            if (currentIndex === -1) {
+                newChecked.push(value);
+            } else {
+                newChecked.splice(currentIndex, 1);
+            }
 
-        setSwitchChecked(newChecked);
-        themeStore.toggleTheme();
+            themeStore.toggleTheme();
+            return newChecked;
+        });
     };
 
     const handleChange = (event: SelectChangeEvent) => {
@@ -81,6 +83,8 @@ export const UserSettings = observer(() => {
 
     const [user, setUser] = useState<ToolUser | null>(null);
 
+    //TODO: Improve - load user only once, combine effects, maybe use customHook
+    // known issue: switch to light mode not properly handled (saved)
     useEffect(() => {
         if (authStore.isLoggedIn) {
             toolUserStore.loadUser().then(() => {
@@ -96,6 +100,27 @@ export const UserSettings = observer(() => {
         }
     }, [authStore.isLoggedIn, toolUserStore, languageStore, themeStore]);
 
+    useEffect(() => {
+        if (user) {
+            const updatedUser = {...user};
+            let shouldUpdate = false;
+
+            if (user.language !== languageStore.language) {
+                updatedUser.language = languageStore.language;
+                shouldUpdate = true;
+            }
+
+            const newTheme = switchChecked.includes('dark') ? 'dark' : 'light';
+            if (user.theme !== newTheme) {
+                updatedUser.theme = newTheme;
+                shouldUpdate = true;
+            }
+
+            if (shouldUpdate) {
+                toolUserStore.updateUser(updatedUser).then();
+            }
+        }
+    }, [languageStore.language, switchChecked, toolUserStore, user]);
 
     return (
         <>
