@@ -1,5 +1,12 @@
-export const DataCharts = () => {
+import "./DataCharts.scss";
+
+export const DataCharts = ({ color }: {
+    color: string;
+}) => {
+    const dynamicClass = "dataCharts dataCharts" + color;
     return (
-        <p>Charts</p>
+        <div className={dynamicClass}>
+            <p>Charts</p>
+        </div>
     );
 };

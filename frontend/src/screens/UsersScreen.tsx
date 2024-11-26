@@ -45,7 +45,9 @@ export const UsersScreen = () => {
                     maxValue: 8000
                 }]}
             ></OverviewBox>
-            <InsideBox></InsideBox>
+            <InsideBox
+                color="--color2"
+            ></InsideBox>
         </>
     );
 };

@@ -1,13 +1,20 @@
 import {DataFilters} from "./DataFilters.tsx";
-import {DataList} from "./DataList.tsx";
+import {DataTable} from "./DataTable.tsx";
 import {DataCharts} from "./DataCharts.tsx";
+import "./InsideBox.scss";
 
-export const InsideBox = () => {
+export const InsideBox = ({ color }: {
+    color: string;
+}) => {
     return (
-        <>
+        <div className="insideBox">
             <DataFilters></DataFilters>
-            <DataList></DataList>
-            <DataCharts></DataCharts>
-        </>
+            <DataTable
+                color={color}
+            ></DataTable>
+            <DataCharts
+                color={color}
+            ></DataCharts>
+        </div>
     );
 };
