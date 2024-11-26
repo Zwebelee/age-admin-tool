@@ -25,7 +25,13 @@ logout_bp = Blueprint('logout', __name__)
 })
 def logout():
     token = get_jwt()
+    if "jti" not in token or "type" not in token:
+        return jsonify(msg="Invalid Token provided"), 400
+
     jti = token["jti"]
-    ttype = token["type"]
-    jwt_redis_blocklist.set(jti, "", ex=os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
-    return jsonify(msg=f"{ttype.capitalize()} token successfully revoked")
+    ttype = str(token["type"])
+    expiry = os.getenv('JWT_ACCESS_TOKEN_EXPIRES', "3600")
+    # 3600 as default if not set
+
+    jwt_redis_blocklist.set(jti, "True", ex=expiry)  # marking jti as revoked
+    return jsonify(msg=f"{ttype.capitalize()} token successfully revoked"), 200

@@ -12,5 +12,11 @@
     "tasks": "Aufgaben",
     "tools": "Werkzeuge",
     "users": "Benutzer",
-    "viewer": "Betrachter"
+    "viewer": "Betrachter",
+    "settings": "Einstellungen",
+    "username": "Benutzername",
+    "role": "Rolle",
+    "darkmode": "Dunkelmodus",
+    "language": "Sprache",
+    "logout": "Abmelden"
 }

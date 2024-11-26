@@ -12,5 +12,11 @@
     "tasks": "Tasks",
     "tools": "Tools",
     "users": "Users",
-    "viewer": "Viewer"
+    "viewer": "Viewer",
+    "settings": "Settings",
+    "username": "Username",
+    "role": "Role",
+    "darkmode": "Dark Mode",
+    "language": "Language",
+    "logout": "Logout"
 }

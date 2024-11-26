@@ -11,6 +11,9 @@ import {AgeportalStore} from "./age-portal-store.ts";
 import {AgeserverStore} from "./age-server-store.ts";
 import {AgewebadaptorStore} from "./age-webadaptor-store.ts";
 import {PortalItemStore} from "./portal-store.ts";
+import {ToolUserStore} from "./tooluser-store.ts";
+import {ThemeStore} from "./theme-store.ts";
+import {LanguageStore} from "./language-store.ts";
 
 export class RootStore {
     authStore: AuthStore;
@@ -23,6 +26,9 @@ export class RootStore {
     ageServerStore: AgeserverStore
     ageWebAdaptorStore: AgewebadaptorStore
     portalItemStore: PortalItemStore;
+    toolUserStore : ToolUserStore;
+    themeStore: ThemeStore;
+    languageStore: LanguageStore;
 
     get init() {
         // TODO: Test
@@ -31,8 +37,8 @@ export class RootStore {
 
     constructor() {
         makeAutoObservable(this);
-        this.authStore = new AuthStore(this);
         this.authService = new AuthService(this)
+        this.authStore = new AuthStore(this, this.authService);
 
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);
@@ -42,6 +48,10 @@ export class RootStore {
         this.ageServerStore = new AgeserverStore(this.authService);
         this.ageWebAdaptorStore = new AgewebadaptorStore(this.authService)
         this.portalItemStore = new PortalItemStore(this.authService);
+        this.toolUserStore = new ToolUserStore(this.authService);
+        this.themeStore = new ThemeStore();
+        this.languageStore = new LanguageStore(this.toolUserStore);
+
     }
 }
 
