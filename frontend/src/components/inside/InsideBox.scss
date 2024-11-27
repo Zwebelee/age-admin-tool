@@ -1,6 +1,7 @@
 @import "../../globalFunctions";
 
 .insideBox {
+    position: relative;
     display: grid;
     grid: "filters table"
           "filters charts";

@@ -1,6 +1,7 @@
 import {DataFilters} from "./DataFilters.tsx";
 import {DataTable} from "./DataTable.tsx";
 import {DataCharts} from "./DataCharts.tsx";
+import {DataView} from "./DataView.tsx";
 import "./InsideBox.scss";
 
 export const InsideBox = ({ color }: {
@@ -15,6 +16,7 @@ export const InsideBox = ({ color }: {
             <DataCharts
                 color={color}
             ></DataCharts>
+            <DataView></DataView>
         </div>
     );
 };
