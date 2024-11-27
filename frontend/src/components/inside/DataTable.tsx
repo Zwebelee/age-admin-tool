@@ -6,28 +6,28 @@ export const DataTable = ({ color }: {
     const dynamicClass = "dataTable dataTable" + color;
     return (
         <div className={dynamicClass}>
-            <table>
-                <thead>
-                <tr>
-                    <td>Lorem ipsum</td>
-                    <td>Justo</td>
-                    <td>Fringilla vel</td>
-                    <td>Aliquet</td>
-                </tr>
+            <table className="dataTable__table">
+                <thead className="dataTable__head">
+                    <tr className="dataTable__headRow">
+                        <td className="dataTable__headCell">Lorem ipsum</td>
+                        <td className="dataTable__headCell">Justo</td>
+                        <td className="dataTable__headCell">Fringilla vel</td>
+                        <td className="dataTable__headCell">Aliquet</td>
+                    </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>Dolor sit</td>
-                    <td>102</td>
-                    <td>15552</td>
-                    <td>18</td>
-                </tr>
-                <tr>
-                    <td>Amet</td>
-                    <td>12</td>
-                    <td>9444</td>
-                    <td>564</td>
-                </tr>
+                <tbody className="dataTable__body">
+                    <tr className="dataTable__bodyRow">
+                        <td className="dataTable__bodyCell">Dolor sit</td>
+                        <td className="dataTable__bodyCell">102</td>
+                        <td className="dataTable__bodyCell">15552</td>
+                        <td className="dataTable__bodyCell">18</td>
+                    </tr>
+                    <tr className="dataTable__bodyRow">
+                        <td className="dataTable__bodyCell">Amet</td>
+                        <td className="dataTable__bodyCell">12</td>
+                        <td className="dataTable__bodyCell">9444</td>
+                        <td className="dataTable__bodyCell">564</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
