@@ -1,8 +1,12 @@
 @import "../../globalFunctions";
 
+.dataTableHidden {
+    display: none;
+}
+
 .dataTable {
     grid-area: table;
-    padding: pxToRem(30);
+    padding: pxToRem(30) pxToRem(30) pxToRem(75) pxToRem(30);
     border: pxToRem(1) solid var(--color1);
     border-radius: pxToRem(6);
     margin: pxToRem(4);

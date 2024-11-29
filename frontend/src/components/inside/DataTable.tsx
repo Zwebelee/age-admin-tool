@@ -1,9 +1,10 @@
 import "./DataTable.scss";
 
-export const DataTable = ({ color }: {
+export const DataTable = ({ color, display }: {
     color: string;
+    display: boolean;
 }) => {
-    const dynamicClass = "dataTable dataTable" + color;
+    const dynamicClass = display ? "dataTable dataTable" + color : "dataTableHidden";
     return (
         <div className={dynamicClass}>
             <table className="dataTable__table">
