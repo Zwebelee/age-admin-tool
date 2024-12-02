@@ -1,13 +1,11 @@
 import {observer} from "mobx-react-lite";
-import {PortalLicense, PortalLicenseProps} from "../../../models/portallicense.ts";
+import {PortalLicense} from "../../../models/portallicense.ts";
 import {
     Button,
     Card,
-    CardActionArea,
     CardActions,
     CardContent,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Icon,
     TextField,
     Typography
 } from "@mui/material";
@@ -18,17 +16,25 @@ import {Loading} from "../../loading/Loading.tsx";
 
 interface PortalLicenseCardProps {
     item: PortalLicense;
+    isEditing?: boolean;
+    isNew?: boolean;
+    onCancel?: () => void;
 }
 
-export const PortalLicenseCard = observer(({item}: PortalLicenseCardProps) => {
+export const PortalLicenseCard = observer(({
+                                               item,
+                                               isEditing: initialEditing = false,
+                                               isNew: initialNew = false,
+                                               onCancel
+                                           }: PortalLicenseCardProps) => {
 
     const {portalLicenseStore} = useRootStore();
     // const defaultState = {...license};
 
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(initialEditing);
+    const [isNew, setIsNew] = useState(initialNew);
     const [state, setState] = useState({...item});
     const [deleting, setDeleting] = useState(false);
-    const [deleteError, setDeleteError] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
 
 
@@ -37,16 +43,26 @@ export const PortalLicenseCard = observer(({item}: PortalLicenseCardProps) => {
     }
 
     const handleCancelEditClick = () => {
-        setIsEditing(false);
-        setState({...item});
+        if (isNew) {
+            setIsNew(false);
+            setIsEditing(false);
+            if (onCancel) {
+                onCancel();
+            }
+
+        } else {
+            setIsEditing(false);
+            setState({...item});
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, value } = e.target;
+        const {id, value} = e.target;
         setState({...state, [id]: value});
     }
 
     const handleSave = () => {
+        //TODO : if isNew -> save create item, otherwise update
         portalLicenseStore.updateItem(state);
         setIsEditing(false);
     }
@@ -58,7 +74,6 @@ export const PortalLicenseCard = observer(({item}: PortalLicenseCardProps) => {
                 setDeleting(false);
                 setOpenDialog(false);
             }).catch(() => {
-                setDeleteError(true);
                 setDeleting(false);
             });
         }, 1250);
@@ -174,9 +189,9 @@ export const PortalLicenseCard = observer(({item}: PortalLicenseCardProps) => {
                 <Button variant={"contained"}
                         onClick={!isEditing ? handleEditClick : handleCancelEditClick}
                 >{isEditing ? "Cancel" : "Edit"}</Button>
-                <Button variant="contained" color="error" onClick={handleOpenDialog}>
+                {!isNew && <Button variant="contained" color="error" onClick={handleOpenDialog}>
                     {deleting ? <Loading/> : <DeleteIcon/>}
-                </Button>
+                </Button>}
             </CardActions>
             <Dialog
                 open={openDialog}
