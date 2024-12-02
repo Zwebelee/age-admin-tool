@@ -4,11 +4,13 @@ import {Button, List, ListItem, Typography} from "@mui/material";
 import {useState} from "react";
 import {PortalLicenseTool} from "./PortalLicenseTool.tsx";
 import {AgePortalTool} from "./AgePortalTool.tsx";
+import {AgeEditorToolTest} from "./AgeEditorToolTest.tsx";
 
 const tools = [
     {name: 'PortalLicenses', component: PortalLicenseTool},
     {name: 'DataStores', component: () => <Typography>DataStores Component</Typography>},
-    {name: 'Portals', component: AgePortalTool}
+    {name: 'Portals', component: AgePortalTool},
+    {name: 'test', component: AgeEditorToolTest}
 ];
 
 export const AgeEditorTool = observer(() => {
@@ -41,7 +43,7 @@ export const AgeEditorTool = observer(() => {
                 </Grid>
                 <Grid size={gridsize}>
                     {tools.map(tool => (
-                        selectedTool === tool.name && <tool.component key={tool.name}/>
+                        selectedTool === tool.name && <tool.component key={tool.name} />
                     ))}
                 </Grid>
             </Grid>
