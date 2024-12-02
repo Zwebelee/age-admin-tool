@@ -1,3 +1,5 @@
+import {AgeEditorTool} from "../components/tools/age-editor-tool/AgeEditorTool.tsx";
+
 export const ToolDetailScreen = () => {
-    return <h1>DetailsScreen</h1>
+    return <AgeEditorTool/>
 }
