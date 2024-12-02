@@ -1,36 +1,26 @@
 import {observer} from "mobx-react-lite";
 import Grid from '@mui/material/Grid2';
 import {Button, List, ListItem, Typography} from "@mui/material";
-import {useRootStore} from "../../../stores/root-store.ts";
-import {PortalLicenseCard} from "./PortalLicenseCard.tsx";
 import {useState} from "react";
-import { PortalLicense } from "../../../models/portallicense.ts";
+import {PortalLicenseTool} from "./PortalLicenseTool.tsx";
+import {AgePortalTool} from "./AgePortalTool.tsx";
 
+const tools = [
+    {name: 'PortalLicenses', component: PortalLicenseTool},
+    {name: 'DataStores', component: () => <Typography>DataStores Component</Typography>},
+    {name: 'Portals', component: AgePortalTool}
+];
 
 export const AgeEditorTool = observer(() => {
-    const {portalLicenseStore} = useRootStore()
-    const [newItem, setNewItem] = useState(false)
-
-    const handleToggleAddNew = () => {
-        setNewItem(!newItem)
-    }
-
-    const handleCancelNewItem = () => {
-        setNewItem(false);
-    };
 
     const gridsize = 9
 
-    const defaultPortalLicense = new PortalLicense({
-        id: Date.now().toString(),
-        name: "New License",
-        description: "",
-        level: "0",
-        state: "",
-        maxusers: 0,
-        currentusers: 0,
-        guid: ""
-    });
+    const [selectedTool, setSelectedTool] = useState<string>(tools[0].name);
+
+    const handleSelectTool = (tool: string) => {
+        setSelectedTool(tool);
+    };
+
 
     return (
         <>
@@ -39,32 +29,20 @@ export const AgeEditorTool = observer(() => {
             <Grid container spacing={3}>
                 <Grid size={3}>
                     <List>
-                        {Array.from({length: 10}, (_, index) => (
+                        {tools.map((tool, index) => (
                             <ListItem key={index}>
-                                <Button variant="contained">{index}</Button>
+                                <Button
+                                    variant={selectedTool === tool.name ? "contained" : "outlined"}
+                                    onClick={() => handleSelectTool(tool.name)}
+                                >{tool.name}</Button>
                             </ListItem>
-                        ))
-                        }
-
+                        ))}
                     </List>
                 </Grid>
                 <Grid size={gridsize}>
-                    <Grid>
-                        {!newItem && <Button variant="contained" onClick={handleToggleAddNew}>Add New</Button>}
-                        {newItem && (
-                            <>
-                                <Typography variant="h6">Add New License</Typography>
-                                <PortalLicenseCard item={defaultPortalLicense} isEditing={true} isNew={true} onCancel={handleCancelNewItem}/>
-                            </>
-
-                        )}
-
-                        {!newItem && portalLicenseStore.visibleItems.map((item, index) => {
-                            return (
-                                <PortalLicenseCard item={item} key={index}/>
-                            )
-                        })}
-                    </Grid>
+                    {tools.map(tool => (
+                        selectedTool === tool.name && <tool.component key={tool.name}/>
+                    ))}
                 </Grid>
             </Grid>
         </>
