@@ -9,7 +9,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useRootStore} from "../../../stores/root-store.ts";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Loading} from "../../loading/Loading.tsx";
@@ -62,9 +62,25 @@ export const PortalLicenseCard = observer(({
     }
 
     const handleSave = () => {
-        //TODO : if isNew -> save create item, otherwise update
-        portalLicenseStore.updateItem(state);
-        setIsEditing(false);
+        if (isNew) {
+            //create a new item
+            portalLicenseStore.addItem(state).then(() => {
+                setIsNew(false);
+                setIsEditing(false);
+                if (onCancel) {
+                    onCancel();
+                }
+            }).catch(() => {
+                console.log('error');
+            });
+        } else {
+            //update
+            portalLicenseStore.updateItem(state).then(() => {
+                setIsEditing(false)
+            }).catch(() => {
+                setIsEditing(false);
+            });
+        }
     }
 
     const handleDelete = () => {
