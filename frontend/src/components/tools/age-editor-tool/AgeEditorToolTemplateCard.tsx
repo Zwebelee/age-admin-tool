@@ -1,9 +1,21 @@
-import {Button, Card, TextField, Typography, CardContent} from "@mui/material";
+import {
+    Button,
+    Card,
+    TextField,
+    Typography,
+    CardContent,
+    CardActions,
+    Dialog,
+    DialogTitle,
+    DialogContent, DialogContentText, DialogActions
+} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {observer} from "mobx-react-lite";
-import {useState} from "react";
+import React, {useState} from "react";
 import {PortalLicense} from "../../../models/portallicense.ts";
 import {PortalLicenseStore} from "../../../stores/portallicense-store.ts";
+import {Loading} from "../../loading/Loading.tsx";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type inputItems = PortalLicense;
 type inputStores = PortalLicenseStore
@@ -20,31 +32,86 @@ interface AgeEditorToolTemplateCardProps {
 
 
 export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateCardProps) => {
-    const {item, isEditing, isNew, onCancel, onSave, store, fields} = props;
-    const [localItem, setLocalItem] = useState(item);
 
-    const handleChange = (field: string, value: never) => {
-        setLocalItem({...localItem, [field]: value});
+    //TODO
+    //  1. Rerender on delete item
+    //  2. Implement handleChange + rerendering on cancle etc!
+    //  3. Implement handleSave
+    //  4. Restyle component !!
+
+
+    const {item, onCancel, onSave, store, fields} = props;
+
+    const [localItem, setLocalItem] = useState({...item});
+    const [isEditing, setIsEditing] = useState(props.isEditing);
+    const [isNew, setIsNew] = useState(props.isNew);
+    const [deleting, setDeleting] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {id, value} = e.target
+        setLocalItem({...localItem, [id]: value});
     };
+
+    const handleEditClick = () => {
+        setIsEditing(!isEditing);
+    }
+
+    const handleCancelEditClick = () => {
+        if (isNew) {
+            setIsNew(false);
+            setIsEditing(false);
+            if (onCancel) {
+                onCancel();
+            }
+
+        } else {
+            setIsEditing(false);
+            setLocalItem({...item});
+        }
+    }
 
     const handleSave = () => {
         if (isNew) {
-            store.addItem(localItem);
+            //create a new item
+            store.addItem(localItem).then(() => {
+                setIsNew(false);
+                setIsEditing(false);
+                if (onCancel) {
+                    onCancel();
+                }
+            }).catch(() => {
+                console.log('error'); //TODO handle error
+            });
         } else {
-            store.updateItem(localItem);
+            //update
+            store.updateItem(localItem).then(() => {
+                setIsEditing(false)
+            }).catch(() => {
+                setIsEditing(false);
+            });
         }
-        onSave(localItem);
-    };
+    }
 
+    const handleDelete = () => {
+        setDeleting(true);
+        setTimeout(() => {
+            store.deleteItem(localItem).then(() => {
+                setDeleting(false);
+                setOpenDialog(false);
+            }).catch(() => {
+                setDeleting(false);
+            });
+        }, 1250);
+    }
 
+    const handleOpenDialog = () => {
+        setOpenDialog(true);
+    }
 
-
-
-    //TODO: Continue here!!!!!!!!!!!!!
-
-
-
-
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    }
 
 
     const viewContent = (
@@ -63,10 +130,12 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
             {fields.map((field, index) => (
                 <Grid sx={{xs: 12}} key={index}>
                     <TextField
+                        id={field.name}
                         label={field.label}
                         type={field.type}
                         value={localItem[field.name as keyof inputItems]}
-                        disabled
+                        onChange={handleChange}
+                        disabled={field.disabled}
                         fullWidth
                     />
                 </Grid>
@@ -75,17 +144,38 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
     )
 
     return (
-        <Grid>
-            <Typography>test</Typography>
-            <Card>
-                <CardContent sx={{backgroundColor: 'grey'}}>
-                    {isEditing ? editContent : viewContent}
-                </CardContent>
-                <Grid sx={{xs: 12}}>
-                    <Button variant="contained" onClick={handleSave}>Save</Button>
-                    <Button variant="outlined" onClick={onCancel}>Cancel</Button>
-                </Grid>
-            </Card>
-        </Grid>
+        <Card>
+            <CardContent sx={{backgroundColor: 'grey'}}>
+                {isEditing ? editContent : viewContent}
+            </CardContent>
+            <CardActions>
+                {isEditing && <Button variant={"contained"} onClick={handleSave}>Save</Button>}
+                <Button variant={"contained"}
+                        onClick={!isEditing ? handleEditClick : handleCancelEditClick}
+                >{isEditing ? "Cancel" : "Edit"}</Button>
+                {!isNew && <Button variant="contained" color="error" onClick={handleOpenDialog}>
+                    {deleting ? <Loading/> : <DeleteIcon/>}
+                </Button>}
+            </CardActions>
+            <Dialog
+                open={openDialog}
+                onClose={handleCloseDialog}
+            >
+                <DialogTitle>Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Do you really want to delete this item?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleDelete} color="error" autoFocus>
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </Card>
     );
 });

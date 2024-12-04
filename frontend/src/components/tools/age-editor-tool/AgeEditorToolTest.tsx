@@ -1,9 +1,13 @@
 import {AgeEditorToolTemplateCard} from "./AgeEditorToolTemplateCard.tsx";
 import {useRootStore} from "../../../stores/root-store.ts";
+import {observer} from "mobx-react-lite";
 
-export const AgeEditorToolTest = () => {
+export const AgeEditorToolTest = observer(() => {
     const {portalLicenseStore} = useRootStore();
 
+    //TODO
+    // 1. Implement add New with prototype / default item
+    // 2. Check the templatecard inputs...
 
     return (
         portalLicenseStore.visibleItems.map((item, index) => {
@@ -25,11 +29,11 @@ export const AgeEditorToolTest = () => {
                             {name: 'state', label: 'State', type: 'text', disabled: false},
                             {name: 'maxusers', label: 'Max Users', type: 'number', disabled: false},
                             {name: 'currentusers', label: 'Current Users', type: 'number', disabled: false},
-                            {name: 'id', label: 'ID', type: 'text', disabled: false},
-                            {name: 'guid', label: 'GUID', type: 'text', disabled: false},
+                            {name: 'id', label: 'ID', type: 'text', disabled: true},
+                            {name: 'guid', label: 'GUID', type: 'text', disabled: true},
                         ]}
                     />
                 )
             }
         ))
-}
+})
