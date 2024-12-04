@@ -48,10 +48,10 @@ export const ToolsMenu = observer(() => {
     return (
         <>
             <h2>
-                {t("tools")} {activeTool && ` - ${activeTool.props.title}`}
+                {t("tools.title")} {activeTool && ` - ${activeTool.props.title}`}
                 {activeTool && (
                     <Button onClick={handleToolCardClose} style={{marginLeft: '10px'}}>
-                        {t("close")}
+                        {t("actions.close")}
                     </Button>
                 )}
             </h2>

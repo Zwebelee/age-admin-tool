@@ -1,6 +1,23 @@
 {
     "app-title": "Outil de gestion AGE",
-    "close": "Fermer",
+    "actions": {
+        "add": {
+            "title": "Ajouter",
+            "add_new": "Ajouter nouveau"
+        },
+        "back": "Retour",
+        "cancel": "Annuler",
+        "close": "Fermer",
+        "confirm": "Confirmer",
+        "delete": {
+            "title": "Supprimer",
+            "confirmation": "Voulez-vous vraiment supprimer ceci?"
+        },
+        "edit": "Éditer",
+        "save": "Enregistrer",
+        "yes": "Oui",
+        "no": "Non"
+    },
     "components": "Composants",
     "contents": "Contenu",
     "creators": "Créateurs",
@@ -10,7 +27,6 @@
     "my-account": "Mon compte",
     "overview": "Aperçu",
     "tasks": "Tâches",
-    "tools": "Outils",
     "users": "Utilisateurs",
     "viewer": "Visionneuse",
     "settings": "Paramètres",
@@ -18,5 +34,12 @@
     "role": "Rôle",
     "darkmode": "Mode sombre",
     "language": "Langue",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "tools": {
+        "title": "Outils",
+        "age-editor": {
+            "title": "Éditeur AGE",
+            "description": "Créer, éditer et supprimer des composants AGE."
+        }
+    }
 }
