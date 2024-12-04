@@ -6,7 +6,7 @@ import {Button, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {PortalLicense} from "../../../models/portallicense.ts";
 
-export const AgeEditorToolTest = observer(() => {
+export const AgeEditorToolPortallicense = observer(() => {
 
     const {portalLicenseStore} = useRootStore();
     const [newItem, setNewItem] = useState(false)

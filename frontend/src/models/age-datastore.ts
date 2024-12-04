@@ -8,7 +8,7 @@ export interface AgeDatastoreProps {
     ishosted: boolean;
     url: string | null;
     status: string;
-    description: string | null;
+    description: string;
     capacity_gb: number;
     used_gb: number;
 }
@@ -23,7 +23,7 @@ export class AgeDataStore extends AbstractModel {
     ishosted: boolean;
     url: string | null;
     status: string;
-    description: string | null;
+    description: string;
     capacity_gb: number;
     used_gb: number;
 
