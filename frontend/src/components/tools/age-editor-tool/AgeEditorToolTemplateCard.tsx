@@ -16,16 +16,17 @@ import {PortalLicense} from "../../../models/portallicense.ts";
 import {PortalLicenseStore} from "../../../stores/portallicense-store.ts";
 import {Loading} from "../../loading/Loading.tsx";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {AgeDataStore} from "../../../models/age-datastore.ts";
+import {AgeDatastoreStoreStore} from "../../../stores/age-datastore-store.ts";
 
-type inputItems = PortalLicense;
-type inputStores = PortalLicenseStore
+type inputItems = PortalLicense | AgeDataStore
+type inputStores = PortalLicenseStore | AgeDatastoreStoreStore
 
 interface AgeEditorToolTemplateCardProps {
     item: inputItems;
     isEditing: boolean;
     isNew: boolean;
     onCancel: () => void;
-    onSave: (item: any) => void;
     store: inputStores;
     fields: { name: string, label: string, type: string, disabled: boolean }[];
 }
@@ -33,14 +34,7 @@ interface AgeEditorToolTemplateCardProps {
 
 export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateCardProps) => {
 
-    //TODO
-    //  1. Rerender on delete item
-    //  2. Implement handleChange + rerendering on cancle etc!
-    //  3. Implement handleSave
-    //  4. Restyle component !!
-
-
-    const {item, onCancel, onSave, store, fields} = props;
+    const {item, onCancel, store, fields} = props;
 
     const [localItem, setLocalItem] = useState({...item});
     const [isEditing, setIsEditing] = useState(props.isEditing);
@@ -80,8 +74,8 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                 if (onCancel) {
                     onCancel();
                 }
-            }).catch(() => {
-                console.log('error'); //TODO handle error
+            }).catch((e) => {
+                console.error('error during save', e);
             });
         } else {
             //update
