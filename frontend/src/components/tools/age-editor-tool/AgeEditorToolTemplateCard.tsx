@@ -18,9 +18,17 @@ import {Loading} from "../../loading/Loading.tsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {AgeDataStore} from "../../../models/age-datastore.ts";
 import {AgeDatastoreStoreStore} from "../../../stores/age-datastore-store.ts";
+import {AgePortal} from "../../../models/age-portal.ts";
+import {AgeportalStore} from "../../../stores/age-portal-store.ts";
+import {AgeWebAdaptor} from "../../../models/age-webadaptor.ts";
+import {AgeServer} from "../../../models/age-server.ts";
+import {Age} from "../../../models/age.ts";
+import {AgewebadaptorStore} from "../../../stores/age-webadaptor-store.ts";
+import {AgeserverStore} from "../../../stores/age-server-store.ts";
+import {AgeStore} from "../../../stores/age-store.ts";
 
-type inputItems = PortalLicense | AgeDataStore
-type inputStores = PortalLicenseStore | AgeDatastoreStoreStore
+type inputItems = PortalLicense | AgeDataStore | AgePortal | AgeWebAdaptor | AgeServer | Age
+type inputStores = PortalLicenseStore | AgeDatastoreStoreStore | AgeportalStore | AgewebadaptorStore | AgeserverStore | AgeStore
 
 interface AgeEditorToolTemplateCardProps {
     item: inputItems;
@@ -29,12 +37,13 @@ interface AgeEditorToolTemplateCardProps {
     onCancel: () => void;
     store: inputStores;
     fields: { name: string, label: string, type: string, disabled: boolean }[];
+    canDelete?: boolean;
 }
 
 
 export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateCardProps) => {
 
-    const {item, onCancel, store, fields} = props;
+    const {item, onCancel, store, fields,canDelete=true} = props;
 
     const [localItem, setLocalItem] = useState({...item});
     const [isEditing, setIsEditing] = useState(props.isEditing);
@@ -147,7 +156,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                 <Button variant={"contained"}
                         onClick={!isEditing ? handleEditClick : handleCancelEditClick}
                 >{isEditing ? "Cancel" : "Edit"}</Button>
-                {!isNew && <Button variant="contained" color="error" onClick={handleOpenDialog}>
+                {!isNew && canDelete && <Button variant="contained" color="error" onClick={handleOpenDialog}>
                     {deleting ? <Loading/> : <DeleteIcon/>}
                 </Button>}
             </CardActions>
