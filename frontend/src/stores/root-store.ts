@@ -31,14 +31,14 @@ export class RootStore {
     languageStore: LanguageStore;
 
     get init() {
-        // TODO: Test
+        // TODO: Handle initialization
         return "blabliblu";
     }
 
     constructor() {
         makeAutoObservable(this);
         this.authService = new AuthService(this)
-        this.authStore = new AuthStore(this, this.authService);
+        this.authStore = new AuthStore(this.authService);
 
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);
