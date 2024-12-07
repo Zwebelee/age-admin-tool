@@ -5,9 +5,10 @@ import {useState} from "react";
 import {Button, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {AgeServer} from "../../../models/age-server.ts";
+import {useTranslation} from "react-i18next";
 
 export const AgePortalToolServer = observer(() => {
-
+    const {t} = useTranslation();
     const {ageServerStore} = useRootStore();
     const [newItem, setNewItem] = useState(false)
     const handleToggleAddNew = () => {
@@ -46,7 +47,7 @@ export const AgePortalToolServer = observer(() => {
 
     return (
         <Grid>
-            {!newItem && <Button variant="contained" onClick={handleToggleAddNew}>Add New</Button>}
+            {!newItem && <Button variant="contained" onClick={handleToggleAddNew}>{t("actions.add.title")}</Button>}
             {newItem && (
                 <>
                     <Typography variant="h6">Add New Portal-License</Typography>

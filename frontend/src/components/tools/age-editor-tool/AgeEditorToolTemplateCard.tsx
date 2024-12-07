@@ -15,6 +15,7 @@ import React, {useState} from "react";
 import {Loading} from "../../loading/Loading.tsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {ItemType, StoreType} from "../../../stores/abstract-store.ts";
+import {useTranslation} from "react-i18next";
 
 
 interface AgeEditorToolTemplateCardProps {
@@ -29,7 +30,7 @@ interface AgeEditorToolTemplateCardProps {
 
 
 export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateCardProps) => {
-
+    const {t} = useTranslation();
     const {item, onCancel, store, fields,canDelete=true} = props;
 
     const [localItem, setLocalItem] = useState({...item});
@@ -139,10 +140,10 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                 {isEditing ? editContent : viewContent}
             </CardContent>
             <CardActions>
-                {isEditing && <Button variant={"contained"} onClick={handleSave}>Save</Button>}
+                {isEditing && <Button variant={"contained"} onClick={handleSave}>{t("actions.save")}</Button>}
                 <Button variant={"contained"}
                         onClick={!isEditing ? handleEditClick : handleCancelEditClick}
-                >{isEditing ? "Cancel" : "Edit"}</Button>
+                >{isEditing ? t("actions.cancel") : t("actions.edit")}</Button>
                 {!isNew && canDelete && <Button variant="contained" color="error" onClick={handleOpenDialog}>
                     {deleting ? <Loading/> : <DeleteIcon/>}
                 </Button>}
@@ -154,7 +155,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                 <DialogTitle>Confirm Delete</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Do you really want to delete this item?
+                        {t("actions.delete.confirmation")}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
