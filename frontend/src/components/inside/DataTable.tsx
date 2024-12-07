@@ -1,26 +1,6 @@
-import "./DataTable.scss"; // Table 1
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import "./DataTable.scss";
 
-import Box from "@mui/material/Box"; // Table 2
-import { DataGrid, GridColDef } from "@mui/x-data-grid"; // Table 2, Installed Package
-
-
-// Table 1
-function createData(
-    key: number,
-    column1: string,
-    column2: number,
-    column3: number,
-    column4: number,
-) {
-    return { key, column1, column2, column3, column4 };
-}
-const rows1 = [
-    createData(1,"Dolor sit", 102, 15552, 18),
-    createData(2,"Amet", 12, 9444, 564),
-];
-
-
-// Table 2
 const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "firstName", headerName: "First name", width: 130 },
@@ -62,41 +42,33 @@ export const DataTable = ({ color, display }: {
     return (
         <div className={dynamicClass}>
 
-            {/* Table 1 */}
-            <table className="dataTable__table">
-                <thead className="dataTable__head">
-                <tr className="dataTable__headRow">
-                    <td className="dataTable__headCell">Lorem ipsum</td>
-                    <td className="dataTable__headCell">Justo</td>
-                    <td className="dataTable__headCell">Fringilla vel</td>
-                    <td className="dataTable__headCell">Aliquet</td>
-                </tr>
-                </thead>
-                <tbody className="dataTable__body">
-                {rows1.map((row) => (
-                    <tr className="dataTable__bodyRow" key={row.key}>
-                        <td className="dataTable__bodyCell">{row.column1}</td>
-                        <td className="dataTable__bodyCell">{row.column2}</td>
-                        <td className="dataTable__bodyCell">{row.column3}</td>
-                        <td className="dataTable__bodyCell">{row.column4}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <br/><br/><br/><br/><br/>
-
-            {/* Table 2 */}
-            <Box sx={{
-                height: 400
-            }}>
+            <div className="dataTable__table">
                 <DataGrid
                     rows={rows2}
                     columns={columns}
                     initialState={{ pagination: { paginationModel } }}
                     pageSizeOptions={[5, 10]}
-                    sx={{ color: "#000", border: 0 }}
+                    sx={{
+                        color: "text.primary",
+                        border: 0,
+                        "& .MuiDataGrid-cell, & .MuiDataGrid-withBorderColor": {
+                            borderColor: "text.primary",
+                        },
+                        "& .MuiDataGrid-container--top [role='row']": {
+                            background: "transparent",
+                        },
+                        "& .MuiDataGrid-row--borderBottom .MuiDataGrid-columnHeader, & .MuiDataGrid-row--borderBottom .MuiDataGrid-filler": {
+                            borderBottom: "none",
+                        },
+                        "& .MuiDataGrid-cell:focus": {
+                            outline: "none",
+                        },
+                        "& .MuiDataGrid-columnSeparator": {
+                            color: "text.primary",
+                        }
+                    }}
                 />
-            </Box>
+            </div>
 
         </div>
     );

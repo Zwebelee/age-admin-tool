@@ -14,60 +14,46 @@
 
     &--color2 {
         border-color: var(--color2);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color2);
+        }
     }
 
     &--color3 {
         border-color: var(--color3);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color3);
+        }
     }
 
     &--color4 {
         border-color: var(--color4);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color4);
+        }
     }
 
     &--color5 {
         border-color: var(--color5);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color5);
+        }
     }
 
     &--color6 {
         border-color: var(--color6);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color6);
+        }
     }
 
-    &__table {
-        width: 100%;
-    }
-
-    &__head {
+    & .MuiDataGrid-columnHeaderTitle {
         font-size: pxToRem(20);
         font-weight: 300;
-    }
-
-    &--color2 &__head {
-        color: var(--color2);
-    }
-
-    &--color3 &__head {
-        color: var(--color3);
-    }
-
-    &--color4 &__head {
-        color: var(--color4);
-    }
-
-    &--color5 &__head {
-        color: var(--color5);
-    }
-
-    &--color6 &__head {
-        color: var(--color6);
-    }
-
-    &__headCell {
-        padding: pxToRem(0) pxToRem(10) pxToRem(10) pxToRem(10);
-    }
-
-    &__bodyCell {
-        padding: pxToRem(5) pxToRem(10);
-        border-top: pxToRem(1) solid var(--lightness2);
-        border-bottom: pxToRem(1) solid var(--lightness2);
     }
 }
