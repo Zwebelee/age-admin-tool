@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid2";
 import {PortalLicense} from "../../../models/portallicense.ts";
 import {useTranslation} from "react-i18next";
 
-export const AgeEditorToolPortallicense = observer(() => {
+export const AgeEditorToolPortallicenses = observer(() => {
     const {t} = useTranslation();
     const {portalLicenseStore} = useRootStore();
     const [newItem, setNewItem] = useState(false)

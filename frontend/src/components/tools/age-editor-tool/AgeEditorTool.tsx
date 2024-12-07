@@ -2,20 +2,20 @@ import {observer} from "mobx-react-lite";
 import Grid from '@mui/material/Grid2';
 import {Button, List, ListItem} from "@mui/material";
 import {useState} from "react";
-import {AgeEditorToolPortallicense} from "./AgeEditorToolPortallicense.tsx";
+import {AgeEditorToolPortallicenses} from "./AgeEditorToolPortallicenses.tsx";
 import {AgeEditorToolDatastores} from "./AgeEditorToolDatastores.tsx";
 import {AgeEditorToolPortals} from "./AgePortalToolPortals.tsx";
 import {AgePortalToolWebadaptors} from "./AgePortalToolWebadaptors.tsx";
-import {AgePortalToolServer} from "./AgePortalToolServer.tsx";
+import {AgePortalToolServers} from "./AgePortalToolServers.tsx";
 import {AgeEditorToolAGE} from "./AgePortalToolAGE.tsx";
 
 const tools = [
     {name: 'Enterprise', component: AgeEditorToolAGE},
-    {name: 'PortalLicenses', component: AgeEditorToolPortallicense},
+    {name: 'PortalLicenses', component: AgeEditorToolPortallicenses},
     {name: 'DataStores', component: AgeEditorToolDatastores},
     {name: 'Portals', component: AgeEditorToolPortals},
     {name: 'WebAdaptors', component: AgePortalToolWebadaptors},
-    {name: 'Servers', component: AgePortalToolServer},
+    {name: 'Servers', component: AgePortalToolServers},
 ];
 
 export const AgeEditorTool = observer(() => {

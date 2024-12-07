@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid2";
 import {AgeServer} from "../../../models/age-server.ts";
 import {useTranslation} from "react-i18next";
 
-export const AgePortalToolServer = observer(() => {
+export const AgePortalToolServers = observer(() => {
     const {t} = useTranslation();
     const {ageServerStore} = useRootStore();
     const [newItem, setNewItem] = useState(false)
