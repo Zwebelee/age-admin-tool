@@ -14,10 +14,12 @@ import {PortalItemStore} from "./portal-store.ts";
 import {ToolUserStore} from "./tooluser-store.ts";
 import {ThemeStore} from "./theme-store.ts";
 import {LanguageStore} from "./language-store.ts";
+import {LoggerService} from "../services/logger.service.ts";
 
 export class RootStore {
     authStore: AuthStore;
     authService: AuthService;
+    logService: LoggerService;
     ageStore: AgeStore;
     portalUserStore: PortaluserStore;
     portalLicenseStore: PortalLicenseStore;
@@ -39,6 +41,8 @@ export class RootStore {
         makeAutoObservable(this);
         this.authService = new AuthService(this)
         this.authStore = new AuthStore(this.authService);
+
+        this.logService = new LoggerService();
 
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);

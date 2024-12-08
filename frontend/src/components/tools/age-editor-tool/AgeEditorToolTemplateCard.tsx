@@ -16,6 +16,7 @@ import {Loading} from "../../loading/Loading.tsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {ItemType, StoreType} from "../../../stores/abstract-store.ts";
 import {useTranslation} from "react-i18next";
+import {useRootStore} from "../../../stores/root-store.ts";
 
 
 interface AgeEditorToolTemplateCardProps {
@@ -30,6 +31,7 @@ interface AgeEditorToolTemplateCardProps {
 
 
 export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateCardProps) => {
+    const {logService} = useRootStore();
     const {t} = useTranslation();
     const {item, onCancel, store, fields, canDelete = true} = props;
 
@@ -72,7 +74,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                     onCancel();
                 }
             }).catch((e) => {
-                console.error('error during save', e);
+                logService.error('error during save', e);
             });
         } else {
             //update
