@@ -7,7 +7,7 @@ import {
     CardActions,
     Dialog,
     DialogTitle,
-    DialogContent, DialogContentText, DialogActions
+    DialogContent, DialogContentText, DialogActions, FormControlLabel, Checkbox
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {observer} from "mobx-react-lite";
@@ -31,7 +31,7 @@ interface AgeEditorToolTemplateCardProps {
 
 export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateCardProps) => {
     const {t} = useTranslation();
-    const {item, onCancel, store, fields,canDelete=true} = props;
+    const {item, onCancel, store, fields, canDelete = true} = props;
 
     const [localItem, setLocalItem] = useState({...item});
     const [isEditing, setIsEditing] = useState(props.isEditing);
@@ -104,6 +104,11 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
         setOpenDialog(false);
     }
 
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
+        const {checked} = event.target;
+        setLocalItem({...localItem, [fieldName]: checked});
+    };
+
 
     const viewContent = (
         <Grid container direction={"column"} spacing={0.25}>
@@ -113,7 +118,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                     variant={index === 0 ? "h6" : "body2"}
                 >{index === 0 ? "" : `${field.label}: `}
                     {typeof localItem[field.name as keyof ItemType] === 'boolean'
-                        ? (localItem[field.name as keyof ItemType] ? 'Yes' : 'No') //TODO!!
+                        ? (localItem[field.name as keyof ItemType] ? 'true' : 'false')
                         : localItem[field.name as keyof ItemType]}
                 </Typography>
             ))}
@@ -123,6 +128,22 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
     const editContent = (
         <Grid container direction={"column"} spacing={1} sx={{xs: 12}}>
             {fields.map((field, index) => (
+
+                field.type === 'checkbox' ? (
+                    <Grid key={index}>
+                        <FormControlLabel
+                            labelPlacement={"start"}
+                            control={
+                                <Checkbox
+                                    checked={localItem[field.name as keyof ItemType] as unknown as boolean}
+                                    onChange={(e) => handleCheckboxChange(e, field.name)}
+                                    name={field.name}
+                                />
+                            }
+                            label={field.label}
+                        />
+                    </Grid>
+                ) : (
                     <TextField
                         key={index}
                         id={field.name}
@@ -133,7 +154,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                         disabled={field.disabled}
                         fullWidth
                     />
-            ))}
+                )))}
         </Grid>
     )
 
