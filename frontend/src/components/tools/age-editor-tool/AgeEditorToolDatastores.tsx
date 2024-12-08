@@ -6,8 +6,10 @@ import {Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {AgeDataStore} from "../../../models/age-datastore.ts";
 import {AgeEditorToolAddButton} from "./AgeEditorToolAddButton.tsx";
+import {useTranslation} from "react-i18next";
 
 export const AgeEditorToolDatastores = observer(() => {
+    const {t} = useTranslation();
     const {ageDataStoreStore} = useRootStore();
     const [newItem, setNewItem] = useState(false)
     const handleToggleAddNew = () => {
@@ -50,7 +52,7 @@ export const AgeEditorToolDatastores = observer(() => {
             {!newItem && <AgeEditorToolAddButton onClick={handleToggleAddNew}/>}
             {newItem && (
                 <>
-                    <Typography variant="h6">Add New Portal-License</Typography>
+                    <Typography variant="h6">{t("actions.add.add_new")}: Datastore</Typography>
                     <AgeEditorToolTemplateCard
                         item={defaultItem}
                         isEditing={true}

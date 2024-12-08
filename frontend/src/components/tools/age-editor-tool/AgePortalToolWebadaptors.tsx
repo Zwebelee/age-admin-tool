@@ -6,9 +6,10 @@ import {Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {AgeWebAdaptor} from "../../../models/age-webadaptor.ts";
 import {AgeEditorToolAddButton} from "./AgeEditorToolAddButton.tsx";
+import {useTranslation} from "react-i18next";
 
 export const AgePortalToolWebadaptors = observer(() => {
-
+    const {t} = useTranslation();
     const {ageWebAdaptorStore} = useRootStore();
     const [newItem, setNewItem] = useState(false)
     const handleToggleAddNew = () => {
@@ -51,7 +52,7 @@ export const AgePortalToolWebadaptors = observer(() => {
             {!newItem && <AgeEditorToolAddButton onClick={handleToggleAddNew}/>}
             {newItem && (
                 <>
-                    <Typography variant="h6">Add New Portal-License</Typography>
+                    <Typography variant="h6">{t("actions.add.add_new")}: Webadaptor</Typography>
                     <AgeEditorToolTemplateCard
                         item={defaultItem}
                         isEditing={true}

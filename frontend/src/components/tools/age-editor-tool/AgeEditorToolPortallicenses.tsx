@@ -6,8 +6,10 @@ import {Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {PortalLicense} from "../../../models/portallicense.ts";
 import {AgeEditorToolAddButton} from "./AgeEditorToolAddButton.tsx";
+import {useTranslation} from "react-i18next";
 
 export const AgeEditorToolPortallicenses = observer(() => {
+    const {t} = useTranslation();
     const {portalLicenseStore} = useRootStore();
     const [newItem, setNewItem] = useState(false)
     const handleToggleAddNew = () => {
@@ -46,7 +48,7 @@ export const AgeEditorToolPortallicenses = observer(() => {
             {!newItem && <AgeEditorToolAddButton onClick={handleToggleAddNew}/>}
             {newItem && (
                 <>
-                    <Typography variant="h6">Add New Portal-License</Typography>
+                    <Typography variant="h6">{t("actions.add.add_new")}: Portallicense</Typography>
                     <AgeEditorToolTemplateCard
                         item={defaultPortalLicense}
                         isEditing={true}
