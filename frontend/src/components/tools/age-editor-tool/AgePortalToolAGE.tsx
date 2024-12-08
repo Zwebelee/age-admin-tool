@@ -16,7 +16,7 @@ export const AgeEditorToolAGE = observer(() => {
     ];
 
     return (
-        <Grid>
+        <Grid container rowSpacing={1} direction={"column"}>
             {ageStore.visibleItems.map((item, index) => {
                     return (
                         <AgeEditorToolTemplateCard

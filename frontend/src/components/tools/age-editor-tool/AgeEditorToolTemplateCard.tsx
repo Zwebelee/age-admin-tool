@@ -106,21 +106,25 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
 
 
     const viewContent = (
-        <>
+        <Grid container direction={"column"} spacing={0.25}>
             {fields.map((field, index) => (
                 <Typography
                     key={index}
                     variant={index === 0 ? "h6" : "body2"}
-                >{index === 0 ? "" : `${field.label}: `} {localItem[field.name as keyof ItemType]}</Typography>
+                >{index === 0 ? "" : `${field.label}: `}
+                    {typeof localItem[field.name as keyof ItemType] === 'boolean'
+                        ? (localItem[field.name as keyof ItemType] ? 'Yes' : 'No') //TODO!!
+                        : localItem[field.name as keyof ItemType]}
+                </Typography>
             ))}
-        </>
+        </Grid>
     )
 
     const editContent = (
-        <>
+        <Grid container direction={"column"} spacing={1} sx={{xs: 12}}>
             {fields.map((field, index) => (
-                <Grid sx={{xs: 12}} key={index}>
                     <TextField
+                        key={index}
                         id={field.name}
                         label={field.label}
                         type={field.type}
@@ -129,14 +133,13 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                         disabled={field.disabled}
                         fullWidth
                     />
-                </Grid>
             ))}
-        </>
+        </Grid>
     )
 
     return (
-        <Card>
-            <CardContent sx={{backgroundColor: 'grey'}}>
+        <Card sx={{backgroundColor: 'var(--lightness2-1)'}}>
+            <CardContent>
                 {isEditing ? editContent : viewContent}
             </CardContent>
             <CardActions>

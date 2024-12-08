@@ -2,13 +2,13 @@ import {AgeEditorToolTemplateCard} from "./AgeEditorToolTemplateCard.tsx";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {useState} from "react";
-import {Button, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {AgeWebAdaptor} from "../../../models/age-webadaptor.ts";
-import {useTranslation} from "react-i18next";
+import {AgeEditorToolAddButton} from "./AgeEditorToolAddButton.tsx";
 
 export const AgePortalToolWebadaptors = observer(() => {
-    const {t} = useTranslation();
+
     const {ageWebAdaptorStore} = useRootStore();
     const [newItem, setNewItem] = useState(false)
     const handleToggleAddNew = () => {
@@ -47,8 +47,8 @@ export const AgePortalToolWebadaptors = observer(() => {
 
 
     return (
-        <Grid>
-            {!newItem && <Button variant="contained" onClick={handleToggleAddNew}>{t("actions.add.title")}</Button>}
+        <Grid container rowSpacing={1} direction={"column"}>
+            {!newItem && <AgeEditorToolAddButton onClick={handleToggleAddNew}/>}
             {newItem && (
                 <>
                     <Typography variant="h6">Add New Portal-License</Typography>
