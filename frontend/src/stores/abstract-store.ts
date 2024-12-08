@@ -3,8 +3,19 @@ import {Age} from "../models/age.ts";
 import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
 import {PortalLicense} from "../models/portallicense.ts";
+import {AgePortal} from "../models/age-portal.ts";
+import {AgeDataStore} from "../models/age-datastore.ts";
+import {AgeServer} from "../models/age-server.ts";
+import {AgeWebAdaptor} from "../models/age-webadaptor.ts";
+import {AgeStore} from "./age-store.ts";
+import {AgeDatastoreStore} from "./age-datastore-store.ts";
+import {AgeportalStore} from "./age-portal-store.ts";
+import {AgeserverStore} from "./age-server-store.ts";
+import {AgeWebadaptorStore} from "./age-webadaptor-store.ts";
+import {PortalLicenseStore} from "./portallicense-store.ts";
 
-export type ItemType = Age |PortalUser | PortalLicense;
+export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor |PortalUser | PortalLicense;
+export type StoreType = AgeStore | AgeDatastoreStore | AgeportalStore | AgeserverStore | AgeWebadaptorStore | PortalLicenseStore ;
 
 export type status = "loading" | "loaded" | "error";
 

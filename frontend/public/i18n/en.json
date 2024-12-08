@@ -1,22 +1,45 @@
 {
-    "app-title": "AGE Administration Tool",
+  "app-title": "AGE Administration Tool",
+  "actions": {
+    "add": {
+        "title": "Add",
+      "add_new": "Add New"
+    },
+    "back": "Back",
+    "cancel": "Cancel",
     "close": "Close",
-    "components": "Components",
-    "contents": "Contents",
-    "creators": "Creators",
-    "experimental": "Experimental",
-    "groups": "Groups",
-    "menu": "Menu",
-    "my-account": "My Account",
-    "overview": "Overview",
-    "tasks": "Tasks",
-    "tools": "Tools",
-    "users": "Users",
-    "viewer": "Viewer",
-    "settings": "Settings",
-    "username": "Username",
-    "role": "Role",
-    "darkmode": "Dark Mode",
-    "language": "Language",
-    "logout": "Logout"
+    "confirm": "Confirm",
+    "delete": {
+      "title": "Delete",
+      "confirmation": "Do you really want to delete this?"
+    },
+    "edit": "Edit",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "components": "Components",
+  "contents": "Contents",
+  "creators": "Creators",
+  "experimental": "Experimental",
+  "groups": "Groups",
+  "menu": "Menu",
+  "my-account": "My Account",
+  "overview": "Overview",
+  "tasks": "Tasks",
+  "users": "Users",
+  "viewer": "Viewer",
+  "settings": "Settings",
+  "username": "Username",
+  "role": "Role",
+  "darkmode": "Dark Mode",
+  "language": "Language",
+  "logout": "Logout",
+  "tools": {
+    "title": "Tools",
+    "age-editor": {
+      "title": "AGE Editor",
+      "description": "Create, edit and remove AGE components."
+    }
+  }
 }

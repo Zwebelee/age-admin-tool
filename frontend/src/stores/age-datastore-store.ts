@@ -4,7 +4,7 @@ import {makeObservable, observable} from "mobx";
 import {AuthService} from "../services/auth.service.ts";
 
 
-export class AgeDatastoreStoreStore extends AbstractStore<AgeDataStore> {
+export class AgeDatastoreStore extends AbstractStore<AgeDataStore> {
 
     items = observable.map<string, AgeDataStore>();
 

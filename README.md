@@ -1,50 +1,30 @@
 # ArcGIS Enterprise Administration Tool
 
-_(🚧 Simpler setup in progress :) 🚧)_
+## 📋Requirements:
+- Docker // Docker-Compose
+
 ## 💻 Installation
-Requirements:
-- Docker & Docker Compose
-- Node.js & npm
-
-### 💿 Backend
-_(DockerCompose with MariaDB & Python FlaskApp)_
-1. Copy/Paste `backend/.env.example` as `backend/.env`
-2. Fill values for `DB_USER`, `DB_PASSWORD` & `DB_ROOT_PASSWORD`.
+1. Copy/Paste `.env.example` as `.env`, change values if needed.
    ```sh
-   # example windows with notepad
-   cp backend/.env.example backend/.env; notepad backend/.env
+   # example for windows
+   cp .env.example .env;
    ```
-3. Navigate to the backend directory:
+ 
+2. Cd to project root, build and start the docker-compose in e.g. terminal, docker-desktop, IDE, etc.:
     ```sh
-    cd backend
+    docker-compose up --build -d
     ```
-4. Build and start the backend services:
-    ```sh
-    docker-compose up --build
-    ```
-### 📱 Frontend
-_(react, mobx, vite)_
-1. Navigate to the frontend directory:
-    ```sh
-    cd frontend
-    ```
-2. Install the dependencies:
-    ```sh
-    npm install
-    ```
-# ▶️ Run
 
-### Start the Backend
-   
+## ▶️ Run / Stop
 ```sh
-# in the backend directory
+# run docker-compose in root (terminal / docker-desktop / IDE)
+## stop individual containers if needed (e.g. stop only frontend)
 docker-compose up
 ```
-### Start the Frontend
-  
+
 ```sh
-# in the frontend directory
-npm run dev
+# stop docker-compose in root (terminal / docker-desktop / IDE)
+docker-compose down
 ```
 
 ## 🔬 Ports (defaults)
@@ -54,6 +34,12 @@ npm run dev
 | Backend-API | [http://localhost:5001](http://localhost:5001)                 |
 | Swagger     | [http://localhost:5001/apidocs](http://localhost:5001/apidocs) |
 | DB          | [http://localhost:3310](http://localhost:3310)                 |
+
+# 🎛️ Components
+- Backend: Python Flask API
+- Frontend: React with MobX, Vite, Material-UI
+- Database: MariaDB
+- Token blacklist: Redis
 
 # Projectsetup
 Projectsetup with: https://nx.dev/getting-started/tutorials/react-standalone-tutorial

@@ -81,6 +81,7 @@ export const TestAddLicense = observer(() => {
     const rootstore = useRootStore();
     const licenseStore = rootstore.portalLicenseStore;
 
+
     const newLicesnse: PortalLicense= {
         class: "",
         id: "",
@@ -244,13 +245,14 @@ export const TestUpdateLicense = observer(() => {
 export const TestGeneralStore = observer( () => {
     const rootstore = useRootStore();
     const store = rootstore.ageDataStoreStore;
+    const log = rootstore.logService
 
     if (store.isLoading){
         return <CircularProgress />;
     }
 
     if (store.isLoaded) {
-        console.log('ok')
+        log.info("Datastore store loaded")
         console.log(store.items)
         return <Typography>hi</Typography>
 

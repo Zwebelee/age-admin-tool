@@ -1,6 +1,6 @@
 # ArcGIS Enterprise Administration Tool
 
-## Frontend
+## 📱 Frontend
 
 Note: Read the README.md in the project root for the full documentation. This is only for reference and decoupled
 installation if docker is not available and parts need to be installed / run separately.

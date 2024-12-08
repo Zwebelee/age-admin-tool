@@ -1,16 +1,32 @@
 {
     "app-title": "AGE Verwaltungstool",
-    "close": "Schliessen",
+    "actions": {
+        "add": {
+            "title": "Hinzufügen",
+            "add_new": "Neu hinzufügen"
+        },
+        "back": "Zurück",
+        "cancel": "Abbrechen",
+        "close": "Schließen",
+        "confirm": "Bestätigen",
+        "delete": {
+            "title": "Löschen",
+            "confirmation": "Möchten Sie dies wirklich löschen?"
+        },
+        "edit": "Bearbeiten",
+        "save": "Speichern",
+        "yes": "Ja",
+        "no": "Nein"
+    },
     "components": "Komponenten",
     "contents": "Inhalte",
     "creators": "Ersteller",
     "experimental": "Experimentell",
     "groups": "Gruppen",
-    "menu": "Menu",
+    "menu": "Menü",
     "my-account": "Mein Konto",
     "overview": "Übersicht",
     "tasks": "Aufgaben",
-    "tools": "Werkzeuge",
     "users": "Benutzer",
     "viewer": "Betrachter",
     "settings": "Einstellungen",
@@ -18,5 +34,12 @@
     "role": "Rolle",
     "darkmode": "Dunkelmodus",
     "language": "Sprache",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "tools": {
+        "title": "Werkzeuge",
+        "age-editor": {
+            "title": "AGE Editor",
+            "description": "Erstellen, bearbeiten und entfernen von AGE-Komponenten."
+        }
+    }
 }
