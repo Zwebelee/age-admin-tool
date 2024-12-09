@@ -1,5 +1,4 @@
 import {makeAutoObservable} from "mobx";
-import {RootStore} from "./root-store.ts";
 import {getCookie, setCookie} from "../utils/cookie.ts";
 import {AuthService} from "../services/auth.service.ts";
 
@@ -13,7 +12,7 @@ export class AuthStore {
     refreshToken: string | null = null;
     isLoggedIn: boolean = false;
 
-    constructor(private rootStore: RootStore, private authService: AuthService) {
+    constructor(private authService: AuthService) {
         makeAutoObservable(this);
         this.initialize();
     }

@@ -1,10 +1,5 @@
-import {useTranslation} from "react-i18next";
+import {ToolsMenu} from "../components/tools/ToolsMenu.tsx";
 
 export const ToolsScreen = () => {
-    const {t} = useTranslation();
-    return (
-        <>
-            <h2>{t("tools")}</h2>
-        </>
-    );
+    return <ToolsMenu/>;
 };
