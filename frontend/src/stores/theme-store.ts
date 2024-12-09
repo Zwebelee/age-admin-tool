@@ -1,5 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {getCookie, setCookie} from "../utils/cookie.ts";
+import {getLocalStorageItem, setLocalStorageItem} from "../utils/localStorage.ts";
 
 interface IThemeStore {
     theme: "light" | "dark";
@@ -11,19 +11,20 @@ export class ThemeStore implements IThemeStore {
 
     constructor() {
         makeAutoObservable(this);
-        const themeCookie = getCookie('theme');
-        if (themeCookie === 'light' || themeCookie === 'dark') {
-            this.theme = themeCookie
+        const currentTheme = getLocalStorageItem('theme');
+
+        if (currentTheme === 'light' || currentTheme === 'dark') {
+            this.theme = currentTheme
         }
     }
 
     setTheme(theme: "light" | "dark") {
         this.theme = theme;
-        setCookie('theme', this.theme)
+        setLocalStorageItem('theme', this.theme)
     }
 
     toggleTheme = () => {
         this.theme = this.theme === "light" ? "dark" : "light";
-        setCookie('theme', this.theme)
+        setLocalStorageItem('theme', this.theme)
     }
 }

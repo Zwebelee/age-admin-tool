@@ -1,7 +1,7 @@
 import {makeAutoObservable} from "mobx";
-import {getCookie, setCookie} from "../utils/cookie.ts";
 import i18n from "i18next";
 import {ToolUserStore} from "./tooluser-store.ts";
+import {getLocalStorageItem, setLocalStorageItem} from "../utils/localStorage.ts";
 
 interface ILanguageStore {
     language: "de" | "fr" | "en";
@@ -17,7 +17,7 @@ export class LanguageStore implements ILanguageStore {
     }
 
     initializeLanguage() {
-        const languageCookie = getCookie('language');
+        const languageCookie = getLocalStorageItem('language');
         if (this.toolUserStore.user?.language) {
             this.language = this.toolUserStore.user.language as "de" | "fr" | "en";
         } else if(languageCookie === 'de' || languageCookie === 'fr' || languageCookie === 'en') {
@@ -30,6 +30,6 @@ export class LanguageStore implements ILanguageStore {
     switchLanguage = (language: "de" | "fr" | "en") => {
         this.language = language;
         i18n.changeLanguage(this.language);
-        setCookie('language', this.language)
+        setLocalStorageItem('language', this.language)
     }
 }
