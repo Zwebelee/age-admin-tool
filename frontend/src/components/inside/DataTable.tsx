@@ -65,7 +65,11 @@ export const DataTable = ({ color, display }: {
                         },
                         "& .MuiDataGrid-columnSeparator": {
                             color: "text.primary",
-                        }
+                        },
+                        "& .MuiDataGrid-columnHeaderTitle": {
+                            fontSize: "1.25rem",
+                            fontWeight: "300",
+                        },
                     }}
                 />
             </div>
