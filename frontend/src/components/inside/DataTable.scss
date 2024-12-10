@@ -11,6 +11,7 @@
     border-radius: pxToRem(6);
     margin: pxToRem(4);
     background: var(--lightness1-2);
+    overflow: scroll;
 
     &--color2 {
         border-color: var(--color2);

@@ -65,6 +65,7 @@ const AppObserver = observer(() => {
             },
         },
         palette: {
+            mode: "dark",
             background: {
                 default: lightness3,
             },
@@ -87,6 +88,7 @@ const AppObserver = observer(() => {
             },
         },
         palette: {
+            mode: "light",
             background: {
                 default: lightness5,
             },
