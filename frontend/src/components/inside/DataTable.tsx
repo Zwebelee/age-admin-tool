@@ -1,11 +1,16 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import "./DataTable.scss";
+import {observer} from "mobx-react-lite";
+import {useRootStore} from "../../stores/root-store.ts";
 
-
-export const DataTable = ({ color, display }: {
+interface DataTableProps {
     color: string;
     display: boolean;
-}) => {
+}
+
+export const DataTable = observer(({ color, display }: DataTableProps) => {
+
+    const {portalUserStore} = useRootStore();
 
     const dynamicClass = display ? "dataTable dataTable" + color : "dataTableHidden";
 
@@ -28,7 +33,20 @@ export const DataTable = ({ color, display }: {
             valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
         },
     ];
-    const rows = [
+    const rows = portalUserStore.visibleItems.map((item) => ({
+        id: item.userid,
+        ...item
+    }));
+
+
+    /* const rows = portalUserStore.visibleItems.map((item) => ({
+        id: item.userid,
+        lastName: item.lastname,
+        firstName: item.firstname,
+        age: item.storeage
+    })); */
+
+    /* const rows = [
         { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
         { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
         { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
@@ -38,7 +56,8 @@ export const DataTable = ({ color, display }: {
         { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
         { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
         { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-    ];
+    ]; */
+
     const paginationModel = { page: 0, pageSize: 5 };
 
     return (
@@ -74,4 +93,4 @@ export const DataTable = ({ color, display }: {
 
         </div>
     );
-};
+});
