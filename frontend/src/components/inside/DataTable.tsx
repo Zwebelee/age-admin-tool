@@ -15,6 +15,15 @@ export const DataTable = observer(({ color, display }: DataTableProps) => {
     const dynamicClass = display ? "dataTable dataTable" + color : "dataTableHidden";
 
     const columns: GridColDef[] = [
+        { field: "id",        headerName: "ID",        width:  80 },
+        { field: "guid",      headerName: "GUID",      width: 320 },
+        { field: "firstname", headerName: "Firstname", width: 120 },
+        { field: "lastname",  headerName: "Lastname",  width: 120 },
+        { field: "fullname",  headerName: "Fullname",  width: 120 },
+        { field: "username",  headerName: "Username",  width: 120 },
+    ];
+
+    /* const columns: GridColDef[] = [
         { field: "id", headerName: "ID", width: 100 },
         { field: "firstName", headerName: "First name", width: 200 },
         { field: "lastName", headerName: "Last name", width: 200 },
@@ -32,10 +41,11 @@ export const DataTable = observer(({ color, display }: DataTableProps) => {
             width: 220,
             valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
         },
-    ];
+    ]; */
+
     const rows = portalUserStore.visibleItems.map((item) => ({
         id: item.userid,
-        ...item
+        ...item,
     }));
 
 
@@ -67,7 +77,16 @@ export const DataTable = observer(({ color, display }: DataTableProps) => {
                 <DataGrid
                     rows={rows}
                     columns={columns}
-                    initialState={{ pagination: { paginationModel } }}
+                    initialState={{
+                        columns: {
+                            columnVisibilityModel: {
+                                id: false,
+                                guid: false,
+                                fullname: false,
+                            },
+                        },
+                        pagination: { paginationModel },
+                    }}
                     pageSizeOptions={[5, 10]}
                     sx={{
                         border: 0,
