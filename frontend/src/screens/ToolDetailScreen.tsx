@@ -1,5 +1,9 @@
-import {AgeEditorTool} from "../components/tools/age-editor-tool/AgeEditorTool.tsx";
+import React from "react";
 
-export const ToolDetailScreen = () => {
-    return <AgeEditorTool/>
+interface ToolDetailScreenProps {
+    child: React.ReactNode;
+}
+
+export const ToolDetailScreen = ({child}: ToolDetailScreenProps) => {
+    return child;
 }

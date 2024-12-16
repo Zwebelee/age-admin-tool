@@ -7,6 +7,7 @@ import {Button} from "@mui/material";
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import {ToolCard} from "./ToolCard.tsx";
 import PeopleIcon from "@mui/icons-material/People";
+import {AgeEditorTool} from "./age-editor-tool/AgeEditorTool.tsx";
 
 
 const toolList = [
@@ -14,12 +15,14 @@ const toolList = [
         icon={ScienceOutlinedIcon}
         title={"AGE - Editor"}
         description={"AGE Editor"}
+        tool={<AgeEditorTool/>}
         key={1}
     />,
     <ToolCard
         icon={PeopleIcon}
         title={"ToolUsers"}
         description={"ToolUsersEditing"}
+        tool={<AgeEditorTool/>}
         key={2}
     />,
     ...Array.from({length: 10}, (_, index) => (
@@ -27,6 +30,7 @@ const toolList = [
             icon={ScienceOutlinedIcon}
             title={`Testing - ${index+10}`}
             description={`Testing ${index+10}`}
+            tool={<h1>Testing {index+10}</h1>}
             key={index+10}
         />
     ))
@@ -67,7 +71,7 @@ export const ToolsMenu = observer(() => {
                         </Grid>))}
                 </Grid></>
             }
-            {activeTool && <ToolDetailScreen/>}
+            {activeTool && <ToolDetailScreen child={activeTool.props.tool}/>}
         </>
     )
 })

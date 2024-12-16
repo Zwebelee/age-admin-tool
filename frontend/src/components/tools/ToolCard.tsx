@@ -5,6 +5,7 @@ export interface IToolCard {
     icon: React.ElementType;
     title: string;
     description: string;
+    tool: React.ReactNode;
 }
 
 export const ToolCard: React.FC<IToolCard> = ({icon, title, description}) => {
