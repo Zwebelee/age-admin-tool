@@ -1,4 +1,4 @@
-import { DataGrid } from "@mui/x-data-grid";
+import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import { observer } from "mobx-react-lite";
 import "./DataTable.scss";
 
@@ -11,7 +11,7 @@ interface DataTableProps {
 }
 
 export const DataTable = observer(({
-    color, display, rows, columns, hiddenColumns }: DataTableProps
+    color, display, rows = [], columns = [], hiddenColumns = {} }: DataTableProps
 ) => {
 
     const dynamicClass = display ? "dataTable dataTable" + color : "dataTableHidden";
