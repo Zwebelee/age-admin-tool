@@ -1,4 +1,4 @@
-import {DataGrid, GridColDef} from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { observer } from "mobx-react-lite";
 import "./DataTable.scss";
 
