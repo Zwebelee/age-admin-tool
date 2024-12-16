@@ -2,7 +2,7 @@ from flasgger import swag_from
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..db import db
-from app.models.tooluser import Tooluser
+from ..models.tooluser import Tooluser
 
 toolusers_bp = Blueprint('toolusers', __name__)
 
@@ -34,53 +34,52 @@ def get_all_toolusers():
     return jsonify([tooluser.to_dict() for tooluser in toolusers]), 200
 
 
-# TODO: IMPLEMENT LATER for adding users
-# @toolusers_bp.route('/toolusers', methods=['POST'])
-# @jwt_required()
-# @swag_from({
-#     'tags': ['Toolusers'],
-#     'parameters': [
-#         {
-#             'name': 'body',
-#             'in': 'body',
-#             'required': True,
-#             'schema': {
-#                 'type': 'object',
-#                 'properties': {
-#                     'username': {'type': 'string', 'example': 'Alice'},
-#                     'password': {'type': 'string', 'example': '12345'},
-#                     'language': {'type': 'string', 'example': 'en'},
-#                     'theme': {'type': 'string', 'example': 'dark'}
-#                 }
-#             }
-#         }
-#     ],
-#     'responses': {
-#         201: {
-#             'description': 'User created successfully',
-#             'schema': {
-#                 'type': 'object',
-#                 'properties': {
-#                     'id': {'type': 'integer'},
-#                     'username': {'type': 'string'},
-#                     'language': {'type': 'string'},
-#                     'theme': {'type': 'string'},
-#                 }
-#             }
-#         }
-#     }
-# })
-# def add_tooluser():
-#     data = request.json
-#     new_tooluser = Tooluser(
-#         username=data['username'],
-#         password=data['password'],
-#         language=data.get('language', 'en'),
-#         theme=data.get('theme', 'light')
-#     )
-#     db.session.add(new_tooluser)
-#     db.session.commit()
-#     return jsonify(new_tooluser.to_dict()), 201
+@toolusers_bp.route('/toolusers', methods=['POST'])
+@jwt_required()
+@swag_from({
+    'tags': ['Toolusers'],
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'username': {'type': 'string', 'example': 'Peter'},
+                    'password': {'type': 'string', 'example': '12345'},
+                    'language': {'type': 'string', 'example': 'en'},
+                    'theme': {'type': 'string', 'example': 'dark'}
+                }
+            }
+        }
+    ],
+    'responses': {
+        201: {
+            'description': 'User created successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'id': {'type': 'integer'},
+                    'username': {'type': 'string'},
+                    'language': {'type': 'string'},
+                    'theme': {'type': 'string'},
+                }
+            }
+        }
+    }
+})
+def add_tooluser():
+    data = request.json
+    new_tooluser = Tooluser(
+        username=data['username'],
+        language=data.get('language', 'en'),
+        theme=data.get('theme', 'light')
+    )
+    new_tooluser.set_password(data['password'])
+    db.session.add(new_tooluser)
+    db.session.commit()
+    return jsonify(new_tooluser.to_dict()), 201
 
 
 @toolusers_bp.route('/toolusers/<int:id>', methods=['GET'])

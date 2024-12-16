@@ -8,6 +8,7 @@ import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import {ToolCard} from "./ToolCard.tsx";
 import PeopleIcon from "@mui/icons-material/People";
 import {AgeEditorTool} from "./age-editor-tool/AgeEditorTool.tsx";
+import {AgeToolUserEditor} from "./tooluser-editor-tool/ToolUserEditor.tsx";
 
 
 const toolList = [
@@ -22,7 +23,7 @@ const toolList = [
         icon={PeopleIcon}
         title={"ToolUsers"}
         description={"ToolUsersEditing"}
-        tool={<AgeEditorTool/>}
+        tool={<AgeToolUserEditor/>}
         key={2}
     />,
     ...Array.from({length: 10}, (_, index) => (
