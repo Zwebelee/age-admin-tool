@@ -2,6 +2,7 @@ from flasgger import swag_from
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..db import db
+from ..models.toolrole import Toolrole
 from ..models.tooluser import Tooluser
 
 toolusers_bp = Blueprint('toolusers', __name__)
@@ -77,6 +78,15 @@ def add_tooluser():
         theme=data.get('theme', 'light')
     )
     new_tooluser.set_password(data['password'])
+
+    # Assign role to the new user
+    role_name = data.get('role', 'user')
+    role = Toolrole.query.filter_by(name=role_name).first()
+    if role:
+        new_tooluser.roles.append(role)
+    else:
+        return jsonify({"message": "Role not found"}), 400
+
     db.session.add(new_tooluser)
     db.session.commit()
     return jsonify(new_tooluser.to_dict()), 201
