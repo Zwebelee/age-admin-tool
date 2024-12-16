@@ -2,14 +2,16 @@
 
 .dataFilters {
     grid-area: filters;
+    padding: pxToRem(30);
     border-right: pxToRem(7) solid var(--color1);
     border-radius: pxToRem(10);
     margin-right: pxToRem(15);
-    text-align: center;
     background: var(--lightness1-2);
 
     &__title {
+        margin-top: 0;
         font-size: pxToRem(20);
         font-weight: 300;
+        text-align: center;
     }
 }
