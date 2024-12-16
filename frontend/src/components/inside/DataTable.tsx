@@ -15,7 +15,7 @@ export const DataTable = observer(({
 ) => {
 
     const dynamicClass = display ? "dataTable dataTable" + color : "dataTableHidden";
-    const paginationModel = { page: 0, pageSize: 5 };
+    const paginationModel = { page: 0, pageSize: 25 };
 
     return (
         <div className={dynamicClass}>
@@ -29,7 +29,7 @@ export const DataTable = observer(({
                         },
                         pagination: { paginationModel },
                     }}
-                    pageSizeOptions={[5, 10]}
+                    pageSizeOptions={[25, 50, 75, 100]}
                     sx={{
                         border: 0,
                         "& .MuiDataGrid-cell, & .MuiDataGrid-withBorderColor": {
