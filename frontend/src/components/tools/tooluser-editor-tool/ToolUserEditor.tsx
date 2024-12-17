@@ -4,9 +4,10 @@ import {observer} from "mobx-react-lite";
 import React, {useState} from "react";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import {useRootStore} from "../../../stores/root-store.ts";
+import {useTranslation} from "react-i18next";
 
 export const AgeToolUserEditor = observer(() => {
-
+    const {t} = useTranslation();
     const {toolUserStore} = useRootStore()
     const initialFormData = {
         username: '',
@@ -56,7 +57,7 @@ export const AgeToolUserEditor = observer(() => {
     return (
         <Paper sx={{padding: 16, backgroundColor: "orange"}}>
             <Typography variant="h6" gutterBottom>
-                Create New User
+                {t("tools.tooluser-editor.description")}
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Grid container direction={"column"} spacing={2}>
@@ -64,7 +65,7 @@ export const AgeToolUserEditor = observer(() => {
                         <TextField
                             id="username"
                             name="username"
-                            label="Username"
+                            label={t("username")}
                             variant="outlined"
                             value={formData.username}
                             onChange={handleChange}
@@ -89,7 +90,7 @@ export const AgeToolUserEditor = observer(() => {
                         <TextField
                             id="password"
                             name="password"
-                            label="Password"
+                            label={t("password")}
                             type="password"
                             variant="outlined"
                             value={formData.password}
@@ -99,7 +100,7 @@ export const AgeToolUserEditor = observer(() => {
                         />
                     </Grid>
                     <Grid>
-                        <InputLabel id="theme-label">Theme</InputLabel>
+                        <InputLabel id="theme-label">{t("theme.title")}</InputLabel>
                         <Select
                             labelId="theme-label"
                             id="theme"
@@ -108,12 +109,12 @@ export const AgeToolUserEditor = observer(() => {
                             label="Theme"
                             onChange={handleSelectChange}
                         >
-                            <MenuItem value="dark">Dark</MenuItem>
-                            <MenuItem value="light">Light</MenuItem>
+                            <MenuItem value="dark">{t("theme.dark")}</MenuItem>
+                            <MenuItem value="light">{t("theme.light")}</MenuItem>
                         </Select>
                     </Grid>
                     <Grid>
-                        <InputLabel id="language-label">Language</InputLabel>
+                        <InputLabel id="language-label">{t("language")}</InputLabel>
                         <Select
                             labelId="language-label"
                             id="language"
@@ -122,17 +123,17 @@ export const AgeToolUserEditor = observer(() => {
                             label="Language"
                             onChange={handleSelectChange}
                         >
-                            <MenuItem value="en">English</MenuItem>
-                            <MenuItem value="de">German</MenuItem>
-                            <MenuItem value="fr">French</MenuItem>
+                            <MenuItem value="en">{t("languages.en")}</MenuItem>
+                            <MenuItem value="de">{t("languages.de")}</MenuItem>
+                            <MenuItem value="fr">{t("languages.fr")}</MenuItem>
                         </Select>
                     </Grid>
                     <Grid>
-                        <InputLabel id="role-label">Role</InputLabel>
+                        <InputLabel id="role-label">{t("role")}</InputLabel>
                         <Select
                             labelId="role-label"
                             id="role"
-                            name="role"
+                            name={t("role")}
                             value={formData.role}
                             label="role"
                             onChange={handleSelectChange}
@@ -144,7 +145,7 @@ export const AgeToolUserEditor = observer(() => {
                     </Grid>
                     <Grid>
                         <Button type="submit" variant="contained" color="primary" fullWidth>
-                            Create User
+                            {t("actions.create") + " " + t("user")}
                         </Button>
                     </Grid>
                 </Grid>

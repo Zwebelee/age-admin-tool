@@ -9,6 +9,7 @@
     "cancel": "Cancel",
     "close": "Close",
     "confirm": "Confirm",
+    "create": "Create",
     "delete": {
       "title": "Delete",
       "confirmation": "Do you really want to delete this?"
@@ -28,18 +29,34 @@
   "overview": "Overview",
   "tasks": "Tasks",
   "users": "Users",
+  "user": "User",
   "viewer": "Viewer",
   "settings": "Settings",
   "username": "Username",
   "role": "Role",
+  "password": "Password",
   "darkmode": "Dark Mode",
   "language": "Language",
+  "languages": {
+    "en": "English",
+    "de": "German",
+    "fr": "French"
+  },
+  "theme": {
+    "title": "Theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
   "logout": "Logout",
   "tools": {
     "title": "Tools",
     "age-editor": {
       "title": "AGE Editor",
       "description": "Create, edit and remove AGE components."
+    },
+    "tooluser-editor": {
+      "title": "ToolUser Editor",
+      "description": "Add new Tool-Users"
     }
   }
 }

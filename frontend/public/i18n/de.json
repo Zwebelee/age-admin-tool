@@ -9,6 +9,7 @@
         "cancel": "Abbrechen",
         "close": "Schließen",
         "confirm": "Bestätigen",
+        "create": "Erstelle",
         "delete": {
             "title": "Löschen",
             "confirmation": "Möchten Sie dies wirklich löschen?"
@@ -28,18 +29,34 @@
     "overview": "Übersicht",
     "tasks": "Aufgaben",
     "users": "Benutzer",
+    "user": "Benutzer",
     "viewer": "Betrachter",
     "settings": "Einstellungen",
     "username": "Benutzername",
     "role": "Rolle",
+    "password": "Passwort",
     "darkmode": "Dunkelmodus",
     "language": "Sprache",
+    "languages": {
+        "en": "Englisch",
+        "de": "Deutsch",
+        "fr": "Französisch"
+    },
+    "theme": {
+        "title": "Thema",
+        "light": "Hell",
+        "dark": "Dunkel"
+    },
     "logout": "Abmelden",
     "tools": {
         "title": "Werkzeuge",
         "age-editor": {
             "title": "AGE Editor",
             "description": "Erstellen, bearbeiten und entfernen von AGE-Komponenten."
+        },
+        "tooluser-editor": {
+            "title": "ToolUser Editor",
+            "description": "Neue Tool-Benutzer hinzufügen"
         }
     }
 }

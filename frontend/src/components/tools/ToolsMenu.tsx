@@ -11,36 +11,39 @@ import {AgeEditorTool} from "./age-editor-tool/AgeEditorTool.tsx";
 import {AgeToolUserEditor} from "./tooluser-editor-tool/ToolUserEditor.tsx";
 
 
-const toolList = [
-    <ToolCard
-        icon={ScienceOutlinedIcon}
-        title={"AGE - Editor"}
-        description={"AGE Editor"}
-        tool={<AgeEditorTool/>}
-        key={1}
-    />,
-    <ToolCard
-        icon={PeopleIcon}
-        title={"ToolUsers"}
-        description={"ToolUsersEditing"}
-        tool={<AgeToolUserEditor/>}
-        key={2}
-    />,
-    ...Array.from({length: 10}, (_, index) => (
-        <ToolCard
-            icon={ScienceOutlinedIcon}
-            title={`Testing - ${index+10}`}
-            description={`Testing ${index+10}`}
-            tool={<h1>Testing {index+10}</h1>}
-            key={index+10}
-        />
-    ))
-]
+
+
 
 
 export const ToolsMenu = observer(() => {
     const {t} = useTranslation();
     const [activeTool, setActiveTool] = useState<React.ReactElement | null>(null);
+
+    const toolList = [
+        <ToolCard
+            icon={ScienceOutlinedIcon}
+            title={t("tools.age-editor.title")}
+            description={t("tools.age-editor.description")}
+            tool={<AgeEditorTool/>}
+            key={1}
+        />,
+        <ToolCard
+            icon={PeopleIcon}
+            title={t("tools.tooluser-editor.title")}
+            description={t("tools.tooluser-editor.description")}
+            tool={<AgeToolUserEditor/>}
+            key={2}
+        />,
+        ...Array.from({length: 10}, (_, index) => (
+            <ToolCard
+                icon={ScienceOutlinedIcon}
+                title={`Testing - ${index+10}`}
+                description={`Testing ${index+10}`}
+                tool={<h1>Testing {index+10}</h1>}
+                key={index+10}
+            />
+        ))
+    ]
 
     const handleToolCardClick = (toolCard: React.ReactElement) => {
         setActiveTool(toolCard);
