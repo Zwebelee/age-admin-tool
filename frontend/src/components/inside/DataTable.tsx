@@ -10,6 +10,7 @@ interface DataTableProps {
     hiddenColumns: any;
 }
 
+
 export const DataTable = observer(({
     color, display, rows = [], columns = [], hiddenColumns = {} }: DataTableProps
 ) => {

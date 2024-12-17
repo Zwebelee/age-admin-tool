@@ -9,6 +9,10 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 
 export const UsersScreen = () => {
 
+    const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
+    const color1_1 = getColor("--color1-1");
+    const iconSpace = 1.25;
+
     const { t } = useTranslation();
     const { portalUserStore } = useRootStore();
     const rows = portalUserStore.visibleItems.map((item) => ({
@@ -106,7 +110,7 @@ export const UsersScreen = () => {
                 rows={rows}
                 columns={columns}
                 hiddenColumns={hiddenColumns}
-                filter={<UsersScreenFilters></UsersScreenFilters>}
+                filter={<UsersScreenFilters color={color1_1} iconSpace={iconSpace} ></UsersScreenFilters>}
             ></InsideBox>
         </>
     );

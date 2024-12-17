@@ -2,16 +2,31 @@
 
 .dataFilters {
     grid-area: filters;
-    padding: pxToRem(30);
+    padding: pxToRem(10);
     border-right: pxToRem(7) solid var(--color1);
     border-radius: pxToRem(10);
     margin-right: pxToRem(15);
     background: var(--lightness1-2);
 
     &__title {
-        margin-top: 0;
+        margin-top: pxToRem(37);
         font-size: pxToRem(20);
         font-weight: 300;
+        text-align: center;
+    }
+
+    &__accordionBox {
+        margin-bottom: pxToRem(70);
+
+        & .MuiCollapse-wrapper {
+            padding-left: pxToRem(32);
+        }
+    }
+
+    &__reset {
+        position: absolute;
+        bottom: pxToRem(20);
+        width: pxToRem(378px);
         text-align: center;
     }
 }
