@@ -1,5 +1,6 @@
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
+import {UsersScreenFilters} from "../components/inside/filters/UsersScreenFilters.tsx";
 import {useRootStore} from "../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
 import {GridColDef} from "@mui/x-data-grid";
@@ -105,6 +106,7 @@ export const UsersScreen = () => {
                 rows={rows}
                 columns={columns}
                 hiddenColumns={hiddenColumns}
+                filter={<UsersScreenFilters></UsersScreenFilters>}
             ></InsideBox>
         </>
     );

@@ -11,9 +11,11 @@ interface InsideBoxProps {
     rows: any;
     columns: any;
     hiddenColumns: any;
+    filter: JSX.Element;
 }
 
-export const InsideBox = ({ color, rows, columns, hiddenColumns }: InsideBoxProps) => {
+
+export const InsideBox = ({ color, rows, columns, hiddenColumns, filter }: InsideBoxProps) => {
 
     const [innerView, setInnerView] = useState("table");
     const viewSwitch = (view: string) => {
@@ -22,7 +24,9 @@ export const InsideBox = ({ color, rows, columns, hiddenColumns }: InsideBoxProp
 
     return (
         <div className="insideBox">
-            <DataFilters></DataFilters>
+            <DataFilters
+                filter={filter}>
+            </DataFilters>
             <DataTable
                 color={color}
                 display={innerView === "table"}
