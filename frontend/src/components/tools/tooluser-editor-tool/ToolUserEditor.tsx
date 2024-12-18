@@ -113,7 +113,6 @@ export const AgeToolUserEditor = observer(() => {
                             label="Theme"
                             onChange={handleSelectChange}
                             MenuProps={{classes:{paper:"input-field-label"}}}
-
                         >
                             <MenuItem value="dark">{t("theme.dark")}</MenuItem>
                             <MenuItem value="light">{t("theme.light")}</MenuItem>
