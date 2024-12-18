@@ -35,6 +35,12 @@
     "username": "Nom d'utilisateur",
     "role": "Rôle",
     "password": "Mot de passe",
+    "change_password": "Changer le mot de passe",
+    "password_confirmation": "Confirmation du mot de passe",
+    "new_password": "Nouveau mot de passe",
+    "new_password_confirmation": "Confirmation du nouveau mot de passe",
+    "new_password_missmatch": "Les nouveaux mots de passe ne correspondent pas",
+    "missing_fields": "Champs manquants",
     "darkmode": "Mode sombre",
     "language": "Langue",
     "languages": {

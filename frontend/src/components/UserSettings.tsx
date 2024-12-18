@@ -23,6 +23,8 @@ import {observer} from "mobx-react-lite";
 import {SignInMask} from "./SignInMask.tsx";
 import {ToolUser} from "../models/tooluser.ts";
 import LogoutIcon from '@mui/icons-material/Logout';
+import LockResetIcon from '@mui/icons-material/LockReset';
+import {ChangeLogin} from "./ChangeLogin.tsx";
 
 interface SettingListItemProps {
     icon: ReactElement;
@@ -51,6 +53,7 @@ export const UserSettings = observer(() => {
 
     const [userRole, setUserRole] = useState("admin")
     const [switchChecked, setSwitchChecked] = useState([themeStore.theme] as string[]);
+    const [showChangeLogin, setShowChangeLogin] = useState(false);
 
     const handleLogout = () => {
         authStore.logout().then();
@@ -74,6 +77,14 @@ export const UserSettings = observer(() => {
 
     const handleChange = (event: SelectChangeEvent) => {
         setUserRole(event.target.value as string);
+    };
+
+    const handlePasswordChange = () => {
+        setShowChangeLogin(true);
+    }
+
+    const handlePasswordChangeCancel = () => {
+        setShowChangeLogin(false);
     };
 
     const roles = [
@@ -126,40 +137,46 @@ export const UserSettings = observer(() => {
         <>
             {!authStore.isLoggedIn ?
                 <SignInMask redirectUrl={""}/> :
-                <List sx={{width: '100%', backgroundColor: "grey"}}
-                      subheader={<ListSubheader>{t("settings")}</ListSubheader>}>
-                    <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
-                        <ListItemText primary={user?.username}/>
-                    </SettingListItem>
-                    <Divider/>
-                    <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("role")} primary={t("role")}>
-                        <Select
-                            labelId="role-select-label"
-                            id="role-select"
-                            value={userRole}
-                            label={t("role")}
-                            onChange={handleChange}
-                        >
-                            {roles.map(item =>
-                                <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
-                            )}
-                        </Select>
-                    </SettingListItem>
-                    <Divider/>
-                    <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>
-                        <Switch
-                            onChange={handleToggle('dark')}
-                            checked={switchChecked.includes('dark')}
-                        />
-                    </SettingListItem>
-                    <Divider/>
-                    <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
-                        <LanguageSelector/>
-                    </SettingListItem>
-                    <SettingListItem icon={<LogoutIcon/>} tooltip={t("logout")} primary={t("logout")}>
-                        <Button onClick={handleLogout} variant="contained">{t("logout")}</Button>
-                    </SettingListItem>
-                </List>
+                (showChangeLogin ?
+                    <ChangeLogin onCancel={handlePasswordChangeCancel}/> :
+                    <List sx={{width: '100%', backgroundColor: "grey"}}
+                          subheader={<ListSubheader>{t("settings")}</ListSubheader>}>
+                        <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
+                            <ListItemText primary={user?.username}/>
+                        </SettingListItem>
+                        <Divider/>
+                        <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("role")} primary={t("role")}>
+                            <Select
+                                labelId="role-select-label"
+                                id="role-select"
+                                value={userRole}
+                                label={t("role")}
+                                onChange={handleChange}
+                            >
+                                {roles.map(item =>
+                                    <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+                                )}
+                            </Select>
+                        </SettingListItem>
+                        <Divider/>
+                        <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>
+                            <Switch
+                                onChange={handleToggle('dark')}
+                                checked={switchChecked.includes('dark')}
+                            />
+                        </SettingListItem>
+                        <Divider/>
+                        <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
+                            <LanguageSelector/>
+                        </SettingListItem>
+                        <SettingListItem icon={<LockResetIcon/>} tooltip={t("change_password")}
+                                         primary={t("change_password")}>
+                            <Button onClick={handlePasswordChange} variant="contained">{t("change_password")}</Button>
+                        </SettingListItem>
+                        <SettingListItem icon={<LogoutIcon/>} tooltip={t("logout")} primary={t("logout")}>
+                            <Button onClick={handleLogout} variant="contained">{t("logout")}</Button>
+                        </SettingListItem>
+                    </List>)
             }
         </>
     );

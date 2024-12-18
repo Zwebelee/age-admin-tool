@@ -35,6 +35,12 @@
   "username": "Username",
   "role": "Role",
   "password": "Password",
+  "change_password": "Change password",
+  "password_confirmation": "Password Confirmation",
+  "new_password_confirmation": "New password confirmation",
+  "new_password_missmatch" : "New passwords do not match",
+  "missing_fields": "Fields missing",
+  "new_password": "New Password",
   "darkmode": "Dark Mode",
   "language": "Language",
   "languages": {
