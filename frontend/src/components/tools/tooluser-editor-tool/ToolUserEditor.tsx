@@ -112,6 +112,7 @@ export const AgeToolUserEditor = observer(() => {
                             value={formData.theme}
                             label="Theme"
                             onChange={handleSelectChange}
+                            MenuProps={{classes:{paper:"input-field-label"}}}
 
                         >
                             <MenuItem value="dark">{t("theme.dark")}</MenuItem>
@@ -119,7 +120,7 @@ export const AgeToolUserEditor = observer(() => {
                         </Select>
                     </Grid>
                     <Grid className="input-field-label">
-                        <InputLabel id="language-label" className='input-field-label'>{t("language")}</InputLabel>
+                        <InputLabel id="language-label">{t("language")}</InputLabel>
                         <Select
                             labelId="language-label"
                             id="language"
@@ -127,7 +128,7 @@ export const AgeToolUserEditor = observer(() => {
                             value={formData.language}
                             label="Language"
                             onChange={handleSelectChange}
-                            className='input-field-label'
+                            MenuProps={{classes:{paper:"input-field-label"}}}
                         >
                             <MenuItem value="en">{t("languages.en")}</MenuItem>
                             <MenuItem value="de">{t("languages.de")}</MenuItem>
@@ -143,6 +144,7 @@ export const AgeToolUserEditor = observer(() => {
                             value={formData.role}
                             label="role"
                             onChange={handleSelectChange}
+                            MenuProps={{classes:{paper:"input-field-label"}}}
                         >
                             <MenuItem value="viewer">Viewer</MenuItem>
                             <MenuItem value="editor">Editor</MenuItem>
