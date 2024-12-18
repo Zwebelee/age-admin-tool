@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid2';
 import {ToolDetailScreen} from "../../screens/ToolDetailScreen.tsx";
 import React, {useState} from "react";
 import {Button} from "@mui/material";
-import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import {ToolCard} from "./ToolCard.tsx";
 import PeopleIcon from "@mui/icons-material/People";
 import {AgeEditorTool} from "./age-editor-tool/AgeEditorTool.tsx";
@@ -30,16 +29,7 @@ export const ToolsMenu = observer(() => {
             description={t("tools.tooluser-editor.description")}
             tool={<AgeToolUserEditor/>}
             key={2}
-        />,
-        ...Array.from({length: 10}, (_, index) => (
-            <ToolCard
-                icon={ScienceOutlinedIcon}
-                title={`Testing - ${index+10}`}
-                description={`Testing ${index+10}`}
-                tool={<h1>Testing {index+10}</h1>}
-                key={index+10}
-            />
-        ))
+        />
     ]
 
     const handleToolCardClick = (toolCard: React.ReactElement) => {
@@ -60,27 +50,28 @@ export const ToolsMenu = observer(() => {
                     </Button>
                 )}
             </h2>
-            {!activeTool && <>
-                <Grid container spacing={2}>
-                    {toolList.map((toolCard, index) => (
-                        <Grid
-                            key={index}
-                            size={{xs: 12, sm: 6, md: 4, lg: 3}}
-                            onClick={() => handleToolCardClick(toolCard)}
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                '& > *': {
-                                    flex: 1
-                                }
-                            }}
-
-                        >
-                            {toolCard}
-                        </Grid>))}
-                </Grid></>
+            {!activeTool &&
+                <>
+                    <Grid container spacing={2}>
+                        {toolList.map((toolCard, index) => (
+                            <Grid
+                                key={index}
+                                size={{xs: 12, sm: 6, md: 4, lg: 3}}
+                                onClick={() => handleToolCardClick(toolCard)}
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    '& > *': {
+                                        flex: 1
+                                    }
+                                }}
+                            >
+                                {toolCard}
+                            </Grid>))}
+                    </Grid>
+                </>
             }
             {activeTool && <ToolDetailScreen child={activeTool.props.tool}/>}
         </>
     )
-})
+});
