@@ -9,10 +9,7 @@ import {ToolCard} from "./ToolCard.tsx";
 import PeopleIcon from "@mui/icons-material/People";
 import {AgeEditorTool} from "./age-editor-tool/AgeEditorTool.tsx";
 import {AgeToolUserEditor} from "./tooluser-editor-tool/ToolUserEditor.tsx";
-
-
-
-
+import ApartmentIcon from '@mui/icons-material/Apartment';
 
 
 export const ToolsMenu = observer(() => {
@@ -21,7 +18,7 @@ export const ToolsMenu = observer(() => {
 
     const toolList = [
         <ToolCard
-            icon={ScienceOutlinedIcon}
+            icon={ApartmentIcon}
             title={t("tools.age-editor.title")}
             description={t("tools.age-editor.description")}
             tool={<AgeEditorTool/>}
@@ -70,6 +67,14 @@ export const ToolsMenu = observer(() => {
                             key={index}
                             size={{xs: 12, sm: 6, md: 4, lg: 3}}
                             onClick={() => handleToolCardClick(toolCard)}
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                '& > *': {
+                                    flex: 1
+                                }
+                            }}
+
                         >
                             {toolCard}
                         </Grid>))}
