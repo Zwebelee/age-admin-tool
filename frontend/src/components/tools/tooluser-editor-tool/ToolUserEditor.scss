@@ -8,7 +8,11 @@
   .MuiSelect-outlined {
     color: var(--lightness2);
   }
+  .MuiList-root {
+    color: var(--lightness1);
+  }
+  .MuiSvgIcon-root {
+    color: var(--lightness2);
+  }
 }
-.MuiList-root {
-  color: var(--lightness1);
-}
+
