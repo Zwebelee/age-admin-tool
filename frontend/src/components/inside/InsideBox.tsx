@@ -5,11 +5,12 @@ import { DataTable } from "./DataTable.tsx";
 import { DataCharts } from "./DataCharts.tsx";
 import { DataView } from "./DataView.tsx";
 import "./InsideBox.scss";
+import {GridColDef} from "@mui/x-data-grid";
 
 interface InsideBoxProps {
     color: string;
     rows: any;
-    columns: any;
+    columns: GridColDef[];
     hiddenColumns: any;
     filter: JSX.Element;
 }

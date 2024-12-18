@@ -1,4 +1,4 @@
-import { DataGrid } from "@mui/x-data-grid";
+import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import { observer } from "mobx-react-lite";
 import "./DataTable.scss";
 
@@ -6,7 +6,7 @@ interface DataTableProps {
     color: string;
     display: boolean;
     rows: any;
-    columns: any;
+    columns: GridColDef[];
     hiddenColumns: any;
 }
 
