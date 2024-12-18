@@ -5,6 +5,7 @@ import React, {useState} from "react";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
+import './ToolUserEditor.scss';
 
 export const AgeToolUserEditor = observer(() => {
     const {t} = useTranslation();
@@ -29,7 +30,7 @@ export const AgeToolUserEditor = observer(() => {
         });
     };
 
-    const handleSelectChange = (e: SelectChangeEvent<string>) => {
+    const handleSelectChange = (e: SelectChangeEvent) => {
         const {name, value} = e.target;
         setFormData({
             ...formData,
@@ -55,7 +56,7 @@ export const AgeToolUserEditor = observer(() => {
 
 
     return (
-        <Paper sx={{padding: 16, backgroundColor: "orange"}}>
+        <Paper sx={{padding: 16, backgroundColor: "var(--lightness1-3)"}}>
             <Typography variant="h6" gutterBottom>
                 {t("tools.tooluser-editor.description")}
             </Typography>
@@ -71,6 +72,7 @@ export const AgeToolUserEditor = observer(() => {
                             onChange={handleChange}
                             fullWidth
                             required
+                            className="input-field-label"
                         />
                     </Grid>
                     <Grid>
@@ -84,6 +86,7 @@ export const AgeToolUserEditor = observer(() => {
                             onChange={handleChange}
                             fullWidth
                             required
+                            className="input-field-label"
                         />
                     </Grid>
                     <Grid>
@@ -97,9 +100,10 @@ export const AgeToolUserEditor = observer(() => {
                             onChange={handleChange}
                             fullWidth
                             required
+                            className="input-field-label"
                         />
                     </Grid>
-                    <Grid>
+                    <Grid className="input-field-label">
                         <InputLabel id="theme-label">{t("theme.title")}</InputLabel>
                         <Select
                             labelId="theme-label"
@@ -108,13 +112,14 @@ export const AgeToolUserEditor = observer(() => {
                             value={formData.theme}
                             label="Theme"
                             onChange={handleSelectChange}
+
                         >
                             <MenuItem value="dark">{t("theme.dark")}</MenuItem>
                             <MenuItem value="light">{t("theme.light")}</MenuItem>
                         </Select>
                     </Grid>
-                    <Grid>
-                        <InputLabel id="language-label">{t("language")}</InputLabel>
+                    <Grid className="input-field-label">
+                        <InputLabel id="language-label" className='input-field-label'>{t("language")}</InputLabel>
                         <Select
                             labelId="language-label"
                             id="language"
@@ -122,13 +127,14 @@ export const AgeToolUserEditor = observer(() => {
                             value={formData.language}
                             label="Language"
                             onChange={handleSelectChange}
+                            className='input-field-label'
                         >
                             <MenuItem value="en">{t("languages.en")}</MenuItem>
                             <MenuItem value="de">{t("languages.de")}</MenuItem>
                             <MenuItem value="fr">{t("languages.fr")}</MenuItem>
                         </Select>
                     </Grid>
-                    <Grid>
+                    <Grid className="input-field-label">
                         <InputLabel id="role-label">{t("role")}</InputLabel>
                         <Select
                             labelId="role-label"

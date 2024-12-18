@@ -1,0 +1,14 @@
+.input-field-label {
+  .MuiInputLabel-root {
+    color: var(--lightness2);
+  }
+  .MuiInputBase-root{
+    width:100%;
+  }
+  .MuiSelect-outlined {
+    color: var(--lightness2);
+  }
+}
+.MuiList-root {
+  color: var(--lightness1);
+}
