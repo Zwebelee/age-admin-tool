@@ -4,38 +4,33 @@ import Grid from '@mui/material/Grid2';
 import {ToolDetailScreen} from "../../screens/ToolDetailScreen.tsx";
 import React, {useState} from "react";
 import {Button} from "@mui/material";
-import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import {ToolCard} from "./ToolCard.tsx";
 import PeopleIcon from "@mui/icons-material/People";
-
-
-const toolList = [
-    <ToolCard
-        icon={ScienceOutlinedIcon}
-        title={"AGE - Editor"}
-        description={"AGE Editor"}
-        key={1}
-    />,
-    <ToolCard
-        icon={PeopleIcon}
-        title={"ToolUsers"}
-        description={"ToolUsersEditing"}
-        key={2}
-    />,
-    ...Array.from({length: 10}, (_, index) => (
-        <ToolCard
-            icon={ScienceOutlinedIcon}
-            title={`Testing - ${index+10}`}
-            description={`Testing ${index+10}`}
-            key={index+10}
-        />
-    ))
-]
+import {AgeEditorTool} from "./age-editor-tool/AgeEditorTool.tsx";
+import {AgeToolUserEditor} from "./tooluser-editor-tool/ToolUserEditor.tsx";
+import ApartmentIcon from '@mui/icons-material/Apartment';
 
 
 export const ToolsMenu = observer(() => {
     const {t} = useTranslation();
     const [activeTool, setActiveTool] = useState<React.ReactElement | null>(null);
+
+    const toolList = [
+        <ToolCard
+            icon={ApartmentIcon}
+            title={t("tools.age-editor.title")}
+            description={t("tools.age-editor.description")}
+            tool={<AgeEditorTool/>}
+            key={1}
+        />,
+        <ToolCard
+            icon={PeopleIcon}
+            title={t("tools.tooluser-editor.title")}
+            description={t("tools.tooluser-editor.description")}
+            tool={<AgeToolUserEditor/>}
+            key={2}
+        />
+    ]
 
     const handleToolCardClick = (toolCard: React.ReactElement) => {
         setActiveTool(toolCard);
@@ -55,19 +50,28 @@ export const ToolsMenu = observer(() => {
                     </Button>
                 )}
             </h2>
-            {!activeTool && <>
-                <Grid container spacing={2}>
-                    {toolList.map((toolCard, index) => (
-                        <Grid
-                            key={index}
-                            size={{xs: 12, sm: 6, md: 4, lg: 3}}
-                            onClick={() => handleToolCardClick(toolCard)}
-                        >
-                            {toolCard}
-                        </Grid>))}
-                </Grid></>
+            {!activeTool &&
+                <>
+                    <Grid container spacing={2}>
+                        {toolList.map((toolCard, index) => (
+                            <Grid
+                                key={index}
+                                size={{xs: 12, sm: 6, md: 4, lg: 3}}
+                                onClick={() => handleToolCardClick(toolCard)}
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    '& > *': {
+                                        flex: 1
+                                    }
+                                }}
+                            >
+                                {toolCard}
+                            </Grid>))}
+                    </Grid>
+                </>
             }
-            {activeTool && <ToolDetailScreen/>}
+            {activeTool && <ToolDetailScreen child={activeTool.props.tool}/>}
         </>
     )
-})
+});

@@ -2,7 +2,8 @@ from flasgger import swag_from
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..db import db
-from app.models.tooluser import Tooluser
+from ..models.toolrole import Toolrole
+from ..models.tooluser import Tooluser
 
 toolusers_bp = Blueprint('toolusers', __name__)
 
@@ -34,53 +35,61 @@ def get_all_toolusers():
     return jsonify([tooluser.to_dict() for tooluser in toolusers]), 200
 
 
-# TODO: IMPLEMENT LATER for adding users
-# @toolusers_bp.route('/toolusers', methods=['POST'])
-# @jwt_required()
-# @swag_from({
-#     'tags': ['Toolusers'],
-#     'parameters': [
-#         {
-#             'name': 'body',
-#             'in': 'body',
-#             'required': True,
-#             'schema': {
-#                 'type': 'object',
-#                 'properties': {
-#                     'username': {'type': 'string', 'example': 'Alice'},
-#                     'password': {'type': 'string', 'example': '12345'},
-#                     'language': {'type': 'string', 'example': 'en'},
-#                     'theme': {'type': 'string', 'example': 'dark'}
-#                 }
-#             }
-#         }
-#     ],
-#     'responses': {
-#         201: {
-#             'description': 'User created successfully',
-#             'schema': {
-#                 'type': 'object',
-#                 'properties': {
-#                     'id': {'type': 'integer'},
-#                     'username': {'type': 'string'},
-#                     'language': {'type': 'string'},
-#                     'theme': {'type': 'string'},
-#                 }
-#             }
-#         }
-#     }
-# })
-# def add_tooluser():
-#     data = request.json
-#     new_tooluser = Tooluser(
-#         username=data['username'],
-#         password=data['password'],
-#         language=data.get('language', 'en'),
-#         theme=data.get('theme', 'light')
-#     )
-#     db.session.add(new_tooluser)
-#     db.session.commit()
-#     return jsonify(new_tooluser.to_dict()), 201
+@toolusers_bp.route('/toolusers', methods=['POST'])
+@jwt_required()
+@swag_from({
+    'tags': ['Toolusers'],
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'username': {'type': 'string', 'example': 'Peter'},
+                    'password': {'type': 'string', 'example': '12345'},
+                    'language': {'type': 'string', 'example': 'en'},
+                    'theme': {'type': 'string', 'example': 'dark'}
+                }
+            }
+        }
+    ],
+    'responses': {
+        201: {
+            'description': 'User created successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'id': {'type': 'integer'},
+                    'username': {'type': 'string'},
+                    'language': {'type': 'string'},
+                    'theme': {'type': 'string'},
+                }
+            }
+        }
+    }
+})
+def add_tooluser():
+    data = request.json
+    new_tooluser = Tooluser(
+        username=data['username'],
+        language=data.get('language', 'en'),
+        theme=data.get('theme', 'light')
+    )
+    new_tooluser.set_password(data['password'])
+
+    # Assign role to the new user
+    role_name = data.get('role', 'user')
+    role = Toolrole.query.filter_by(name=role_name).first()
+    if role:
+        new_tooluser.roles.append(role)
+    else:
+        return jsonify({"message": "Role not found"}), 400
+
+    db.session.add(new_tooluser)
+    db.session.commit()
+    return jsonify(new_tooluser.to_dict()), 201
 
 
 @toolusers_bp.route('/toolusers/<int:id>', methods=['GET'])
@@ -293,3 +302,72 @@ def update_user_profile():
     tooluser.theme = data.get('theme', tooluser.theme)
     db.session.commit()
     return jsonify(tooluser.to_dict()), 200
+
+
+@toolusers_bp.route('/toolusers/change_password', methods=['PUT'])
+@jwt_required()
+@swag_from({
+    'tags': ['Toolusers'],
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'current_password': {'type': 'string', 'example': 'oldpassword'},
+                    'new_password': {'type': 'string', 'example': 'newpassword'}
+                }
+            }
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Password changed successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        },
+        400: {
+            'description': 'Invalid current password',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        },
+        404: {
+            'description': 'User not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def change_password():
+    username = get_jwt_identity()
+    tooluser = Tooluser.query.filter_by(username=username).first()
+    if not tooluser:
+        return jsonify({"message": "User not found"}), 404
+
+    data = request.json
+    current_password = data['current_password']
+    new_password = data['new_password']
+
+    if not tooluser.check_password(current_password):
+        return jsonify({"message": "Invalid current password"}), 400
+
+    tooluser.set_password(new_password)
+    db.session.commit()
+
+    # TODO: Revoke tokens / blacklist tokens on redis, create and return new acces/refhresh tokens
+
+    return jsonify({"message": "Password changed successfully"}), 200

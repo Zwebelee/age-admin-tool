@@ -9,6 +9,7 @@
     "cancel": "Cancel",
     "close": "Close",
     "confirm": "Confirm",
+    "create": "Create",
     "delete": {
       "title": "Delete",
       "confirmation": "Do you really want to delete this?"
@@ -16,7 +17,8 @@
     "edit": "Edit",
     "save": "Save",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "error": "Error"
   },
   "components": "Components",
   "contents": "Contents",
@@ -28,18 +30,43 @@
   "overview": "Overview",
   "tasks": "Tasks",
   "users": "Users",
+  "user": "User",
   "viewer": "Viewer",
   "settings": "Settings",
   "username": "Username",
   "role": "Role",
+  "active_role": "Active Role",
+  "password": "Password",
+  "password_invalid": "Password invalid",
+  "password_changed": "Password changed",
+  "change_password": "Change password",
+  "password_confirmation": "Password Confirmation",
+  "new_password_confirmation": "New password confirmation",
+  "new_password_missmatch" : "New passwords do not match",
+  "missing_fields": "Fields missing",
+  "new_password": "New Password",
   "darkmode": "Dark Mode",
   "language": "Language",
+  "languages": {
+    "en": "English",
+    "de": "German",
+    "fr": "French"
+  },
+  "theme": {
+    "title": "Theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
   "logout": "Logout",
   "tools": {
     "title": "Tools",
     "age-editor": {
       "title": "AGE Editor",
       "description": "Create, edit and remove AGE components."
+    },
+    "tooluser-editor": {
+      "title": "ToolUser Editor",
+      "description": "Add new Tool-Users"
     }
   }
 }

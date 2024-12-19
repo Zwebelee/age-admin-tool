@@ -78,4 +78,19 @@ export class AuthStore {
             this.resetUserSession()
         }
     }
+
+    async changeLogin(password: string, newPassword: string): Promise<number | null> {
+        //TODO: handling in backend -> revoke tokens, set new salt, send new tokens
+        try {
+            const payload = { "current_password": password, "new_password": newPassword };
+            await this.authService.getApiClient().put('/toolusers/change_password', payload);
+            return null;
+        } catch (err) {
+            const error = err as { response?: { status?: number } };
+            if (error.response && error.response.status) {
+                return error.response.status;
+            }
+            return -1; // Return -1 for unexpected errors
+        }
+    }
 }

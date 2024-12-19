@@ -9,6 +9,7 @@
         "cancel": "Abbrechen",
         "close": "Schließen",
         "confirm": "Bestätigen",
+        "create": "Erstelle",
         "delete": {
             "title": "Löschen",
             "confirmation": "Möchten Sie dies wirklich löschen?"
@@ -16,7 +17,8 @@
         "edit": "Bearbeiten",
         "save": "Speichern",
         "yes": "Ja",
-        "no": "Nein"
+        "no": "Nein",
+        "error": "Fehler"
     },
     "components": "Komponenten",
     "contents": "Inhalte",
@@ -28,18 +30,43 @@
     "overview": "Übersicht",
     "tasks": "Aufgaben",
     "users": "Benutzer",
+    "user": "Benutzer",
     "viewer": "Betrachter",
     "settings": "Einstellungen",
     "username": "Benutzername",
     "role": "Rolle",
+    "active_role": "Aktive Rolle",
+    "password": "Passwort",
+    "password_changed": "Passwort geändert",
+    "password_invalid": "Ungültiges Passwort",
+    "change_password": "Passwort ändern",
+    "password_confirmation": "Passwort bestätigen",
+    "new_password_confirmation": "Neues Passwort bestätigen",
+    "new_password_missmatch": "Neue Passwörter stimmen nicht überein",
+    "new_password": "Neues Passwort",
+    "missing_fields": "Fehlende Felder",
     "darkmode": "Dunkelmodus",
     "language": "Sprache",
+    "languages": {
+        "en": "Englisch",
+        "de": "Deutsch",
+        "fr": "Französisch"
+    },
+    "theme": {
+        "title": "Thema",
+        "light": "Hell",
+        "dark": "Dunkel"
+    },
     "logout": "Abmelden",
     "tools": {
         "title": "Werkzeuge",
         "age-editor": {
             "title": "AGE Editor",
             "description": "Erstellen, bearbeiten und entfernen von AGE-Komponenten."
+        },
+        "tooluser-editor": {
+            "title": "ToolUser Editor",
+            "description": "Neue Tool-Benutzer hinzufügen"
         }
     }
 }
