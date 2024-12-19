@@ -145,12 +145,13 @@ export const UserSettings = observer(() => {
                             <ListItemText primary={user?.username}/>
                         </SettingListItem>
                         <Divider/>
-                        <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("role")} primary={t("role")}>
+                        <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("active_role")}
+                                         primary={t("active_role")}>
                             <Select
                                 labelId="role-select-label"
                                 id="role-select"
                                 value={userRole}
-                                label={t("role")}
+                                label={t("active_role")}
                                 onChange={handleChange}
                             >
                                 {roles.map(item =>

@@ -35,6 +35,7 @@
     "settings": "Einstellungen",
     "username": "Benutzername",
     "role": "Rolle",
+    "active_role": "Aktive Rolle",
     "password": "Passwort",
     "password_changed": "Passwort geändert",
     "password_invalid": "Ungültiges Passwort",
