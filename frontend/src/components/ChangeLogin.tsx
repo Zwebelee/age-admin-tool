@@ -12,29 +12,57 @@ interface ChangeLoginProps {
 export const ChangeLogin = observer(({onCancel}: ChangeLoginProps) => {
     const {t} = useTranslation();
     const {authStore, toolUserStore} = useRootStore();
-    const [password, setPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
+
+    const initialFormState = {
+        password: '',
+        newPassword: '',
+        confirmPassword: '',
+        error: '',
+        success: ''
+    };
+
+    const [formState, setFormState] = useState(initialFormState)
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
+        setFormState({
+            ...formState,
+            [name]: value
+        });
+    };
+
+    const resetForm = ({error = '', success = ''}: { error?: string; success?: string } = {}) => {
+        setFormState({
+            ...initialFormState,
+            error,
+            success
+        });
+    };
+
 
     const handleChangeLogin = async () => {
+        const {password, newPassword, confirmPassword} = formState;
+
         if (!password || !newPassword || !confirmPassword) {
-            setError(t('missing_fields'));
+            resetForm({"error": t('missing_fields')});
             return;
         }
         if (newPassword !== confirmPassword) {
-            setError(t('new_password_missmatch'));
+            setFormState({...formState, error: t('new_password_missmatch')});
             return;
         }
 
-        try {
-            // await authStore.changeLogin(username, password);
-            console.log('testing')
-            //TODO: -> confirm - clear field and return to user settings
-            setError('');
-            // Optionally, you can add a success message or redirect the user
-        } catch (err) {
-            setError(t('actions.change_password.error_generic'));
+        const responseCode = await authStore.changeLogin(password, newPassword);
+        if (responseCode) {
+            let errorMessage = '';
+            if (responseCode === 400) {
+                errorMessage = t('password_invalid');
+            } else if (responseCode === 404) {
+                errorMessage = t('user_not_found');
+            }
+            resetForm({"error": errorMessage});
+        } else {
+            resetForm({"success": t('password_changed')});
         }
     };
 
@@ -45,11 +73,13 @@ export const ChangeLogin = observer(({onCancel}: ChangeLoginProps) => {
                 <Typography
                     variant="h6">{t('user')}: {toolUserStore.user ? toolUserStore.user.username : 'User-Error'}
                 </Typography>
+                {formState.success && <Typography variant='h6' color="success">{formState.success}</Typography>}
                 <TextField
                     label={t('password')}
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    value={formState.password}
+                    onChange={handleChange}
                     fullWidth
                     margin="normal"
                     required
@@ -57,8 +87,9 @@ export const ChangeLogin = observer(({onCancel}: ChangeLoginProps) => {
                 <TextField
                     label={t('new_password')}
                     type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    name="newPassword"
+                    value={formState.newPassword}
+                    onChange={handleChange}
                     fullWidth
                     margin="normal"
                     required
@@ -66,13 +97,14 @@ export const ChangeLogin = observer(({onCancel}: ChangeLoginProps) => {
                 <TextField
                     label={t('new_password_confirmation')}
                     type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    name="confirmPassword"
+                    value={formState.confirmPassword}
+                    onChange={handleChange}
                     fullWidth
                     margin="normal"
                     required
                 />
-                {error && <Typography variant='h6' color="error">{error}</Typography>}
+                {formState.error && <Typography variant='h6' color="error">{formState.error}</Typography>}
                 <Button variant="contained" color="primary" onClick={handleChangeLogin} fullWidth>
                     {t('change_password')}
                 </Button>

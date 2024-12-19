@@ -17,7 +17,8 @@
     "edit": "Edit",
     "save": "Save",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "error": "Error"
   },
   "components": "Components",
   "contents": "Contents",
@@ -35,6 +36,8 @@
   "username": "Username",
   "role": "Role",
   "password": "Password",
+  "password_invalid": "Password invalid",
+  "password_changed": "Password changed",
   "change_password": "Change password",
   "password_confirmation": "Password Confirmation",
   "new_password_confirmation": "New password confirmation",

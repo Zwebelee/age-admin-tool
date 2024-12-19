@@ -17,7 +17,8 @@
         "edit": "Bearbeiten",
         "save": "Speichern",
         "yes": "Ja",
-        "no": "Nein"
+        "no": "Nein",
+        "error": "Fehler"
     },
     "components": "Komponenten",
     "contents": "Inhalte",
@@ -35,6 +36,8 @@
     "username": "Benutzername",
     "role": "Rolle",
     "password": "Passwort",
+    "password_changed": "Passwort geändert",
+    "password_invalid": "Ungültiges Passwort",
     "change_password": "Passwort ändern",
     "password_confirmation": "Passwort bestätigen",
     "new_password_confirmation": "Neues Passwort bestätigen",

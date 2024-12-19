@@ -302,3 +302,72 @@ def update_user_profile():
     tooluser.theme = data.get('theme', tooluser.theme)
     db.session.commit()
     return jsonify(tooluser.to_dict()), 200
+
+
+@toolusers_bp.route('/toolusers/change_password', methods=['PUT'])
+@jwt_required()
+@swag_from({
+    'tags': ['Toolusers'],
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'current_password': {'type': 'string', 'example': 'oldpassword'},
+                    'new_password': {'type': 'string', 'example': 'newpassword'}
+                }
+            }
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Password changed successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        },
+        400: {
+            'description': 'Invalid current password',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        },
+        404: {
+            'description': 'User not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def change_password():
+    username = get_jwt_identity()
+    tooluser = Tooluser.query.filter_by(username=username).first()
+    if not tooluser:
+        return jsonify({"message": "User not found"}), 404
+
+    data = request.json
+    current_password = data['current_password']
+    new_password = data['new_password']
+
+    if not tooluser.check_password(current_password):
+        return jsonify({"message": "Invalid current password"}), 400
+
+    tooluser.set_password(new_password)
+    db.session.commit()
+
+    # TODO: Revoke tokens / blacklist tokens on redis, create and return new acces/refhresh tokens
+
+    return jsonify({"message": "Password changed successfully"}), 200
