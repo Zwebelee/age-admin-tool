@@ -1,0 +1,56 @@
+@import "../../globalFunctions";
+
+.dataTableHidden {
+    display: none;
+}
+
+.dataTable {
+    grid-area: table;
+    min-height: calc(100vh - pxToRem(386.5)); // 175 + 25 + 25 + 139.5 + 12 + 10
+    padding: pxToRem(30) pxToRem(30) pxToRem(75) pxToRem(30);
+    border: pxToRem(1) solid var(--color1);
+    border-radius: pxToRem(6);
+    margin: pxToRem(4);
+    background: var(--lightness1-2);
+    overflow: scroll;
+
+    &--color2 {
+        border-color: var(--color2);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color2);
+        }
+    }
+
+    &--color3 {
+        border-color: var(--color3);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color3);
+        }
+    }
+
+    &--color4 {
+        border-color: var(--color4);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color4);
+        }
+    }
+
+    &--color5 {
+        border-color: var(--color5);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color5);
+        }
+    }
+
+    &--color6 {
+        border-color: var(--color6);
+
+        .dataTable__table .MuiDataGrid-columnHeaderTitle {
+            color: var(--color6);
+        }
+    }
+}

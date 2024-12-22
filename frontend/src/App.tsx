@@ -35,7 +35,7 @@ const AppObserver = observer(() => {
     const lightness1 = getColor("--lightness1");
     const lightness2 = getColor("--lightness2");
     const lightness3 = getColor("--lightness3");
-    const lightness4 = getColor("--lightness5");
+    const lightness5 = getColor("--lightness5");
 
     const getBreakpoint = (breakpoint: string) => parseInt(getComputedStyle(document.body).getPropertyValue(breakpoint), 10);
     const xs = getBreakpoint("--xs");
@@ -63,6 +63,7 @@ const AppObserver = observer(() => {
             },
         },
         palette: {
+            mode: "dark",
             background: {
                 default: lightness3,
             },
@@ -85,8 +86,9 @@ const AppObserver = observer(() => {
             },
         },
         palette: {
+            mode: "light",
             background: {
-                default: lightness4,
+                default: lightness5,
             },
             text: {
                 primary: lightness1,

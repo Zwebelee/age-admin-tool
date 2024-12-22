@@ -1,72 +1,117 @@
 {
-    "app-title": "AGE Verwaltungstool",
-    "actions": {
-        "add": {
-            "title": "Hinzufügen",
-            "add_new": "Neu hinzufügen"
-        },
-        "back": "Zurück",
-        "cancel": "Abbrechen",
-        "close": "Schließen",
-        "confirm": "Bestätigen",
-        "create": "Erstelle",
-        "delete": {
-            "title": "Löschen",
-            "confirmation": "Möchten Sie dies wirklich löschen?"
-        },
-        "edit": "Bearbeiten",
-        "save": "Speichern",
-        "yes": "Ja",
-        "no": "Nein",
-        "error": "Fehler"
+  "app-title": "AGE Verwaltungstool",
+  "actions": {
+    "add": {
+      "title": "Hinzufügen",
+      "add_new": "Neu hinzufügen"
     },
-    "components": "Komponenten",
-    "contents": "Inhalte",
-    "creators": "Ersteller",
-    "experimental": "Experimentell",
-    "groups": "Gruppen",
-    "menu": "Menü",
-    "my-account": "Mein Konto",
-    "overview": "Übersicht",
-    "tasks": "Aufgaben",
-    "users": "Benutzer",
-    "user": "Benutzer",
-    "viewer": "Betrachter",
-    "settings": "Einstellungen",
-    "username": "Benutzername",
-    "role": "Rolle",
-    "active_role": "Aktive Rolle",
-    "password": "Passwort",
-    "password_changed": "Passwort geändert",
-    "password_invalid": "Ungültiges Passwort",
-    "change_password": "Passwort ändern",
-    "password_confirmation": "Passwort bestätigen",
-    "new_password_confirmation": "Neues Passwort bestätigen",
-    "new_password_missmatch": "Neue Passwörter stimmen nicht überein",
-    "new_password": "Neues Passwort",
-    "missing_fields": "Fehlende Felder",
-    "darkmode": "Dunkelmodus",
-    "language": "Sprache",
-    "languages": {
-        "en": "Englisch",
-        "de": "Deutsch",
-        "fr": "Französisch"
+    "back": "Zurück",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "create": "Erstelle",
+    "delete": {
+      "title": "Löschen",
+      "confirmation": "Möchten Sie dies wirklich löschen?"
     },
-    "theme": {
-        "title": "Thema",
-        "light": "Hell",
-        "dark": "Dunkel"
+    "edit": "Bearbeiten",
+    "save": "Speichern",
+    "yes": "Ja",
+    "no": "Nein",
+    "error": "Fehler"
+  },
+  "components": "Komponenten",
+  "contents": "Inhalte",
+  "creators": "Ersteller",
+  "experimental": "Experimentell",
+  "groups": "Gruppen",
+  "menu": "Menü",
+  "my-account": "Mein Konto",
+  "overview": "Übersicht",
+  "tasks": "Aufgaben",
+  "users": "Benutzer",
+  "user": "Benutzer",
+  "viewer": "Betrachter",
+  "settings": "Einstellungen",
+  "username": "Benutzername",
+  "role": "Rolle",
+  "active_role": "Aktive Rolle",
+  "password": "Passwort",
+  "password_changed": "Passwort geändert",
+  "password_invalid": "Ungültiges Passwort",
+  "change_password": "Passwort ändern",
+  "password_confirmation": "Passwort bestätigen",
+  "new_password_confirmation": "Neues Passwort bestätigen",
+  "new_password_missmatch": "Neue Passwörter stimmen nicht überein",
+  "new_password": "Neues Passwort",
+  "missing_fields": "Fehlende Felder",
+  "darkmode": "Dunkelmodus",
+  "language": "Sprache",
+  "languages": {
+    "en": "Englisch",
+    "de": "Deutsch",
+    "fr": "Französisch"
+  },
+  "theme": {
+    "title": "Thema",
+    "light": "Hell",
+    "dark": "Dunkel"
+  },
+  "logout": "Abmelden",
+  "tools": {
+    "title": "Werkzeuge",
+    "age-editor": {
+      "title": "AGE Editor",
+      "description": "Erstellen, bearbeiten und entfernen von AGE-Komponenten."
     },
-    "logout": "Abmelden",
-    "tools": {
-        "title": "Werkzeuge",
-        "age-editor": {
-            "title": "AGE Editor",
-            "description": "Erstellen, bearbeiten und entfernen von AGE-Komponenten."
-        },
-        "tooluser-editor": {
-            "title": "ToolUser Editor",
-            "description": "Neue Tool-Benutzer hinzufügen"
-        }
+    "tooluser-editor": {
+      "title": "ToolUser Editor",
+      "description": "Neue Tool-Benutzer hinzufügen"
     }
+  },
+  "access": "Zugang",
+  "ad-status": "Anzeigestatus",
+  "all": "Alle",
+  "categories": "Kategorien",
+  "content-status": "Inhaltlicher Status",
+  "created": "Erstellt",
+  "custom-role": "Benutzerdefinierte Rolle",
+  "description": "Beschreibung",
+  "division1": "Abteilung 1",
+  "division2": "Abteilung 2",
+  "division3": "Abteilung 3",
+  "division4": "Abteilung 4",
+  "deactivated": "Deaktiviert",
+  "disabled": "Deaktivierung",
+  "editable": "Editierbar",
+  "email": "E-Mail",
+  "filters": "Filter",
+  "firstname": "Vorname",
+  "folder": "Ordner",
+  "fullname": "Ganzer Name",
+  "group-count": "Gruppenzählung",
+  "groupsharing": "Gruppenteilung",
+  "homepage": "Homepage",
+  "item-count": "Artikelzählung",
+  "last-login": "Letzte Anmeldung",
+  "lastname": "Nachname",
+  "license-type": "Lizenztyp",
+  "modified": "Geändert",
+  "not-deactivated": "Nicht deaktiviert",
+  "owner": "Eigentümer",
+  "provider": "Anbieter",
+  "reset": "Zurücksetzen",
+  "role-id": "Rollen-ID",
+  "sharing": "Teilen",
+  "snippet": "Schnipsel",
+  "status": "Status",
+  "storeage": "Speicherplatz",
+  "size-byte": "Byte Grösse",
+  "tags": "Tags",
+  "thumbnail": "Vorschaubild",
+  "type": "Typ",
+  "usage-quota": "Nutzungskontingent",
+  "usertype": "Benutzertyp",
+  "view": "Ansicht",
+  "viewcount": "Ansichtszähler"
 }
