@@ -1,10 +1,11 @@
 import redis
+import os
 from flask_jwt_extended import JWTManager
 
 jwt = JWTManager()
 
 jwt_redis_blocklist = redis.StrictRedis(
-    host="redis", port=6379, db=0, decode_responses=True
+    host=os.getenv('REDIS_HOST'), port=6379, db=0, decode_responses=True
 )
 
 

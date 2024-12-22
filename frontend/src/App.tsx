@@ -28,6 +28,8 @@ import {SignInScreen} from "./screens/SignInScreen.tsx";
 
 const AppObserver = observer(() => {
 
+    const {themeStore} = useRootStore()
+
     const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
     const color1 = getColor("--color1");
     const lightness1 = getColor("--lightness1");
@@ -50,10 +52,6 @@ const AppObserver = observer(() => {
         setToggleMenu(false);
     };
 
-    const [toggleTheme, setToggleTheme] = useState(false);
-    const themeSwitch = () => {
-        setToggleTheme(!toggleTheme);
-    };
     const themeDark = createTheme({
         breakpoints: {
             values: {
@@ -115,11 +113,11 @@ const AppObserver = observer(() => {
     return (
         <Suspense fallback="loading">
             <BrowserRouter>
-                <ThemeProvider theme={toggleTheme ? themeLight : themeDark}>
+                <ThemeProvider theme={themeStore.theme ==="light" ? themeLight : themeDark}>
                     <CssBaseline/>
-                    <div className={toggleTheme ? "theme--light" : "theme--dark"}>
+                    <div className={themeStore.theme ==="light" ? "theme--light" : "theme--dark"}>
                         <div className="app">
-                            <Header toggleTheme={toggleTheme} toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
+                            <Header toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
                             <Sidebar/>
                             <main className="main">
                                 <div className={toggleMenu ? "main__contentHidden" : "main__content"}>
@@ -132,7 +130,7 @@ const AppObserver = observer(() => {
                                         <Route path="/components" element={<ComponentsScreen/>}/>
                                         <Route path="/experimental" element={<ExperimentalScreen/>}/>
                                         <Route path="/utils" element={<ToolsScreen/>}/>
-                                        <Route path="/my-account" element={<MyAccountScreen toggleTheme={toggleTheme} onChangeTheme={themeSwitch}/>}/>
+                                        <Route path="/my-account" element={<MyAccountScreen />}/>
                                         <Route path="/login" element={<SignInScreen/>}/>
                                         <Route path="/testsecret" element={<ProtectedRoute><h1>This is the secret screen only available when logged in</h1></ProtectedRoute>}/>
                                     </Routes>

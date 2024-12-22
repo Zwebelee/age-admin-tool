@@ -6,7 +6,11 @@ import {useRootStore} from "../stores/root-store.ts";
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-export const SignInMask = observer(() => {
+interface SignInMaskProps {
+    redirectUrl?: string;
+}
+
+export const SignInMask = observer(({redirectUrl = "/testsecret"}:SignInMaskProps) => {
     const rootStore = useRootStore();
     const authStore = rootStore.authStore;
     const navigate = useNavigate();
@@ -27,7 +31,7 @@ export const SignInMask = observer(() => {
             setSigninError("");
             // make a short delay
             await new Promise(resolve => setTimeout(resolve, 1000));
-            navigate("/testsecret");
+            navigate(redirectUrl);
         } else {
             setSigninError("Invalid username or password");
             setSigninSuccess("");

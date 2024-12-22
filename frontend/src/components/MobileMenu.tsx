@@ -13,7 +13,7 @@ export const MobileMenu = ({toggleMenu, onClickMenu}: {toggleMenu: boolean, onCl
                         <span className="mobileMenu__iconCircle">
                             <span className="mobileMenu__icon"></span>
                         </span>
-                        {toggleMenu ? t("close") : t("menu")}
+                        {toggleMenu ? t("actions.close") : t("menu")}
                     </button>
                 </li>
             </ul>

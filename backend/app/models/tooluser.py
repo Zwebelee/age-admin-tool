@@ -9,6 +9,8 @@ class Tooluser(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
+    language = db.Column(db.String(255), nullable=False)
+    theme = db.Column(db.String(255), nullable=False)
     tasks = db.relationship('Task', secondary=task_tooluser, backref='toolusers')
     roles = db.relationship('Toolrole', secondary=tooluser_role, backref='toolusers')
 
@@ -21,7 +23,9 @@ class Tooluser(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "username": self.username
+            "username": self.username,
+            "language": self.language,
+            "theme": self.theme,
         }
 
     def __repr__(self):
