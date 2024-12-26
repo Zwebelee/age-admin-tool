@@ -2,6 +2,9 @@ import {makeObservable, observable, runInAction} from "mobx";
 import {AbstractStore} from "./abstract-store.ts";
 import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
+import {PortalUserRoleFilter} from "../filters/portaluser/portaluser-role-filter.ts";
+import {PortalUserStatusFilter} from "../filters/portaluser/portaluser-status-filter.ts";
+import {GenericItemFilter} from "../filters/generic-item-filter.ts";
 
 
 export class PortaluserStore extends AbstractStore<PortalUser> {
@@ -12,7 +15,8 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
         super(authService);
         makeObservable(this, {
             status: observable,
-            items: observable
+            items: observable,
+            filters: observable
             //TODO: add visibleItems, filters, addItem, removeItem, sync items,...
         });
         this.initialize(); //TODO: load later! not at start, e.g on user/route
@@ -22,7 +26,17 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
     }
 
     getEndpoint(): string {
-        return '/portallicenses';
+        return '/portallicenses'; //TODO: wrong endpoint !!!!
+    }
+
+    get visibleItems(): PortalUser[] {
+        let filtered = [...this.items.values()];
+        if(this.filters && this.filters.length > 0) {
+            filtered = PortalUserRoleFilter.apply(filtered, this.filters);
+            filtered = PortalUserStatusFilter.apply(filtered, this.filters);
+            filtered = GenericItemFilter.apply(filtered, this.filters, 'access');
+        }
+        return [...filtered];
     }
 
     async loadData() {

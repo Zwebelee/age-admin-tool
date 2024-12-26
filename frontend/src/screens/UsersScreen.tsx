@@ -5,9 +5,10 @@ import {useRootStore} from "../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
 import {GridColDef} from "@mui/x-data-grid";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import {observer} from "mobx-react-lite";
 
 
-export const UsersScreen = () => {
+export const UsersScreen = observer(() => {
 
     const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
     const color1_1 = getColor("--color1-1");
@@ -114,4 +115,4 @@ export const UsersScreen = () => {
             ></InsideBox>
         </>
     );
-};
+});

@@ -20,8 +20,12 @@ export type StoreType = AgeStore | AgeDatastoreStore | AgeportalStore | Ageserve
 export type status = "loading" | "loaded" | "error";
 
 export interface IAbstractStore {
+    filters: string[]; //TODO any ?!?
+    items: any; //TODO any ?!?
     loadItems(): Promise<void>
     getEndpoint(): string;
+    clearFilters(): void;
+    clearFilter(filter: string): void;
 
     get isLoading(): boolean;
     get isLoaded(): boolean;
@@ -132,5 +136,12 @@ export abstract class AbstractStore<T> implements IAbstractStore {
 
     clearFilters(): void {
         this.filters = [];
+    }
+
+    clearFilter(filter: string): void {
+        //TODO check if this works and improve
+        const regex = new RegExp(`^${filter}-.*$`);
+        this.filters = this.filters.filter(f => !regex.test(f));
+        // this.filters = this.filters.filter(f => f !== filter);
     }
 }
