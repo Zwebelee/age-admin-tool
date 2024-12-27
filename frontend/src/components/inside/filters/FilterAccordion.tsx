@@ -19,6 +19,12 @@ import Typography from "@mui/material/Typography";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import {IAbstractStore} from "../../../stores/abstract-store.ts";
+import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import dayjs, {Dayjs} from 'dayjs';
+
 
 interface FilterAccordionProps {
     accordionName: string;
@@ -59,6 +65,7 @@ export const FilterAccordion = ({
     const [isExpanded, setIsExpanded] = useState(initialExpanded);
     const [operator, setOperator] = useState('>');
     const [value, setValue] = useState('');
+    const [dateValue, setDateValue] = React.useState<Dayjs | null>(dayjs('2024-12-10'));
 
     const handleAccordionChange = (_event: React.SyntheticEvent, newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded);
@@ -92,6 +99,16 @@ export const FilterAccordion = ({
         store.filters = [...store.filters.filter(f => !f.startsWith(storeFilterField)), ...(newFilter ? [newFilter] : [])];
     };
 
+    const handleDateFilterChange = (newDate: Dayjs | null) => {
+        if (newDate) {
+            setDateValue(newDate);
+            const newFilter = `${storeFilterField}-${newDate.toISOString()}`;
+            store.filters = [...store.filters.filter(f => !f.startsWith(storeFilterField)), newFilter];
+        } else {
+            setDateValue(null);
+            store.filters = store.filters.filter(f => !f.startsWith(storeFilterField));
+        }
+    };
 
     const stringMode = (<>
         <InputLabel id="demo-multiple-checkbox-label">{filterFieldName}</InputLabel>
@@ -111,7 +128,7 @@ export const FilterAccordion = ({
                     <ListItemText primary={name}/>
                 </MenuItem>
             ))}
-        </Select></>)
+        </Select></>);
     const numberMode = (<>
         <InputLabel id="operator-label">Operator</InputLabel>
         <Select
@@ -143,7 +160,18 @@ export const FilterAccordion = ({
             }}
             sx={{mt: 2}}
         />
-    </>)
+    </>);
+    const dateMode = (<>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                        label={filterFieldName}
+                        value={dateValue}
+                        onChange={(newDate) => handleDateFilterChange(newDate)}
+                    />
+                </DemoContainer>
+            </LocalizationProvider>
+        </>);
 
     return (
         <Accordion expanded={isExpanded} onChange={handleAccordionChange}>
@@ -161,7 +189,8 @@ export const FilterAccordion = ({
             <FormControl sx={{m: 1, width: 300}}>
                 {
                     filterMode === "string" ? stringMode :
-                        filterMode === "number" ? numberMode : null}
+                        filterMode === "number" ? numberMode :
+                            filterMode === "date" ? dateMode : null}
             </FormControl>
             {resetButton &&
                 <IconButton onClick={handleReset}><RestartAltIcon/></IconButton>

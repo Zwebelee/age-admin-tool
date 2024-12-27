@@ -115,12 +115,12 @@ export const UsersScreenFilters = observer(({color, iconSpace}: UsersScreenFilte
                 filterMode={'number'}
             />
             <FilterAccordion
-                accordionName={"Login"}
-                filterFieldName={"Item Count"}
+                accordionName={"Last Login"}
+                filterFieldName={"Last login before"}
                 accordIcon={<ContentPasteOutlinedIcon/>}
                 store={portalUserStore}
-                storeFilterField={"itemcount"}
-                filterMode={'number'}
+                storeFilterField={"lastlogin"}
+                filterMode={'date'}
             />
         </>
     );

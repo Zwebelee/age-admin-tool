@@ -7,6 +7,7 @@ import {PortalUserStatusFilter} from "../filters/portaluser/portaluser-status-fi
 import {PortalUserLicenseFilter} from "../filters/portaluser/portaluser-license-filter.ts";
 import {PortalUserItemCountFilter} from "../filters/portaluser/portaluser-itemcount-filter.ts";
 import {PortalUserStorageFilter} from "../filters/portaluser/portaluser-storage-filter.ts";
+import {PortalUserLastLoginFilter} from "../filters/portaluser/portaluser-lastlogin-filter.ts";
 
 
 export class PortaluserStore extends AbstractStore<PortalUser> {
@@ -39,6 +40,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
             filtered = PortalUserLicenseFilter.apply(filtered, this.filters);
             filtered = PortalUserItemCountFilter.apply(filtered, this.filters);
             filtered = PortalUserStorageFilter.apply(filtered, this.filters);
+            filtered = PortalUserLastLoginFilter.apply(filtered, this.filters);
         }
         return [...filtered];
     }

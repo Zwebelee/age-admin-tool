@@ -18,6 +18,8 @@
         "@mui/material": "^6.1.1",
         "@mui/x-charts": "^7.23.0",
         "@mui/x-data-grid": "^7.23.0",
+        "@mui/x-date-pickers": "^7.23.3",
+        "dayjs": "^1.11.13",
         "i18next": "^23.14.0",
         "i18next-http-backend": "^2.6.1",
         "mobx": "^6.13.2",
