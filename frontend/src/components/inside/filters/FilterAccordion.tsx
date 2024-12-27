@@ -25,6 +25,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import dayjs, {Dayjs} from 'dayjs';
 import {useTranslation} from "react-i18next";
+import Grid from "@mui/material/Grid2";
 
 
 interface FilterAccordionProps {
@@ -50,7 +51,7 @@ export const FilterAccordion = ({
                                     initialExpanded = false,
                                     store,
                                     storeFilterField,
-                                    filterMode = "string"
+                                    filterMode = "string",
                                 }: FilterAccordionProps) => {
 
 
@@ -168,29 +169,35 @@ export const FilterAccordion = ({
         />
     </>);
     const dateMode = (<>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']}>
-                    <DatePicker
-                        label={filterFieldName}
-                        value={dateValue}
-                        onChange={(newDate) => handleDateFilterChange(newDate)}
-                    />
-                </DemoContainer>
-            </LocalizationProvider>
-        </>);
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['DatePicker']}>
+                <DatePicker
+                    label={filterFieldName}
+                    value={dateValue}
+                    onChange={(newDate) => handleDateFilterChange(newDate)}
+                />
+            </DemoContainer>
+        </LocalizationProvider>
+    </>);
 
     return (
-        <Accordion expanded={isExpanded} onChange={handleAccordionChange}>
+        <Accordion
+            expanded={isExpanded}
+            onChange={handleAccordionChange}
+            sx={{
+                background: 'var(--color1-1)',
+            }}
+        >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon/>}
                 aria-controls="panel1-content"
                 id="panel1-header"
             >
-                <Typography>
+                <Grid container sx={{display: 'flex', alignItems: 'center', gap: 1.25}}>
                     {accordIcon}
-                    {accordionName}
-                </Typography>
-                {onOffSwitch && <Switch/>}
+                    <Typography>{accordionName}</Typography>
+                    {onOffSwitch && <Switch/>}
+                </Grid>
             </AccordionSummary>
             <FormControl sx={{m: 1, width: 300}}>
                 {
