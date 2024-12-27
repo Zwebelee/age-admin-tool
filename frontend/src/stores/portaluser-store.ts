@@ -5,6 +5,7 @@ import {AuthService} from "../services/auth.service.ts";
 import {PortalUserRoleFilter} from "../filters/portaluser/portaluser-role-filter.ts";
 import {PortalUserStatusFilter} from "../filters/portaluser/portaluser-status-filter.ts";
 import {PortalUserLicenseFilter} from "../filters/portaluser/portaluser-license-filter.ts";
+import {PortalUserItemCountFilter} from "../filters/portaluser/portaluser-itemcount-filter.ts";
 
 
 export class PortaluserStore extends AbstractStore<PortalUser> {
@@ -35,6 +36,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
             filtered = PortalUserRoleFilter.apply(filtered, this.filters);
             filtered = PortalUserStatusFilter.apply(filtered, this.filters);
             filtered = PortalUserLicenseFilter.apply(filtered, this.filters);
+            // filtered = PortalUserItemCountFilter.apply(filtered, this.filters); //TODO: Continue wokring for nubmerfilter
         }
         return [...filtered];
     }

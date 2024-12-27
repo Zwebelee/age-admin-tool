@@ -29,7 +29,6 @@ export const UsersScreenFilters = observer(({color, iconSpace}: UsersScreenFilte
 
     return (
         <>
-            {/* Status */}
             <Accordion
                 sx={{
                     background: color,
@@ -52,8 +51,6 @@ export const UsersScreenFilters = observer(({color, iconSpace}: UsersScreenFilte
                     </FormGroup>
                 </AccordionDetails>
             </Accordion>
-
-            {/* Disabled */}
             <Accordion
                 sx={{
                     background: color,
@@ -100,6 +97,14 @@ export const UsersScreenFilters = observer(({color, iconSpace}: UsersScreenFilte
                 accordIcon={<ContentPasteOutlinedIcon/>}
                 store={portalUserStore}
                 storeFilterField={"licensetype"}
+            />
+            <FilterAccordion
+                accordionName={"itemcount"}
+                filterFieldName={"itemcount"}
+                accordIcon={<ContentPasteOutlinedIcon/>}
+                store={portalUserStore}
+                storeFilterField={"itemcount"}
+                filterMode={'number'}
             />
         </>
     );

@@ -8,7 +8,8 @@ import {
     OutlinedInput,
     Select,
     SelectChangeEvent,
-    Switch
+    Switch,
+    TextField
 } from "@mui/material";
 import React, {ReactNode, useState} from "react";
 import Accordion from "@mui/material/Accordion";
@@ -29,6 +30,7 @@ interface FilterAccordionProps {
     initialExpanded?: boolean;
     store: IAbstractStore;
     storeFilterField: string;
+    filterMode?: string;
 }
 
 export const FilterAccordion = ({
@@ -40,7 +42,8 @@ export const FilterAccordion = ({
                                     onOffSwitch = false,
                                     initialExpanded = false,
                                     store,
-                                    storeFilterField
+                                    storeFilterField,
+                                    filterMode = "string"
                                 }: FilterAccordionProps) => {
 
 
@@ -54,6 +57,8 @@ export const FilterAccordion = ({
 
     const [filterField, setFilterField] = React.useState<string[]>(initialValue);
     const [isExpanded, setIsExpanded] = useState(initialExpanded);
+    const [operator, setOperator] = useState('>');
+    const [value, setValue] = useState('');
 
     const handleAccordionChange = (_event: React.SyntheticEvent, newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded);
@@ -75,15 +80,58 @@ export const FilterAccordion = ({
         const {
             target: {value},
         } = event;
-        setFilterField(
-            // On autofill, we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
+        const selectedValues = typeof value === 'string' ? value.split(',') : value;
+        setFilterField(selectedValues);
         // add filter to store
-        store.filters = value ? [`${storeFilterField}-${value}`] : [];
-
+        const newFilters = selectedValues.map(val => `${storeFilterField}-${val}`);
+        store.filters = [...store.filters.filter(f => !f.startsWith(storeFilterField)), ...newFilters];
     };
 
+    const handleNumberFilterChange = () => {
+        store.filters = value ? [`${operator}-${value}`] : [];
+    };
+
+
+    const stringMode = (<>
+        <InputLabel id="demo-multiple-checkbox-label">{filterFieldName}</InputLabel>
+        <Select
+            labelId="demo-multiple-checkbox-label"
+            id="demo-multiple-checkbox"
+            multiple
+            value={filterField}
+            onChange={handleChange}
+            input={<OutlinedInput label="Tag"/>}
+            renderValue={(selected) => selected.join(', ')}
+            MenuProps={MenuProps}
+        >
+            {filterOptions.map((name) => (
+                <MenuItem key={name} value={name}>
+                    <Checkbox checked={filterField.includes(name)}/>
+                    <ListItemText primary={name}/>
+                </MenuItem>
+            ))}
+        </Select></>)
+    const numberMode = (<><InputLabel id="operator-label">Operator</InputLabel>
+        <Select
+            labelId="operator-label"
+            id="operator-select"
+            value={operator}
+            onChange={(e) => setOperator(e.target.value)}
+            input={<OutlinedInput label="Operator"/>}
+        >
+            <MenuItem value=">">{">"}</MenuItem>
+            <MenuItem value=">=">{">="}</MenuItem>
+            <MenuItem value="<">{"<"}</MenuItem>
+            <MenuItem value="<=">{"<="}</MenuItem>
+        </Select>
+        <TextField
+            label="Value"
+            type="number"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onBlur={handleNumberFilterChange}
+            sx={{mt: 2}}
+        /></>)
     return (
         <Accordion expanded={isExpanded} onChange={handleAccordionChange}>
             <AccordionSummary
@@ -99,24 +147,9 @@ export const FilterAccordion = ({
             </AccordionSummary>
 
             <FormControl sx={{m: 1, width: 300}}>
-                <InputLabel id="demo-multiple-checkbox-label">{filterFieldName}</InputLabel>
-                <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={filterField}
-                    onChange={handleChange}
-                    input={<OutlinedInput label="Tag"/>}
-                    renderValue={(selected) => selected.join(', ')}
-                    MenuProps={MenuProps}
-                >
-                    {filterOptions.map((name) => (
-                        <MenuItem key={name} value={name}>
-                            <Checkbox checked={filterField.includes(name)}/>
-                            <ListItemText primary={name}/>
-                        </MenuItem>
-                    ))}
-                </Select>
+                {
+                    filterMode === "string" ? stringMode :
+                        filterMode === "number" ? numberMode : null}
             </FormControl>
             {resetButton &&
                 <IconButton onClick={handleReset}><RestartAltIcon/></IconButton>
