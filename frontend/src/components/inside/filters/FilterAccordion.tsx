@@ -24,6 +24,7 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import dayjs, {Dayjs} from 'dayjs';
+import {useTranslation} from "react-i18next";
 
 
 interface FilterAccordionProps {
@@ -70,6 +71,7 @@ export const FilterAccordion = ({
     const [operator, setOperator] = useState('>');
     const [value, setValue] = useState('');
     const [dateValue, setDateValue] = React.useState<Dayjs | null>(dayjs('2024-12-10'));
+    const {t} = useTranslation();
 
     const handleAccordionChange = (_event: React.SyntheticEvent, newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded);
@@ -134,7 +136,7 @@ export const FilterAccordion = ({
             ))}
         </Select></>);
     const numberMode = (<>
-        <InputLabel id="operator-label">Operator</InputLabel>
+        <InputLabel id="operator-label">{t("operator")}</InputLabel>
         <Select
             labelId="operator-label"
             id="operator-select"
@@ -144,7 +146,7 @@ export const FilterAccordion = ({
                 setOperator(newOperator);
                 handleNumberFilterChange(newOperator, value);
             }}
-            input={<OutlinedInput label="Operator"/>}
+            input={<OutlinedInput label={t("operator")}/>}
         >
             <MenuItem value=">">{">"}</MenuItem>
             <MenuItem value=">=">{">="}</MenuItem>
@@ -152,7 +154,7 @@ export const FilterAccordion = ({
             <MenuItem value="<=">{"<="}</MenuItem>
         </Select>
         <TextField
-            label="Value"
+            label={t("value")}
             type="number"
             value={value}
             onChange={(e) => setValue(e.target.value)}
