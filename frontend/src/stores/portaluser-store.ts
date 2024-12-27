@@ -4,7 +4,6 @@ import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
 import {PortalUserRoleFilter} from "../filters/portaluser/portaluser-role-filter.ts";
 import {PortalUserStatusFilter} from "../filters/portaluser/portaluser-status-filter.ts";
-import {GenericItemFilter} from "../filters/generic-item-filter.ts";
 
 
 export class PortaluserStore extends AbstractStore<PortalUser> {
@@ -26,7 +25,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
     }
 
     getEndpoint(): string {
-        return '/portallicenses'; //TODO: wrong endpoint !!!!
+        return '/portalusers';
     }
 
     get visibleItems(): PortalUser[] {
@@ -34,7 +33,6 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
         if(this.filters && this.filters.length > 0) {
             filtered = PortalUserRoleFilter.apply(filtered, this.filters);
             filtered = PortalUserStatusFilter.apply(filtered, this.filters);
-            filtered = GenericItemFilter.apply(filtered, this.filters, 'access');
         }
         return [...filtered];
     }
@@ -42,7 +40,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
     async loadData() {
         this.status = "loading";
         try {
-            const response = await this.authService.getApiClient().get('/portalusers');
+            const response = await this.authService.getApiClient().get(this.getEndpoint());
             const data: PortalUser[]= response.data;
             runInAction(() => {
                 data.forEach(portaluser => {
