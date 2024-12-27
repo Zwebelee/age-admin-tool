@@ -54,7 +54,11 @@ export const FilterAccordion = ({
 
 
     const handleReset = () => {
+        //TODO improvement for proper initValueResets needed
         setFilterField([]);
+        setOperator('>');
+        setValue('');
+        setDateValue(dayjs('2024-12-10'));
         store.clearFilter(storeFilterField);
     }
 
