@@ -8,59 +8,78 @@ import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import {useRootStore} from "../../../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {FilterAccordion} from "./FilterAccordion.tsx";
-
+import Grid from '@mui/material/Grid2';
+import {Button} from "@mui/material";
+import { useState } from "react";
 
 export const UsersScreenFilters = observer(() => {
     const {t} = useTranslation();
     const {portalUserStore} = useRootStore();
+    const [resetKey, setResetKey] = useState(0);
+
+    const handleReset = () => {
+        portalUserStore.clearFilters();
+        setResetKey(prevKey => prevKey + 1); // Update the state to trigger re-render
+
+    }
 
     return (
-        <>
-            <FilterAccordion
-                accordionName={t("role")}
-                filterFieldName={t("role")}
-                accordIcon={<PersonOutlineOutlinedIcon/>}
-                store={portalUserStore}
-                storeFilterField={"role"}
-            />
-            <FilterAccordion
-                accordionName={t("status")}
-                filterFieldName={t("status")}
-                accordIcon={<VisibilityOffOutlinedIcon/>}
-                store={portalUserStore}
-                storeFilterField={"status"}
-            />
-            <FilterAccordion
-                accordionName={t("license")}
-                filterFieldName={t("license")}
-                accordIcon={<LocalPoliceOutlinedIcon/>}
-                store={portalUserStore}
-                storeFilterField={"licensetype"}
-            />
-            <FilterAccordion
-                accordionName={t("item_count")}
-                filterFieldName={t("item_count")}
-                accordIcon={<Inventory2OutlinedIcon/>}
-                store={portalUserStore}
-                storeFilterField={"itemcount"}
-                filterMode={'number'}
-            />
-            <FilterAccordion
-                accordionName={t("storage_usage")}
-                filterFieldName={t("storage_usage")}
-                accordIcon={<SdStorageOutlinedIcon/>}
-                store={portalUserStore}
-                storeFilterField={"storeage"}
-                filterMode={'number'}
-            />
-            <FilterAccordion
-                accordionName={t("last-login")}
-                filterFieldName={t("last_login_before")}
-                accordIcon={<LoginOutlinedIcon/>}
-                store={portalUserStore}
-                storeFilterField={"lastlogin"}
-                filterMode={'date'}
-            />
-        </>
+        <Grid container key= {resetKey} sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 2
+        }}>
+            <Grid>
+                <FilterAccordion
+                    accordionName={t("role")}
+                    filterFieldName={t("role")}
+                    accordIcon={<PersonOutlineOutlinedIcon/>}
+                    store={portalUserStore}
+                    storeFilterField={"role"}
+                />
+                <FilterAccordion
+                    accordionName={t("status")}
+                    filterFieldName={t("status")}
+                    accordIcon={<VisibilityOffOutlinedIcon/>}
+                    store={portalUserStore}
+                    storeFilterField={"status"}
+                />
+                <FilterAccordion
+                    accordionName={t("license")}
+                    filterFieldName={t("license")}
+                    accordIcon={<LocalPoliceOutlinedIcon/>}
+                    store={portalUserStore}
+                    storeFilterField={"licensetype"}
+                />
+                <FilterAccordion
+                    accordionName={t("item_count")}
+                    filterFieldName={t("item_count")}
+                    accordIcon={<Inventory2OutlinedIcon/>}
+                    store={portalUserStore}
+                    storeFilterField={"itemcount"}
+                    filterMode={'number'}
+                />
+                <FilterAccordion
+                    accordionName={t("storage_usage")}
+                    filterFieldName={t("storage_usage")}
+                    accordIcon={<SdStorageOutlinedIcon/>}
+                    store={portalUserStore}
+                    storeFilterField={"storeage"}
+                    filterMode={'number'}
+                />
+                <FilterAccordion
+                    accordionName={t("last-login")}
+                    filterFieldName={t("last_login_before")}
+                    accordIcon={<LoginOutlinedIcon/>}
+                    store={portalUserStore}
+                    storeFilterField={"lastlogin"}
+                    filterMode={'date'}
+                />
+            </Grid>
+            <Grid>
+                <Button variant={"contained"} onClick={handleReset}>{t("reset")}</Button>
+            </Grid>
+        </Grid>
     );
 });
