@@ -4,6 +4,7 @@ import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
 import {PortalUserRoleFilter} from "../filters/portaluser/portaluser-role-filter.ts";
 import {PortalUserStatusFilter} from "../filters/portaluser/portaluser-status-filter.ts";
+import {PortalUserLicenseFilter} from "../filters/portaluser/portaluser-license-filter.ts";
 
 
 export class PortaluserStore extends AbstractStore<PortalUser> {
@@ -33,6 +34,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
         if(this.filters && this.filters.length > 0) {
             filtered = PortalUserRoleFilter.apply(filtered, this.filters);
             filtered = PortalUserStatusFilter.apply(filtered, this.filters);
+            filtered = PortalUserLicenseFilter.apply(filtered, this.filters);
         }
         return [...filtered];
     }

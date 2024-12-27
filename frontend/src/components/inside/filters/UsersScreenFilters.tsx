@@ -81,29 +81,26 @@ export const UsersScreenFilters = observer(({color, iconSpace}: UsersScreenFilte
                 </AccordionDetails>
             </Accordion>
             <FilterAccordion
-                accordionName={"UserRole"} //TODO: pass translation!
+                accordionName={"Role"} //TODO: pass translation!
                 filterFieldName={"Role"}
                 accordIcon={<ContentPasteOutlinedIcon/>}
                 store={portalUserStore}
                 storeFilterField={"role"}
-            >
-            </FilterAccordion>
+            />
             <FilterAccordion
-                accordionName={"UserStatus"}
+                accordionName={"Status"}
                 filterFieldName={"Status"}
                 accordIcon={<ContentPasteOutlinedIcon/>}
                 store={portalUserStore}
                 storeFilterField={"status"}
-            >
-            </FilterAccordion>
+            />
             <FilterAccordion
-                accordionName={"test"}
-                filterFieldName={"test"}
+                accordionName={"LicenseType"}
+                filterFieldName={"License"}
                 accordIcon={<ContentPasteOutlinedIcon/>}
                 store={portalUserStore}
-                storeFilterField={"access"}
-            >
-            </FilterAccordion>
+                storeFilterField={"licensetype"}
+            />
         </>
     );
 });

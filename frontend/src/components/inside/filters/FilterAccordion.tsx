@@ -40,9 +40,8 @@ export const FilterAccordion = ({
                                     onOffSwitch = false,
                                     initialExpanded = false,
                                     store,
-    storeFilterField
+                                    storeFilterField
                                 }: FilterAccordionProps) => {
-
 
 
     const handleReset = () => {

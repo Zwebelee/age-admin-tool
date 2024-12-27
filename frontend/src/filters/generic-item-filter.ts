@@ -1,17 +1,21 @@
-import { StatusEnum } from "../models/portaluser.ts";
+/** import { StatusEnum } from "../models/portaluser.ts";
 
-//TODO Work in progress - acts as e generic filter for default string and nubmer filtering
+
+// WIP - acts as e generic filter for default string and number filtering only needing one filter
+// applied like: filtered = GenericItemFilter.apply(filtered, this.filters, ['role', 'status', 'access]);
 
 export class GenericItemFilter<T> {
-    static apply<T>(items: T[], filters: string[], filterField: keyof T): T[] {
+    static apply<T>(items: T[], filters: string[], filterFields: (keyof T)[]): T[] {
         if (!filters || filters.length === 0) {
             return items;
         }
-        //TODO: CONTINUE HERE - COMPARE with f.inclucdes("status-")... !
+
         return items.filter((item) => {
-            const value = item[filterField];
-            const key = `${String(filterField)}-${GenericItemFilter.getValueString(value)}`;
-            return filters.includes(key);
+            return filterFields.some((filterField) => {
+                const value = item[filterField];
+                const valueString = GenericItemFilter.getValueString(value);
+                return filters.some(filter => valueString.includes(filter));
+            });
         });
     }
 
@@ -27,3 +31,4 @@ export class GenericItemFilter<T> {
         }
     }
 }
+ */
