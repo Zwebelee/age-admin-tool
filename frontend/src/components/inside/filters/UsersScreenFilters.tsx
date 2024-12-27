@@ -92,15 +92,31 @@ export const UsersScreenFilters = observer(({color, iconSpace}: UsersScreenFilte
                 storeFilterField={"status"}
             />
             <FilterAccordion
-                accordionName={"LicenseType"}
+                accordionName={"License"}
                 filterFieldName={"License"}
                 accordIcon={<ContentPasteOutlinedIcon/>}
                 store={portalUserStore}
                 storeFilterField={"licensetype"}
             />
             <FilterAccordion
-                accordionName={"itemcount"}
-                filterFieldName={"itemcount"}
+                accordionName={"Item Count"}
+                filterFieldName={"Item Count"}
+                accordIcon={<ContentPasteOutlinedIcon/>}
+                store={portalUserStore}
+                storeFilterField={"itemcount"}
+                filterMode={'number'}
+            />
+            <FilterAccordion
+                accordionName={"Storage Use"}
+                filterFieldName={"Storage"}
+                accordIcon={<ContentPasteOutlinedIcon/>}
+                store={portalUserStore}
+                storeFilterField={"storeage"}
+                filterMode={'number'}
+            />
+            <FilterAccordion
+                accordionName={"Login"}
+                filterFieldName={"Item Count"}
                 accordIcon={<ContentPasteOutlinedIcon/>}
                 store={portalUserStore}
                 storeFilterField={"itemcount"}
