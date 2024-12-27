@@ -36,7 +36,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
             filtered = PortalUserRoleFilter.apply(filtered, this.filters);
             filtered = PortalUserStatusFilter.apply(filtered, this.filters);
             filtered = PortalUserLicenseFilter.apply(filtered, this.filters);
-            // filtered = PortalUserItemCountFilter.apply(filtered, this.filters); //TODO: Continue wokring for nubmerfilter
+            filtered = PortalUserItemCountFilter.apply(filtered, this.filters);
         }
         return [...filtered];
     }

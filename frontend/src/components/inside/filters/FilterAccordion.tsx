@@ -88,7 +88,7 @@ export const FilterAccordion = ({
     };
 
     const handleNumberFilterChange = () => {
-        store.filters = value ? [`${operator}-${value}`] : [];
+        store.filters = value ? [`${storeFilterField}-${operator}-${value}`] : [];
     };
 
 
@@ -111,12 +111,16 @@ export const FilterAccordion = ({
                 </MenuItem>
             ))}
         </Select></>)
-    const numberMode = (<><InputLabel id="operator-label">Operator</InputLabel>
+    const numberMode = (<>
+        <InputLabel id="operator-label">Operator</InputLabel>
         <Select
             labelId="operator-label"
             id="operator-select"
             value={operator}
-            onChange={(e) => setOperator(e.target.value)}
+            onChange={(e) => {
+                setOperator(e.target.value);
+                handleNumberFilterChange();
+            }}
             input={<OutlinedInput label="Operator"/>}
         >
             <MenuItem value=">">{">"}</MenuItem>
@@ -131,7 +135,9 @@ export const FilterAccordion = ({
             onChange={(e) => setValue(e.target.value)}
             onBlur={handleNumberFilterChange}
             sx={{mt: 2}}
-        /></>)
+        />
+    </>)
+
     return (
         <Accordion expanded={isExpanded} onChange={handleAccordionChange}>
             <AccordionSummary
@@ -145,7 +151,6 @@ export const FilterAccordion = ({
                 </Typography>
                 {onOffSwitch && <Switch/>}
             </AccordionSummary>
-
             <FormControl sx={{m: 1, width: 300}}>
                 {
                     filterMode === "string" ? stringMode :
