@@ -54,6 +54,12 @@ export const FilterAccordion = ({
                                     filterMode = "string",
                                 }: FilterAccordionProps) => {
 
+    const {t} = useTranslation();
+    const [filterField, setFilterField] = React.useState<string[]>(initialValue);
+    const [isExpanded, setIsExpanded] = useState(initialExpanded);
+    const [operator, setOperator] = useState('>');
+    const [value, setValue] = useState('');
+    const [dateValue, setDateValue] = React.useState<Dayjs | null>(dayjs('2024-12-10'));
 
     const handleReset = () => {
         //TODO improvement for proper initValueResets needed
@@ -67,28 +73,9 @@ export const FilterAccordion = ({
     const filterOptions = Array.from(new Set(Array.from(
         store.items.values()).map((item: any) => item[storeFilterField])));
 
-    const [filterField, setFilterField] = React.useState<string[]>(initialValue);
-    const [isExpanded, setIsExpanded] = useState(initialExpanded);
-    const [operator, setOperator] = useState('>');
-    const [value, setValue] = useState('');
-    const [dateValue, setDateValue] = React.useState<Dayjs | null>(dayjs('2024-12-10'));
-    const {t} = useTranslation();
-
     const handleAccordionChange = (_event: React.SyntheticEvent, newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded);
     }
-
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-        PaperProps: {
-            style: {
-                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-                width: 250,
-            },
-        },
-    };
-
 
     const handleChange = (event: SelectChangeEvent<typeof filterField>) => {
         const {
@@ -115,6 +102,17 @@ export const FilterAccordion = ({
             setDateValue(null);
             store.filters = store.filters.filter(f => !f.startsWith(storeFilterField));
         }
+    };
+
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+        PaperProps: {
+            style: {
+                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+                width: 250,
+            },
+        },
     };
 
     const stringMode = (<>
