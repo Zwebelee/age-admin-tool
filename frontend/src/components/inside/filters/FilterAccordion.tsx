@@ -87,8 +87,9 @@ export const FilterAccordion = ({
         store.filters = [...store.filters.filter(f => !f.startsWith(storeFilterField)), ...newFilters];
     };
 
-    const handleNumberFilterChange = () => {
-        store.filters = value ? [`${storeFilterField}-${operator}-${value}`] : [];
+    const handleNumberFilterChange = (newOperator: string, newValue: string) => {
+        const newFilter = newValue ? `${storeFilterField}-${newOperator}-${newValue}` : '';
+        store.filters = [...store.filters.filter(f => !f.startsWith(storeFilterField)), ...(newFilter ? [newFilter] : [])];
     };
 
 
@@ -118,8 +119,9 @@ export const FilterAccordion = ({
             id="operator-select"
             value={operator}
             onChange={(e) => {
-                setOperator(e.target.value);
-                handleNumberFilterChange();
+                const newOperator = e.target.value;
+                setOperator(newOperator);
+                handleNumberFilterChange(newOperator, value);
             }}
             input={<OutlinedInput label="Operator"/>}
         >
@@ -133,7 +135,12 @@ export const FilterAccordion = ({
             type="number"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            onBlur={handleNumberFilterChange}
+            onBlur={() => handleNumberFilterChange(operator, value)}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    handleNumberFilterChange(operator, value);
+                }
+            }}
             sx={{mt: 2}}
         />
     </>)

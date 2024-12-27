@@ -14,10 +14,8 @@ export class PortalUserItemCountFilter {
 
         return portalusers.filter((p) => {
             return filters.some((filter) => {
-                const [filterField, operator, value] = filter.split('-');
-                if (filterField !== "itemcount") {
-                    return true;
-                }
+                const [_filterField, operator, value] = filter.split('-');
+
 
                 const itemCount = p.itemcount;
                 const filterValue = parseInt(value, 10);
