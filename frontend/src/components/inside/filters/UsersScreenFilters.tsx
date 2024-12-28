@@ -53,16 +53,16 @@ export const UsersScreenFilters = observer(() => {
                     storeFilterField={"licensetype"}
                 />
                 <FilterAccordion
-                    accordionName={t("item_count")}
-                    filterFieldName={t("item_count")}
+                    accordionName={t("item-count")}
+                    filterFieldName={t("item-count")}
                     accordIcon={<Inventory2OutlinedIcon/>}
                     store={portalUserStore}
                     storeFilterField={"itemcount"}
                     filterMode={'number'}
                 />
                 <FilterAccordion
-                    accordionName={t("storage_usage")}
-                    filterFieldName={t("storage_usage")}
+                    accordionName={t("storage-usage")}
+                    filterFieldName={t("storage-usage")}
                     accordIcon={<SdStorageOutlinedIcon/>}
                     store={portalUserStore}
                     storeFilterField={"storeage"}
@@ -70,7 +70,7 @@ export const UsersScreenFilters = observer(() => {
                 />
                 <FilterAccordion
                     accordionName={t("last-login")}
-                    filterFieldName={t("last_login_before")}
+                    filterFieldName={t("last-login-before")}
                     accordIcon={<LoginOutlinedIcon/>}
                     store={portalUserStore}
                     storeFilterField={"lastlogin"}
