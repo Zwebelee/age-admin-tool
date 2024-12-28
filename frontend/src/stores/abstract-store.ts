@@ -14,17 +14,32 @@ import {AgeserverStore} from "./age-server-store.ts";
 import {AgeWebadaptorStore} from "./age-webadaptor-store.ts";
 import {PortalLicenseStore} from "./portallicense-store.ts";
 
-export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor |PortalUser | PortalLicense;
-export type StoreType = AgeStore | AgeDatastoreStore | AgeportalStore | AgeserverStore | AgeWebadaptorStore | PortalLicenseStore ;
+export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense;
+export type StoreType =
+    AgeStore
+    | AgeDatastoreStore
+    | AgeportalStore
+    | AgeserverStore
+    | AgeWebadaptorStore
+    | PortalLicenseStore;
 
 export type status = "loading" | "loaded" | "error";
 
 export interface IAbstractStore {
+    filters: string[]; //TODO any ?!?
+    items: any; //TODO any ?!?
     loadItems(): Promise<void>
+
     getEndpoint(): string;
 
+    clearFilters(): void;
+
+    clearFilter(filter: string): void;
+
     get isLoading(): boolean;
+
     get isLoaded(): boolean;
+
     get isError(): boolean;
 }
 
@@ -42,7 +57,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
     /**
      * Loaded items (local store)
      */
-    // items = observable.map<string, ItemType>();
+        // items = observable.map<string, ItemType>();
     items: ObservableMap<string, T> = observable.map<string, T>();
     status: status = "loading";
     filters: string[] = [];
@@ -64,7 +79,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
         return [...this.items.values()];
     }
 
-    async loadItems(){
+    async loadItems() {
         this.status = "loading";
         try {
             const response = await this.authService.getApiClient().get(this.getEndpoint());
@@ -117,11 +132,10 @@ export abstract class AbstractStore<T> implements IAbstractStore {
         }
     }
 
-
-
     get isLoading(): boolean {
         return this.status === "loading";
     }
+
     get isLoaded(): boolean {
         return this.status === "loaded";
     }
@@ -132,5 +146,11 @@ export abstract class AbstractStore<T> implements IAbstractStore {
 
     clearFilters(): void {
         this.filters = [];
+    }
+
+    clearFilter(filter: string): void {
+        // remove all filters starting with "filter-"
+        const regex = new RegExp(`^${filter}-.*$`);
+        this.filters = this.filters.filter(f => !regex.test(f));
     }
 }

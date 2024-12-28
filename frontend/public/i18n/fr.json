@@ -96,6 +96,7 @@
   "is-hosted": "Est hébergé",
   "item-count": "Nombre d’articles",
   "last-login": "Dernière connexion",
+  "last_login_before": "Dernière connexion avant",
   "lastname": "Nom de famille",
   "license-type": "Type de licence",
   "modified": "Modifié",
@@ -117,5 +118,10 @@
   "used-gb": "Utilisé en GB",
   "usertype": "Type d’utilisateur",
   "view": "Vue",
-  "viewcount": "Compteur de vues"
+  "viewcount": "Compteur de vues",
+  "license": "Licence",
+  "item_count": "Nombre d'articles",
+  "storage_usage": "Utilisation du stockage",
+  "value": "Valeur",
+  "operator": "Opérateur"
 }

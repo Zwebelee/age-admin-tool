@@ -95,6 +95,7 @@
   "is-hosted": "Is hosted",
   "item-count": "Item count",
   "last-login": "Last login",
+  "last_login_before": "Last login before",
   "lastname": "Lastname",
   "license-type": "License type",
   "modified": "Modified",
@@ -115,5 +116,10 @@
   "used-gb": "Used in GB",
   "usertype": "Usertype",
   "view": "View",
-  "viewcount": "Viewcount"
+  "viewcount": "Viewcount",
+  "license": "License",
+  "item_count": "Item count",
+  "storage_usage": "Storage usage",
+  "value": "Value",
+  "operator": "Operator"
 }

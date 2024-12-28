@@ -96,6 +96,7 @@
   "is-hosted": "Wird gehostet",
   "item-count": "Artikelzählung",
   "last-login": "Letzte Anmeldung",
+  "last_login_before": "Letzte Anmeldung vor",
   "lastname": "Nachname",
   "license-type": "Lizenztyp",
   "modified": "Geändert",
@@ -117,5 +118,10 @@
   "used-gb": "Verwendet in GB",
   "usertype": "Benutzertyp",
   "view": "Ansicht",
-  "viewcount": "Ansichtszähler"
+  "viewcount": "Ansichtszähler",
+  "license": "Lizenz",
+  "item_count": "Artikelanzahl",
+  "storage_usage": "Speichernutzung",
+  "value": "Wert",
+  "operator": "Operator"
 }

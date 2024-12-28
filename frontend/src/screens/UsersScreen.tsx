@@ -5,14 +5,10 @@ import {useRootStore} from "../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
 import {GridColDef} from "@mui/x-data-grid";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import {observer} from "mobx-react-lite";
 
 
-export const UsersScreen = () => {
-
-    const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
-    const color1_1 = getColor("--color1-1");
-    const iconSpace = 1.25;
-
+export const UsersScreen = observer(() => {
     const { t } = useTranslation();
     const { portalUserStore } = useRootStore();
     const rows = portalUserStore.visibleItems.map((item) => ({
@@ -110,8 +106,8 @@ export const UsersScreen = () => {
                 rows={rows}
                 columns={columns}
                 hiddenColumns={hiddenColumns}
-                filter={<UsersScreenFilters color={color1_1} iconSpace={iconSpace} ></UsersScreenFilters>}
+                filter={<UsersScreenFilters/>}
             ></InsideBox>
         </>
     );
-};
+});
