@@ -1,9 +1,10 @@
-import { useState } from "react";
+import {useState} from "react";
 
-import { DataFilters } from "./DataFilters.tsx";
-import { DataTable } from "./DataTable.tsx";
-import { DataCharts } from "./DataCharts.tsx";
-import { DataView } from "./DataView.tsx";
+import {DataFilters} from "./DataFilters.tsx";
+import {DataHandle} from "./DataHandle.tsx";
+import {DataTable} from "./DataTable.tsx";
+import {DataCharts} from "./DataCharts.tsx";
+import {DataView} from "./DataView.tsx";
 import "./InsideBox.scss";
 import {GridColDef} from "@mui/x-data-grid";
 
@@ -28,6 +29,8 @@ export const InsideBox = ({ color, rows, columns, hiddenColumns, filter }: Insid
             <DataFilters
                 filter={filter}>
             </DataFilters>
+            <DataHandle>
+            </DataHandle>
             <DataTable
                 color={color}
                 display={innerView === "table"}

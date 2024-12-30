@@ -1,0 +1,32 @@
+@import "../../globalFunctions";
+
+.dataHandle {
+    grid-area: handle;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    height: calc(100vh - pxToRem(378.5)); // 175 + 25 + 25 + 139.5 + 12 + 2
+    min-height: pxToRem(558);
+
+    &__button {
+        position: relative;
+        margin-left: pxToRem(-7);
+        height: pxToRem(90);
+        width: pxToRem(19);
+        border: none;
+        border-radius: 0 pxToRem(50) pxToRem(50) 0;
+        padding: 0;
+        color: var(--lightness2);
+        background: var(--color1);
+        cursor: pointer;
+        transition: all var(--transition1);
+
+        &:hover,
+        &:focus {
+            color: var(--lightness1);
+            background-color: var(--color1);
+            transform: scale(1.1);
+            transform-origin: left center;
+        }
+    }
+}

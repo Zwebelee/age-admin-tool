@@ -2,6 +2,7 @@
 
 .dataFilters {
     grid-area: filters;
+    position: relative;
     width: 100%;
     height: calc(100vh - pxToRem(378.5)); // 175 + 25 + 25 + 139.5 + 12 + 2
     min-height: pxToRem(558);
