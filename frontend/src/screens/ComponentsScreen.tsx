@@ -8,22 +8,59 @@ import {GridColDef} from "@mui/x-data-grid";
 export const ComponentsScreen = () => {
 
     const { t } = useTranslation();
-    const { ageDataStoreStore } = useRootStore();
-    const rows = ageDataStoreStore.visibleItems.map((item) => ({
+    const { ageWebAdaptorStore, ageServerStore, agePortalStore, ageDataStoreStore } = useRootStore();
+
+    //TODO: Extend ModelClasses with minimal-shared-props and proper type/class
+    const webAdaptorItems = ageWebAdaptorStore.visibleItems.map((item) => ({
+        ...item,
+        type: "Web Adaptor",
+        status: "online",
+        description: item.description,
+        name: item.machineName,
+    }));
+
+    const serverItems = ageServerStore.visibleItems.map((item) => ({
+        ...item,
+        type: "Server",
+        status: "online",
+        description: null,
+        name: item.name,
+    }));
+
+    const portalItems = agePortalStore.visibleItems.map((item) => ({
+        ...item,
+        type: "Portal",
+        status: "online",
+        description: item.description,
+        name: item.name,
+    }));
+
+    const dataStoreItems = ageDataStoreStore.visibleItems.map((item) => ({
+        ...item,
+        type: "Data Store",
+        status: "online",
+        description: item.description,
+        name: item.name,
+    }));
+
+    const combinedItems = [
+        ...webAdaptorItems,
+        ...serverItems,
+        ...portalItems,
+        ...dataStoreItems
+    ];
+
+    const rows = combinedItems.map((item) => ({
         id: item.guid,
         ...item,
     }));
+
     const columns: GridColDef[] = [
         { field: "id",          headerName: "GUID",                width:  80 },
-        { field: "name",        headerName: t("name"),        width: 240 },
-        { field: "alias",       headerName: "Alias",               width: 240 },
         { field: "type",        headerName: t("type"),        width: 240 },
-        { field: "ishosted",    headerName: t("is-hosted"),   width: 180 },
-        { field: "url",         headerName: "URL",                 width: 320 },
+        { field: "name",        headerName: t("name"),        width: 240 },
         { field: "status",      headerName: t("status"),      width: 180 },
-        { field: "description", headerName: t("description"), width: 240 },
-        { field: "capacity_gb", headerName: t("capacity-gb"), width: 180 },
-        { field: "used_gb",     headerName: t("used-gb"),     width: 180 },
+        { field: "description", headerName: t("description"), width: 240 }
     ];
     const hiddenColumns = {
         id: false,
