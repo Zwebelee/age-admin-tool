@@ -2,8 +2,8 @@ from ..db import db
 from sqlalchemy import UUID
 
 
-class Portalusergroup(db.Model):
-    __tablename__ = 'portalusergroups'
+class Portalgroup(db.Model):
+    __tablename__ = 'portalgroups'
     guid = db.Column(UUID, primary_key=True, nullable=False, unique=True)
     id = db.Column(db.String(120), nullable=False)
     capabilities = db.Column(db.String(255), nullable=True)
