@@ -13,15 +13,23 @@ import {AgeportalStore} from "./age-portal-store.ts";
 import {AgeserverStore} from "./age-server-store.ts";
 import {AgeWebadaptorStore} from "./age-webadaptor-store.ts";
 import {PortalLicenseStore} from "./portallicense-store.ts";
+import {PortalItem} from "../models/portalitem.ts";
+import {PortaluserStore} from "./portaluser-store.ts";
+import {PortalItemStore} from "./portalitem-store.ts";
+import {PortalGroupStore} from "./portalgroup-store.ts";
+import {PortalGroup} from "../models/portalgroup.ts";
 
-export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense;
+export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup;
 export type StoreType =
     AgeStore
     | AgeDatastoreStore
     | AgeportalStore
     | AgeserverStore
     | AgeWebadaptorStore
-    | PortalLicenseStore;
+    | PortalLicenseStore
+    | PortaluserStore
+    | PortalItemStore
+| PortalGroupStore;
 
 export type status = "loading" | "loaded" | "error";
 

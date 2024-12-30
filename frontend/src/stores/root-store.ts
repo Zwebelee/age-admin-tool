@@ -10,11 +10,12 @@ import {AgeDatastoreStore} from "./age-datastore-store.ts";
 import {AgeportalStore} from "./age-portal-store.ts";
 import {AgeserverStore} from "./age-server-store.ts";
 import {AgeWebadaptorStore} from "./age-webadaptor-store.ts";
-import {PortalItemStore} from "./portal-store.ts";
+import {PortalItemStore} from "./portalitem-store.ts";
 import {ToolUserStore} from "./tooluser-store.ts";
 import {ThemeStore} from "./theme-store.ts";
 import {LanguageStore} from "./language-store.ts";
 import {LoggerService} from "../services/logger.service.ts";
+import {PortalGroupStore} from "./portalgroup-store.ts";
 
 export class RootStore {
     authStore: AuthStore;
@@ -28,6 +29,7 @@ export class RootStore {
     ageServerStore: AgeserverStore
     ageWebAdaptorStore: AgeWebadaptorStore
     portalItemStore: PortalItemStore;
+    portalGroupStore: PortalGroupStore;
     toolUserStore : ToolUserStore;
     themeStore: ThemeStore;
     languageStore: LanguageStore;
@@ -52,6 +54,7 @@ export class RootStore {
         this.ageServerStore = new AgeserverStore(this.authService);
         this.ageWebAdaptorStore = new AgeWebadaptorStore(this.authService)
         this.portalItemStore = new PortalItemStore(this.authService);
+        this.portalGroupStore = new PortalGroupStore(this.authService);
         this.toolUserStore = new ToolUserStore(this.authService);
         this.themeStore = new ThemeStore();
         this.languageStore = new LanguageStore(this.toolUserStore);

@@ -13,7 +13,7 @@ from app.models.flagrule import Flagrule
 from app.models.portalitem import Portalitem
 from app.models.portallicense import Portallicense
 from app.models.portalmembercategory import Portalusercategory
-from app.models.portalusergroup import Portalusergroup
+from app.models.portalgroup import Portalgroup
 from app.models.tasktooluser import task_tooluser
 from app.models.task import Task
 from app.models.portaluser import Portaluser
@@ -70,7 +70,7 @@ def init_all_sample_data():
     initialize_sample_data(Agedatastore, data["agedatastores"])
     initialize_sample_data(Ageserver, data["ageservers"])
     initialize_sample_data(Ageservice, data["ageservices"])
-    initialize_sample_data(Portalusergroup, data["portalusergroups"])
+    initialize_sample_data(Portalgroup, data["portalgroups"])
     initialize_sample_data(Portalitem, data["portalitems"])
     initialize_sample_data(Portalusercategory, data["portalusercategories"])
     initialize_sample_data(Flagrule, data["flagrules"])
