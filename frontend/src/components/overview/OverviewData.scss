@@ -3,14 +3,14 @@
 .overviewData {
     grid-area: data;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
+    overflow: auto;
     gap: pxToRem(7);
-    padding: pxToRem(10);
+    padding: pxToRem(10) pxToRem(100) pxToRem(10) pxToRem(10);
     border-radius: pxToRem(5);
     outline-offset: pxToRem(-3);
     @include media("md") {
-        flex-flow: row nowrap;
-        overflow: auto;
+        padding: pxToRem(10);
     }
 
     &__item {
@@ -85,6 +85,7 @@
     display: grid;
     grid: auto-flow / 1fr 1fr;
     align-content: start;
+    padding: pxToRem(10);
 
     &__item {
         max-height: pxToRem(109.5);
