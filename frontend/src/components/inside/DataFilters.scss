@@ -2,11 +2,15 @@
 
 .dataFilters {
     grid-area: filters;
+    width: 100%;
+    height: calc(100vh - pxToRem(378.5)); // 175 + 25 + 25 + 139.5 + 12 + 2
+    min-height: pxToRem(558);
     padding: pxToRem(10);
     border-right: pxToRem(7) solid var(--color1);
     border-radius: pxToRem(10);
     margin-right: pxToRem(15);
     background: var(--lightness1-2);
+    overflow-y: scroll;
 
     &__title {
         margin-top: pxToRem(37);
@@ -16,17 +20,10 @@
     }
 
     &__accordionBox {
-        margin-bottom: pxToRem(70);
+        margin-bottom: pxToRem(50);
 
         & .MuiCollapse-wrapper {
-            padding-left: pxToRem(32);
+            padding-left: pxToRem(40);
         }
-    }
-
-    &__reset {
-        position: absolute;
-        bottom: pxToRem(20);
-        width: pxToRem(378px);
-        text-align: center;
     }
 }

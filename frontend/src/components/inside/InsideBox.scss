@@ -1,8 +1,8 @@
 @import "../../globalFunctions";
 
 .insideBox {
-    position: relative;
     display: grid;
+    position: relative;
     grid: "filters table"
           "filters charts" /
           pxToRem(400) auto;

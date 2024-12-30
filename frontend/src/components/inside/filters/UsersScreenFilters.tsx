@@ -25,9 +25,9 @@ export const UsersScreenFilters = observer(() => {
 
     return (
         <Grid container key= {resetKey} sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             gap: 2
         }}>
             <Grid>

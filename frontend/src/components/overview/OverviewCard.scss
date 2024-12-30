@@ -2,7 +2,7 @@
 
 .overviewCard {
     display: grid;
-    grid: "data title" /
+    grid: "data title" pxToRem(129.5) /
           auto pxToRem(300);
     position: relative;
     border-radius: pxToRem(6);
@@ -10,7 +10,7 @@
     background-image: linear-gradient(to left, var(--color1), transparent);
     @include media("md") {
         grid: "title"
-              "data ";
+              "data " pxToRem(129.5);
         background-image: none;
     }
 

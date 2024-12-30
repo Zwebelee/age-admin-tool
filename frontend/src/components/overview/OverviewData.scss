@@ -22,7 +22,11 @@
     }
 
     &__line {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
         border-left: pxToRem(1) solid var(--color1);
+        height: 100%;
     }
 
     &--color2 &__line {
@@ -46,14 +50,14 @@
     }
 
     &__name {
-        padding: 0 pxToRem(5) pxToRem(20) pxToRem(5);
+        padding: 0 pxToRem(5);
         margin: 0;
         font-size: pxToRem(13);
         color: var(--lightness2);
     }
 
     &__value {
-        padding: pxToRem(20) pxToRem(5) 0 pxToRem(5);
+        padding: 0 pxToRem(5);
         margin: 0;
         font-size: pxToRem(20);
         font-weight: 300;
@@ -93,12 +97,14 @@
     }
 
     &__name {
+        padding: 0 pxToRem(5) pxToRem(20) pxToRem(5);
         @include media("xl") {
             font-size: pxToRem(12);
         }
     }
 
     &__value {
+        padding: pxToRem(20) pxToRem(5) 0 pxToRem(5);
         @include media("xl") {
             font-size: pxToRem(18);
         }
