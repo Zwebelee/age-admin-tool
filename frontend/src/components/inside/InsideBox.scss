@@ -4,8 +4,7 @@
     display: grid;
     position: relative;
     grid: "filters handle table"
-          "filters handle charts" /
-          pxToRem(400) pxToRem(13) auto;
+          "filters handle charts";
     border: pxToRem(1) solid var(--color1);
     border-radius: pxToRem(10);
     margin-top: pxToRem(10);

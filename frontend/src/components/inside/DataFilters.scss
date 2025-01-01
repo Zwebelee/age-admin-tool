@@ -3,15 +3,27 @@
 .dataFilters {
     grid-area: filters;
     position: relative;
-    width: 100%;
+    width: pxToRem(385);
     height: calc(100vh - var(--insideDataFilters));
     min-height: pxToRem(558);
-    padding: pxToRem(10);
     border-right: pxToRem(7) solid var(--color1);
     border-radius: pxToRem(10);
-    margin-right: pxToRem(15);
     background: var(--lightness1-2);
     overflow-y: scroll;
+    overflow-x: hidden;
+    transition: all var(--transition1);
+
+    &--hidden {
+        width: pxToRem(7);
+        border-right: 0 solid var(--color1);
+        border-radius: pxToRem(10) 0 0 pxToRem(10);
+        background: var(--color1);
+    }
+
+    &__contentBox {
+        min-width: pxToRem(378);
+        padding: pxToRem(10);
+    }
 
     &__title {
         margin-top: pxToRem(37);

@@ -9,10 +9,12 @@ interface DataFiltersProps {
 export const DataFilters = ({filter}: DataFiltersProps) => {
     const {t} = useTranslation();
     return (
-        <div className="dataFilters">
-            <h3 className="dataFilters__title">{t("filters")}</h3>
-            <div className="dataFilters__accordionBox">
-                {filter}
+        <div className="dataFilters dataFilters--hidden">
+            <div className="dataFilters__contentBox">
+                <h3 className="dataFilters__title">{t("filters")}</h3>
+                <div className="dataFilters__accordionBox">
+                    {filter}
+                </div>
             </div>
         </div>
 
