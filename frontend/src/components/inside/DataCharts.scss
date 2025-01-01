@@ -6,7 +6,7 @@
 
 .dataCharts {
     grid-area: charts;
-    height: calc(100vh - pxToRem(386.5)); // 175 + 25 + 25 + 139.5 + 12 + 10
+    height: calc(100vh - var(--insideDataMain));
     min-height: pxToRem(550);
     padding: pxToRem(30) pxToRem(30) pxToRem(75) pxToRem(30);
     border: pxToRem(1) solid var(--color1);

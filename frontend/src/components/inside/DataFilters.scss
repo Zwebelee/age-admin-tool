@@ -4,7 +4,7 @@
     grid-area: filters;
     position: relative;
     width: 100%;
-    height: calc(100vh - pxToRem(378.5)); // 175 + 25 + 25 + 139.5 + 12 + 2
+    height: calc(100vh - var(--insideDataFilters));
     min-height: pxToRem(558);
     padding: pxToRem(10);
     border-right: pxToRem(7) solid var(--color1);

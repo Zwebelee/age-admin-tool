@@ -1,3 +1,10 @@
+/* Heights */
+:root {
+    --insideDataMain   : 386.5px; // Data Table, Data Charts:   175 + 25 + 25 + 139.5 + 12 + 10
+    --insideDataFilters: 378.5px; // Data Filters, Data Handle: 175 + 25 + 25 + 139.5 + 12 + 2
+}
+
+
 /* Breakpoints */
 // For Material UI in App.tsx:
 :root {

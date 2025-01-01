@@ -5,7 +5,7 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    height: calc(100vh - pxToRem(378.5)); // 175 + 25 + 25 + 139.5 + 12 + 2
+    height: calc(100vh - var(--insideDataFilters));
     min-height: pxToRem(558);
 
     &__button {
