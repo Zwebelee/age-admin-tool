@@ -4,9 +4,11 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 
 export const DataHandle = () => {
     return (
-        <div className="dataHandle">
+        <div className="dataHandle dataHandle--hidden">
             <button type="button" className="dataHandle__button">
-                <ArrowBackIosOutlinedIcon fontSize="small"/>
+                <div className="dataHandle__icon">
+                    <ArrowBackIosOutlinedIcon fontSize="small"/>
+                </div>
             </button>
         </div>
     );

@@ -9,6 +9,14 @@
     height: calc(100vh - var(--insideDataFilters));
     min-height: pxToRem(558);
 
+    &__icon {
+        transition: all var(--transition1);
+    }
+
+    &--hidden &__icon {
+        transform: rotate(180deg);
+    }
+
     &__button {
         position: relative;
         margin-left: pxToRem(-7);
