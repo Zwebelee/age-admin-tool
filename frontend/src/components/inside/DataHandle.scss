@@ -5,7 +5,6 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    width: pxToRem(13);
     height: calc(100vh - var(--insideDataFilters));
     min-height: pxToRem(558);
 
