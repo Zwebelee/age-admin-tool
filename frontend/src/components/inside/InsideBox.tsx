@@ -20,17 +20,24 @@ interface InsideBoxProps {
 export const InsideBox = ({ color, rows, columns, hiddenColumns, filter }: InsideBoxProps) => {
 
     const [innerView, setInnerView] = useState("table");
+    const [filterView, setFilterView] = useState(false);
     const viewSwitch = (view: string) => {
         setInnerView(view);
     };
+    const filterSwitch = () => {
+        setFilterView(!filterView)
+    }
 
     return (
         <div className="insideBox">
             <DataFilters
-                filter={filter}>
-            </DataFilters>
-            <DataHandle>
-            </DataHandle>
+                filterView={filterView}
+                filter={filter}
+            ></DataFilters>
+            <DataHandle
+                filterView={filterView}
+                onClickHandle={filterSwitch}
+            ></DataHandle>
             <DataTable
                 color={color}
                 display={innerView === "table"}
