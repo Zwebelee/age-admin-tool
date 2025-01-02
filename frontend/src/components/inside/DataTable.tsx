@@ -5,20 +5,22 @@ import {deDE} from "@mui/x-data-grid/locales";
 import {frFR} from "@mui/x-data-grid/locales";
 import "./DataTable.scss";
 
-interface DataTableProps {
+interface dataTableProps {
     color: string;
     display: boolean;
     rows: any;
     columns: GridColDef[];
     hiddenColumns: any;
+    filterView: boolean;
 }
 
 
 export const DataTable = observer(({
-    color, display, rows = [], columns = [], hiddenColumns = {} }: DataTableProps
+    color, display, rows = [], columns = [], hiddenColumns = {}, filterView }: dataTableProps
 ) => {
 
-    const dynamicClass = display ? "dataTable dataTable" + color : "dataTableHidden";
+    const dynamicClass1 = display ? "dataTable dataTable" + color : "dataTableHidden";
+    const dynamicClass2 = filterView ? dynamicClass1 + " dataTable--filtersVisible" : dynamicClass1;
     const paginationModel = { page: 0, pageSize: 25 };
 
     const { languageStore } = useRootStore();
@@ -30,7 +32,7 @@ export const DataTable = observer(({
     }
 
     return (
-        <div className={dynamicClass}>
+        <div className={dynamicClass2}>
             <div className="dataTable__table">
                 <DataGrid
                     localeText={tableLanguage}

@@ -5,20 +5,34 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    height: calc(100vh - var(--insideDataFilters));
+    height: calc(100vh - var(--insideDataFiltersXL));
     min-height: pxToRem(558);
+    @include media("md") {
+        height: calc(100vh - var(--insideDataFiltersMD));
+    }
+    @include media("sm") {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+    }
 
     &__icon {
         transition: all var(--transition1);
+        @include media("sm") {
+            transform: rotate(90deg);
+        }
     }
 
     &--hidden &__icon {
         transform: rotate(180deg);
+        @include media("sm") {
+            transform: rotate(270deg);
+        }
     }
 
     &__button {
         position: relative;
-        margin-left: pxToRem(-7);
+        margin-left: pxToRem(-6);
         height: pxToRem(90);
         width: pxToRem(19);
         border: none;
@@ -27,14 +41,19 @@
         color: var(--lightness2);
         background: var(--color1);
         cursor: pointer;
-        transition: all var(--transition1);
+        transition: transform var(--transition1);
+        @include media("sm") {
+            height: pxToRem(19);
+            width: pxToRem(90);
+            margin: pxToRem(-6) auto 0 auto;
+            border-radius: 0 0 pxToRem(50) pxToRem(50);
+        }
 
         &:hover,
         &:focus {
             color: var(--lightness1);
             background-color: var(--color1);
             transform: scale(1.1);
-            transform-origin: left center;
         }
     }
 }

@@ -6,7 +6,7 @@
 
 .dataTable {
     grid-area: table;
-    height: calc(100vh - var(--insideDataMain));
+    height: calc(100vh - var(--insideDataMainXL));
     min-height: pxToRem(550);
     padding: pxToRem(30) pxToRem(30) pxToRem(75) pxToRem(30);
     border: pxToRem(1) solid var(--color1);
@@ -14,6 +14,20 @@
     margin: pxToRem(4);
     background: var(--lightness1-2);
     overflow-y: scroll;
+    transition: height var(--transition1);
+    @include media("md") {
+        height: calc(100vh - var(--insideDataMainMD));
+    }
+    @include media("sm") {
+        height: calc(100vh - var(--insideDataMainSM));
+        min-height: auto;
+    }
+
+    &.dataTable--filtersVisible {
+         @include media("sm") {
+             height: calc((100vh - var(--insideDataMainSM)) / 2 + 7px);
+         }
+    }
 
     &--color2 {
         border-color: var(--color2);

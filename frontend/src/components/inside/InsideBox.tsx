@@ -44,10 +44,12 @@ export const InsideBox = ({ color, rows, columns, hiddenColumns, filter }: Insid
                 rows={rows}
                 columns={columns}
                 hiddenColumns={hiddenColumns}
+                filterView={filterView}
             ></DataTable>
             <DataCharts
                 color={color}
                 display={innerView === "charts"}
+                filterView={filterView}
             ></DataCharts>
             <DataView
                 viewSwitch={viewSwitch}

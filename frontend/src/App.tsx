@@ -52,6 +52,14 @@ const AppObserver = observer(() => {
         setToggleMenu(false);
     };
 
+    // Todo: Animation Stopper!
+    const [animationStopper, setAnimationStopper] = useState(false);
+    const resizeAnimationStopper = () => {
+        setAnimationStopper(true);
+        setTimeout(() => {setAnimationStopper(false)}, 3000);
+    };
+
+
     const themeDark = createTheme({
         breakpoints: {
             values: {
@@ -105,8 +113,10 @@ const AppObserver = observer(() => {
 
     useEffect(() => {
         window.addEventListener("resize", menuClose);
+        window.addEventListener("resize", resizeAnimationStopper);
         return () => {
             window.removeEventListener("resize", menuClose);
+            window.removeEventListener("resize", resizeAnimationStopper);
         };
     }, []);
 
@@ -116,7 +126,7 @@ const AppObserver = observer(() => {
                 <ThemeProvider theme={themeStore.theme ==="light" ? themeLight : themeDark}>
                     <CssBaseline/>
                     <div className={themeStore.theme ==="light" ? "theme--light" : "theme--dark"}>
-                        <div className="app">
+                        <div className={animationStopper ? "app animationStopper" : "app"}>
                             <Header toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
                             <Sidebar/>
                             <main className="main">

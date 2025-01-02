@@ -10,4 +10,11 @@
     border-radius: pxToRem(10);
     margin-top: pxToRem(10);
     background: var(--color1-1);
+    @include media("sm") {
+        grid: "filters"
+              "handle"
+              "table"
+              "charts" /
+              auto;
+    }
 }

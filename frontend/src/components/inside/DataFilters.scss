@@ -4,20 +4,47 @@
     grid-area: filters;
     position: relative;
     width: pxToRem(385);
-    height: calc(100vh - var(--insideDataFilters));
+    height: calc(100vh - var(--insideDataFiltersXL));
     min-height: pxToRem(558);
     border-right: pxToRem(7) solid var(--color1);
     border-radius: pxToRem(10);
     background: var(--lightness1-2);
     overflow-y: scroll;
     overflow-x: hidden;
-    transition: all var(--transition1);
+    transition: width var(--transition1),
+                border var(--transition1),
+                border-radius var(--transition1),
+                background var(--transition1);
+    @include media("md") {
+        height: calc(100vh - var(--insideDataFiltersMD));
+    }
+    @include media("sm") {
+        width: 100%;
+        height: calc((100vh - var(--insideDataMainSM)) / 2);
+        min-height: auto;
+        border-right: none;
+        border-bottom: pxToRem(7) solid var(--color1);
+        transition: height var(--transition1),
+                    border var(--transition1),
+                    border-radius var(--transition1),
+                    background var(--transition1);
+    }
 
     &--hidden {
         width: pxToRem(7);
         border-right: 0 solid var(--color1);
         border-radius: pxToRem(10) 0 0 pxToRem(10);
         background: var(--color1);
+        @include media("sm") {
+            width: 100%;
+            height: pxToRem(7);
+            border-bottom: pxToRem(0) solid var(--color1);
+            border-radius: pxToRem(10) pxToRem(10) 0 0;
+        }
+    }
+
+    &--hidden &__contentBox {
+        display: none;
     }
 
     &__contentBox {
