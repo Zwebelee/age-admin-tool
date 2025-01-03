@@ -1,14 +1,14 @@
 import {useTranslation} from "react-i18next";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import SdStorageOutlinedIcon from '@mui/icons-material/SdStorageOutlined';
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import LocalPoliceOutlinedIcon from "@mui/icons-material/LocalPoliceOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import SdStorageOutlinedIcon from "@mui/icons-material/SdStorageOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {FilterAccordion} from "./FilterAccordion.tsx";
-import Grid from '@mui/material/Grid2';
+import Grid from "@mui/material/Grid2";
 import {Button} from "@mui/material";
 import { useState } from "react";
 
@@ -20,7 +20,6 @@ export const UsersScreenFilters = observer(() => {
     const handleReset = () => {
         portalUserStore.clearFilters();
         setResetKey(prevKey => prevKey + 1); // Update the state to trigger re-render
-
     }
 
     return (
@@ -28,7 +27,10 @@ export const UsersScreenFilters = observer(() => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 2
+            gap: 2,
+            "& .MuiGrid2-root": {
+                width: "100%",
+            }
         }}>
             <Grid>
                 <FilterAccordion
@@ -58,7 +60,7 @@ export const UsersScreenFilters = observer(() => {
                     accordIcon={<Inventory2OutlinedIcon/>}
                     store={portalUserStore}
                     storeFilterField={"itemcount"}
-                    filterMode={'number'}
+                    filterMode={"number"}
                 />
                 <FilterAccordion
                     accordionName={t("storage-usage")}
@@ -66,7 +68,7 @@ export const UsersScreenFilters = observer(() => {
                     accordIcon={<SdStorageOutlinedIcon/>}
                     store={portalUserStore}
                     storeFilterField={"storeage"}
-                    filterMode={'number'}
+                    filterMode={"number"}
                 />
                 <FilterAccordion
                     accordionName={t("last-login")}
@@ -74,10 +76,10 @@ export const UsersScreenFilters = observer(() => {
                     accordIcon={<LoginOutlinedIcon/>}
                     store={portalUserStore}
                     storeFilterField={"lastlogin"}
-                    filterMode={'date'}
+                    filterMode={"date"}
                 />
             </Grid>
-            <Grid>
+            <Grid sx={{textAlign: "center"}}>
                 <Button variant={"contained"} onClick={handleReset}>{t("reset")}</Button>
             </Grid>
         </Grid>
