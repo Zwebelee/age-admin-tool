@@ -41,6 +41,12 @@ class Portaluser(db.Model):
     division = db.Column(db.String(120), nullable=False)
     team = db.Column(db.String(120), nullable=False)
 
+    tasks = db.relationship(
+        'Task',
+        primaryjoin="and_(foreign(Task.linked_object_id) == Portaluser.guid, Task.linked_object_type == 'Portaluser')"
+    )
+
+
     def to_dict(self):
         return {
             "guid": self.guid,
