@@ -8,7 +8,7 @@
     grid-area: table;
     height: calc(100vh - var(--insideDataMainXL));
     min-height: pxToRem(550);
-    padding: pxToRem(30) pxToRem(30) pxToRem(75) pxToRem(30);
+    padding: pxToRem(30) 0 pxToRem(75) 0;
     border: pxToRem(1) solid var(--color1);
     border-radius: pxToRem(6);
     margin: pxToRem(4);

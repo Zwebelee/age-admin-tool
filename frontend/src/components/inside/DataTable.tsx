@@ -47,11 +47,26 @@ export const DataTable = observer(({
                     pageSizeOptions={[25, 50, 75, 100]}
                     sx={{
                         border: 0,
+                        "& .MuiDataGrid-main": {
+                            paddingBottom: "0.9375rem",
+                        },
+                        "& .MuiDataGrid-virtualScroller": {
+                            padding: "0 1.875rem",
+                        },
+                        "& .MuiDataGrid-row:last-child": {
+                            borderBottomWidth: "0.0625rem",
+                            borderBottomStyle: "solid",
+                            borderBottomColor: "text.primary",
+                        },
                         "& .MuiDataGrid-cell, & .MuiDataGrid-withBorderColor": {
                             borderColor: "text.primary",
                         },
                         "& .MuiDataGrid-container--top [role='row']": {
                             background: "transparent",
+                        },
+                        "& .MuiDataGrid-footerContainer": {
+                            padding: "0 1.875rem",
+                            borderTop: 0,
                         },
                         "& .MuiDataGrid-columnSeparator": {
                             color: "text.primary",
@@ -62,6 +77,12 @@ export const DataTable = observer(({
                         },
                         "& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-cell:focus": {
                             outlineOffset: "-0.25rem",
+                        },
+                        "& .MuiDataGrid-overlay": {
+                            width: "calc(100% - 3.75rem)",
+                        },
+                        "& .MuiDataGrid-filler": {
+                            display: "none",
                         },
                     }}
                 />
