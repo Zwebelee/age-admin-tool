@@ -3,7 +3,7 @@ from ..db import db
 
 class TaskRule(db.Model):
     __tablename__ = 'task_rules'
-    id = db.Column(db.Integer, primary_key=True)
+    guid = db.Column(db.UUID, primary_key=True, unique=True)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     action = db.Column(db.String(255), nullable=False)
@@ -19,7 +19,7 @@ class TaskRule(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "guid": self.guid,
             "name": self.name,
             "description": self.description,
             "action": self.action,

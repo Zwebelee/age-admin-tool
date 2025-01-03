@@ -2,8 +2,8 @@ from flasgger import swag_from
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..db import db
-from ..models.toolrole import Toolrole
-from ..models.tooluser import Tooluser
+from ..models.toolrole import ToolRole
+from ..models.tooluser import ToolUser
 
 toolusers_bp = Blueprint('toolusers', __name__)
 
@@ -31,7 +31,7 @@ toolusers_bp = Blueprint('toolusers', __name__)
     }
 })
 def get_all_toolusers():
-    toolusers = Tooluser.query.all()
+    toolusers = ToolUser.query.all()
     return jsonify([tooluser.to_dict() for tooluser in toolusers]), 200
 
 
@@ -72,7 +72,7 @@ def get_all_toolusers():
 })
 def add_tooluser():
     data = request.json
-    new_tooluser = Tooluser(
+    new_tooluser = ToolUser(
         username=data['username'],
         language=data.get('language', 'en'),
         theme=data.get('theme', 'light')
@@ -81,7 +81,7 @@ def add_tooluser():
 
     # Assign role to the new user
     role_name = data.get('role', 'user')
-    role = Toolrole.query.filter_by(name=role_name).first()
+    role = ToolRole.query.filter_by(name=role_name).first()
     if role:
         new_tooluser.roles.append(role)
     else:
@@ -121,7 +121,7 @@ def add_tooluser():
     }
 })
 def get_tooluser(id):
-    tooluser = Tooluser.query.get_or_404(id)
+    tooluser = ToolUser.query.get_or_404(id)
     return jsonify(tooluser.to_dict()), 200
 
 
@@ -169,7 +169,7 @@ def get_tooluser(id):
     }
 })
 def update_tooluser(id):
-    tooluser = Tooluser.query.get_or_404(id)
+    tooluser = ToolUser.query.get_or_404(id)
     data = request.json
     tooluser.username = data['username']
     tooluser.language = data.get('language', tooluser.language)
@@ -204,7 +204,7 @@ def update_tooluser(id):
     }
 })
 def delete_tooluser(id):
-    tooluser = Tooluser.query.get_or_404(id)
+    tooluser = ToolUser.query.get_or_404(id)
     db.session.delete(tooluser)
     db.session.commit()
     return jsonify({"message": "User deleted successfully"}), 200
@@ -240,7 +240,7 @@ def delete_tooluser(id):
 })
 def get_user_profile():
     username = get_jwt_identity()
-    tooluser = Tooluser.query.filter_by(username=username).first()
+    tooluser = ToolUser.query.filter_by(username=username).first()
     if tooluser:
         return jsonify(tooluser.to_dict()), 200
     else:
@@ -292,7 +292,7 @@ def get_user_profile():
 })
 def update_user_profile():
     username = get_jwt_identity()
-    tooluser = Tooluser.query.filter_by(username=username).first()
+    tooluser = ToolUser.query.filter_by(username=username).first()
     if not tooluser:
         return jsonify({"message": "User not found"}), 404
 
@@ -354,7 +354,7 @@ def update_user_profile():
 })
 def change_password():
     username = get_jwt_identity()
-    tooluser = Tooluser.query.filter_by(username=username).first()
+    tooluser = ToolUser.query.filter_by(username=username).first()
     if not tooluser:
         return jsonify({"message": "User not found"}), 404
 

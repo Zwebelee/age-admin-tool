@@ -21,8 +21,8 @@ from app.models.portaluser import Portaluser
 from app.db import db
 from uuid import UUID as UUIDType
 
-from app.models.toolrole import Toolrole
-from app.models.tooluser import Tooluser
+from app.models.toolrole import ToolRole
+from app.models.tooluser import ToolUser
 from app.models.tooluserrole import tooluser_role
 
 
@@ -63,7 +63,7 @@ def initialize_sample_data(model, data):
 def init_all_sample_data():
     data = load_sample_data()
     initialize_sample_data(TaskRule, data["task_rules"])
-    initialize_sample_data(Tooluser, data["toolusers"])
+    initialize_sample_data(ToolUser, data["toolusers"])
     initialize_sample_data(Portaluser, data["portalusers"])
     initialize_sample_data(Task, data["tasks"])
     initialize_sample_data(TaskComment, data["task_comments"])
@@ -79,5 +79,5 @@ def init_all_sample_data():
     initialize_sample_data(Portalitem, data["portalitems"])
     initialize_sample_data(Portalusercategory, data["portalusercategories"])
     initialize_sample_data(task_tooluser, data["task_tooluser"])
-    initialize_sample_data(Toolrole, data["toolroles"])
+    initialize_sample_data(ToolRole, data["toolroles"])
     initialize_sample_data(tooluser_role, data["tooluser_role"])
