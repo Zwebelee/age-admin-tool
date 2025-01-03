@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from ..models.task import Task
-from ..models.taskcomments import TaskComment
+from ..models.taskcomment import TaskComment
 from ..db import db
 
 tasks_bp = Blueprint('tasks', __name__)

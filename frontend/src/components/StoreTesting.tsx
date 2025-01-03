@@ -13,8 +13,11 @@ import {
 import {useRootStore} from "../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {PortalLicense} from "../models/portallicense.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {PortalLicenseFilter} from "./portallicense-filter.tsx";
+import {Task} from "../models/task.ts";
+import {TaskRule} from "../models/taskrule.ts";
+import {TaskComment} from "../models/taskcomment.ts";
 
 
 export const TestStoreComponent = observer(() => {
@@ -265,14 +268,11 @@ export const TestGeneralStore = observer(() => {
 export const TestStore = observer(() => {
     const {taskStore,taskRuleStore, taskCommentStore} = useRootStore();
     console.log("itemcount", taskStore.visibleItems.length);
+    console.log("commentcoiunt", taskCommentStore.visibleItems.length);
 
 
     const handleClick = ()=>{
         console.log('test')
-        taskCommentStore.loadTaskComments(1).then(()=>{
-            console.log("taskCommentStore", taskCommentStore.items)
-            console.log(taskCommentStore.visibleItems[0])
-        })
     }
 
 
@@ -291,6 +291,57 @@ export const TestStore = observer(() => {
                 )})}
             <Typography>{taskCommentStore.visibleItems.length}</Typography>
             <Button variant={"contained"} onClick={handleClick}>Click</Button>
+            <TaskDetails taskId={"1"}></TaskDetails>
         </>
     );
 })
+
+
+const TaskDetails = observer(({ taskId }: { taskId: string }) => {
+    const { taskStore, taskRuleStore, taskCommentStore } = useRootStore();
+    const [task, setTask] = useState<Task | null>(null);
+    const [taskRule, setTaskRule] = useState<TaskRule | null>(null);
+    const [comments, setComments] = useState<TaskComment[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const fetchedTask = taskStore.items.get(taskId);
+            if (fetchedTask) {
+                setTask(fetchedTask);
+                const fetchedTaskRule = taskRuleStore.items.get(String(fetchedTask.taskRuleId));
+                if (fetchedTaskRule) {
+                    setTaskRule(fetchedTaskRule);
+                }
+                const fetchedComments = Array.from(taskCommentStore.items.values()).filter(comment => String(comment.id) === taskId);
+                setComments(fetchedComments);
+            }
+        };
+        fetchData();
+    }, [taskId, taskStore, taskRuleStore, taskCommentStore]);
+
+    if (!task) {
+        return <CircularProgress />;
+    }
+
+    return (
+        <Box>
+            <Typography variant="h5">Task Details</Typography>
+            <Typography variant="body1">Task ID: {task.id}</Typography>
+            <Typography variant="body1">Task Name: {task.title}</Typography>
+            {taskRule && (
+                <>
+                    <Typography variant="h6">Task Rule</Typography>
+                    <Typography variant="body1">Rule ID: {taskRule.id}</Typography>
+                    <Typography variant="body1">Rule Name: {taskRule.name}</Typography>
+                </>
+            )}
+            <Typography variant="h6">Comments</Typography>
+            {comments.map(comment => (
+                <Box key={comment.id} sx={{ mt: 2 }}>
+                    <Typography variant="body2">Comment ID: {comment.id}</Typography>
+                    <Typography variant="body2">Comment: {comment.comment}</Typography>
+                </Box>
+            ))}
+        </Box>
+    );
+});

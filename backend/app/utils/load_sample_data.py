@@ -9,7 +9,7 @@ from app.models.ageservice import Ageservice
 from app.models.agewebadaptor import Agewebadaptor
 from app.models.arcgisenterprise import Arcgisenterprise
 from app.models.agecomponent import Agecomponent
-from app.models.taskcomments import TaskComment
+from app.models.taskcomment import TaskComment
 from app.models.taskrule import TaskRule
 from app.models.portalitem import Portalitem
 from app.models.portallicense import Portallicense
