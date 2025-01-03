@@ -9,7 +9,7 @@ from app.models.ageservice import Ageservice
 from app.models.agewebadaptor import Agewebadaptor
 from app.models.arcgisenterprise import Arcgisenterprise
 from app.models.agecomponent import Agecomponent
-from app.models.flagrule import Flagrule
+from app.models.taskrule import TaskRule
 from app.models.portalitem import Portalitem
 from app.models.portallicense import Portallicense
 from app.models.portalmembercategory import Portalusercategory
@@ -73,7 +73,7 @@ def init_all_sample_data():
     initialize_sample_data(Portalgroup, data["portalgroups"])
     initialize_sample_data(Portalitem, data["portalitems"])
     initialize_sample_data(Portalusercategory, data["portalusercategories"])
-    initialize_sample_data(Flagrule, data["flagrules"])
+    initialize_sample_data(TaskRule, data["task_rules"])
     initialize_sample_data(Task, data["tasks"])
     initialize_sample_data(Tooluser, data["toolusers"])
     initialize_sample_data(task_tooluser, data["task_tooluser"])

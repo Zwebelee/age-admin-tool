@@ -1636,7 +1636,7 @@
       "parent_id": 10
     }
   ],
-  "flagrules": [
+  "task_rules": [
     {
       "id": 1,
       "name": "Inactive User",
