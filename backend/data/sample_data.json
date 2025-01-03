@@ -1638,7 +1638,7 @@
   ],
   "task_rules": [
     {
-      "id": 1,
+      "guid": "b0d801df-a682-4d1d-b2c8-b940bf11c15e",
       "name": "Inactive User",
       "description": "Flag users who have not logged in for more than 90 days",
       "action": "flag",
@@ -1654,7 +1654,7 @@
       "updated_at": "2023-10-01T12:00:00"
     },
     {
-      "id": 2,
+      "guid": "3ac054b0-ca74-4988-b533-e061ef851291",
       "name": "Too Many Items",
       "description": "Flag users who have more than 50 items",
       "action": "flag",
@@ -1672,14 +1672,14 @@
   ],
   "toolusers": [
     {
-      "id": 1,
+      "guid": "123e4567-e89b-12d3-a456-426625274225",
       "username": "Alice",
       "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd",
       "theme": "dark",
       "language": "en"
     },
     {
-      "id": 2,
+      "guid": "123b4567-b89e-12d3-a456-426625274225",
       "username": "Bob",
       "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd",
       "theme": "light",
@@ -1688,79 +1688,82 @@
   ],
   "tasks": [
     {
-      "id": 1,
-      "task_rule_id": 2,
+      "guid": "03fd0f1b-ae9c-49c5-bb21-d317a0d57858",
+      "task_rule_guid": "3ac054b0-ca74-4988-b533-e061ef851291",
       "title": "Flag Users with Too Many Items",
       "description": "Flag users who have more than 50 items",
       "status": "pending",
       "priority": "high",
-      "assigned_to": 1,
+      "assigned_to": "123e4567-e89b-12d3-a456-426625274225",
       "created_at": "2023-10-01T12:00:00",
       "updated_at": "2023-10-01T12:00:00",
-      "linked_object_id": "1fbdc097-ef0f-4b5d-848f-4ebe4df94b45",
-      "linked_object_type": "Portaluser"
+      "linked_object_guid": "1fbdc097-ef0f-4b5d-848f-4ebe4df94b45",
+      "linked_object_type": "PortalUser"
     },
     {
-      "id": 2,
-      "task_rule_id": 2,
+      "guid": "c5c567a5-937a-4a7e-9157-de8303af9df8",
+      "task_rule_guid": "3ac054b0-ca74-4988-b533-e061ef851291",
       "title": "Flag Users with Too Many Items",
       "description": "Flag users who have more than 50 items",
       "status": "pending",
       "priority": "high",
-      "assigned_to": 1,
+      "assigned_to": "123e4567-e89b-12d3-a456-426625274225",
       "created_at": "2023-10-01T12:00:00",
       "updated_at": "2023-10-01T12:00:00",
-      "linked_object_id": "c2adb9dc-4300-4128-950b-8592d133bb18",
-      "linked_object_type": "Portaluser"
+      "linked_object_guid": "c2adb9dc-4300-4128-950b-8592d133bb18",
+      "linked_object_type": "PortalUser"
     },
     {
-      "id": 3,
-      "task_rule_id": 1,
+      "guid": "26b038a9-3fe7-444f-937c-ac4396431ddc",
+      "task_rule_guid": "b0d801df-a682-4d1d-b2c8-b940bf11c15e",
       "title": "Review Inactive Users",
       "description": "Review and flag users who have not logged in for more than 90 days",
       "status": "pending",
       "priority": "high",
-      "assigned_to": 1,
+      "assigned_to": "123e4567-e89b-12d3-a456-426625274225",
       "created_at": "2023-10-01T12:00:00",
       "updated_at": "2023-10-01T12:00:00",
-      "linked_object_id": "123e4567-e89b-12d3-a456-426614174000",
-      "linked_object_type": "Portaluser"
+      "linked_object_guid": "123e4567-e89b-12d3-a456-426614174000",
+      "linked_object_type": "PortalUser"
     }
   ],
   "task_tooluser": [
     {
-      "task_id": 1,
-      "tooluser_id": 1
+      "task_guid": "03fd0f1b-ae9c-49c5-bb21-d317a0d57858",
+      "tooluser_guid": "123e4567-e89b-12d3-a456-426625274225"
     }
   ],
   "toolroles": [
     {
-      "id": 1,
+      "guid": "6566f9fb-590a-40ef-8fbe-5f1ba6582011",
       "name": "admin"
     },
     {
-      "id": 2,
+      "guid": "af4894f3-c826-4da4-86aa-d509d997f1a4",
       "name": "editor"
     },
     {
-      "id": 3,
+      "guid": "1fa67299-d8e6-42f2-b6a6-73a2a4ce99a1",
       "name": "viewer"
     }
   ],
   "tooluser_role": [
     {
-      "tooluser_id": 1,
-      "toolrole_id": 1
+      "tooluser_guid": "123e4567-e89b-12d3-a456-426625274225",
+      "toolrole_guid": "6566f9fb-590a-40ef-8fbe-5f1ba6582011"
     },
     {
-      "tooluser_id": 2,
-      "toolrole_id": 3
+      "tooluser_guid": "123b4567-b89e-12d3-a456-426625274225",
+      "toolrole_guid": "1fa67299-d8e6-42f2-b6a6-73a2a4ce99a1"
     }
   ],
-  "task_comments": [{
-    "task_id": 1,
-    "tooluser_id": 1,
-    "comment": "Inform this user about the rules of max items",
-    "created_at": "2023-10-01T12:00:00"
-  }]
+  "task_comments": [
+    {
+      "guid": "464306e3-62be-42a3-8528-2b5401056d48",
+      "task_guid": "03fd0f1b-ae9c-49c5-bb21-d317a0d57858",
+      "tooluser_guid": "123e4567-e89b-12d3-a456-426625274225",
+      "comment": "Inform this user about the rules of max items",
+      "created_at": "2023-10-01T12:00:00"
+    }
+  ]
 }

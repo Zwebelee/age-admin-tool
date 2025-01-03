@@ -1,4 +1,4 @@
-from .portaluser import Portaluser
+from .portaluser import PortalUser
 from sqlalchemy import UUID
 
 from ..db import db
@@ -24,11 +24,11 @@ class Task(db.Model):
 
     @property
     def linked_object(self):
-        if self.linked_object_type == "Portaluser":
-            return Portaluser.query.get(self.linked_object_guid)
+        if self.linked_object_type == "PortalUser":
+            return PortalUser.query.get(self.linked_object_guid)
         # TODO: implent more objecttypes
         # elif self.linked_object_type == "AnotherObject":
-        #     return AnotherObject.query.get(self.linked_object_id)
+        #     return AnotherObject.query.get(self.linked_object_guid)
         return None
 
 

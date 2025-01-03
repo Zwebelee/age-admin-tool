@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flasgger import swag_from
-from app.models.portaluser import Portaluser
+from app.models.portaluser import PortalUser
 
 portalusers_bp = Blueprint('portalusers', __name__)
 
@@ -52,7 +52,7 @@ portalusers_bp = Blueprint('portalusers', __name__)
     }
 })
 def get_users():
-    portalusers = Portaluser.query.all()
+    portalusers = PortalUser.query.all()
     return jsonify([portaluser.to_dict() for portaluser in portalusers])
 
 
@@ -95,9 +95,9 @@ def get_portaluser_statistics():
 
     if stat_type == 'count':
         if status:
-            count = Portaluser.query.filter_by(status=status).count()
+            count = PortalUser.query.filter_by(status=status).count()
         else:
-            count = Portaluser.query.count()
+            count = PortalUser.query.count()
         return jsonify({"count": count})
     return jsonify({"message": "Invalid statistic type"}), 400
 
@@ -118,7 +118,7 @@ def get_portaluser_statistics():
     ],
     'responses': {
         200: {
-            'description': 'Portaluser object retrieved successfully',
+            'description': 'PortalUser object retrieved successfully',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -157,5 +157,5 @@ def get_portaluser_statistics():
     }
 })
 def get_portaluser_by_guid(guid):
-    portaluser = Portaluser.query.get_or_404(guid)
+    portaluser = PortalUser.query.get_or_404(guid)
     return jsonify(portaluser.to_dict())

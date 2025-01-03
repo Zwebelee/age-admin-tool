@@ -3,7 +3,7 @@ from ..db import db
 class TaskComment(db.Model):
     __tablename__ = 'task_comments'
 
-    guid = db.Column(db.UUID, primary_key=True, unique=True)
+    guid = db.Column(db.UUID, primary_key=True, nullable=False, unique=True)
     task_guid = db.Column(db.UUID, db.ForeignKey('tasks.guid'), nullable=False)
     comment = db.Column(db.Text, nullable=False)
     tooluser_guid = db.Column(db.UUID, db.ForeignKey('toolusers.guid'))
