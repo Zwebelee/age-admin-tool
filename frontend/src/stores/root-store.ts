@@ -1,4 +1,3 @@
-
 import {createContext, useContext} from "react";
 import {makeAutoObservable} from "mobx";
 import {AuthStore} from "./auth-store.ts";
@@ -18,6 +17,7 @@ import {LoggerService} from "../services/logger.service.ts";
 import {PortalGroupStore} from "./portalgroup-store.ts";
 import {TaskStore} from "./task-store.ts";
 import {TaskRuleStore} from "./task-rule-store.ts";
+import {TaskCommentStore} from "./task-comment-store.ts";
 
 export class RootStore {
     authStore: AuthStore;
@@ -26,17 +26,18 @@ export class RootStore {
     ageStore: AgeStore;
     portalUserStore: PortaluserStore;
     portalLicenseStore: PortalLicenseStore;
-    ageDataStoreStore : AgeDatastoreStore;
+    ageDataStoreStore: AgeDatastoreStore;
     agePortalStore: AgeportalStore
     ageServerStore: AgeserverStore
     ageWebAdaptorStore: AgeWebadaptorStore
     portalItemStore: PortalItemStore;
     portalGroupStore: PortalGroupStore;
-    toolUserStore : ToolUserStore;
+    toolUserStore: ToolUserStore;
     themeStore: ThemeStore;
     languageStore: LanguageStore;
     taskStore: TaskStore;
     taskRuleStore: TaskRuleStore;
+    taskCommentStore: TaskCommentStore;
 
     get init() {
         // TODO: Handle initialization
@@ -64,7 +65,7 @@ export class RootStore {
         this.languageStore = new LanguageStore(this.toolUserStore);
         this.taskStore = new TaskStore(this.authService);
         this.taskRuleStore = new TaskRuleStore(this.authService);
-
+        this.taskCommentStore = new TaskCommentStore(this.authService);
     }
 }
 

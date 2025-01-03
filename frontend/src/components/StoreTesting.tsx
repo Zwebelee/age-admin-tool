@@ -263,8 +263,18 @@ export const TestGeneralStore = observer(() => {
 })
 
 export const TestStore = observer(() => {
-    const {taskStore,taskRuleStore} = useRootStore();
+    const {taskStore,taskRuleStore, taskCommentStore} = useRootStore();
     console.log("itemcount", taskStore.visibleItems.length);
+
+
+    const handleClick = ()=>{
+        console.log('test')
+        taskCommentStore.loadTaskComments(1).then(()=>{
+            console.log("taskCommentStore", taskCommentStore.items)
+            console.log(taskCommentStore.visibleItems[0])
+        })
+    }
+
 
     return (
         <>
@@ -279,6 +289,8 @@ export const TestStore = observer(() => {
                 return (
                     <Typography key={item.id} variant="body1">{item.id}</Typography>
                 )})}
-        </>);
-
+            <Typography>{taskCommentStore.visibleItems.length}</Typography>
+            <Button variant={"contained"} onClick={handleClick}>Click</Button>
+        </>
+    );
 })
