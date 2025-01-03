@@ -1,4 +1,4 @@
-import {Suspense, useState, useEffect} from "react";
+import {Suspense, useState, useEffect, useRef} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
 import {observer} from "mobx-react-lite";
@@ -52,13 +52,18 @@ const AppObserver = observer(() => {
         setToggleMenu(false);
     };
 
-    // Todo: Animation Stopper!
+    // Animation Stopper
     const [animationStopper, setAnimationStopper] = useState(false);
+    const resizeTimerRef = useRef<NodeJS.Timeout | null>(null);
     const resizeAnimationStopper = () => {
         setAnimationStopper(true);
-        setTimeout(() => {setAnimationStopper(false)}, 3000);
+        if (resizeTimerRef.current) {
+            clearTimeout(resizeTimerRef.current);
+        }
+        resizeTimerRef.current = setTimeout(() => {
+            setAnimationStopper(false);
+        }, 500);
     };
-
 
     const themeDark = createTheme({
         breakpoints: {
@@ -113,10 +118,21 @@ const AppObserver = observer(() => {
 
     useEffect(() => {
         window.addEventListener("resize", menuClose);
-        window.addEventListener("resize", resizeAnimationStopper);
+
+        // Animation Stopper
+        const handleResize = () => {
+            resizeAnimationStopper();
+        };
+        window.addEventListener("resize", handleResize);
+
         return () => {
             window.removeEventListener("resize", menuClose);
-            window.removeEventListener("resize", resizeAnimationStopper);
+
+            // Animation Stopper
+            window.removeEventListener("resize", handleResize);
+            if (resizeTimerRef.current) {
+                clearTimeout(resizeTimerRef.current);
+            }
         };
     }, []);
 

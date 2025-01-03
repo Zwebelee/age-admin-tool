@@ -8,7 +8,7 @@ html {
 body {
     letter-spacing: 0 !important;
 }
-.animationStopper {
+.animationStopper * {
     animation: none !important;
     transition: none !important;
 }
