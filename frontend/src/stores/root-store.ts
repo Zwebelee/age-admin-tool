@@ -17,6 +17,7 @@ import {LanguageStore} from "./language-store.ts";
 import {LoggerService} from "../services/logger.service.ts";
 import {PortalGroupStore} from "./portalgroup-store.ts";
 import {TaskStore} from "./task-store.ts";
+import {TaskRuleStore} from "./task-rule-store.ts";
 
 export class RootStore {
     authStore: AuthStore;
@@ -35,6 +36,7 @@ export class RootStore {
     themeStore: ThemeStore;
     languageStore: LanguageStore;
     taskStore: TaskStore;
+    taskRuleStore: TaskRuleStore;
 
     get init() {
         // TODO: Handle initialization
@@ -61,6 +63,7 @@ export class RootStore {
         this.themeStore = new ThemeStore();
         this.languageStore = new LanguageStore(this.toolUserStore);
         this.taskStore = new TaskStore(this.authService);
+        this.taskRuleStore = new TaskRuleStore(this.authService);
 
     }
 }

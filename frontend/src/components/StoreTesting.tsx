@@ -263,7 +263,7 @@ export const TestGeneralStore = observer(() => {
 })
 
 export const TestStore = observer(() => {
-    const {taskStore} = useRootStore();
+    const {taskStore,taskRuleStore} = useRootStore();
     console.log("itemcount", taskStore.visibleItems.length);
 
     return (
@@ -274,6 +274,11 @@ export const TestStore = observer(() => {
                     <Typography key={item.id} variant="body1">{item.id}</Typography>
                 )
             })}
+            <Typography>{taskRuleStore.visibleItems.length}</Typography>
+            {taskRuleStore.visibleItems.map((item) => {
+                return (
+                    <Typography key={item.id} variant="body1">{item.id}</Typography>
+                )})}
         </>);
 
 })

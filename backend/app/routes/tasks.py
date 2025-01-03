@@ -4,10 +4,10 @@ from app.models.task import Task
 from app.models.taskcomments import TaskComment
 from ..db import db
 
-task_bp = Blueprint('tasks', __name__)
+tasks_bp = Blueprint('tasks', __name__)
 
 # Task Routes
-@task_bp.route('/tasks', methods=['GET'])
+@tasks_bp.route('/tasks', methods=['GET'])
 @swag_from({
     'tags': ['Tasks'],
     'responses': {
@@ -31,7 +31,7 @@ def get_tasks():
     tasks = Task.query.all()
     return jsonify([task.to_dict() for task in tasks])
 
-@task_bp.route('/tasks/<int:id>', methods=['GET'])
+@tasks_bp.route('/tasks/<int:id>', methods=['GET'])
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
@@ -69,7 +69,7 @@ def get_task(id):
     task = Task.query.get_or_404(id)
     return jsonify(task.to_dict())
 
-@task_bp.route('/tasks', methods=['POST'])
+@tasks_bp.route('/tasks', methods=['POST'])
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
@@ -108,7 +108,7 @@ def create_task():
     db.session.commit()
     return jsonify(task.to_dict()), 201
 
-@task_bp.route('/tasks/<int:id>', methods=['PUT'])
+@tasks_bp.route('/tasks/<int:id>', methods=['PUT'])
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
@@ -162,7 +162,7 @@ def update_task(id):
     db.session.commit()
     return jsonify(task.to_dict())
 
-@task_bp.route('/tasks/<int:id>', methods=['DELETE'])
+@tasks_bp.route('/tasks/<int:id>', methods=['DELETE'])
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
@@ -195,7 +195,7 @@ def delete_task(id):
     return '', 204
 
 # Task Comment Routes
-@task_bp.route('/tasks/<int:task_id>/comments', methods=['GET'])
+@tasks_bp.route('/tasks/<int:task_id>/comments', methods=['GET'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
@@ -227,7 +227,7 @@ def get_task_comments(task_id):
     comments = TaskComment.query.filter_by(task_id=task_id).all()
     return jsonify([comment.to_dict() for comment in comments])
 
-@task_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['GET'])
+@tasks_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['GET'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
@@ -271,7 +271,7 @@ def get_task_comment(task_id, id):
     comment = TaskComment.query.filter_by(id=id, task_id=task_id).first_or_404()
     return jsonify(comment.to_dict())
 
-@task_bp.route('/tasks/<int:task_id>/comments', methods=['POST'])
+@tasks_bp.route('/tasks/<int:task_id>/comments', methods=['POST'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
@@ -315,7 +315,7 @@ def create_task_comment(task_id):
     db.session.commit()
     return jsonify(comment.to_dict()), 201
 
-@task_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['PUT'])
+@tasks_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['PUT'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
@@ -374,7 +374,7 @@ def update_task_comment(task_id, id):
     db.session.commit()
     return jsonify(comment.to_dict())
 
-@task_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['DELETE'])
+@tasks_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['DELETE'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [

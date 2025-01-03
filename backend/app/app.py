@@ -20,7 +20,8 @@ from .routes.portalusers import portalusers_bp
 from .routes.proteced import proteced_bp
 from .routes.refresh import refresh_bp
 from .routes.register import register_bp
-from .routes.tasks import task_bp
+from .routes.taskrules import taskrules_bp
+from .routes.tasks import tasks_bp
 from .routes.toolusers import toolusers_bp
 from .utils.load_sample_data import init_all_sample_data
 
@@ -78,7 +79,8 @@ def register_blueprints(app):
     app.register_blueprint(proteced_bp)
     app.register_blueprint(refresh_bp)
     app.register_blueprint(toolusers_bp)
-    app.register_blueprint(task_bp)
+    app.register_blueprint(tasks_bp)
+    app.register_blueprint(taskrules_bp)
     return None
 
 
