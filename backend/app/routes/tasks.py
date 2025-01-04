@@ -1,5 +1,8 @@
+import uuid
+
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+
 from ..models.task import Task
 from ..models.taskcomment import TaskComment
 from ..db import db
@@ -18,9 +21,17 @@ tasks_bp = Blueprint('tasks', __name__)
                 'items': {
                     'type': 'object',
                     'properties': {
-                        'id': {'type': 'integer'},
-                        'name': {'type': 'string'},
-                        'description': {'type': 'string'}
+                        'guid': {'type': 'string'},
+                        'task_rule_guid': {'type': 'string'},
+                        'title': {'type': 'string'},
+                        'description': {'type': 'string'},
+                        'status': {'type': 'string'},
+                        'priority': {'type': 'string'},
+                        'assigned_to': {'type': 'string'},
+                        'linked_object_guid': {'type': 'string'},
+                        'linked_object_type': {'type': 'string'},
+                        'created_at': {'type': 'string', 'format': 'date-time'},
+                        'updated_at': {'type': 'string', 'format': 'date-time'}
                     }
                 }
             }
@@ -31,26 +42,34 @@ def get_tasks():
     tasks = Task.query.all()
     return jsonify([task.to_dict() for task in tasks])
 
-@tasks_bp.route('/tasks/<int:id>', methods=['GET'])
+@tasks_bp.route('/tasks/<uuid:guid>', methods=['GET'])
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
         {
-            'name': 'id',
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         }
     ],
     'responses': {
         200: {
-            'description': 'Retrieve a specific task by ID',
+            'description': 'Retrieve a specific task by GUID',
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
-                    'name': {'type': 'string'},
-                    'description': {'type': 'string'}
+                    'guid': {'type': 'string'},
+                    'task_rule_guid': {'type': 'string'},
+                    'title': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'status': {'type': 'string'},
+                    'priority': {'type': 'string'},
+                    'assigned_to': {'type': 'string'},
+                    'linked_object_guid': {'type': 'string'},
+                    'linked_object_type': {'type': 'string'},
+                    'created_at': {'type': 'string', 'format': 'date-time'},
+                    'updated_at': {'type': 'string', 'format': 'date-time'}
                 }
             }
         },
@@ -65,8 +84,8 @@ def get_tasks():
         }
     }
 })
-def get_task(id):
-    task = Task.query.get_or_404(id)
+def get_task(guid):
+    task = Task.query.get_or_404(guid)
     return jsonify(task.to_dict())
 
 @tasks_bp.route('/tasks', methods=['POST'])
@@ -80,10 +99,16 @@ def get_task(id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'name': {'type': 'string', 'example': 'Task Name'},
-                    'description': {'type': 'string', 'example': 'Task Description'}
+                    'task_rule_guid': {'type': 'string'},
+                    'title': {'type': 'string', 'example': 'Task Title'},
+                    'description': {'type': 'string', 'example': 'Task Description'},
+                    'status': {'type': 'string', 'example': 'pending'},
+                    'priority': {'type': 'string', 'example': 'normal'},
+                    'assigned_to': {'type': 'string'},
+                    'linked_object_guid': {'type': 'string'},
+                    'linked_object_type': {'type': 'string'}
                 },
-                'required': ['name']
+                'required': ['task_rule_guid', 'title', 'description', 'linked_object_guid']
             }
         }
     ],
@@ -93,9 +118,17 @@ def get_task(id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
-                    'name': {'type': 'string'},
-                    'description': {'type': 'string'}
+                    'guid': {'type': 'string'},
+                    'task_rule_guid': {'type': 'string'},
+                    'title': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'status': {'type': 'string'},
+                    'priority': {'type': 'string'},
+                    'assigned_to': {'type': 'string'},
+                    'linked_object_guid': {'type': 'string'},
+                    'linked_object_type': {'type': 'string'},
+                    'created_at': {'type': 'string', 'format': 'date-time'},
+                    'updated_at': {'type': 'string', 'format': 'date-time'}
                 }
             }
         }
@@ -103,20 +136,30 @@ def get_task(id):
 })
 def create_task():
     data = request.get_json()
-    task = Task(**data)
+    task = Task(
+        guid=uuid.uuid4(),
+        task_rule_guid=uuid.UUID(data["task_rule_guid"]),
+        title=data["title"],
+        description=data["description"],
+        status=data["status"],
+        priority=data["priority"],
+        assigned_to=uuid.UUID(data.get("assigned_to")),
+        linked_object_guid=uuid.UUID(data["linked_object_guid"]),
+        linked_object_type=data["linked_object_type"])
+
     db.session.add(task)
     db.session.commit()
     return jsonify(task.to_dict()), 201
 
-@tasks_bp.route('/tasks/<int:id>', methods=['PUT'])
+@tasks_bp.route('/tasks/<uuid:guid>', methods=['PUT'])
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
         {
-            'name': 'id',
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         },
         {
             'name': 'body',
@@ -125,9 +168,16 @@ def create_task():
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'name': {'type': 'string', 'example': 'Task Name'},
-                    'description': {'type': 'string', 'example': 'Task Description'}
-                }
+                    'task_rule_guid': {'type': 'string', 'example': 'Task Rule GUID'},
+                    'title': {'type': 'string', 'example': 'Task Title'},
+                    'description': {'type': 'string', 'example': 'Task Description'},
+                    'status': {'type': 'string', 'example': 'pending'},
+                    'priority': {'type': 'string', 'example': 'normal'},
+                    'assigned_to': {'type': 'string', 'example': 'Assigned User GUID'},
+                    'linked_object_guid': {'type': 'string', 'example': 'Linked Object GUID'},
+                    'linked_object_type': {'type': 'string', 'example': 'Linked Object Type'}
+                },
+                'required': ['task_rule_guid', 'title', 'description', 'linked_object_guid']
             }
         }
     ],
@@ -137,9 +187,17 @@ def create_task():
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
-                    'name': {'type': 'string'},
-                    'description': {'type': 'string'}
+                    'guid': {'type': 'string'},
+                    'task_rule_guid': {'type': 'string'},
+                    'title': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'status': {'type': 'string'},
+                    'priority': {'type': 'string'},
+                    'assigned_to': {'type': 'string'},
+                    'linked_object_guid': {'type': 'string'},
+                    'linked_object_type': {'type': 'string'},
+                    'created_at': {'type': 'string', 'format': 'date-time'},
+                    'updated_at': {'type': 'string', 'format': 'date-time'}
                 }
             }
         },
@@ -154,23 +212,25 @@ def create_task():
         }
     }
 })
-def update_task(id):
-    task = Task.query.get_or_404(id)
+def update_task(guid):
+    task = Task.query.filter_by(guid=guid).first_or_404()
     data = request.get_json()
     for key, value in data.items():
+        if key in ['task_rule_guid', 'assigned_to', 'linked_object_guid']:
+            value = uuid.UUID(value)
         setattr(task, key, value)
     db.session.commit()
     return jsonify(task.to_dict())
 
-@tasks_bp.route('/tasks/<int:id>', methods=['DELETE'])
+@tasks_bp.route('/tasks/<uuid:guid>', methods=['DELETE'])
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
         {
-            'name': 'id',
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         }
     ],
     'responses': {
@@ -188,22 +248,22 @@ def update_task(id):
         }
     }
 })
-def delete_task(id):
-    task = Task.query.get_or_404(id)
+def delete_task(guid):
+    task = Task.query.filter_by(guid=guid).first_or_404()
     db.session.delete(task)
     db.session.commit()
     return '', 204
 
 # Task Comment Routes
-@tasks_bp.route('/tasks/<int:task_id>/comments', methods=['GET'])
+@tasks_bp.route('/tasks/<uuid:task_guid>/comments', methods=['GET'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
         {
-            'name': 'task_id',
+            'name': 'task_guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         }
     ],
     'responses': {
@@ -214,45 +274,49 @@ def delete_task(id):
                 'items': {
                     'type': 'object',
                     'properties': {
-                        'id': {'type': 'integer'},
-                        'task_id': {'type': 'integer'},
-                        'content': {'type': 'string'}
+                        'guid': {'type': 'string'},
+                        'task_guid': {'type': 'string'},
+                        'comment': {'type': 'string'},
+                        'tooluser_guid': {'type': 'string'},
+                        'created_at': {'type': 'string', 'format': 'date-time'}
                     }
                 }
             }
         }
     }
 })
-def get_task_comments(task_id):
-    comments = TaskComment.query.filter_by(task_id=task_id).all()
+def get_task_comments(task_guid):
+    comments = TaskComment.query.filter_by(task_guid=task_guid).all()
     return jsonify([comment.to_dict() for comment in comments])
 
-@tasks_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['GET'])
+@tasks_bp.route('/tasks/<uuid:task_guid>/comments/<uuid:guid>', methods=['GET'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
         {
-            'name': 'task_id',
+            'name': 'task_guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         },
         {
-            'name': 'id',
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         }
     ],
     'responses': {
         200: {
-            'description': 'Retrieve a specific comment by ID for a specific task',
+            'description': 'Retrieve a specific comment by GUID for a specific task',
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
-                    'task_id': {'type': 'integer'},
-                    'content': {'type': 'string'}
+                    'guid': {'type': 'string'},
+                    'task_guid': {'type': 'string'},
+                    'comment': {'type': 'string'},
+                    'tooluser_guid': {'type': 'string'},
+                    'created_at': {'type': 'string', 'format': 'date-time'}
                 }
             }
         },
@@ -267,19 +331,19 @@ def get_task_comments(task_id):
         }
     }
 })
-def get_task_comment(task_id, id):
-    comment = TaskComment.query.filter_by(id=id, task_id=task_id).first_or_404()
+def get_task_comment(task_guid, guid):
+    comment = TaskComment.query.filter_by(guid=guid, task_guid=task_guid).first_or_404()
     return jsonify(comment.to_dict())
 
-@tasks_bp.route('/tasks/<int:task_id>/comments', methods=['POST'])
+@tasks_bp.route('/tasks/<uuid:task_guid>/comments', methods=['POST'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
         {
-            'name': 'task_id',
+            'name': 'task_guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         },
         {
             'name': 'body',
@@ -288,9 +352,10 @@ def get_task_comment(task_id, id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'content': {'type': 'string', 'example': 'Comment content'}
+                    'comment': {'type': 'string', 'example': 'Comment content'},
+                    'tooluser_guid': {'type': 'string'}
                 },
-                'required': ['content']
+                'required': ['comment']
             }
         }
     ],
@@ -300,36 +365,42 @@ def get_task_comment(task_id, id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
-                    'task_id': {'type': 'integer'},
-                    'content': {'type': 'string'}
+                    'guid': {'type': 'string'},
+                    'task_guid': {'type': 'string'},
+                    'comment': {'type': 'string'},
+                    'tooluser_guid': {'type': 'string'},
+                    'created_at': {'type': 'string', 'format': 'date-time'}
                 }
             }
         }
     }
 })
-def create_task_comment(task_id):
+def create_task_comment(task_guid):
     data = request.get_json()
-    comment = TaskComment(task_id=task_id, **data)
+    data['task_guid'] = task_guid
+    data['guid'] = uuid.uuid4()
+    if 'tooluser_guid' in data:
+        data['tooluser_guid'] = uuid.UUID(data['tooluser_guid'])
+    comment = TaskComment(**data)
     db.session.add(comment)
     db.session.commit()
     return jsonify(comment.to_dict()), 201
 
-@tasks_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['PUT'])
+@tasks_bp.route('/tasks/<uuid:task_guid>/comments/<uuid:guid>', methods=['PUT'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
         {
-            'name': 'task_id',
+            'name': 'task_guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         },
         {
-            'name': 'id',
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         },
         {
             'name': 'body',
@@ -338,7 +409,8 @@ def create_task_comment(task_id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'content': {'type': 'string', 'example': 'Updated comment content'}
+                    'comment': {'type': 'string', 'example': 'Updated comment content'},
+                    'tooluser_guid': {'type': 'string'}
                 }
             }
         }
@@ -349,9 +421,11 @@ def create_task_comment(task_id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
-                    'task_id': {'type': 'integer'},
-                    'content': {'type': 'string'}
+                    'guid': {'type': 'string'},
+                    'task_guid': {'type': 'string'},
+                    'comment': {'type': 'string'},
+                    'tooluser_guid': {'type': 'string'},
+                    'created_at': {'type': 'string', 'format': 'date-time'}
                 }
             }
         },
@@ -366,29 +440,31 @@ def create_task_comment(task_id):
         }
     }
 })
-def update_task_comment(task_id, id):
-    comment = TaskComment.query.filter_by(id=id, task_id=task_id).first_or_404()
+def update_task_comment(task_guid, guid):
+    comment = TaskComment.query.filter_by(guid=guid, task_guid=task_guid).first_or_404()
     data = request.get_json()
     for key, value in data.items():
+        if key == 'tooluser_guid':
+            value = uuid.UUID(value)
         setattr(comment, key, value)
     db.session.commit()
     return jsonify(comment.to_dict())
 
-@tasks_bp.route('/tasks/<int:task_id>/comments/<int:id>', methods=['DELETE'])
+@tasks_bp.route('/tasks/<uuid:task_guid>/comments/<uuid:guid>', methods=['DELETE'])
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
         {
-            'name': 'task_id',
+            'name': 'task_guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         },
         {
-            'name': 'id',
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         }
     ],
     'responses': {
@@ -406,8 +482,8 @@ def update_task_comment(task_id, id):
         }
     }
 })
-def delete_task_comment(task_id, id):
-    comment = TaskComment.query.filter_by(id=id, task_id=task_id).first_or_404()
+def delete_task_comment(task_guid, guid):
+    comment = TaskComment.query.filter_by(guid=guid, task_guid=task_guid).first_or_404()
     db.session.delete(comment)
     db.session.commit()
     return '', 204

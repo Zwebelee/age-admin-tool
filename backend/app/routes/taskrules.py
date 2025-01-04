@@ -1,3 +1,5 @@
+import uuid
+
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from ..db import db
@@ -18,7 +20,7 @@ taskrules_bp = Blueprint('taskrules', __name__)
                 'items': {
                     'type': 'object',
                     'properties': {
-                        'id': {'type': 'integer'},
+                        'guid': {'type': 'string'},
                         'name': {'type': 'string'},
                         'description': {'type': 'string'}
                     }
@@ -32,24 +34,77 @@ def get_task_rules():
     return jsonify([task_rule.to_dict() for task_rule in task_rules])
 
 
-@taskrules_bp.route('/taskrules/<int:id>', methods=['GET'])
+@taskrules_bp.route('/taskrules', methods=['POST'])
 @swag_from({
     'tags': ['Task Rules'],
     'parameters': [
         {
-            'name': 'id',
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'name': {'type': 'string', 'example': 'Task Rule Name'},
+                    'description': {'type': 'string', 'example': 'Task Rule Description'},
+                    'action': {'type': 'string', 'example': 'Action to be taken'},
+                    'rule_conditions': {'type': 'object', 'example': {'condition_key': 'condition_value'}},
+                    'whitelist': {'type': 'array', 'items': {'type': 'string'}, 'example': ['item1', 'item2']},
+                    'blacklist': {'type': 'array', 'items': {'type': 'string'}, 'example': ['item3', 'item4']},
+                    'is_active': {'type': 'boolean', 'example': True}
+                },
+                'required': ['name', 'description', 'action', 'rule_conditions']
+            }
+        }
+    ],
+    'responses': {
+        201: {
+            'description': 'Task rule created',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'guid': {'type': 'string'},
+                    'name': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'action': {'type': 'string'},
+                    'rule_conditions': {'type': 'object'},
+                    'whitelist': {'type': 'array', 'items': {'type': 'string'}},
+                    'blacklist': {'type': 'array', 'items': {'type': 'string'}},
+                    'is_active': {'type': 'boolean'},
+                    'created_at': {'type': 'string', 'format': 'date-time'},
+                    'updated_at': {'type': 'string', 'format': 'date-time'}
+                }
+            }
+        }
+    }
+})
+def create_task_rule():
+    data = request.get_json()
+    data['guid'] = uuid.uuid4()
+    task_rule = TaskRule(**data)
+    db.session.add(task_rule)
+    db.session.commit()
+    return jsonify(task_rule.to_dict()), 201
+
+
+@taskrules_bp.route('/taskrules/<uuid:guid>', methods=['GET'])
+@swag_from({
+    'tags': ['Task Rules'],
+    'parameters': [
+        {
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         }
     ],
     'responses': {
         200: {
-            'description': 'Retrieve a specific task rule by ID',
+            'description': 'Retrieve a specific task rule by GUID',
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
+                    'guid': {'type': 'string'},
                     'name': {'type': 'string'},
                     'description': {'type': 'string'}
                 }
@@ -66,60 +121,20 @@ def get_task_rules():
         }
     }
 })
-def get_task_rule(id):
-    task_rule = TaskRule.query.get_or_404(id)
+def get_task_rule(guid):
+    task_rule = TaskRule.query.filter_by(guid=guid).first_or_404()
     return jsonify(task_rule.to_dict())
 
 
-@taskrules_bp.route('/taskrules', methods=['POST'])
+@taskrules_bp.route('/taskrules/<uuid:guid>', methods=['PUT'])
 @swag_from({
     'tags': ['Task Rules'],
     'parameters': [
         {
-            'name': 'body',
-            'in': 'body',
-            'required': True,
-            'schema': {
-                'type': 'object',
-                'properties': {
-                    'name': {'type': 'string', 'example': 'Task Rule Name'},
-                    'description': {'type': 'string', 'example': 'Task Rule Description'}
-                },
-                'required': ['name']
-            }
-        }
-    ],
-    'responses': {
-        201: {
-            'description': 'Task rule created',
-            'schema': {
-                'type': 'object',
-                'properties': {
-                    'id': {'type': 'integer'},
-                    'name': {'type': 'string'},
-                    'description': {'type': 'string'}
-                }
-            }
-        }
-    }
-})
-def create_task_rule():
-    data = request.get_json()
-    task_rule = TaskRule(**data)
-    db.session.add(task_rule)
-    db.session.commit()
-    return jsonify(task_rule.to_dict()), 201
-
-
-@taskrules_bp.route('/taskrules/<int:id>', methods=['PUT'])
-@swag_from({
-    'tags': ['Task Rules'],
-    'parameters': [
-        {
-            'name': 'id',
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         },
         {
             'name': 'body',
@@ -140,7 +155,7 @@ def create_task_rule():
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
+                    'guid': {'type': 'string'},
                     'name': {'type': 'string'},
                     'description': {'type': 'string'}
                 }
@@ -157,8 +172,8 @@ def create_task_rule():
         }
     }
 })
-def update_task_rule(id):
-    task_rule = TaskRule.query.get_or_404(id)
+def update_task_rule(guid):
+    task_rule = TaskRule.query.filter_by(guid=guid).first_or_404()
     data = request.get_json()
     for key, value in data.items():
         setattr(task_rule, key, value)
@@ -166,15 +181,15 @@ def update_task_rule(id):
     return jsonify(task_rule.to_dict())
 
 
-@taskrules_bp.route('/taskrules/<int:id>', methods=['DELETE'])
+@taskrules_bp.route('/taskrules/<uuid:guid>', methods=['DELETE'])
 @swag_from({
     'tags': ['Task Rules'],
     'parameters': [
         {
-            'name': 'id',
+            'name': 'guid',
             'in': 'path',
             'required': True,
-            'type': 'integer'
+            'type': 'string'
         }
     ],
     'responses': {
@@ -192,8 +207,8 @@ def update_task_rule(id):
         }
     }
 })
-def delete_task_rule(id):
-    task_rule = TaskRule.query.get_or_404(id)
+def delete_task_rule(guid):
+    task_rule = TaskRule.query.filter_by(guid=guid).first_or_404()
     db.session.delete(task_rule)
     db.session.commit()
     return '', 204
