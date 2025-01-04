@@ -1,4 +1,5 @@
 import json
+import uuid
 from pathlib import Path
 from sqlalchemy import UUID
 
@@ -19,7 +20,6 @@ from app.models.tasktooluser import task_tooluser
 from app.models.task import Task
 from app.models.portaluser import PortalUser
 from app.db import db
-from uuid import UUID as UUIDType
 
 from app.models.toolrole import ToolRole
 from app.models.tooluser import ToolUser
@@ -39,6 +39,9 @@ def initialize_sample_data(model, data):
         if db.session.execute(model.select()).fetchone() is None:
             # Handle insertion for association tables
             for entry in data:
+                for key, value in entry.items():
+                    if "guid" in key:
+                        entry[key] = uuid.UUID(value)
                 db.session.execute(model.insert().values(**entry))
             db.session.commit()
             print(f"Sample data initialized for {model.name}.")
@@ -51,7 +54,7 @@ def initialize_sample_data(model, data):
                 for column in model.__table__.columns:
                     if isinstance(column.type, UUID):
                         if column.name in item:
-                            item[column.name] = UUIDType(item[column.name])
+                            item[column.name] = uuid.UUID(item[column.name])
                 new_item = model(**item)
                 db.session.add(new_item)
             db.session.commit()
