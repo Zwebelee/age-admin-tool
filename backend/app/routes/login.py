@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from flask_jwt_extended import create_access_token, create_refresh_token
-from ..models.tooluser import Tooluser
+from ..models.tooluser import ToolUser
 
 login_bp = Blueprint('login', __name__)
 
@@ -48,7 +48,7 @@ def login():
     username = request.json.get('username')
     password = request.json.get('password')
 
-    tooluser = Tooluser.query.filter_by(username=username).first()
+    tooluser = ToolUser.query.filter_by(username=username).first()
     if tooluser and tooluser.check_password(password):
         access_token = create_access_token(identity=username)
         refresh_token = create_refresh_token(identity=username)

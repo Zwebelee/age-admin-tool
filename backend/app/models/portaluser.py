@@ -9,7 +9,7 @@ class StatusEnum(enum.Enum):
     pending = 'pending'
 
 
-class Portaluser(db.Model):
+class PortalUser(db.Model):
     __tablename__ = 'portalusers'
     guid = db.Column(UUID, primary_key=True, nullable=False, unique=True)
     userid = db.Column(db.String(120), nullable=False, unique=True)
@@ -40,6 +40,12 @@ class Portaluser(db.Model):
     agency = db.Column(db.String(120), nullable=False)
     division = db.Column(db.String(120), nullable=False)
     team = db.Column(db.String(120), nullable=False)
+
+    tasks = db.relationship(
+        'Task',
+        primaryjoin="and_(foreign(Task.linked_object_guid) == PortalUser.guid, Task.linked_object_type == 'PortalUser')"
+    )
+
 
     def to_dict(self):
         return {

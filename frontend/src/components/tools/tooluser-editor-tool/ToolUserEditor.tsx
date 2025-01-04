@@ -43,7 +43,7 @@ export const AgeToolUserEditor = observer(() => {
         try {
             const toolUser = {
                 ...formData,
-                id: 0
+                guid: ""
             }
             await toolUserStore.addUser(toolUser);
             setFormData(initialFormData);

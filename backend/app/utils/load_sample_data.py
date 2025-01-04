@@ -1,4 +1,5 @@
 import json
+import uuid
 from pathlib import Path
 from sqlalchemy import UUID
 
@@ -9,19 +10,19 @@ from app.models.ageservice import Ageservice
 from app.models.agewebadaptor import Agewebadaptor
 from app.models.arcgisenterprise import Arcgisenterprise
 from app.models.agecomponent import Agecomponent
-from app.models.flagrule import Flagrule
+from app.models.taskcomment import TaskComment
+from app.models.taskrule import TaskRule
 from app.models.portalitem import Portalitem
 from app.models.portallicense import Portallicense
 from app.models.portalmembercategory import Portalusercategory
 from app.models.portalgroup import Portalgroup
 from app.models.tasktooluser import task_tooluser
 from app.models.task import Task
-from app.models.portaluser import Portaluser
+from app.models.portaluser import PortalUser
 from app.db import db
-from uuid import UUID as UUIDType
 
-from app.models.toolrole import Toolrole
-from app.models.tooluser import Tooluser
+from app.models.toolrole import ToolRole
+from app.models.tooluser import ToolUser
 from app.models.tooluserrole import tooluser_role
 
 
@@ -38,6 +39,9 @@ def initialize_sample_data(model, data):
         if db.session.execute(model.select()).fetchone() is None:
             # Handle insertion for association tables
             for entry in data:
+                for key, value in entry.items():
+                    if "guid" in key:
+                        entry[key] = uuid.UUID(value)
                 db.session.execute(model.insert().values(**entry))
             db.session.commit()
             print(f"Sample data initialized for {model.name}.")
@@ -50,7 +54,7 @@ def initialize_sample_data(model, data):
                 for column in model.__table__.columns:
                     if isinstance(column.type, UUID):
                         if column.name in item:
-                            item[column.name] = UUIDType(item[column.name])
+                            item[column.name] = uuid.UUID(item[column.name])
                 new_item = model(**item)
                 db.session.add(new_item)
             db.session.commit()
@@ -61,8 +65,12 @@ def initialize_sample_data(model, data):
 
 def init_all_sample_data():
     data = load_sample_data()
+    initialize_sample_data(TaskRule, data["task_rules"])
+    initialize_sample_data(ToolUser, data["toolusers"])
+    initialize_sample_data(PortalUser, data["portalusers"])
+    initialize_sample_data(Task, data["tasks"])
+    initialize_sample_data(TaskComment, data["task_comments"])
     initialize_sample_data(Ageportal, data["ageportals"])
-    initialize_sample_data(Portaluser, data["portalusers"])
     initialize_sample_data(Portallicense, data["portallicenses"])
     initialize_sample_data(Arcgisenterprise, data["arcgisenterprises"])
     initialize_sample_data(Agecomponent, data["agecomponents"])
@@ -73,9 +81,6 @@ def init_all_sample_data():
     initialize_sample_data(Portalgroup, data["portalgroups"])
     initialize_sample_data(Portalitem, data["portalitems"])
     initialize_sample_data(Portalusercategory, data["portalusercategories"])
-    initialize_sample_data(Flagrule, data["flagrules"])
-    initialize_sample_data(Task, data["tasks"])
-    initialize_sample_data(Tooluser, data["toolusers"])
     initialize_sample_data(task_tooluser, data["task_tooluser"])
-    initialize_sample_data(Toolrole, data["toolroles"])
+    initialize_sample_data(ToolRole, data["toolroles"])
     initialize_sample_data(tooluser_role, data["tooluser_role"])

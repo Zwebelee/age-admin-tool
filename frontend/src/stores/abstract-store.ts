@@ -29,7 +29,7 @@ export type StoreType =
     | PortalLicenseStore
     | PortaluserStore
     | PortalItemStore
-| PortalGroupStore;
+    | PortalGroupStore;
 
 export type status = "loading" | "loaded" | "error";
 

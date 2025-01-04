@@ -1,9 +1,11 @@
+import uuid
+
 from flasgger import swag_from
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..db import db
-from ..models.toolrole import Toolrole
-from ..models.tooluser import Tooluser
+from ..models.toolrole import ToolRole
+from ..models.tooluser import ToolUser
 
 toolusers_bp = Blueprint('toolusers', __name__)
 
@@ -20,7 +22,7 @@ toolusers_bp = Blueprint('toolusers', __name__)
                 'items': {
                     'type': 'object',
                     'properties': {
-                        'id': {'type': 'integer'},
+                        'guid': {'type': 'string'},
                         'username': {'type': 'string'},
                         'language': {'type': 'string'},
                         'theme': {'type': 'string'},
@@ -31,7 +33,7 @@ toolusers_bp = Blueprint('toolusers', __name__)
     }
 })
 def get_all_toolusers():
-    toolusers = Tooluser.query.all()
+    toolusers = ToolUser.query.all()
     return jsonify([tooluser.to_dict() for tooluser in toolusers]), 200
 
 
@@ -61,7 +63,7 @@ def get_all_toolusers():
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
+                    'guid': {'type': 'string'},
                     'username': {'type': 'string'},
                     'language': {'type': 'string'},
                     'theme': {'type': 'string'},
@@ -72,7 +74,8 @@ def get_all_toolusers():
 })
 def add_tooluser():
     data = request.json
-    new_tooluser = Tooluser(
+    new_tooluser = ToolUser(
+        guid=uuid.uuid4(),
         username=data['username'],
         language=data.get('language', 'en'),
         theme=data.get('theme', 'light')
@@ -80,8 +83,8 @@ def add_tooluser():
     new_tooluser.set_password(data['password'])
 
     # Assign role to the new user
-    role_name = data.get('role', 'user')
-    role = Toolrole.query.filter_by(name=role_name).first()
+    role_name = data.get('role', 'viewer')
+    role = ToolRole.query.filter_by(name=role_name).first()
     if role:
         new_tooluser.roles.append(role)
     else:
@@ -92,17 +95,25 @@ def add_tooluser():
     return jsonify(new_tooluser.to_dict()), 201
 
 
-@toolusers_bp.route('/toolusers/<int:id>', methods=['GET'])
+@toolusers_bp.route('/toolusers/<uuid:guid>', methods=['GET'])
 @jwt_required()
 @swag_from({
     'tags': ['Toolusers'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        }
+    ],
     'responses': {
         200: {
             'description': 'User retrieved successfully',
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
+                    'guid': {'type': 'string'},
                     'username': {'type': 'string'},
                     'language': {'type': 'string'},
                     'theme': {'type': 'string'},
@@ -120,12 +131,12 @@ def add_tooluser():
         }
     }
 })
-def get_tooluser(id):
-    tooluser = Tooluser.query.get_or_404(id)
+def get_tooluser(guid):
+    tooluser = ToolUser.query.filter_by(guid=guid).first_or_404()
     return jsonify(tooluser.to_dict()), 200
 
 
-@toolusers_bp.route('/toolusers/<int:id>', methods=['PUT'])
+@toolusers_bp.route('/toolusers/<uuid:guid>', methods=['PUT'])
 @jwt_required()
 @swag_from({
     'tags': ['Toolusers'],
@@ -150,7 +161,7 @@ def get_tooluser(id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
+                    'guid': {'type': 'string'},
                     'username': {'type': 'string'},
                     'language': {'type': 'string'},
                     'theme': {'type': 'string'},
@@ -168,8 +179,8 @@ def get_tooluser(id):
         }
     }
 })
-def update_tooluser(id):
-    tooluser = Tooluser.query.get_or_404(id)
+def update_tooluser(guid):
+    tooluser = ToolUser.query.filter_by(guid=guid).first_or_404()
     data = request.json
     tooluser.username = data['username']
     tooluser.language = data.get('language', tooluser.language)
@@ -178,7 +189,7 @@ def update_tooluser(id):
     return jsonify(tooluser.to_dict()), 200
 
 
-@toolusers_bp.route('/toolusers/<int:id>', methods=['DELETE'])
+@toolusers_bp.route('/toolusers/<uuid:guid>', methods=['DELETE'])
 @jwt_required()
 @swag_from({
     'tags': ['Toolusers'],
@@ -203,8 +214,8 @@ def update_tooluser(id):
         }
     }
 })
-def delete_tooluser(id):
-    tooluser = Tooluser.query.get_or_404(id)
+def delete_tooluser(guid):
+    tooluser = ToolUser.query.filter_by(guid=guid).first_or_404()
     db.session.delete(tooluser)
     db.session.commit()
     return jsonify({"message": "User deleted successfully"}), 200
@@ -220,7 +231,7 @@ def delete_tooluser(id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
+                    'guid': {'type': 'string'},
                     'username': {'type': 'string'},
                     'language': {'type': 'string'},
                     'theme': {'type': 'string'},
@@ -240,7 +251,7 @@ def delete_tooluser(id):
 })
 def get_user_profile():
     username = get_jwt_identity()
-    tooluser = Tooluser.query.filter_by(username=username).first()
+    tooluser = ToolUser.query.filter_by(username=username).first()
     if tooluser:
         return jsonify(tooluser.to_dict()), 200
     else:
@@ -272,7 +283,7 @@ def get_user_profile():
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'id': {'type': 'integer'},
+                    'guid': {'type': 'string'},
                     'username': {'type': 'string'},
                     'language': {'type': 'string'},
                     'theme': {'type': 'string'},
@@ -292,7 +303,7 @@ def get_user_profile():
 })
 def update_user_profile():
     username = get_jwt_identity()
-    tooluser = Tooluser.query.filter_by(username=username).first()
+    tooluser = ToolUser.query.filter_by(username=username).first()
     if not tooluser:
         return jsonify({"message": "User not found"}), 404
 
@@ -354,7 +365,7 @@ def update_user_profile():
 })
 def change_password():
     username = get_jwt_identity()
-    tooluser = Tooluser.query.filter_by(username=username).first()
+    tooluser = ToolUser.query.filter_by(username=username).first()
     if not tooluser:
         return jsonify({"message": "User not found"}), 404
 

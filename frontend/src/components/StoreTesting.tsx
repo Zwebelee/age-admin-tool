@@ -13,22 +13,26 @@ import {
 import {useRootStore} from "../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {PortalLicense} from "../models/portallicense.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {PortalLicenseFilter} from "./portallicense-filter.tsx";
+import {Task} from "../models/task.ts";
+import {TaskRule} from "../models/taskrule.ts";
+import {TaskComment} from "../models/taskcomment.ts";
 
 
 export const TestStoreComponent = observer(() => {
-   return (
-       <Box>
-           <Typography variant="h3">TestStoreComponent</Typography>
-           <TestAgeStore />
-           <TestLicenseStore/>
-           <PortalLicenseFilter/>
-           <TestAddLicense/>
-           <TestUpdateLicense/>
-           <TestGeneralStore/>
-       </Box>
-   );
+    return (
+        <Box>
+            <Typography variant="h3">TestStoreComponent</Typography>
+            <TestAgeStore/>
+            <TestLicenseStore/>
+            <PortalLicenseFilter/>
+            <TestAddLicense/>
+            <TestUpdateLicense/>
+            <TestGeneralStore/>
+            <TestStore/>
+        </Box>
+    );
 });
 
 export const TestAgeStore = observer(() => {
@@ -36,11 +40,11 @@ export const TestAgeStore = observer(() => {
     const ageStore = rootstore.ageStore;
 
     if (ageStore.isLoading) {
-        return <CircularProgress />;
+        return <CircularProgress/>;
 
     }
 
-    if (ageStore.isLoaded ){
+    if (ageStore.isLoaded) {
         return (
             <Box sx={{border: '3px solid blue', margin: '2px', padding: '10px', borderRadius: '8px'}}>
                 <Typography variant="h5">AGE Store</Typography>
@@ -58,7 +62,7 @@ export const TestLicenseStore = observer(() => {
     const licenseStore = rootstore.portalLicenseStore;
 
     if (licenseStore.isLoading) {
-        return <CircularProgress />;
+        return <CircularProgress/>;
     }
 
     if (licenseStore.isLoaded) {
@@ -67,7 +71,8 @@ export const TestLicenseStore = observer(() => {
                 <Typography variant="h5">License Store</Typography>
                 {Array.from(licenseStore.items.values()).map((item) => {
                     return (
-                        <Typography key={item.guid} variant="body1">License: {item.name}: {item.currentusers}/{item.maxusers}</Typography>
+                        <Typography key={item.guid}
+                                    variant="body1">License: {item.name}: {item.currentusers}/{item.maxusers}</Typography>
                     )
                 })}
             </Box>
@@ -82,7 +87,7 @@ export const TestAddLicense = observer(() => {
     const licenseStore = rootstore.portalLicenseStore;
 
 
-    const newLicesnse: PortalLicense= {
+    const newLicesnse: PortalLicense = {
         class: "",
         id: "",
         level: "",
@@ -132,7 +137,7 @@ export const TestUpdateLicense = observer(() => {
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setFormData({
             ...formData,
             [name]: value
@@ -141,7 +146,7 @@ export const TestUpdateLicense = observer(() => {
 
     const handleUpdate = () => {
         if (selectedLicense) {
-            const updatedLicense = { ...selectedLicense, ...formData };
+            const updatedLicense = {...selectedLicense, ...formData};
             licenseStore.updateItem(updatedLicense);
         }
     };
@@ -166,20 +171,20 @@ export const TestUpdateLicense = observer(() => {
             <Typography variant="h5">Update / Delete a License</Typography>
             <FormControl fullWidth>
                 <InputLabel id="license-select-label">Select License</InputLabel>
-                <Select sx={{ mt: 1, backgroundColor:'grey' }}
-                    labelId="license-select-label"
-                    value={selectedLicense ? selectedLicense.guid : ""}
-                    onChange={handleSelectChange}
+                <Select sx={{mt: 1, backgroundColor: 'grey'}}
+                        labelId="license-select-label"
+                        value={selectedLicense ? selectedLicense.guid : ""}
+                        onChange={handleSelectChange}
                 >
                     {Array.from(licenseStore.items.values()).map((license) => (
-                        <MenuItem sx={{backgroundColor:'grey'}} key={license.guid} value={license.guid}>
+                        <MenuItem sx={{backgroundColor: 'grey'}} key={license.guid} value={license.guid}>
                             {license.name}
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
             {selectedLicense && (
-                <Box component="form" sx={{ mt: 2, backgroundColor:'grey' }}>
+                <Box component="form" sx={{mt: 2, backgroundColor: 'grey'}}>
                     <TextField
                         fullWidth
                         label="Name"
@@ -230,10 +235,10 @@ export const TestUpdateLicense = observer(() => {
                         onChange={handleInputChange}
                         margin="normal"
                     />
-                    <Button variant="contained" color="primary" onClick={handleUpdate} sx={{ mt: 2 }}>
+                    <Button variant="contained" color="primary" onClick={handleUpdate} sx={{mt: 2}}>
                         Update License
                     </Button>
-                    <Button variant="contained" color="secondary" onClick={handleDelete} sx={{ mt: 2, ml: 2 }}>
+                    <Button variant="contained" color="secondary" onClick={handleDelete} sx={{mt: 2, ml: 2}}>
                         Delete License
                     </Button>
                 </Box>
@@ -242,13 +247,13 @@ export const TestUpdateLicense = observer(() => {
     );
 });
 
-export const TestGeneralStore = observer( () => {
+export const TestGeneralStore = observer(() => {
     const rootstore = useRootStore();
     const store = rootstore.ageDataStoreStore;
     const log = rootstore.logService
 
-    if (store.isLoading){
-        return <CircularProgress />;
+    if (store.isLoading) {
+        return <CircularProgress/>;
     }
 
     if (store.isLoaded) {
@@ -259,3 +264,84 @@ export const TestGeneralStore = observer( () => {
     }
 
 })
+
+export const TestStore = observer(() => {
+    const {taskStore,taskRuleStore, taskCommentStore} = useRootStore();
+    console.log("itemcount", taskStore.visibleItems.length);
+    console.log("commentcoiunt", taskCommentStore.visibleItems.length);
+
+
+    const handleClick = ()=>{
+        console.log('test')
+    }
+
+
+    return (
+        <>
+            <Typography>Test</Typography>
+            {taskStore.visibleItems.map((item) => {
+                return (
+                    <Typography key={item.guid} variant="body1">{item.guid}</Typography>
+                )
+            })}
+            <Typography>{taskRuleStore.visibleItems.length}</Typography>
+            {taskRuleStore.visibleItems.map((item) => {
+                return (
+                    <Typography key={item.guid} variant="body1">{item.guid}</Typography>
+                )})}
+            <Typography>{taskCommentStore.visibleItems.length}</Typography>
+            <Button variant={"contained"} onClick={handleClick}>Click</Button>
+            <TaskDetails taskId={"1"}></TaskDetails>
+        </>
+    );
+})
+
+
+const TaskDetails = observer(({ taskId }: { taskId: string }) => {
+    const { taskStore, taskRuleStore, taskCommentStore } = useRootStore();
+    const [task, setTask] = useState<Task | null>(null);
+    const [taskRule, setTaskRule] = useState<TaskRule | null>(null);
+    const [comments, setComments] = useState<TaskComment[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const fetchedTask = taskStore.items.get(taskId);
+            if (fetchedTask) {
+                setTask(fetchedTask);
+                const fetchedTaskRule = taskRuleStore.items.get(String(fetchedTask.taskRuleGuid));
+                if (fetchedTaskRule) {
+                    setTaskRule(fetchedTaskRule);
+                }
+                const fetchedComments = Array.from(taskCommentStore.items.values()).filter(comment => String(comment.guid) === taskId);
+                setComments(fetchedComments);
+            }
+        };
+        fetchData();
+    }, [taskId, taskStore, taskRuleStore, taskCommentStore]);
+
+    if (!task) {
+        return <CircularProgress />;
+    }
+
+    return (
+        <Box>
+            <Typography variant="h5">Task Details</Typography>
+            <Typography variant="body1">Task ID: {task.guid}</Typography>
+            <Typography variant="body1">Task Name: {task.title}</Typography>
+            {taskRule && (
+                <>
+                    <Typography variant="h6">Task Rule</Typography>
+                    <Typography variant="body1">Rule ID: {taskRule.guid}</Typography>
+                    <Typography variant="body1">Rule Name: {taskRule.name}</Typography>
+                </>
+            )}
+            <Typography variant="h6">Comments</Typography>
+            {comments.map(comment => (
+                <Box key={comment.guid} sx={{ mt: 2 }}>
+                    <Typography variant="body2">Comment ID: {comment.guid}</Typography>
+                    <Typography variant="body2">Comment: {comment.comment}</Typography>
+                </Box>
+            ))}
+        </Box>
+    );
+});
