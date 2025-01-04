@@ -1,18 +1,18 @@
 export interface IToolUser {
-    id: number,
+    guid: string,
     username: string,
     language: string,
     theme: string
 }
 
 export class ToolUser {
-    id: number;
+    guid: string;
     username: string;
     language: string;
     theme: string;
 
     constructor(data: IToolUser) {
-        this.id = data.id;
+        this.guid = data.guid;
         this.username = data.username;
         this.language = data.language;
         this.theme = data.theme;

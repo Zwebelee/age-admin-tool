@@ -281,13 +281,13 @@ export const TestStore = observer(() => {
             <Typography>Test</Typography>
             {taskStore.visibleItems.map((item) => {
                 return (
-                    <Typography key={item.id} variant="body1">{item.id}</Typography>
+                    <Typography key={item.guid} variant="body1">{item.guid}</Typography>
                 )
             })}
             <Typography>{taskRuleStore.visibleItems.length}</Typography>
             {taskRuleStore.visibleItems.map((item) => {
                 return (
-                    <Typography key={item.id} variant="body1">{item.id}</Typography>
+                    <Typography key={item.guid} variant="body1">{item.guid}</Typography>
                 )})}
             <Typography>{taskCommentStore.visibleItems.length}</Typography>
             <Button variant={"contained"} onClick={handleClick}>Click</Button>
@@ -308,11 +308,11 @@ const TaskDetails = observer(({ taskId }: { taskId: string }) => {
             const fetchedTask = taskStore.items.get(taskId);
             if (fetchedTask) {
                 setTask(fetchedTask);
-                const fetchedTaskRule = taskRuleStore.items.get(String(fetchedTask.taskRuleId));
+                const fetchedTaskRule = taskRuleStore.items.get(String(fetchedTask.taskRuleGuid));
                 if (fetchedTaskRule) {
                     setTaskRule(fetchedTaskRule);
                 }
-                const fetchedComments = Array.from(taskCommentStore.items.values()).filter(comment => String(comment.id) === taskId);
+                const fetchedComments = Array.from(taskCommentStore.items.values()).filter(comment => String(comment.guid) === taskId);
                 setComments(fetchedComments);
             }
         };
@@ -326,19 +326,19 @@ const TaskDetails = observer(({ taskId }: { taskId: string }) => {
     return (
         <Box>
             <Typography variant="h5">Task Details</Typography>
-            <Typography variant="body1">Task ID: {task.id}</Typography>
+            <Typography variant="body1">Task ID: {task.guid}</Typography>
             <Typography variant="body1">Task Name: {task.title}</Typography>
             {taskRule && (
                 <>
                     <Typography variant="h6">Task Rule</Typography>
-                    <Typography variant="body1">Rule ID: {taskRule.id}</Typography>
+                    <Typography variant="body1">Rule ID: {taskRule.guid}</Typography>
                     <Typography variant="body1">Rule Name: {taskRule.name}</Typography>
                 </>
             )}
             <Typography variant="h6">Comments</Typography>
             {comments.map(comment => (
-                <Box key={comment.id} sx={{ mt: 2 }}>
-                    <Typography variant="body2">Comment ID: {comment.id}</Typography>
+                <Box key={comment.guid} sx={{ mt: 2 }}>
+                    <Typography variant="body2">Comment ID: {comment.guid}</Typography>
                     <Typography variant="body2">Comment: {comment.comment}</Typography>
                 </Box>
             ))}

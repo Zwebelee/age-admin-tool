@@ -1,5 +1,5 @@
 export interface ITaskRule {
-    id: number;
+    guid: string;
     name: string;
     description: string;
     action: string;
@@ -12,7 +12,7 @@ export interface ITaskRule {
 }
 
 export class TaskRule implements ITaskRule {
-    id: number;
+    guid: string;
     name: string;
     description: string;
     action: string;
@@ -24,7 +24,7 @@ export class TaskRule implements ITaskRule {
     updatedAt: Date;
 
     constructor(data: ITaskRule) {
-        this.id = data.id;
+        this.guid = data.guid;
         this.name = data.name;
         this.description = data.description;
         this.action = data.action;

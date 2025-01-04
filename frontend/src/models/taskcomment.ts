@@ -1,23 +1,23 @@
 export interface ITaskComment {
-    id: number;
+    guid: string;
     taskId: number;
     comment: string;
-    tooluserId?: number;
+    tooluserGuid?: string;
     createdAt: Date;
 }
 
 export class TaskComment implements ITaskComment {
-    id: number;
+    guid: string;
     taskId: number;
     comment: string;
-    tooluserId?: number;
+    tooluserGuid?: string;
     createdAt: Date;
 
     constructor(data: ITaskComment) {
-        this.id = data.id;
+        this.guid = data.guid;
         this.taskId = data.taskId;
         this.comment = data.comment;
-        this.tooluserId = data.tooluserId;
+        this.tooluserGuid = data.tooluserGuid;
         this.createdAt = new Date(data.createdAt);
     }
 }

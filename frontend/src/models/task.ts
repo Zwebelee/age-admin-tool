@@ -1,39 +1,39 @@
 export interface ITask {
-    id: number;
-    taskRuleId: number;
+    guid: string;
+    taskRuleGuid: string;
     title: string;
     description: string;
     status: string;
     priority: string;
-    assignedTo?: number;
-    linkedObjectId: string;
+    assignedTo?: string;
+    linkedObjectGuid: string;
     linkedObjectType?: string;
     createdAt: Date;
     updatedAt: Date;
 }
 
 export class Task implements ITask {
-    id: number;
-    taskRuleId: number;
+    guid: string;
+    taskRuleGuid: string;
     title: string;
     description: string;
     status: string;
     priority: string;
-    assignedTo?: number;
-    linkedObjectId: string;
+    assignedTo?: string;
+    linkedObjectGuid: string;
     linkedObjectType?: string;
     createdAt: Date;
     updatedAt: Date;
 
     constructor(data: ITask) {
-        this.id = data.id;
-        this.taskRuleId = data.taskRuleId;
+        this.guid = data.guid;
+        this.taskRuleGuid = data.taskRuleGuid;
         this.title = data.title;
         this.description = data.description;
         this.status = data.status;
         this.priority = data.priority;
         this.assignedTo = data.assignedTo;
-        this.linkedObjectId = data.linkedObjectId;
+        this.linkedObjectGuid = data.linkedObjectGuid;
         this.linkedObjectType = data.linkedObjectType;
         this.createdAt = new Date(data.createdAt);
         this.updatedAt = new Date(data.updatedAt);
