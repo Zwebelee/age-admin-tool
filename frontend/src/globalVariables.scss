@@ -1,3 +1,13 @@
+/* Heights */
+:root {
+    --insideDataMainXL:    386.5px; // Data Table, Data Charts:   40 + 135 + 50 + 139.5 + 12 + 10
+    --insideDataMainMD:    382.7px; // Data Table, Data Charts:   24 + 100 + 30 + 206.7 + 12 + 10
+    --insideDataMainSM:    382.7px; // Data Table, Data Charts:   14 + 100 + 20 + 206.7 + 12 + 7 + 13 + 10
+    --insideDataFiltersXL: 378.5px; // Data Filters, Data Handle: 40 + 135 + 50 + 139.5 + 12 + 2
+    --insideDataFiltersMD: 374.7px; // Data Filters, Data Handle: 24 + 100 + 30 + 206.7 + 12 + 2
+}
+
+
 /* Breakpoints */
 // For Material UI in App.tsx:
 :root {

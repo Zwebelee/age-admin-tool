@@ -3,14 +3,14 @@
 .overviewData {
     grid-area: data;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
+    overflow: auto;
     gap: pxToRem(7);
-    padding: pxToRem(10);
+    padding: pxToRem(10) pxToRem(100) pxToRem(10) pxToRem(10);
     border-radius: pxToRem(5);
     outline-offset: pxToRem(-3);
     @include media("md") {
-        flex-flow: row nowrap;
-        overflow: auto;
+        padding: pxToRem(10);
     }
 
     &__item {
@@ -22,7 +22,11 @@
     }
 
     &__line {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
         border-left: pxToRem(1) solid var(--color1);
+        height: 100%;
     }
 
     &--color2 &__line {
@@ -46,14 +50,14 @@
     }
 
     &__name {
-        padding: 0 pxToRem(5) pxToRem(20) pxToRem(5);
+        padding: 0 pxToRem(5);
         margin: 0;
         font-size: pxToRem(13);
         color: var(--lightness2);
     }
 
     &__value {
-        padding: pxToRem(20) pxToRem(5) 0 pxToRem(5);
+        padding: 0 pxToRem(5);
         margin: 0;
         font-size: pxToRem(20);
         font-weight: 300;
@@ -85,6 +89,7 @@
     display: grid;
     grid: auto-flow / 1fr 1fr;
     align-content: start;
+    padding: pxToRem(10);
 
     &__item {
         max-height: pxToRem(109.5);
@@ -92,12 +97,14 @@
     }
 
     &__name {
+        padding: 0 pxToRem(5) pxToRem(20) pxToRem(5);
         @include media("xl") {
             font-size: pxToRem(12);
         }
     }
 
     &__value {
+        padding: pxToRem(20) pxToRem(5) 0 pxToRem(5);
         @include media("xl") {
             font-size: pxToRem(18);
         }

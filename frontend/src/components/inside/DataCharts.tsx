@@ -2,14 +2,18 @@ import { PieChart } from "@mui/x-charts/PieChart"; // Chart 1, Installed Package
 
 import "./DataCharts.scss";
 
-
-export const DataCharts = ({ color, display }: {
+interface dataChartsProps {
     color: string;
     display: boolean;
-}) => {
-    const dynamicClass = display ? "dataCharts dataCharts" + color : "dataChartsHidden";
+    filterView: boolean;
+}
+
+
+export const DataCharts = ({ color, display, filterView }: dataChartsProps) => {
+    const dynamicClass1 = display ? "dataCharts dataCharts" + color : "dataChartsHidden";
+    const dynamicClass2 = filterView ? dynamicClass1 + " dataCharts--filtersVisible" : dynamicClass1;
     return (
-        <div className={dynamicClass}>
+        <div className={dynamicClass2}>
 
             {/* Chart 1 */}
             <PieChart

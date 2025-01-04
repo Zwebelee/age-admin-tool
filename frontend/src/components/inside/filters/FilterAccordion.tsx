@@ -16,14 +16,14 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import {IAbstractStore} from "../../../stores/abstract-store.ts";
-import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {DatePicker} from '@mui/x-date-pickers/DatePicker';
-import dayjs, {Dayjs} from 'dayjs';
+import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {DatePicker} from "@mui/x-date-pickers/DatePicker";
+import dayjs, {Dayjs} from "dayjs";
 import {useTranslation} from "react-i18next";
 import Grid from "@mui/material/Grid2";
 
@@ -57,16 +57,16 @@ export const FilterAccordion = ({
     const {t} = useTranslation();
     const [filterField, setFilterField] = React.useState<string[]>(initialValue);
     const [isExpanded, setIsExpanded] = useState(initialExpanded);
-    const [operator, setOperator] = useState('>');
-    const [value, setValue] = useState('');
-    const [dateValue, setDateValue] = React.useState<Dayjs | null>(dayjs('2024-12-10'));
+    const [operator, setOperator] = useState(">");
+    const [value, setValue] = useState("");
+    const [dateValue, setDateValue] = React.useState<Dayjs | null>(dayjs("2024-12-10"));
 
     const handleReset = () => {
         //TODO improvement for proper initValueResets needed
         setFilterField([]);
-        setOperator('>');
-        setValue('');
-        setDateValue(dayjs('2024-12-10'));
+        setOperator(">");
+        setValue("");
+        setDateValue(dayjs("2024-12-10"));
         store.clearFilter(storeFilterField);
     }
 
@@ -81,7 +81,7 @@ export const FilterAccordion = ({
         const {
             target: {value},
         } = event;
-        const selectedValues = typeof value === 'string' ? value.split(',') : value;
+        const selectedValues = typeof value === "string" ? value.split(",") : value;
         setFilterField(selectedValues);
         // add filter to store
         const newFilters = selectedValues.map(val => `${storeFilterField}-${val}`);
@@ -89,7 +89,7 @@ export const FilterAccordion = ({
     };
 
     const handleNumberFilterChange = (newOperator: string, newValue: string) => {
-        const newFilter = newValue ? `${storeFilterField}-${newOperator}-${newValue}` : '';
+        const newFilter = newValue ? `${storeFilterField}-${newOperator}-${newValue}` : "";
         store.filters = [...store.filters.filter(f => !f.startsWith(storeFilterField)), ...(newFilter ? [newFilter] : [])];
     };
 
@@ -110,7 +110,6 @@ export const FilterAccordion = ({
         PaperProps: {
             style: {
                 maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-                width: 250,
             },
         },
     };
@@ -124,7 +123,7 @@ export const FilterAccordion = ({
             value={filterField}
             onChange={handleChange}
             input={<OutlinedInput label="Tag"/>}
-            renderValue={(selected) => selected.join(', ')}
+            renderValue={(selected) => selected.join(", ")}
             MenuProps={MenuProps}
         >
             {filterOptions.map((name) => (
@@ -159,7 +158,7 @@ export const FilterAccordion = ({
             onChange={(e) => setValue(e.target.value)}
             onBlur={() => handleNumberFilterChange(operator, value)}
             onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                     handleNumberFilterChange(operator, value);
                 }
             }}
@@ -168,7 +167,7 @@ export const FilterAccordion = ({
     </>);
     const dateMode = (<>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['DatePicker']}>
+            <DemoContainer components={["DatePicker"]}>
                 <DatePicker
                     label={filterFieldName}
                     value={dateValue}
@@ -183,7 +182,8 @@ export const FilterAccordion = ({
             expanded={isExpanded}
             onChange={handleAccordionChange}
             sx={{
-                background: 'var(--color1-1)',
+                background: "var(--color1-1)",
+                width: "100%",
             }}
         >
             <AccordionSummary
@@ -191,20 +191,20 @@ export const FilterAccordion = ({
                 aria-controls="panel1-content"
                 id="panel1-header"
             >
-                <Grid container sx={{display: 'flex', alignItems: 'center', gap: 1.25}}>
+                <Grid container sx={{display: "flex", alignItems: "center", gap: 1.25}}>
                     {accordIcon}
                     <Typography>{accordionName}</Typography>
                     {onOffSwitch && <Switch/>}
                 </Grid>
             </AccordionSummary>
-            <FormControl sx={{m: 1, width: 300}}>
+            <FormControl sx={{m: 1, width: "calc(100% - 1.5625rem)"}}>
                 {
                     filterMode === "string" ? stringMode :
                         filterMode === "number" ? numberMode :
                             filterMode === "date" ? dateMode : null}
             </FormControl>
             {resetButton &&
-                <IconButton onClick={handleReset}><RestartAltIcon/></IconButton>
+                <IconButton onClick={handleReset} sx={{margin: "0 0.4375rem 0.4375rem 0.4375rem"}}><RestartAltIcon/></IconButton>
             }
         </Accordion>
     );

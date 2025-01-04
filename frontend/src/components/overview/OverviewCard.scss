@@ -2,15 +2,28 @@
 
 .overviewCard {
     display: grid;
-    grid: "data title"
-          "data title";
+    grid: "data title" pxToRem(129.5) /
+          auto pxToRem(300);
+    position: relative;
     border-radius: pxToRem(6);
     background-color: var(--color1-1);
     background-image: linear-gradient(to left, var(--color1), transparent);
     @include media("md") {
         grid: "title"
-              "data ";
+              "data " pxToRem(129.5);
         background-image: none;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        right: pxToRem(300);
+        width: pxToRem(100);
+        height: pxToRem(129.5);
+        background: linear-gradient(to right, transparent 0%, var(--color1) 90%);
+        @include media("md") {
+            display: none;
+        }
     }
 
     &__title {
@@ -20,10 +33,13 @@
         align-items: center;
         justify-content: flex-start;
         gap: pxToRem(25);
-        padding: pxToRem(10) pxToRem(20) pxToRem(10) pxToRem(10);
-        border-radius: pxToRem(6);
+        padding: pxToRem(10) pxToRem(20) pxToRem(10) pxToRem(0);
+        border-radius: 0 pxToRem(6) pxToRem(6) 0;
+        background-color: var(--color1);
         @include media("md") {
             padding: pxToRem(2) pxToRem(15) pxToRem(2) pxToRem(2);
+            border-radius: pxToRem(6);
+            background-color: transparent;
             background-image: linear-gradient(to left, var(--color1), transparent);
         }
     }
@@ -84,11 +100,17 @@
         min-height: auto;
     }
 
+    &::after {
+        display: none;
+    }
+
     &__title {
         flex-flow: column nowrap;
         justify-content: center;
         gap: 0;
         padding: pxToRem(5);
+        border-radius: pxToRem(6);
+        background-color: transparent;
         background-image: linear-gradient(to bottom, var(--color1), transparent);
         @include media("md") {
             flex-flow: row-reverse nowrap;

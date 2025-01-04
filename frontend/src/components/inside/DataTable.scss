@@ -6,13 +6,28 @@
 
 .dataTable {
     grid-area: table;
-    min-height: calc(100vh - pxToRem(386.5)); // 175 + 25 + 25 + 139.5 + 12 + 10
-    padding: pxToRem(30) pxToRem(30) pxToRem(75) pxToRem(30);
+    height: calc(100vh - var(--insideDataMainXL));
+    min-height: pxToRem(550);
+    padding: pxToRem(30) 0 pxToRem(75) 0;
     border: pxToRem(1) solid var(--color1);
     border-radius: pxToRem(6);
     margin: pxToRem(4);
     background: var(--lightness1-2);
-    overflow: scroll;
+    overflow-y: scroll;
+    transition: height var(--transition1);
+    @include media("md") {
+        height: calc(100vh - var(--insideDataMainMD));
+    }
+    @include media("sm") {
+        height: calc(100vh - var(--insideDataMainSM));
+        min-height: auto;
+    }
+
+    &.dataTable--filtersVisible {
+         @include media("sm") {
+             height: calc((100vh - var(--insideDataMainSM)) / 2 + 7px);
+         }
+    }
 
     &--color2 {
         border-color: var(--color2);
