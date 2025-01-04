@@ -18,6 +18,7 @@ import {PortaluserStore} from "./portaluser-store.ts";
 import {PortalItemStore} from "./portalitem-store.ts";
 import {PortalGroupStore} from "./portalgroup-store.ts";
 import {PortalGroup} from "../models/portalgroup.ts";
+import { LoggerService } from "../services/logger.service.ts";
 
 export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup;
 export type StoreType =
@@ -70,6 +71,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
     status: status = "loading";
     filters: string[] = [];
     protected authService: AuthService;
+    protected logger: LoggerService = LoggerService.getInstance();
 
     abstract getEndpoint(): string;
 
@@ -100,7 +102,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
                 //TODO: REMOVE LATER !!! JUST TO SEE THE LOADED :)
             }, 5000);
         } catch (error) {
-            console.error('Failed to load data', error);
+            this.logger.error('Failed to load data', error);
             this.status = "error";
         }
     }

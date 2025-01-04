@@ -49,7 +49,7 @@ export class RootStore {
         this.authService = new AuthService(this)
         this.authStore = new AuthStore(this.authService);
 
-        this.logService = new LoggerService();
+        this.logService = LoggerService.getInstance();
 
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);
