@@ -18,7 +18,7 @@ export class AuthStore {
     }
 
     initialize() {
-        const token = getCookie('token');
+        const token = getCookie('token'); //TODO <- CONTINUE HERE -> switch to localstorage or wrapper
         if (token) {
             this.accessToken = token;
             this.isLoggedIn = true;
@@ -94,3 +94,35 @@ export class AuthStore {
         }
     }
 }
+
+//TODO: CONTINUE HERE
+//  check / refresh auth functions!
+
+// checkAuth() {
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//         this.token = token;
+//         this.isAuthenticated = true;
+//     } else {
+//         this.isAuthenticated = false;
+//     }
+// }
+
+
+// const App = observer(() => {
+//     useEffect(() => {
+//         authStore.checkAuth();
+//     }, []);
+//
+//     return (
+//         <Router>
+//             <Switch>
+//                 <Route path="/login" component={Login} />
+//     <ProtectedRoute path="/dashboard" component={Dashboard} />
+//     <Redirect from="/" to="/dashboard" />
+//         </Switch>
+//         </Router>
+// );
+// });
+//
+// export default App;
