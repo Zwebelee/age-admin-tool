@@ -18,7 +18,7 @@ export class AuthStore {
     }
 
     initialize() {
-        const token = getCookie('token'); //TODO <- CONTINUE HERE -> switch to localstorage or wrapper
+        const token = getCookie('token'); //TODO <-
         if (token) {
             this.accessToken = token;
             this.isLoggedIn = true;
@@ -94,6 +94,7 @@ export class AuthStore {
         }
     }
 }
+
 
 //TODO: CONTINUE HERE
 //  check / refresh auth functions!
