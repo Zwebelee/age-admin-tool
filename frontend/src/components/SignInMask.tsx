@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {useNavigate} from "react-router-dom";
-import {TextField, Button, Container, Typography, Box} from "@mui/material";
+import {TextField, Button, Container, Typography, Box, FormControl} from "@mui/material";
 import {useRootStore} from "../stores/root-store.ts";
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -11,7 +11,7 @@ interface SignInMaskProps {
     redirectUrl?: string;
 }
 
-export const SignInMask = observer(({redirectUrl = "/testsecret"}:SignInMaskProps) => {
+export const SignInMask = observer(({redirectUrl = "/"}: SignInMaskProps) => {
     const {authStore} = useRootStore();
     const {t} = useTranslation();
     const navigate = useNavigate();
@@ -19,13 +19,33 @@ export const SignInMask = observer(({redirectUrl = "/testsecret"}:SignInMaskProp
     const [password, setPassword] = useState("");
     const [signinError, setSigninError] = useState("");
     const [signinSuccess, setSigninSuccess] = useState("");
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     useEffect(() => {
         setSigninError("");
         setSigninSuccess("");
+        setUsernameError(false);
+        setPasswordError(false);
     }, []);
 
     const handleLogin = async () => {
+        let hasError = false;
+        if (!username) {
+            setUsernameError(true);
+            hasError = true;
+        } else {
+            setUsernameError(false);
+        }
+        if (!password) {
+            setPasswordError(true);
+            hasError = true;
+        } else {
+            setPasswordError(false);
+        }
+        if (hasError) {
+            return;
+        }
         await authStore.login({username, password});
         if (authStore.isLoggedIn) {
             setSigninSuccess(t("login.success"));
@@ -58,7 +78,7 @@ export const SignInMask = observer(({redirectUrl = "/testsecret"}:SignInMaskProp
                     </Typography>
                 )}
                 {!signinSuccess && (
-                    <>
+                    <FormControl fullWidth>
                         <TextField
                             label={t("username")}
                             variant="outlined"
@@ -66,9 +86,11 @@ export const SignInMask = observer(({redirectUrl = "/testsecret"}:SignInMaskProp
                             fullWidth
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            required
                             slotProps={{
                                 inputLabel: {sx: {color: 'grey'}}
                             }}
+                            error={usernameError}
                         />
                         <TextField
                             label={t("password")}
@@ -78,9 +100,11 @@ export const SignInMask = observer(({redirectUrl = "/testsecret"}:SignInMaskProp
                             fullWidth
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                             slotProps={{
                                 inputLabel: {sx: {color: 'grey'}}
                             }}
+                            error={passwordError}
                         />
                         <Button
                             variant="contained"
@@ -91,7 +115,7 @@ export const SignInMask = observer(({redirectUrl = "/testsecret"}:SignInMaskProp
                         >
                             {t("login.title")}
                         </Button>
-                    </>
+                    </FormControl>
                 )}
             </Box>
         </Container>
