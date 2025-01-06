@@ -13,8 +13,7 @@ export class AgeDatastoreStore extends AbstractStore<AgeDataStore> {
         makeObservable(this,{
             status: observable,
             items: observable
-        })
-        this.initialize();
+        });
 
     }
     async initialize() {

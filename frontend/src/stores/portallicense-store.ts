@@ -19,7 +19,6 @@ export class PortalLicenseStore extends AbstractStore<PortalLicense> {
             status: observable,
             filters: observable
         });
-        this.initialize();
     }
 
     async initialize() {

@@ -9,9 +9,7 @@ export class TaskCommentStore extends AbstractStore<TaskComment> {
 
     constructor(authService: AuthService) {
         super(authService);
-        makeObservable(this, {})
-        this.initialize().then(() => {
-        });
+        makeObservable(this, {});
     }
 
     async initialize() {

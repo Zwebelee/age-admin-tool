@@ -26,13 +26,24 @@ export class AuthService {
         this.apiClient.interceptors.response.use(
             (response) => response,
             async (error) => {
-                if (error.response?.status === 401 && error.config && !error.config._retry) {
-                    // Attempt to refresh the token
-                    error.config._retry = true;
-                    await this.rootStore.authStore.refreshAccessToken();
-                    if (this.rootStore.authStore.accessToken) {
-                        error.config.headers["Authorization"] = `Bearer ${this.rootStore.authStore.accessToken}`;
-                        return this.apiClient(error.config);
+                const originalRequest = error.config;
+                if (error.response?.status === 401) {
+                    if (originalRequest.url === '/login') {
+                        console.log('Login failed -> debug remove later ');
+                        return Promise.reject(error);
+                    }
+                    if (!originalRequest._retry) {
+                        originalRequest._retry = true;
+                        originalRequest._retryCount = originalRequest._retryCount || 0;
+
+                        if (originalRequest._retryCount < 5) {
+                            originalRequest._retryCount += 1;
+                            await this.rootStore.authStore.refreshAccessToken();
+                            if (this.rootStore.authStore.accessToken) {
+                                originalRequest.headers["Authorization"] = `Bearer ${this.rootStore.authStore.accessToken}`;
+                                return this.apiClient(originalRequest);
+                            }
+                        }
                     }
                 }
                 return Promise.reject(error);

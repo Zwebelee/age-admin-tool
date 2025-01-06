@@ -14,7 +14,6 @@ export class AgeStore extends AbstractStore<Age> {
             items: observable,
             status: observable,
         });
-        this.initialize();
     }
 
     async initialize() {
@@ -33,10 +32,7 @@ export class AgeStore extends AbstractStore<Age> {
             runInAction(() => {
                 this.age = data;
                 this.items.set(data.guid, data);
-                setTimeout(() => {
-                    this.status = "loaded";
-                    console.log('lalala loaded');
-                }, 5000);
+                this.status = "loaded";
             });
         } catch (error) {
             console.error('Failed to load data', error);

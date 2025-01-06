@@ -1,6 +1,8 @@
 import {makeAutoObservable} from "mobx";
 import {getCookie, setCookie} from "../utils/cookie.ts";
 import {AuthService} from "../services/auth.service.ts";
+import {LoggerService} from "../services/logger.service.ts";
+import {RootStore} from "./root-store.ts";
 
 interface LoginCredentials {
     username: string;
@@ -11,14 +13,16 @@ export class AuthStore {
     accessToken: string = "";
     refreshToken: string | null = null;
     isLoggedIn: boolean = false;
+    rootStore: RootStore;
 
-    constructor(private authService: AuthService) {
+    constructor(rootStore: RootStore, private authService: AuthService, private logger: LoggerService) {
+        this.rootStore = rootStore;
         makeAutoObservable(this);
         this.initialize();
     }
 
     initialize() {
-        const token = getCookie('token'); //TODO <-
+        const token = getCookie('token');
         if (token) {
             this.accessToken = token;
             this.isLoggedIn = true;
@@ -37,7 +41,8 @@ export class AuthStore {
             this.accessToken = response.data.access_token;
             this.refreshToken = response.data.refresh_token;
             this.isLoggedIn = true;
-            console.log('Login successful');
+            this.logger.log('Login successful');
+            this.rootStore.initializeStoresAfterLogin()
             //TODO: save refreshtoken in cookie as well?
 
             setCookie('token', this.accessToken, {
@@ -48,7 +53,7 @@ export class AuthStore {
 
 
         } catch (error) {
-            console.error("Login failed", error);
+            this.logger.error("Login failed", error);
         }
     }
 
@@ -57,7 +62,7 @@ export class AuthStore {
             const response = await this.authService.getApiClient().post('/refresh', {token: this.refreshToken});
             this.accessToken = response.data.access_token;
         } catch (error) {
-            console.error("Failed to refresh token", error);
+            this.logger.error("Failed to refresh token", error);
             await this.logout();
         }
     }
@@ -66,7 +71,7 @@ export class AuthStore {
         try {
             const response = await this.authService.getApiClient().delete('/logout');
             if (response.status !== 200) {
-                console.error('Failed to logout', response);
+                this.logger.error('Failed to logout', response);
             } else {
                 this.resetUserSession();
                 setCookie('token', '', {
@@ -74,7 +79,7 @@ export class AuthStore {
                 })
             }
         } catch (error) {
-            console.error("Login failed", error);
+            this.logger.error("Login failed", error);
             this.resetUserSession()
         }
     }
@@ -94,36 +99,3 @@ export class AuthStore {
         }
     }
 }
-
-
-//TODO: CONTINUE HERE
-//  check / refresh auth functions!
-
-// checkAuth() {
-//     const token = localStorage.getItem('token');
-//     if (token) {
-//         this.token = token;
-//         this.isAuthenticated = true;
-//     } else {
-//         this.isAuthenticated = false;
-//     }
-// }
-
-
-// const App = observer(() => {
-//     useEffect(() => {
-//         authStore.checkAuth();
-//     }, []);
-//
-//     return (
-//         <Router>
-//             <Switch>
-//                 <Route path="/login" component={Login} />
-//     <ProtectedRoute path="/dashboard" component={Dashboard} />
-//     <Redirect from="/" to="/dashboard" />
-//         </Switch>
-//         </Router>
-// );
-// });
-//
-// export default App;

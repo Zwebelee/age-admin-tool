@@ -15,7 +15,6 @@ export class PortalGroupStore extends AbstractStore<PortalGroup> {
             items: observable,
             filters: observable
         });
-        this.initialize();
     }
 
     async initialize() {
