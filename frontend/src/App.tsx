@@ -1,5 +1,5 @@
 import {Suspense, useState, useEffect, useRef} from "react";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 
@@ -163,6 +163,7 @@ const AppObserver = observer(() => {
                                                    element={<h1>This is the secret screen only available when logged
                                                        in</h1>}/>
                                         </Route>
+                                        <Route path="*" element={<Navigate to="/" replace />} /> {/* Catch-all route */}
                                     </Routes>
                                 </div>
                                 <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>
