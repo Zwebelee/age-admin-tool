@@ -1,5 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {getCookie, setCookie} from "../utils/cookie.ts";
+import {deleteCookie, getCookie, setCookie} from "../utils/cookie.ts";
 import {AuthService} from "../services/auth.service.ts";
 import {LoggerService} from "../services/logger.service.ts";
 import {RootStore} from "./root-store.ts";
@@ -10,7 +10,10 @@ interface LoginCredentials {
 }
 
 export class AuthStore {
-    accessToken: string = "";
+    private static readonly TOKEN_COOKIE_NAME = 'token';
+    private static readonly REFRESH_TOKEN_COOKIE_NAME = 'refresh_token';
+
+    accessToken: string | null = null;
     refreshToken: string | null = null;
     isLoggedIn: boolean = false;
     rootStore: RootStore;
@@ -22,16 +25,21 @@ export class AuthStore {
     }
 
     initialize() {
-        const token = getCookie('token');
+        const token = getCookie(AuthStore.TOKEN_COOKIE_NAME);
         if (token) {
             this.accessToken = token;
             this.isLoggedIn = true;
+            this.logger.log('debug -> is logged in an token', token, this.isLoggedIn);
+            // Ensure RootStore is fully initialized on site reload
+            Promise.resolve().then(() => {
+                this.rootStore.initializeStoresAfterLogin();
+            });
         }
     }
 
     private resetUserSession() {
-        this.accessToken = "";
-        this.refreshToken = null;
+        deleteCookie(AuthStore.TOKEN_COOKIE_NAME);
+        deleteCookie(AuthStore.REFRESH_TOKEN_COOKIE_NAME);
         this.isLoggedIn = false;
     }
 
@@ -43,15 +51,24 @@ export class AuthStore {
             this.isLoggedIn = true;
             this.logger.log('Login successful');
             this.rootStore.initializeStoresAfterLogin()
-            //TODO: save refreshtoken in cookie as well?
 
-            setCookie('token', this.accessToken, {
-                expires: 15 *60,
-                secure: true,
-                sameSite: 'strict'
-            })
+            //TODO: accesstoken -> better save in session storage
+            if (this.accessToken) {
+                setCookie(AuthStore.TOKEN_COOKIE_NAME, this.accessToken, {
+                    expires: 15 * 60, // 15 minutes
+                    secure: true,
+                    sameSite: 'strict'
+                });
+            }
 
-
+            if (this.refreshToken) {
+                setCookie(AuthStore.REFRESH_TOKEN_COOKIE_NAME, this.refreshToken, {
+                    expires: 7 * 24 * 60 * 60, // 7 days
+                    secure: true,
+                    sameSite: 'strict',
+                    httpOnly: true
+                });
+            }
         } catch (error) {
             this.logger.error("Login failed", error);
         }
