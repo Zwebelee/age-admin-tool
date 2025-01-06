@@ -29,7 +29,8 @@ export const SignInMask = observer(({redirectUrl = "/"}: SignInMaskProps) => {
         setPasswordError(false);
     }, []);
 
-    const handleLogin = async () => {
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
         let hasError = false;
         if (!username) {
             setUsernameError(true);
@@ -78,44 +79,48 @@ export const SignInMask = observer(({redirectUrl = "/"}: SignInMaskProps) => {
                     </Typography>
                 )}
                 {!signinSuccess && (
-                    <FormControl fullWidth>
-                        <TextField
-                            label={t("username")}
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                            slotProps={{
-                                inputLabel: {sx: {color: 'grey'}}
-                            }}
-                            error={usernameError}
-                        />
-                        <TextField
-                            label={t("password")}
-                            type="password"
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            slotProps={{
-                                inputLabel: {sx: {color: 'grey'}}
-                            }}
-                            error={passwordError}
-                        />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                            onClick={handleLogin}
-                            sx={{mt: 2}}
-                        >
-                            {t("login.title")}
-                        </Button>
-                    </FormControl>
+                    <form onSubmit={handleLogin} style={{width: "100%"}}>
+                        <FormControl fullWidth>
+                            <TextField
+                                label={t("username")}
+                                variant="outlined"
+                                margin="normal"
+                                fullWidth
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                                slotProps={{
+                                    inputLabel: {sx: {color: 'grey'}}
+                                }}
+                                error={usernameError}
+                                autoComplete="username"
+                            />
+                            <TextField
+                                label={t("password")}
+                                type="password"
+                                variant="outlined"
+                                margin="normal"
+                                fullWidth
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                slotProps={{
+                                    inputLabel: {sx: {color: 'grey'}}
+                                }}
+                                error={passwordError}
+                                autoComplete="current-password"
+                            />
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                                sx={{mt: 2}}
+                            >
+                                {t("login.title")}
+                            </Button>
+                        </FormControl>
+                    </form>
                 )}
             </Box>
         </Container>
