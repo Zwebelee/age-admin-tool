@@ -1,12 +1,14 @@
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
-import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInputComponentOutlined";
 import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
+import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInputComponentOutlined";
+
 
 export const ComponentsScreen = () => {
 
+    /* Inside Box */
     const { t } = useTranslation();
     const { ageWebAdaptorStore, ageServerStore, agePortalStore, ageDataStoreStore } = useRootStore();
 
@@ -66,6 +68,23 @@ export const ComponentsScreen = () => {
         id: false,
     };
 
+
+    /* Overview Box */
+    const dataBlock = [{
+        name: "DataStore",
+        value: ageDataStoreStore.visibleItems.length,
+    }, {
+        name: "Portal",
+        value: agePortalStore.visibleItems.length,
+    }, {
+        name: "Server",
+        value: ageServerStore.visibleItems.length,
+    }, {
+        name: "WebAdaptor",
+        value: ageWebAdaptorStore.visibleItems.length,
+    }];
+
+
     return (
         <>
             <OverviewBox
@@ -73,10 +92,7 @@ export const ComponentsScreen = () => {
                 icon={<SettingsInputComponentOutlinedIcon fontSize="large"/>}
                 color="--color6"
                 link={false}
-                data={[{
-                    name: "users",
-                    value: 12458,
-                }]}
+                data={dataBlock}
             ></OverviewBox>
             <InsideBox
                 color="--color6"

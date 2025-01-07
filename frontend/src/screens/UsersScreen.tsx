@@ -1,3 +1,4 @@
+import {observer} from "mobx-react-lite";
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
 import {UsersScreenFilters} from "../components/inside/filters/UsersScreenFilters.tsx";
@@ -5,13 +6,13 @@ import {useRootStore} from "../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
 import {GridColDef} from "@mui/x-data-grid";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import {observer} from "mobx-react-lite";
 
 
 export const UsersScreen = observer(() => {
 
     /* Overview Box */
     const {portalLicenseStore} = useRootStore()
+
     const usersBoxData = portalLicenseStore.visibleItems.map(item => {
         return {
             name: item.name,
@@ -19,13 +20,16 @@ export const UsersScreen = observer(() => {
             maxValue: item.maxusers
         }
     })
+
     const totalUsers = usersBoxData.reduce((total, current) => total + current.value, 0);
     const totalMaxUsers = usersBoxData.reduce((total, current) => total + current.maxValue, 0);
+
     usersBoxData.unshift({
         name: "Users",
         value: totalUsers,
         maxValue: totalMaxUsers
     });
+
 
     /* Inside Box */
     const { t } = useTranslation();
