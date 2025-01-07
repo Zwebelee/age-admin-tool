@@ -1,5 +1,11 @@
 import {CircularProgress} from "@mui/material";
+import "./Loading.scss";
+
 
 export const Loading = () => {
-    return <CircularProgress/>
+    return (
+        <div className="loading">
+            <CircularProgress/>
+        </div>
+    )
 }

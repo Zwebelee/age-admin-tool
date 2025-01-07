@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
 import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
+import {NoFilters} from "../components/inside/filters/NoFilters.tsx";
 
 export const GroupsScreen = () => {
 
@@ -51,8 +52,23 @@ export const GroupsScreen = () => {
                 color="--color5"
                 link={false}
                 data={[{
-                    name: "users",
-                    value: 12458,
+                    name: "Groups",
+                    value: 242,
+                },{
+                    name: "Administrativ",
+                    value: 56,
+                }, {
+                    name: "Kollaborations",
+                    value: 6,
+                }, {
+                    name: "Project",
+                    value: 156,
+                }, {
+                    name: "Public",
+                    value: 10,
+                }, {
+                    name: "Organisation",
+                    value: 27,
                 }]}
             ></OverviewBox>
             <InsideBox
@@ -60,6 +76,7 @@ export const GroupsScreen = () => {
                 rows={rows}
                 columns={columns}
                 hiddenColumns={hiddenColumns}
+                filter={<NoFilters/>}
             ></InsideBox>
         </>
     );
