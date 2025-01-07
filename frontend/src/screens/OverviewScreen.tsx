@@ -17,10 +17,22 @@ export const OverviewScreen = observer(() => {
             {portalLicenseStore.isLoading ? <Loading/> : (
                 portalLicenseStore.isLoaded && <OverviewBoxUser />
             )}
-            <OverviewBoxContent/>
-            <OverviewBoxTask/>
-            <OverviewBoxGroups/>
-            <OverviewBoxAgeComponents/>
+
+            {portalLicenseStore.isLoading ? <Loading/> : (
+                portalLicenseStore.isLoaded && <OverviewBoxContent/>
+            )}
+
+            {portalLicenseStore.isLoading ? <Loading/> : (
+                portalLicenseStore.isLoaded && <OverviewBoxTask/>
+            )}
+
+            {portalLicenseStore.isLoading ? <Loading/> : (
+                portalLicenseStore.isLoaded && <OverviewBoxGroups/>
+            )}
+
+            {portalLicenseStore.isLoading ? <Loading/> : (
+                portalLicenseStore.isLoaded && <OverviewBoxAgeComponents/>
+            )}
         </div>
     );
 });
