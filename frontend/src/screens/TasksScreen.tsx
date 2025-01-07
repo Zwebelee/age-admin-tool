@@ -11,8 +11,17 @@ export const TasksScreen = () => {
                 color="--color4"
                 link={false}
                 data={[{
-                    name: "users",
-                    value: 12458,
+                    name: "Critical",
+                    value: 4,
+                }, {
+                    name: "Warning",
+                    value: 14,
+                }, {
+                    name: "Information",
+                    value: 31,
+                }, {
+                    name: "News",
+                    value: 3,
                 }]}
             ></OverviewBox>
             <InsideBox
