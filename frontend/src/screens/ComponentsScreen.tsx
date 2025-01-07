@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
 import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInputComponentOutlined";
+import {NoFilters} from "../components/inside/filters/NoFilters.tsx";
 
 
 export const ComponentsScreen = () => {
@@ -99,6 +100,7 @@ export const ComponentsScreen = () => {
                 rows={rows}
                 columns={columns}
                 hiddenColumns={hiddenColumns}
+                filter={<NoFilters/>}
             ></InsideBox>
         </>
     );
