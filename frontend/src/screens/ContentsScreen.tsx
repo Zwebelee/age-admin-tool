@@ -52,8 +52,14 @@ export const ContentsScreen = () => {
                 color="--color3"
                 link={false}
                 data={[{
-                    name: "users",
+                    name: "Items",
                     value: 12458,
+                }, {
+                    name: "Official",
+                    value: 3251,
+                }, {
+                    name: "Inofficial",
+                    value: 2251,
                 }]}
             ></OverviewBox>
             <InsideBox
