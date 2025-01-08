@@ -47,6 +47,8 @@ export class AuthStore {
                     });
                 }
             })
+        } else {
+            this.isLoading = false;
         }
     }
 
