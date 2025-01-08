@@ -32,6 +32,7 @@ export class AuthService {
                         console.log('Login failed -> debug remove later ');
                         return Promise.reject(error);
                     }
+                    //TODO: catch the 401 from validate-token
                     if (!originalRequest._retry) {
                         originalRequest._retry = true;
                         originalRequest._retryCount = originalRequest._retryCount || 0;

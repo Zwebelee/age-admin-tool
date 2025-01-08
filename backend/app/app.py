@@ -24,6 +24,7 @@ from .routes.taskcomments import taskcomments_bp
 from .routes.taskrules import taskrules_bp
 from .routes.tasks import tasks_bp
 from .routes.toolusers import toolusers_bp
+from .routes.validatetoken import validatetoken_bp
 from .utils.load_sample_data import init_all_sample_data
 
 
@@ -83,6 +84,7 @@ def register_blueprints(app):
     app.register_blueprint(tasks_bp)
     app.register_blueprint(taskrules_bp)
     app.register_blueprint(taskcomments_bp)
+    app.register_blueprint(validatetoken_bp)
     return None
 
 

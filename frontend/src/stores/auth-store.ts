@@ -16,6 +16,8 @@ export class AuthStore {
     accessToken: string | null = null;
     refreshToken: string | null = null;
     isLoggedIn: boolean = false;
+    isLoading: boolean = true;
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore, private authService: AuthService, private logger: LoggerService) {
@@ -26,14 +28,25 @@ export class AuthStore {
 
     initialize() {
         const token = getCookie(AuthStore.TOKEN_COOKIE_NAME);
+        this.logger.log('debug -> auth-initialize -> accesstoken?', !!token); //TODO <- cleanup
         if (token) {
-            this.accessToken = token;
-            this.isLoggedIn = true;
-            this.logger.log('debug -> is logged in an token', token, this.isLoggedIn);
-            // Ensure RootStore is fully initialized on site reload
-            Promise.resolve().then(() => {
-                this.rootStore.initializeStoresAfterLogin();
-            });
+            // check if the token is valid
+            this.validateToken(token).then((isValid) => {
+                if(!isValid) {
+                    this.logger.log('debug -> is not valid token'); //TODO <- cleanup
+                    this.resetUserSession();
+                } else {
+                    this.logger.log('debug -> is valid token'); //TODO <- cleanup
+                    this.accessToken = token;
+                    this.isLoggedIn = true;
+                    this.logger.log('debug -> is logged in an token', token, this.isLoggedIn); //TODO <- cleanup
+                    // Ensure RootStore is fully initialized on site reload
+                    Promise.resolve().then(() => {
+                        this.rootStore.initializeStoresAfterLogin();
+                        this.isLoading = false;
+                    });
+                }
+            })
         }
     }
 
@@ -41,6 +54,7 @@ export class AuthStore {
         deleteCookie(AuthStore.TOKEN_COOKIE_NAME);
         deleteCookie(AuthStore.REFRESH_TOKEN_COOKIE_NAME);
         this.isLoggedIn = false;
+        this.accessToken = null;
     }
 
     async login(loginCredentials: LoginCredentials) {
@@ -113,6 +127,33 @@ export class AuthStore {
                 return error.response.status;
             }
             return -1; // Return -1 for unexpected errors
+        }
+    }
+
+    async validateToken(token: string): Promise<boolean> {
+        this.logger.log('debug -> validate token function') //TODO <- cleanup
+        if (!token) {
+            await this.logout();
+            return false;
+        }
+        try {
+            const response = await this.authService.getApiClient().post('/validate-token', {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.status === 200) {
+                this.accessToken = token;
+                this.isLoggedIn = true;
+                return true;
+            } else {
+                await this.logout();
+                return false;
+            }
+        } catch (error) {
+            this.logger.error("Token validation failed", error);
+            await this.logout();
+            return false;
         }
     }
 }
