@@ -1,7 +1,9 @@
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
-import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import {NoFilters} from "../components/inside/filters/NoFilters.tsx";
+import {NoCharts} from "../components/inside/charts/NoCharts.tsx";
+import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
+
 
 export const TasksScreen = () => {
     return (
@@ -31,6 +33,7 @@ export const TasksScreen = () => {
                 columns={[]}
                 hiddenColumns={[]}
                 filter={<NoFilters/>}
+                charts={<NoCharts/>}
             ></InsideBox>
         </>
     );

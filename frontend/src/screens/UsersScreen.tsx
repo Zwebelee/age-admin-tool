@@ -1,7 +1,8 @@
-import {observer} from "mobx-react-lite";
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
 import {UsersScreenFilters} from "../components/inside/filters/UsersScreenFilters.tsx";
+import {UsersScreenCharts} from "../components/inside/charts/UsersScreenCharts.tsx";
+import {observer} from "mobx-react-lite";
 import {useRootStore} from "../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
 import {GridColDef} from "@mui/x-data-grid";
@@ -97,6 +98,7 @@ export const UsersScreen = observer(() => {
                 columns={columns}
                 hiddenColumns={hiddenColumns}
                 filter={<UsersScreenFilters/>}
+                charts={<UsersScreenCharts/>}
             ></InsideBox>
         </>
     );

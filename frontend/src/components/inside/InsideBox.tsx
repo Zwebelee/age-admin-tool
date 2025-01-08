@@ -14,10 +14,11 @@ interface InsideBoxProps {
     columns: GridColDef[];
     hiddenColumns: any;
     filter: JSX.Element;
+    charts: JSX.Element;
 }
 
 
-export const InsideBox = ({ color, rows, columns, hiddenColumns, filter }: InsideBoxProps) => {
+export const InsideBox = ({ color, rows, columns, hiddenColumns, filter, charts }: InsideBoxProps) => {
 
     const [innerView, setInnerView] = useState("table");
     const [filterView, setFilterView] = useState(false);
@@ -50,6 +51,7 @@ export const InsideBox = ({ color, rows, columns, hiddenColumns, filter }: Insid
                 color={color}
                 display={innerView === "charts"}
                 filterView={filterView}
+                charts={charts}
             ></DataCharts>
             <DataView
                 viewSwitch={viewSwitch}
