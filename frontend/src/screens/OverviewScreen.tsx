@@ -8,28 +8,31 @@ import {OverviewBoxTask} from "../components/overview/OverviewBoxTask.tsx";
 import {OverviewBoxGroups} from "../components/overview/OverviewBoxGroups.tsx";
 import {OverviewBoxAgeComponents} from "../components/overview/OverviewBoxAgeComponents.tsx";
 
-export const OverviewScreen = observer(() => {
-    const {portalLicenseStore} = useRootStore()
 
+export const OverviewScreen = observer(() => {
+
+    const {portalLicenseStore, portalItemStore, portalGroupStore} = useRootStore()
 
     return (
         <div className="overviewScreen">
             {portalLicenseStore.isLoading ? <Loading/> : (
-                portalLicenseStore.isLoaded && <OverviewBoxUser />
+                portalLicenseStore.isLoaded && <OverviewBoxUser/>
             )}
 
-            {portalLicenseStore.isLoading ? <Loading/> : (
-                portalLicenseStore.isLoaded && <OverviewBoxContent/>
+            {portalItemStore.isLoading ? <Loading/> : (
+                portalItemStore.isLoaded && <OverviewBoxContent/>
             )}
 
+            {/* Todo: Add taskStore */}
             {portalLicenseStore.isLoading ? <Loading/> : (
                 portalLicenseStore.isLoaded && <OverviewBoxTask/>
             )}
 
-            {portalLicenseStore.isLoading ? <Loading/> : (
-                portalLicenseStore.isLoaded && <OverviewBoxGroups/>
+            {portalGroupStore.isLoading ? <Loading/> : (
+                portalGroupStore.isLoaded && <OverviewBoxGroups/>
             )}
 
+            {/* Todo: Add ageDataStoreStore, agePortalStore, ageServerStore, ageWebAdaptorStore */}
             {portalLicenseStore.isLoading ? <Loading/> : (
                 portalLicenseStore.isLoaded && <OverviewBoxAgeComponents/>
             )}
