@@ -6,6 +6,7 @@ import {makeObservable, observable} from "mobx";
 
 export class TaskStore extends AbstractStore<Task> {
     items = observable.map<string, Task>();
+    selectedItem: Task | null = null;
 
     constructor(authService: AuthService) {
         super(authService);
