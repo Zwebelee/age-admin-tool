@@ -1,6 +1,5 @@
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
-import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import {NoFilters} from "../components/inside/filters/NoFilters.tsx";
 import {useRootStore} from "../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
@@ -9,12 +8,14 @@ import {TaskDetailsDialog} from "../components/tasks/TaskDetails.tsx";
 import {useTranslation} from "react-i18next";
 import {Button} from "@mui/material";
 import {GridColDef} from "@mui/x-data-grid";
+import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
+
 
 export const TasksScreen = observer(() => {
+    
     const {t} = useTranslation();
     const {taskStore} = useRootStore()
     const [open, setOpen] = useState(false);
-
 
     const handleDialogOpen = (guid: string) => {
         const selectedTask = taskStore.items.get(guid);
@@ -30,7 +31,7 @@ export const TasksScreen = observer(() => {
     };
 
     const detailButton = (params: any) => {
-        return <Button variant="contained" onClick={() => handleDialogOpen(params.row.guid)}>Details</Button>;
+        return <Button variant="contained" onClick={() => handleDialogOpen(params.row.guid)}>{t("details")}</Button>;
     };
 
     const rows = taskStore.visibleItems.map((item) => ({
@@ -39,32 +40,29 @@ export const TasksScreen = observer(() => {
     }));
 
     const columns: GridColDef[] = [
-        { field: "id", headerName: "ID", width: 80 },
-        { field: "details", headerName: 'Details', width: 180, renderCell: detailButton },
-        { field: "title", headerName: t('title'), width: 180 },
-        { field: "description", headerName: t('description'), width: 180 },
-        { field: "status", headerName: t('status'), width: 180 },
-        { field: "priority", headerName: t('priority'), width: 180 },
-        { field: "assigned_to", headerName: t('assignedTo'), width: 180 },
-        { field: "created_at", headerName: t('createdAt'), width: 180 },
-        { field: "updated_at", headerName: t('updatedAt'), width: 180 },
-        { field: "linked_object_guid", headerName: t('linkedObjectGuid'), width: 180 },
-        { field: "linked_object_type", headerName: t('linkedObjectType'), width: 180 },
-        { field: "guid", headerName: "GUID", width: 180 },
-        { field: "task_rule_guid", headerName: t('taskRuleGuid'), width: 180 },
+        { field: "id",                 headerName: "ID",                         width: 320 },
+        { field: "guid",               headerName: "GUID",                       width: 320 },
+        { field: "task_rule_guid",     headerName: t("task-rule-guid"),     width: 320 },
+        { field: "details",            headerName: t("details"),            width: 120, renderCell: detailButton },
+        { field: "title",              headerName: t("title"),              width: 320 },
+        { field: "description",        headerName: t("description"),        width: 550 },
+        { field: "status",             headerName: t("status"),             width: 180 },
+        { field: "priority",           headerName: t("priority"),           width: 180 },
+        { field: "assigned_to",        headerName: t("assigned-to"),        width: 320 },
+        { field: "created_at",         headerName: t("created"),            width: 280 },
+        { field: "updated_at",         headerName: t("modified"),           width: 280 },
+        { field: "linked_object_guid", headerName: t("linked-object-guid"), width: 320 },
+        { field: "linked_object_type", headerName: t("linked-object-type"), width: 240 },
 
     ];
 
     const hiddenColumns = {
         id: false,
-        created_at: false,
-        updated_at: false,
-        linked_object_guid: false,
-        linked_object_type: false,
         guid: false,
         task_rule_guid: false,
+        linked_object_guid: false,
+        linked_object_type: false,
     }
-
 
     return (
         <>
