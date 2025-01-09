@@ -9,6 +9,7 @@ import {useTranslation} from "react-i18next";
 import {Button} from "@mui/material";
 import {GridColDef} from "@mui/x-data-grid";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 
 export const TasksScreen = observer(() => {
@@ -31,7 +32,13 @@ export const TasksScreen = observer(() => {
     };
 
     const detailButton = (params: any) => {
-        return <Button variant="contained" onClick={() => handleDialogOpen(params.row.guid)}>{t("details")}</Button>;
+        return (
+            <Button
+                size="small"
+                variant="contained"
+                onClick={() => handleDialogOpen(params.row.guid)}
+            ><InfoOutlinedIcon/></Button>
+        );
     };
 
     const rows = taskStore.visibleItems.map((item) => ({
@@ -43,7 +50,7 @@ export const TasksScreen = observer(() => {
         { field: "id",                 headerName: "ID",                         width: 320 },
         { field: "guid",               headerName: "GUID",                       width: 320 },
         { field: "task_rule_guid",     headerName: t("task-rule-guid"),     width: 320 },
-        { field: "details",            headerName: t("details"),            width: 120, renderCell: detailButton },
+        { field: "details",            headerName: t("details"),            width: 85, renderCell: detailButton },
         { field: "title",              headerName: t("title"),              width: 320 },
         { field: "description",        headerName: t("description"),        width: 550 },
         { field: "status",             headerName: t("status"),             width: 180 },
