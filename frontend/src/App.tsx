@@ -28,7 +28,7 @@ import {SignInScreen} from "./screens/SignInScreen.tsx";
 
 const AppObserver = observer(() => {
 
-    const {themeStore, authStore} = useRootStore()
+    const {themeStore, authStore} = useRootStore();
 
     const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
     const color1 = getColor("--color1");

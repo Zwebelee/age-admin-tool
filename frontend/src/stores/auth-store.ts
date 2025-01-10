@@ -3,6 +3,7 @@ import {deleteCookie, getCookie, setCookie} from "../utils/cookie.ts";
 import {AuthService} from "../services/auth.service.ts";
 import {LoggerService} from "../services/logger.service.ts";
 import {RootStore} from "./root-store.ts";
+import {jwtDecode, JwtPayload} from 'jwt-decode';
 
 interface LoginCredentials {
     username: string;
@@ -52,48 +53,87 @@ export class AuthStore {
         }
     }
 
-    private resetUserSession() {
+    private clearCookies(){
         deleteCookie(AuthStore.TOKEN_COOKIE_NAME);
         deleteCookie(AuthStore.REFRESH_TOKEN_COOKIE_NAME);
-        this.isLoggedIn = false;
+    }
+
+    private resetUserSession() {
+        this.clearCookies();
         this.accessToken = null;
+        this.refreshToken = null;
+        this.isLoggedIn = false;
+    }
+
+    private setAuthCookie(){
+        //TODO: accesstoken -> better save in session storage / memory
+        if (this.accessToken) {
+            setCookie(AuthStore.TOKEN_COOKIE_NAME, this.accessToken, {
+                expires: this.getJwtExpiration(this.accessToken) ?? 15*60, // 15 minutes
+                secure: true,
+                sameSite: 'strict'
+            });
+
+        }
+
+        if (this.refreshToken) {
+            setCookie(AuthStore.REFRESH_TOKEN_COOKIE_NAME, this.refreshToken, {
+                expires: this.getJwtExpiration(this.refreshToken) ?? 7 * 24 * 60 * 60, // 7 days
+                secure: true,
+                sameSite: 'strict',
+                httpOnly: true
+            });
+        }
+
+    }
+
+    private decodeJwtToken(token: string): JwtPayload | null {
+        try {
+            return jwtDecode<JwtPayload>(token);
+        } catch (error) {
+            this.logger.error('Failed to decode JWT token', error);
+            return null;
+        }
+    }
+
+    private getJwtExpiration(token: string): number | null {
+        const decodedToken = this.decodeJwtToken(token);
+        if (decodedToken) {
+            if(decodedToken.exp && decodedToken.iat ) {
+                return decodedToken.exp - decodedToken.iat
+            }
+            return null
+        }
+        return null;
     }
 
     async login(loginCredentials: LoginCredentials) {
+
         try {
             const response = await this.authService.getApiClient().post('/login', loginCredentials);
             this.accessToken = response.data.access_token;
             this.refreshToken = response.data.refresh_token;
+            this.setAuthCookie()
+
             this.isLoggedIn = true;
             this.logger.log('Login successful');
             this.rootStore.initializeStoresAfterLogin()
-
-            //TODO: accesstoken -> better save in session storage
-            if (this.accessToken) {
-                setCookie(AuthStore.TOKEN_COOKIE_NAME, this.accessToken, {
-                    expires: 15 * 60, // 15 minutes
-                    secure: true,
-                    sameSite: 'strict'
-                });
-            }
-
-            if (this.refreshToken) {
-                setCookie(AuthStore.REFRESH_TOKEN_COOKIE_NAME, this.refreshToken, {
-                    expires: 7 * 24 * 60 * 60, // 7 days
-                    secure: true,
-                    sameSite: 'strict',
-                    httpOnly: true
-                });
-            }
         } catch (error) {
             this.logger.error("Login failed", error);
         }
     }
 
     async refreshAccessToken() {
+        console.log('trying to refresh the token')
         try {
-            const response = await this.authService.getApiClient().post('/refresh', {token: this.refreshToken});
+            const response = await this.authService.getApiClient().post('/refresh', {}, {
+                headers: {
+                    'Authorization': `Bearer ${this.refreshToken}`
+                }
+            });
+            console.log('refresh token response', response)
             this.accessToken = response.data.access_token;
+            console.log('accesstoken is refreshed')
         } catch (error) {
             this.logger.error("Failed to refresh token", error);
             await this.logout();
@@ -134,7 +174,9 @@ export class AuthStore {
 
     async validateToken(token: string): Promise<boolean> {
         this.logger.log('debug -> validate token function') //TODO <- cleanup
+
         if (!token) {
+            this.logger.log('debug ->>>>>>>>>>> no token');
             await this.logout();
             return false;
         }
@@ -150,6 +192,7 @@ export class AuthStore {
                 return true;
             } else {
                 await this.logout();
+                this.logger.error('token is not expred but not valid anymore!')
                 return false;
             }
         } catch (error) {
