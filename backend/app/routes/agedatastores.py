@@ -1,6 +1,8 @@
 import uuid
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
+
 from ..models.agecomponent import Agecomponent
 from ..models.agedatastore import Agedatastore
 from ..db import db
@@ -11,6 +13,7 @@ agedatastores_bp = Blueprint('agedatastores', __name__)
 
 
 @agedatastores_bp.route('/agedatastores', methods=['GET'])
+# @jwt_required()
 @swag_from({
     'tags': ['AGE - Datastore', 'AGE'],
     'responses': {
@@ -32,6 +35,15 @@ agedatastores_bp = Blueprint('agedatastores', __name__)
                 }
             }
         },
+        401: {
+            'description': 'Unauthorized',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'}
+                }
+            }
+        },
         404: {
             'description': 'Agedatastore not found',
             'schema': {
@@ -49,6 +61,7 @@ def get_agedatastores():
 
 
 @agedatastores_bp.route('/agedatastores', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
@@ -126,6 +139,7 @@ def create_agedatastore():
 
 
 @agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
@@ -172,6 +186,7 @@ def get_agedatastore(guid):
 
 
 @agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [
@@ -251,6 +266,7 @@ def update_agedatastore(guid):
 
 
 @agedatastores_bp.route('/agedatastores/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Datastore', 'AGE'],
     'parameters': [

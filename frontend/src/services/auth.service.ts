@@ -39,14 +39,18 @@ export class AuthService {
                         console.log('Logout no clean-> debug remove later ');
                         return Promise.reject(error);
                     }
+                    if(originalRequest.url === '/refresh'){
+                        return Promise.reject(error);
+                    }
                     console.log('401 error -> i would try to refresh the token -> debug remove later');
-                    //TODO: catch the 401 from validate-token
+                    console.log('url:', originalRequest.url);
 
                     try {
                         await this.rootStore.authStore.refreshAccessToken();
                         originalRequest.headers["Authorization"] = `Bearer ${this.rootStore.authStore.accessToken}`;
                         return this.apiClient(originalRequest);
                     } catch (refreshError) {
+                        console.log("axios errored")
                         await this.rootStore.authStore.logout();
                         return Promise.reject(refreshError);
                     }
