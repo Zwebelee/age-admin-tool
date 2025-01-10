@@ -5,7 +5,7 @@ import {
     DialogContent,
     DialogTitle,
     FormControl,
-    FormControlLabel, List, ListItem, ListItemText,
+    FormControlLabel, FormLabel, List, ListItem, ListItemText,
     MenuItem,
     Select,
     Typography,
@@ -175,13 +175,15 @@ export const TaskDetailsDialog = ({open, onClose}: TaskDetailsDialogProps) => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <form>
-                                    <FormControl>
+                                    <FormControl sx={{marginBottom: "1rem"}}>
+                                        <FormLabel component="legend">{t("status")}</FormLabel>
                                         <FormControlLabel
                                             control={<Checkbox name="completed"/>}
-                                            label="Completed"
+                                            label={t("completed")}
                                         />
                                     </FormControl>
                                     <FormControl fullWidth>
+                                        <FormLabel component="legend" sx={{marginBottom: "0.5rem"}}>{t("assigned-to")}</FormLabel>
                                         <Select
                                             value={assignedTo}
                                             onChange={handleAssignedToChange}
@@ -189,7 +191,7 @@ export const TaskDetailsDialog = ({open, onClose}: TaskDetailsDialogProps) => {
                                             inputProps={{"aria-label": "Assigned To"}}
                                         >
                                             <MenuItem value="">
-                                                <em>None</em>
+                                                <em>{t("none")}</em>
                                             </MenuItem>
                                             {toolUsers.map(user => (
                                                 <MenuItem key={user.guid} value={user.guid}>
