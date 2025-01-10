@@ -13,7 +13,7 @@ agedatastores_bp = Blueprint('agedatastores', __name__)
 
 
 @agedatastores_bp.route('/agedatastores', methods=['GET'])
-# @jwt_required()
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Datastore', 'AGE'],
     'responses': {

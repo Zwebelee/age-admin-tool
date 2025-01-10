@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 validatetoken_bp = Blueprint('validate-token', __name__)
 
+
 @validatetoken_bp.route('/validate-token', methods=['POST'])
 @jwt_required()
 @swag_from({

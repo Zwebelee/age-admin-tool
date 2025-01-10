@@ -1,5 +1,7 @@
 from flasgger import swag_from
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required
+
 from app.models.portallicense import Portallicense
 from ..db import db
 import uuid
@@ -8,6 +10,7 @@ portallicenses_bp = Blueprint('portallicenses', __name__)
 
 
 @portallicenses_bp.route('/portallicenses', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'responses': {
@@ -38,6 +41,7 @@ def get_portallicenses():
 
 
 @portallicenses_bp.route('/portallicenses', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
@@ -97,6 +101,7 @@ def create_portallicense():
 
 
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
@@ -141,6 +146,7 @@ def get_portallicense(guid):
 
 
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [
@@ -225,6 +231,7 @@ def update_portallicense(guid):
 
 
 @portallicenses_bp.route('/portallicenses/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Licenses', 'AGE', 'AGE - Portal'],
     'parameters': [

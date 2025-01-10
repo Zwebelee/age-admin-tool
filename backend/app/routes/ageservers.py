@@ -2,6 +2,7 @@ import uuid
 
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
 
 from ..models.agecomponent import Agecomponent
 from ..models.ageserver import Ageserver
@@ -13,6 +14,7 @@ ageservers_bp = Blueprint('ageservers', __name__)
 
 
 @ageservers_bp.route('/ageservers', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'responses': {
@@ -44,6 +46,7 @@ def get_ageservers():
 
 
 @ageservers_bp.route('/ageservers', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
@@ -118,6 +121,7 @@ def create_ageserver():
 
 
 @ageservers_bp.route('/ageservers/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
@@ -163,6 +167,7 @@ def get_ageserver(guid):
 
 
 @ageservers_bp.route('/ageservers/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
@@ -239,6 +244,7 @@ def update_ageserver(guid):
 
 
 @ageservers_bp.route('/ageservers/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Servers', 'AGE'],
     'parameters': [
