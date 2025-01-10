@@ -59,7 +59,10 @@ export class AuthStore {
                 this.refreshCsrfToken = refresh_csrf_token;
                 try {
                     await this.refreshAccessToken();
-                    this.isLoading = false;
+                    Promise.resolve().then(() => {
+                        this.rootStore.initializeStoresAfterLogin();
+                        this.isLoading = false;
+                    });
                 } catch (error) {
                     this.logger.error('Refreshing failed', error)
                     this.isLoading = false;
