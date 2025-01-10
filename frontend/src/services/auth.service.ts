@@ -32,11 +32,9 @@ export class AuthService {
                 const originalRequest = error.config;
                 if (error.response?.status === 401) {
                     if (originalRequest.url === '/login') {
-                        console.log('Login failed -> debug remove later ');
                         return Promise.reject(error);
                     }
                     if (originalRequest.url === '/logout') {
-                        console.log('Logout no clean-> debug remove later ');
                         return Promise.reject(error);
                     }
                     if (originalRequest.url === '/refresh') {

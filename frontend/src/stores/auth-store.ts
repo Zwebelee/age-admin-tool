@@ -18,8 +18,7 @@ export class AuthStore {
 
     accessToken: string | null = null;
     refreshToken: string | null = null;
-    refresh_csrf_token: string | null = null;
-
+    refreshCsrfToken: string | null = null;
     isLoggedIn: boolean = false;
     isLoading: boolean = true;
 
@@ -28,12 +27,15 @@ export class AuthStore {
     constructor(rootStore: RootStore, private authService: AuthService, private logger: LoggerService) {
         this.rootStore = rootStore;
         makeAutoObservable(this);
-        this.initialize().then();
+        this.initialize().catch(error => {
+            this.logger.error('Initialization failed', error);
+        });
     }
 
     async initialize() {
         const token = getCookie(AuthStore.TOKEN_COOKIE_NAME);
         const refresh_csrf_token = getCookie(AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME);
+
         if (token) {
             // access token present - check if the token is valid
             this.validateToken(token).then((isValid) => {
@@ -42,7 +44,7 @@ export class AuthStore {
                     this.resetUserSession();
                 } else {
                     this.accessToken = token;
-                    this.refresh_csrf_token = refresh_csrf_token;
+                    this.refreshCsrfToken = refresh_csrf_token;
                     this.isLoggedIn = true;
 
                     // Ensure RootStore is fully initialized on site reload
@@ -54,7 +56,7 @@ export class AuthStore {
             })
         } else {
             if (refresh_csrf_token) {
-                this.refresh_csrf_token = refresh_csrf_token;
+                this.refreshCsrfToken = refresh_csrf_token;
                 try {
                     await this.refreshAccessToken();
                     this.isLoading = false;
@@ -68,9 +70,11 @@ export class AuthStore {
     }
 
     private clearCookies() {
-        deleteCookie(AuthStore.TOKEN_COOKIE_NAME);
-        deleteCookie(AuthStore.REFRESH_TOKEN_COOKIE_NAME);
-        deleteCookie(AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME);
+        [
+            AuthStore.TOKEN_COOKIE_NAME,
+            AuthStore.REFRESH_TOKEN_COOKIE_NAME,
+            AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME
+        ].forEach(deleteCookie);
     }
 
     private setAccessTokenCookie() {
@@ -80,7 +84,6 @@ export class AuthStore {
                 secure: true,
                 sameSite: 'strict'
             });
-
         }
     }
 
@@ -88,7 +91,7 @@ export class AuthStore {
         this.clearCookies();
         this.accessToken = null;
         this.refreshToken = null;
-        this.refresh_csrf_token = null;
+        this.refreshCsrfToken = null;
         this.isLoggedIn = false;
     }
 
@@ -113,11 +116,11 @@ export class AuthStore {
             });
         }
 
-        if (this.refresh_csrf_token) {
+        if (this.refreshCsrfToken) {
             const expires = this.refreshToken
                 ? (this.getJwtExpiration(this.refreshToken) ?? 7 * 24 * 60 * 60)
                 : 7 * 24 * 60 * 60;
-            setCookie(AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME, this.refresh_csrf_token, {
+            setCookie(AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME, this.refreshCsrfToken, {
                 expires: expires,
                 secure: true,
                 sameSite: 'strict'
@@ -150,7 +153,7 @@ export class AuthStore {
             const response = await this.authService.getApiClient().post('/login', loginCredentials);
             this.accessToken = response.data.access_token;
             this.refreshToken = response.data.refresh_token;
-            this.refresh_csrf_token = response.data.csrf_token;
+            this.refreshCsrfToken = response.data.csrf_token;
             this.setAuthCookie()
             this.isLoggedIn = true;
             this.rootStore.initializeStoresAfterLogin()
@@ -160,7 +163,7 @@ export class AuthStore {
     }
 
     async refreshAccessToken() {
-        if (!this.refresh_csrf_token) {
+        if (!this.refreshCsrfToken) {
             this.logger.info('No csrf-token for refresh found');
             await this.logout();
             return
@@ -169,7 +172,7 @@ export class AuthStore {
         try {
             const response = await this.authService.getApiClient().post('/refresh', {}, {
                 headers: {
-                    'X-CSRF-TOKEN': this.refresh_csrf_token
+                    'X-CSRF-TOKEN': this.refreshCsrfToken
                 }
             });
             this.accessToken = response.data.access_token;
@@ -214,6 +217,7 @@ export class AuthStore {
             await this.logout();
             return false;
         }
+
         try {
             const response = await this.authService.getApiClient().post('/validate-token', {}, {
                 headers: {
