@@ -31,7 +31,7 @@ export class AuthStore {
         this.initialize();
     }
 
-    initialize() {
+    async initialize() {
         const token = getCookie(AuthStore.TOKEN_COOKIE_NAME);
         this.logger.log('debug -> auth-initialize -> accesstoken?', !!token); //TODO <- cleanup
         const refreshToken = getCookie(AuthStore.REFRESH_TOKEN_COOKIE_NAME); //TODO: wird nie gelesen werden können :)
@@ -41,7 +41,7 @@ export class AuthStore {
         if (token) {
             // check if the token is valid
             this.validateToken(token).then((isValid) => {
-                if(!isValid) {
+                if (!isValid) {
                     this.logger.log('debug -> is not valid token'); //TODO <- cleanup
                     this.resetUserSession();
                 } else {
@@ -59,17 +59,26 @@ export class AuthStore {
             })
         } else {
             console.log('no access token found - refresh is httpOnly, might be present')
-            if(refresh_csrf_token){
+            if (refresh_csrf_token) {
                 this.refresh_csrf_token = refresh_csrf_token;
-                this.refreshAccessToken().then(() => {
-                    console.log("refreshing via csrf")
+                console.log("refreshing done")
+                try {
+                    await this.refreshAccessToken();
+                    console.log("refreshsed - turning loading false")
                     this.isLoading = false;
-                    return
-                }).catch(() => {
-                    console.log('refreshing failed')
+                } catch (error) {
+                    console.log('refreshing failed', error)
                     this.isLoading = false;
-                    return
-                });
+                }
+                // this.refreshAccessToken().then(() => {
+                //     console.log("refreshing via csrf")
+                //     this.isLoading = false;
+                //     return
+                // }).catch(() => {
+                //     console.log('refreshing failed')
+                //     this.isLoading = false;
+                //     return
+                // });
 
             }
             console.log('no tokens found -> new login required')
@@ -83,6 +92,17 @@ export class AuthStore {
         deleteCookie(AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME);
     }
 
+    private setAccessTokenCookie(){
+        if (this.accessToken) {
+            setCookie(AuthStore.TOKEN_COOKIE_NAME, this.accessToken, {
+                expires: this.getJwtExpiration(this.accessToken) ?? 15*60, // 15 minutes
+                secure: true,
+                sameSite: 'strict'
+            });
+
+        }
+    }
+
     private resetUserSession() {
         this.clearCookies();
         this.accessToken = null;
@@ -93,7 +113,7 @@ export class AuthStore {
 
     private setAuthCookie(){
         //TODO: accesstoken -> better save in session storage / memory
-        //TODO: the backend MUST set the cookie-flags !!!
+        //TODO: these cookies should be set by the backend and recieved by the frontend
         if (this.accessToken) {
             setCookie(AuthStore.TOKEN_COOKIE_NAME, this.accessToken, {
                 expires: this.getJwtExpiration(this.accessToken) ?? 15*60, // 15 minutes
@@ -108,13 +128,16 @@ export class AuthStore {
                 expires: this.getJwtExpiration(this.refreshToken) ?? 7 * 24 * 60 * 60, // 7 days
                 secure: true,
                 sameSite: 'strict',
-                httpOnly: true
+                // httpOnly: true //TODO: MUST to be set! but backend not ready yet
             });
         }
 
         if (this.refresh_csrf_token) {
+            const expires = this.refreshToken
+                ? (this.getJwtExpiration(this.refreshToken) ?? 7 * 24 * 60 * 60)
+                : 7 * 24 * 60 * 60;
             setCookie(AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME, this.refresh_csrf_token, {
-                expires: 7 * 24 * 60 * 60, // 7 days //TODO: set the same expiration as the refresh token
+                expires: expires,
                 secure: true,
                 sameSite: 'strict'
             });
@@ -184,6 +207,8 @@ export class AuthStore {
             console.log('responso')
             console.log('refresh token response', response)
             this.accessToken = response.data.access_token;
+            this.setAccessTokenCookie()
+            this.isLoggedIn = true;
             console.log('accesstoken is refreshed')
         } catch (error) {
             console.log('------------')

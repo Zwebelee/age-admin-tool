@@ -31,5 +31,4 @@ validatetoken_bp = Blueprint('validate-token', __name__)
 })
 def validate_token():
     identity = get_jwt_identity()
-    print('some testing stuff', identity)
     return jsonify(message="Token is valid")
