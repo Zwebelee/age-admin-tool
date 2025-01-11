@@ -23,7 +23,7 @@ const chartFunctions = {
 
         function parseRGB(color: string): [number, number, number] {
             const match = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-            if (!match) throw new Error("Invalid colour format");
+            if (!match) throw new Error("Invalid color format");
             return match.slice(1, 4).map(Number) as [number, number, number];
         }
         function rgbToString(rgb: [number, number, number]): string {
@@ -64,7 +64,7 @@ const chartFunctions = {
         const match = rgba.match(rgbaPattern);
 
         if (!match) {
-            throw new Error("Invalid colour format");
+            throw new Error("Invalid color format");
         }
 
         const [_, r, g, b] = match;

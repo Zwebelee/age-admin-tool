@@ -20,6 +20,9 @@
         "no": "No",
         "error": "Error"
     },
+    "charts": {
+        "licenceNumbersByType": "Number of licences by type"
+    },
     "components": "Components",
     "contents": "Contents",
     "creators": "Creators",
