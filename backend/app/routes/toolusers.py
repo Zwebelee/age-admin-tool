@@ -4,6 +4,8 @@ from flasgger import swag_from
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..db import db
+from ..models.permission import Permission
+from ..models.rolepermission import role_permission
 from ..models.toolrole import ToolRole
 from ..models.tooluser import ToolUser
 
@@ -220,6 +222,7 @@ def delete_tooluser(guid):
     db.session.commit()
     return jsonify({"message": "User deleted successfully"}), 200
 
+
 @toolusers_bp.route('/toolusers/<guid>/active_role', methods=['GET'])
 @jwt_required()
 @swag_from({
@@ -258,6 +261,7 @@ def get_active_role(guid):
     if not user:
         return jsonify({"error": "User not found"}), 404
     return jsonify({"active_role_guid": user.active_role_guid})
+
 
 @toolusers_bp.route('/toolusers/<guid>/active_role', methods=['PUT'])
 @jwt_required()
@@ -410,6 +414,46 @@ def update_user_profile():
     tooluser.theme = data.get('theme', tooluser.theme)
     db.session.commit()
     return jsonify(tooluser.to_dict()), 200
+
+
+@toolusers_bp.route('/toolusers/profile/permissions', methods=['GET'])
+@jwt_required()
+@swag_from({
+    'tags': ['Toolusers'],
+    'responses': {
+        200: {
+            'description': 'List of permissions for the user',
+            'schema': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'guid': {'type': 'string'},
+                        'name': {'type': 'string'}
+                    }
+                }
+            }
+        },
+        404: {
+            'description': 'User not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'error': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def get_user_permissions():
+    username = get_jwt_identity()
+    user = ToolUser.query.filter_by(username=username).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    active_role_guid = user.active_role_guid
+    permissions = db.session.query(Permission).join(role_permission).filter(
+        role_permission.c.toolrole_guid == active_role_guid).all()
+    return jsonify([permission.to_dict() for permission in permissions]), 200
 
 
 @toolusers_bp.route('/toolusers/change_password', methods=['PUT'])

@@ -1,13 +1,14 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { PermissionsService } from '../services/permissions.service';
 import { IPermission } from '../models/permissions';
+import {LoggerService} from "../services/logger.service.ts";
 
 export class PermissionsStore {
     permissions: Map<string, IPermission[]> = new Map();
     permissionsService: PermissionsService;
     isLoading: boolean = false;
 
-    constructor(permissionsService: PermissionsService) {
+    constructor(permissionsService: PermissionsService, private logger: LoggerService) {
         this.permissionsService = permissionsService;
         makeAutoObservable(this);
     }
@@ -21,7 +22,7 @@ export class PermissionsStore {
                 this.isLoading = false;
             });
         } catch (error) {
-            console.error('Failed to load permissions', error);
+            this.logger.error('Failed to load permissions', error);
             runInAction(() => {
                 this.isLoading = false;
             });
@@ -31,5 +32,9 @@ export class PermissionsStore {
     hasPermission(userGuid: string, permissionName: string): boolean {
         const permissions = this.permissions.get(userGuid) || [];
         return permissions.some(permission => permission.name === permissionName);
+    }
+
+    clearPermissionsCache() {
+        this.permissionsService.clearPermissionsCache();
     }
 }

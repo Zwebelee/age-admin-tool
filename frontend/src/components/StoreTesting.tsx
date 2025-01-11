@@ -349,17 +349,21 @@ const TaskDetails = observer(({ taskId }: { taskId: string }) => {
 
 const TestPermissions = observer(() => {
     //TODO: (A) continue crawlback here
-    const { permissionsStore } = useRootStore();
+    const { permissionsStore, toolUserStore } = useRootStore();
     const [hasPerm, setHasPerm] = useState(false);
     const userGuid = 'user-guid-here'; // Replace with actual user GUID
     const permissionName = 'view:tasks'; // Replace with actual permission name
 
+    const me = toolUserStore.user?.guid;
+    console.log(me)
+
     useEffect(() => {
         const checkPermission = async () => {
-            await permissionsStore.loadPermissions(userGuid);
-            setHasPerm(permissionsStore.hasPermission(userGuid, permissionName));
+            if (me) {
+                await permissionsStore.loadPermissions(me);
+                setHasPerm(permissionsStore.hasPermission(me, permissionName));
+            }
         };
-
         checkPermission();
     }, [permissionsStore, userGuid, permissionName]);
 
