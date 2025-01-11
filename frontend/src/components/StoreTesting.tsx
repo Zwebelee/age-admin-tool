@@ -31,6 +31,7 @@ export const TestStoreComponent = observer(() => {
             <TestUpdateLicense/>
             <TestGeneralStore/>
             <TestStore/>
+            <TestPermissions/>
         </Box>
     );
 });
@@ -343,5 +344,37 @@ const TaskDetails = observer(({ taskId }: { taskId: string }) => {
                 </Box>
             ))}
         </Box>
+    );
+});
+
+const TestPermissions = observer(() => {
+    //TODO: (A) continue crawlback here
+    const { permissionsStore } = useRootStore();
+    const [hasPerm, setHasPerm] = useState(false);
+    const userGuid = 'user-guid-here'; // Replace with actual user GUID
+    const permissionName = 'view:tasks'; // Replace with actual permission name
+
+    useEffect(() => {
+        const checkPermission = async () => {
+            await permissionsStore.loadPermissions(userGuid);
+            setHasPerm(permissionsStore.hasPermission(userGuid, permissionName));
+        };
+
+        checkPermission();
+    }, [permissionsStore, userGuid, permissionName]);
+
+    const perm_text = hasPerm ? "OK" : "Nope";
+    const buttonColor = hasPerm ? "success" : "error";
+
+    if (permissionsStore.isLoading) {
+        return <CircularProgress />;
+    }
+
+    return (
+        <>
+            <Typography variant="h5">Permission Test</Typography>
+            <Typography variant="h6">Test see this button</Typography>
+            <Button variant="contained" color={buttonColor}>{perm_text}</Button>
+        </>
     );
 });

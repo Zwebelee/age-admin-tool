@@ -18,6 +18,8 @@ import {PortalGroupStore} from "./portalgroup-store.ts";
 import {TaskStore} from "./task-store.ts";
 import {TaskRuleStore} from "./task-rule-store.ts";
 import {TaskCommentStore} from "./task-comment-store.ts";
+import {PermissionsStore} from "./permission-store.ts";
+import {PermissionsService} from "../services/permissions.service.ts";
 
 export class RootStore {
     // init stores
@@ -26,6 +28,9 @@ export class RootStore {
     logService: LoggerService;
     themeStore: ThemeStore;
     languageStore: LanguageStore;
+    permissionsService: PermissionsService;
+    permissionsStore: PermissionsStore;
+
 
     ageStore: AgeStore;
     portalUserStore: PortaluserStore;
@@ -52,6 +57,8 @@ export class RootStore {
 
         this.authService = new AuthService(this)
         this.authStore = new AuthStore(this, this.authService, this.logService);
+        this.permissionsService = new PermissionsService();
+        this.permissionsStore = new PermissionsStore(this.permissionsService);
 
         this.ageStore = new AgeStore(this.authService);
         this.portalUserStore = new PortaluserStore(this.authService);
@@ -62,7 +69,7 @@ export class RootStore {
         this.ageWebAdaptorStore = new AgeWebadaptorStore(this.authService)
         this.portalItemStore = new PortalItemStore(this.authService);
         this.portalGroupStore = new PortalGroupStore(this.authService);
-        this.toolUserStore = new ToolUserStore(this.authService);
+        this.toolUserStore = new ToolUserStore(this.authService, this.permissionsService);
         this.themeStore = new ThemeStore();
         this.languageStore = new LanguageStore(this.toolUserStore);
         this.taskStore = new TaskStore(this.authService);

@@ -157,6 +157,8 @@ export class AuthStore {
             this.accessToken = response.data.access_token;
             this.refreshToken = response.data.refresh_token;
             this.refreshCsrfToken = response.data.csrf_token;
+            //TODO: (A) load the permissions ?!
+
             this.setAuthCookie()
             this.isLoggedIn = true;
             this.rootStore.initializeStoresAfterLogin()

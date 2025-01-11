@@ -1,6 +1,7 @@
 import {AuthService} from "../services/auth.service.ts";
 import {makeAutoObservable, runInAction} from "mobx";
 import {ToolUser} from "../models/tooluser.ts";
+import {PermissionsService} from "../services/permissions.service.ts";
 
 interface ToolUserWithPassword extends ToolUser {
     password: string;
@@ -9,9 +10,11 @@ interface ToolUserWithPassword extends ToolUser {
 export class ToolUserStore {
     user: ToolUser | undefined;
     authService: AuthService;
+    permissionsService: PermissionsService;
 
-    constructor(authService: AuthService) {
+    constructor(authService: AuthService, permissionsService: PermissionsService) {
         this.authService = authService;
+        this.permissionsService = permissionsService;
         makeAutoObservable(this)
     }
 
@@ -43,5 +46,12 @@ export class ToolUserStore {
         } catch (error) {
             console.error('Failed to add user', error);
         }
+    }
+
+    async hasPermission(permissionName: string): Promise<boolean> {
+        if (this.user) {
+            return this.permissionsService.hasPermission(this.user.guid, permissionName);
+        }
+        return false;
     }
 }
