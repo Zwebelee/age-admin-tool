@@ -18,6 +18,8 @@ import {PortalLicenseFilter} from "./portallicense-filter.tsx";
 import {Task} from "../models/task.ts";
 import {TaskRule} from "../models/taskrule.ts";
 import {TaskComment} from "../models/taskcomment.ts";
+import { permissions } from "../config/permissions.ts";
+import {usePermission} from "../hooks/usePermission.ts";
 
 
 export const TestStoreComponent = observer(() => {
@@ -349,36 +351,17 @@ const TaskDetails = observer(({ taskId }: { taskId: string }) => {
 
 const TestPermissions = observer(() => {
     //TODO: (A) continue crawlback here
-    const { permissionsStore, toolUserStore } = useRootStore();
-    const [hasPerm, setHasPerm] = useState(false);
-    const userGuid = 'user-guid-here'; // Replace with actual user GUID
-    const permissionName = 'view:tasks'; // Replace with actual permission name
 
-    const me = toolUserStore.user?.guid;
-    console.log(me)
-
-    useEffect(() => {
-        const checkPermission = async () => {
-            if (me) {
-                await permissionsStore.loadPermissions(me);
-                setHasPerm(permissionsStore.hasPermission(me, permissionName));
-            }
-        };
-        checkPermission();
-    }, [permissionsStore, userGuid, permissionName]);
-
-    const perm_text = hasPerm ? "OK" : "Nope";
-    const buttonColor = hasPerm ? "success" : "error";
-
-    if (permissionsStore.isLoading) {
-        return <CircularProgress />;
-    }
+    const hasPermission = usePermission(permissions.VIEW_TASKS);
 
     return (
         <>
             <Typography variant="h5">Permission Test</Typography>
             <Typography variant="h6">Test see this button</Typography>
-            <Button variant="contained" color={buttonColor}>{perm_text}</Button>
+            {!hasPermission ? (
+                <Button variant="contained" color="error">Nope</Button>
+            ):(
+            <Button variant="contained" color={"success"}>Yes - Permission Granted</Button>)}
         </>
     );
 });
