@@ -220,6 +220,103 @@ def delete_tooluser(guid):
     db.session.commit()
     return jsonify({"message": "User deleted successfully"}), 200
 
+@toolusers_bp.route('/toolusers/<guid>/active_role', methods=['GET'])
+@jwt_required()
+@swag_from({
+    'tags': ['Toolusers'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Active role retrieved successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'active_role_guid': {'type': 'string'}
+                }
+            }
+        },
+        404: {
+            'description': 'User not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'error': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def get_active_role(guid):
+    user = ToolUser.query.get(guid)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    return jsonify({"active_role_guid": user.active_role_guid})
+
+@toolusers_bp.route('/toolusers/<guid>/active_role', methods=['PUT'])
+@jwt_required()
+@swag_from({
+    'tags': ['Toolusers'],
+    'parameters': [
+        {
+            'name': 'guid',
+            'in': 'path',
+            'required': True,
+            'type': 'string'
+        },
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'role_guid': {'type': 'string', 'example': 'role-guid-example'}
+                }
+            }
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Active role updated successfully',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {'type': 'string'},
+                    'active_role_guid': {'type': 'string'}
+                }
+            }
+        },
+        404: {
+            'description': 'User or role not found',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'error': {'type': 'string'}
+                }
+            }
+        }
+    }
+})
+def set_active_role(guid):
+    user = ToolUser.query.get(guid)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    data = request.get_json()
+    role_guid = data.get('role_guid')
+    role = ToolRole.query.get(role_guid)
+    if not role:
+        return jsonify({"error": "Role not found"}), 404
+    user.active_role_guid = role_guid
+    db.session.commit()
+    return jsonify({"message": "Active role updated", "active_role_guid": user.active_role_guid})
+
 
 @toolusers_bp.route('/toolusers/profile', methods=['GET'])
 @jwt_required()
