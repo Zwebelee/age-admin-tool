@@ -3,6 +3,7 @@ import uuid
 from pathlib import Path
 from sqlalchemy import UUID
 
+from app.db import db
 from app.models.agedatastore import Agedatastore
 from app.models.ageportal import Ageportal
 from app.models.ageserver import Ageserver
@@ -19,11 +20,11 @@ from app.models.portalgroup import Portalgroup
 from app.models.tasktooluser import task_tooluser
 from app.models.task import Task
 from app.models.portaluser import PortalUser
-from app.db import db
-
 from app.models.toolrole import ToolRole
 from app.models.tooluser import ToolUser
 from app.models.tooluserrole import tooluser_role
+from app.models.permission import Permission
+from app.models.rolepermission import role_permission
 
 
 def load_sample_data():
@@ -84,3 +85,5 @@ def init_all_sample_data():
     initialize_sample_data(task_tooluser, data["task_tooluser"])
     initialize_sample_data(ToolRole, data["toolroles"])
     initialize_sample_data(tooluser_role, data["tooluser_role"])
+    initialize_sample_data(Permission, data["permissions"])
+    initialize_sample_data(role_permission, data["role_permission"])

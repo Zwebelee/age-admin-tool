@@ -1757,6 +1757,26 @@
       "toolrole_guid": "1fa67299-d8e6-42f2-b6a6-73a2a4ce99a1"
     }
   ],
+  "permissions": [
+    {
+      "guid": "123e4567-e89b-12d3-b477-426625274333",
+      "name": "view:toolsmenu"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-b477-426625274334",
+      "name": "view:tasks"
+    }
+  ],
+  "role_permission": [
+    {
+      "toolrole_guid": "6566f9fb-590a-40ef-8fbe-5f1ba6582011",
+      "permission_guid": "123e4567-e89b-12d3-b477-426625274333"
+    },
+    {
+      "toolrole_guid": "6566f9fb-590a-40ef-8fbe-5f1ba6582011",
+      "permission_guid": "123e4567-e89b-12d3-b477-426625274334"
+    }
+  ],
   "task_comments": [
     {
       "guid": "464306e3-62be-42a3-8528-2b5401056d48",
