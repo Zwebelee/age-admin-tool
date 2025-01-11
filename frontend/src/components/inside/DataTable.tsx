@@ -1,8 +1,7 @@
 import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import {observer} from "mobx-react-lite";
 import {useRootStore} from "../../stores/root-store.ts";
-import {deDE} from "@mui/x-data-grid/locales";
-import {frFR} from "@mui/x-data-grid/locales";
+import {deDE, frFR} from "@mui/x-data-grid/locales";
 import "./DataTable.scss";
 
 interface dataTableProps {

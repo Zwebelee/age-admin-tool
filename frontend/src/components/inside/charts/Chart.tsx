@@ -7,10 +7,11 @@ interface DataItem {
 }
 interface ChartProps {
     data: DataItem[];
+    colors: string[];
 }
 
 
-export const Chart = ({data}: ChartProps) => {
+export const Chart = ({data, colors}: ChartProps) => {
 
     const createData = data.map((item: DataItem, index: number) => ({
         id: index,
@@ -20,13 +21,7 @@ export const Chart = ({data}: ChartProps) => {
 
     return (
         <PieChart
-            colors={[
-                "rgb(255, 241, 117)",
-                "rgb(205, 225, 139)",
-                "rgb(157, 209, 160)",
-                "rgb(69, 181, 198)",
-                "rgb(0, 159, 227)",
-            ]}
+            colors={colors}
             series={[
                 {
                     data: createData,
