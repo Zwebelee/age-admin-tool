@@ -1,7 +1,7 @@
 import {AuthService} from "../services/auth.service.ts";
 import {Task} from "../models/task.ts";
 import {AbstractStore} from "./abstract-store.ts";
-import {makeObservable, observable} from "mobx";
+import {makeObservable, observable, runInAction} from "mobx";
 
 
 export class TaskStore extends AbstractStore<Task> {
@@ -22,15 +22,25 @@ export class TaskStore extends AbstractStore<Task> {
         this.status = "loading";
         try {
             const response = await this.authService.getApiClient().get(this.getEndpoint());
-            console.log(response.data);
             const data: Task[] = response.data.map((taskdata: any) => new Task(taskdata));
             data.forEach(taskItem => {
-                console.log(taskItem);
                 this.items.set(taskItem.guid, taskItem);
             });
             this.status = "loaded";
         } catch (e) {
             this.status = "error";
+        }
+    }
+
+    async updateItem(item: Task) {
+        try {
+            const response = await this.authService.getApiClient().put(`${this.getEndpoint()}/${item.guid}`, item);
+            const updatedItem = response.data;
+            runInAction(() => {
+                this.items.set(updatedItem.guid, new Task(updatedItem));
+            });
+        } catch (error) {
+            console.error('Failed to update item', error);
         }
     }
 

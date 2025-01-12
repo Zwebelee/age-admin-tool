@@ -216,7 +216,7 @@ def update_task(guid):
     task = Task.query.filter_by(guid=guid).first_or_404()
     data = request.get_json()
     for key, value in data.items():
-        if key in ['task_rule_guid', 'assigned_to', 'linked_object_guid']:
+        if key in ['guid','task_rule_guid', 'assigned_to', 'linked_object_guid']:
             value = uuid.UUID(value)
         setattr(task, key, value)
     db.session.commit()

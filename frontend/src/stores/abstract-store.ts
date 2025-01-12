@@ -18,8 +18,9 @@ import {PortaluserStore} from "./portaluser-store.ts";
 import {PortalItemStore} from "./portalitem-store.ts";
 import {PortalGroupStore} from "./portalgroup-store.ts";
 import {PortalGroup} from "../models/portalgroup.ts";
+import {Task} from "../models/task.ts";
 
-export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup;
+export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup | Task;
 export type StoreType =
     AgeStore
     | AgeDatastoreStore

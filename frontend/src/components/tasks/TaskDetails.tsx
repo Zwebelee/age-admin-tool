@@ -14,7 +14,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import {useRootStore} from "../../stores/root-store.ts";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ToolUser} from "../../models/tooluser.ts";
 import {TaskComment} from "../../models/taskcomment.ts";
 import {SelectChangeEvent} from "@mui/material";
@@ -22,6 +22,7 @@ import {useTranslation} from "react-i18next";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import "./TaskDetails.scss";
+import { observer } from "mobx-react-lite";
 
 
 interface TaskDetailsDialogProps {
@@ -30,7 +31,7 @@ interface TaskDetailsDialogProps {
 }
 
 
-export const TaskDetailsDialog = ({open, onClose}: TaskDetailsDialogProps) => {
+export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogProps) => {
 
     const {t} = useTranslation();
     const {taskStore, toolUserStore, taskCommentStore} = useRootStore();
@@ -65,10 +66,39 @@ export const TaskDetailsDialog = ({open, onClose}: TaskDetailsDialogProps) => {
     }, [task, taskCommentStore]);
 
 
-    const handleAssignedToChange = (event: SelectChangeEvent) => {
+    const handleAssignedToChange = async (event: SelectChangeEvent) => {
         setAssignedTo(event.target.value as string);
+
+        // if (!task) {
+        //     return;
+        // }
+        // //get the user guid
+        //
+        //
+        // //update the task
+        //
+        // this.taskStore.updateItem({
+        //     ...task,
+        //     assignedTo: event.target.value as string
+        // });
+
     };
 
+    const handleCompletedChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (!task) {
+            return;
+        }
+        const newStatus = event.target.checked ? "done" : "pending";
+        await taskStore.updateItem({
+            ...task,
+            status: newStatus
+        });
+        // Update the local state to trigger re-render
+        taskStore.setSelectedItem({
+            ...task,
+            status: newStatus
+        });
+    };
 
 
     return (
@@ -180,7 +210,12 @@ export const TaskDetailsDialog = ({open, onClose}: TaskDetailsDialogProps) => {
                                     <FormControl sx={{marginBottom: "1rem"}}>
                                         <FormLabel component="legend">{t("status")}</FormLabel>
                                         <FormControlLabel
-                                            control={<Checkbox name="completed"/>}
+                                            control={
+                                            <Checkbox
+                                                name="completed"
+                                                checked={task.status === "done"}
+                                                onChange={handleCompletedChange}
+                                            />}
                                             label={t("completed")}
                                         />
                                     </FormControl>
@@ -252,4 +287,4 @@ export const TaskDetailsDialog = ({open, onClose}: TaskDetailsDialogProps) => {
             </DialogActions>
         </Dialog>
     );
-}
+});
