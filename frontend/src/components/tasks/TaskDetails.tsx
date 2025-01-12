@@ -22,7 +22,8 @@ import {useTranslation} from "react-i18next";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import "./TaskDetails.scss";
-import { observer } from "mobx-react-lite";
+import {observer} from "mobx-react-lite";
+import {Task} from "../../models/task.ts";
 
 
 interface TaskDetailsDialogProps {
@@ -36,7 +37,6 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
     const {t} = useTranslation();
     const {taskStore, toolUserStore, taskCommentStore} = useRootStore();
     const task = taskStore.selectedItem;
-    const [assignedTo, setAssignedTo] = useState(task?.assignedTo || "");
     const [toolUsers, setToolUsers] = useState<ToolUser[]>([]);
     const [taskComments, setTaskComments] = useState<TaskComment[]>([]);
     const [assignedToUser, setAssignedToUser] = useState<ToolUser | undefined>(undefined);
@@ -48,7 +48,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
             const users = toolUserStore.users;
             if (users) {
                 setToolUsers(users);
-                if(task?.assignedTo) {
+                if (task?.assignedTo) {
                     const assignedToUser = users.find(user => user.guid === task.assignedTo);
                     setAssignedToUser(assignedToUser);
                 }
@@ -67,20 +67,19 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
 
 
     const handleAssignedToChange = async (event: SelectChangeEvent) => {
-        setAssignedTo(event.target.value as string);
+        const newAssignedTo = event.target.value as string;
 
-        // if (!task) {
-        //     return;
-        // }
-        // //get the user guid
-        //
-        //
-        // //update the task
-        //
-        // this.taskStore.updateItem({
-        //     ...task,
-        //     assignedTo: event.target.value as string
-        // });
+        if (task) {
+            await taskStore.updateItem(new Task({
+                ...task.toJSON(),
+                assigned_to: newAssignedTo
+            }));
+            // Update the local state to trigger re-render
+            taskStore.setSelectedItem(Task.fromJSON({
+                ...task.toJSON(),
+                assigned_to: newAssignedTo
+            }));
+        }
 
     };
 
@@ -89,15 +88,15 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
             return;
         }
         const newStatus = event.target.checked ? "done" : "pending";
-        await taskStore.updateItem({
-            ...task,
+        await taskStore.updateItem(Task.fromJSON({
+            ...task.toJSON(),
             status: newStatus
-        });
+        }));
         // Update the local state to trigger re-render
-        taskStore.setSelectedItem({
-            ...task,
+        taskStore.setSelectedItem(Task.fromJSON({
+            ...task.toJSON(),
             status: newStatus
-        });
+        }));
     };
 
 
@@ -113,7 +112,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                     <>
                         <Accordion>
                             <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMoreIcon/>}
                                 aria-controls="panel1-content"
                                 id="panel1-header"
                             >
@@ -122,75 +121,75 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                             <AccordionDetails>
                                 <List
                                     className="taskDetails__list"
-                                    sx={{ listStyleType: "disc" }}>
+                                    sx={{listStyleType: "disc"}}>
                                     <ListItem>
                                         <ListItemText
                                             primary="ID"
                                             secondary={task.guid}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("title")}
                                             secondary={task.title}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("description")}
                                             secondary={task.description}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("priority")}
                                             secondary={task.priority}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("assigned-to")}
                                             secondary={assignedToUser?.username}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("created")}
                                             secondary={task.createdAt.toString()}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("modified")}
                                             secondary={task.updatedAt.toString()}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("linked-object-guid")}
                                             secondary={task.linkedObjectGuid}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("linked-object-type")}
                                             secondary={task.linkedObjectType}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("task-rule-guid")}
                                             secondary={task.taskRuleGuid}
-                                            sx={{ display: "list-item" }}
+                                            sx={{display: "list-item"}}
                                         />
                                     </ListItem>
                                 </List>
@@ -199,7 +198,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
 
                         <Accordion>
                             <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMoreIcon/>}
                                 aria-controls="panel2-content"
                                 id="panel2-header"
                             >
@@ -211,18 +210,19 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                                         <FormLabel component="legend">{t("status")}</FormLabel>
                                         <FormControlLabel
                                             control={
-                                            <Checkbox
-                                                name="completed"
-                                                checked={task.status === "done"}
-                                                onChange={handleCompletedChange}
-                                            />}
+                                                <Checkbox
+                                                    name="completed"
+                                                    checked={task.status === "done"}
+                                                    onChange={handleCompletedChange}
+                                                />}
                                             label={t("completed")}
                                         />
                                     </FormControl>
                                     <FormControl fullWidth>
-                                        <FormLabel component="legend" sx={{marginBottom: "0.5rem"}}>{t("assigned-to")}</FormLabel>
+                                        <FormLabel component="legend"
+                                                   sx={{marginBottom: "0.5rem"}}>{t("assigned-to")}</FormLabel>
                                         <Select
-                                            value={assignedTo}
+                                            value={assignedToUser?.guid || ""}
                                             onChange={handleAssignedToChange}
                                             displayEmpty
                                             inputProps={{"aria-label": "Assigned To"}}
@@ -243,7 +243,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
 
                         <Accordion>
                             <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMoreIcon/>}
                                 aria-controls="panel3-content"
                                 id="panel3-header"
                             >
@@ -251,14 +251,14 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                             </AccordionSummary>
                             <AccordionDetails>
                                 <List
-                                    sx={{ listStyleType: "disc" }}
+                                    sx={{listStyleType: "disc"}}
                                 >
                                     {taskComments.map(comment => (
                                         <ListItem key={comment.guid}>
                                             <ListItemText
                                                 primary={comment.comment}
                                                 secondary={`By ${toolUsers.find(user => user.guid === comment.tooluserGuid)?.username || "Unknown"} on ${new Date(comment.createdAt).toLocaleString()}`}
-                                                sx={{ display: "list-item" }}
+                                                sx={{display: "list-item"}}
                                             />
                                         </ListItem>
                                     ))}
