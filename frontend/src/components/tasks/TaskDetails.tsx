@@ -8,6 +8,7 @@ import {
     FormControlLabel, FormLabel, List, ListItem, ListItemText,
     MenuItem,
     Select,
+    TextField,
     Typography,
 } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
@@ -40,6 +41,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
     const [toolUsers, setToolUsers] = useState<ToolUser[]>([]);
     const [taskComments, setTaskComments] = useState<TaskComment[]>([]);
     const [assignedToUser, setAssignedToUser] = useState<ToolUser | undefined>(undefined);
+    const [newComment, setNewComment] = useState<string>("");
 
     //TODO: Solve better -> on stores
     // Load all users
@@ -58,11 +60,18 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
 
     // Load task comments
     useEffect(() => {
-        //TODO: load only comments for selected task
-        if (task) {
-            const comments = Array.from(taskCommentStore.items.values());
-            setTaskComments(comments);
-        }
+        const loadComments = async () => {
+            if (task) {
+                await taskCommentStore.loadTaskComments(task.guid);
+                const comments = Array.from(taskCommentStore.items.values());
+                setTaskComments(comments);
+            }
+        };
+        loadComments().then();
+        return () => {
+            setTaskComments([]);
+            taskCommentStore.clearItems();
+        };
     }, [task, taskCommentStore]);
 
 
@@ -97,6 +106,18 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
             ...task.toJSON(),
             status: newStatus
         }));
+    };
+
+    const handleNewCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNewComment(event.target.value);
+    };
+
+    const handleAddComment = () => {
+        // Logic to add a new comment
+        console.log("New comment:", newComment);
+        // TODO continue here
+        // Clear the text field after adding the comment
+        setNewComment("");
     };
 
 
@@ -228,7 +249,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                                             inputProps={{"aria-label": "Assigned To"}}
                                         >
                                             <MenuItem value="">
-                                                <em>{t("none")}</em>
+                                                <em>{t("no-one")}</em>
                                             </MenuItem>
                                             {toolUsers.map(user => (
                                                 <MenuItem key={user.guid} value={user.guid}>
@@ -253,18 +274,37 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                                 <List
                                     sx={{listStyleType: "disc"}}
                                 >
-                                    {taskComments.map(comment => (
-                                        <ListItem key={comment.guid}>
+                                    {taskComments.length > 0 ? (
+                                        taskComments.map(comment => (
+                                            <ListItem key={comment.guid}>
+                                                <ListItemText
+                                                    primary={comment.comment}
+                                                    secondary={`By ${toolUsers.find(user => user.guid === comment.tooluserGuid)?.username || "Unknown"} on ${new Date(comment.createdAt).toLocaleString()}`}
+                                                    sx={{display: "list-item"}}
+                                                />
+                                            </ListItem>
+                                        ))
+                                    ) : (
+                                        <ListItem>
                                             <ListItemText
-                                                primary={comment.comment}
-                                                secondary={`By ${toolUsers.find(user => user.guid === comment.tooluserGuid)?.username || "Unknown"} on ${new Date(comment.createdAt).toLocaleString()}`}
+                                                primary={`${t("none")} ${t("task-comments")}`}
                                                 sx={{display: "list-item"}}
                                             />
                                         </ListItem>
-                                    ))}
+                                    )}
                                 </List>
+                                <TextField
+                                    label={t("new-comment")}
+                                    value={newComment}
+                                    onChange={handleNewCommentChange}
+                                    fullWidth
+                                    multiline
+                                    rows={4}
+                                    variant="outlined"
+                                    sx={{marginTop: "1rem"}}
+                                />
                                 <div className="taskDetails__commentButton">
-                                    <Button variant={"contained"}>
+                                    <Button variant={"contained"} onClick={handleAddComment}>
                                         {t("new-comment")}
                                     </Button>
                                 </div>

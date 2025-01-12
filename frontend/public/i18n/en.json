@@ -118,7 +118,7 @@
     "name": "Name",
     "new-comment": "New comment",
     "no-filters": "No filters available",
-    "none": "None",
+    "no-one": "None",
     "not-deactivated": "Not deactivated",
     "operator": "Operator",
     "owner": "Owner",
@@ -145,5 +145,6 @@
     "usertype": "Usertype",
     "value": "Value",
     "view": "View",
-    "viewcount": "Viewcount"
+    "viewcount": "Viewcount",
+    "none": "None"
 }

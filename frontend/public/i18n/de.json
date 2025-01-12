@@ -118,7 +118,7 @@
     "name": "Name",
     "new-comment": "Neuer Kommentar",
     "no-filters": "Keine Filter vorhanden",
-    "none": "Niemanden",
+    "no-one": "Niemanden",
     "not-deactivated": "Nicht deaktiviert",
     "operator": "Operator",
     "owner": "Eigentümer",
@@ -145,5 +145,6 @@
     "usertype": "Benutzertyp",
     "value": "Wert",
     "view": "Ansicht",
-    "viewcount": "Ansichtszähler"
+    "viewcount": "Ansichtszähler",
+    "none": "Keine"
 }
