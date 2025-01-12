@@ -19,11 +19,9 @@ import {ToolUser} from "../../models/tooluser.ts";
 import {TaskComment} from "../../models/taskcomment.ts";
 import {SelectChangeEvent} from "@mui/material";
 import {useTranslation} from "react-i18next";
-
-import "./TaskDetails.scss";
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import "./TaskDetails.scss";
 
 
 interface TaskDetailsDialogProps {
@@ -40,18 +38,22 @@ export const TaskDetailsDialog = ({open, onClose}: TaskDetailsDialogProps) => {
     const [assignedTo, setAssignedTo] = useState(task?.assignedTo || "");
     const [toolUsers, setToolUsers] = useState<ToolUser[]>([]);
     const [taskComments, setTaskComments] = useState<TaskComment[]>([]);
+    const [assignedToUser, setAssignedToUser] = useState<ToolUser | undefined>(undefined);
 
     //TODO: Solve better -> on stores
-
     // Load all users
     useEffect(() => {
         toolUserStore.loadUsers().then(() => {
             const users = toolUserStore.users;
             if (users) {
                 setToolUsers(users);
+                if(task?.assignedTo) {
+                    const assignedToUser = users.find(user => user.guid === task.assignedTo);
+                    setAssignedToUser(assignedToUser);
+                }
             }
         });
-    }, [toolUserStore]);
+    }, [toolUserStore, task]);
 
     // Load task comments
     useEffect(() => {
@@ -122,21 +124,21 @@ export const TaskDetailsDialog = ({open, onClose}: TaskDetailsDialogProps) => {
                                     <ListItem>
                                         <ListItemText
                                             primary={t("assigned-to")}
-                                            secondary={task.assignedTo}
+                                            secondary={assignedToUser?.username}
                                             sx={{ display: "list-item" }}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("created")}
-                                            secondary={"task.createdAt.toString()"}
+                                            secondary={task.createdAt.toString()}
                                             sx={{ display: "list-item" }}
                                         />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText
                                             primary={t("modified")}
-                                            secondary={"task.updatedAt.toString()"}
+                                            secondary={task.updatedAt.toString()}
                                             sx={{ display: "list-item" }}
                                         />
                                     </ListItem>

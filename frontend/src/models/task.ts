@@ -1,18 +1,21 @@
+import {AbstractModel} from "./abstract-models.ts";
+
 export interface ITask {
     guid: string;
-    taskRuleGuid: string;
+    task_rule_guid: string;
     title: string;
     description: string;
     status: string;
     priority: string;
-    assignedTo?: string;
-    linkedObjectGuid: string;
-    linkedObjectType?: string;
-    createdAt: Date;
-    updatedAt: Date;
+    assigned_to?: string;
+    linked_object_guid: string;
+    linked_object_type?: string;
+    created_at: Date;
+    updated_at: Date;
 }
 
-export class Task implements ITask {
+export class Task extends AbstractModel {
+    class: string = "Task"
     guid: string;
     taskRuleGuid: string;
     title: string;
@@ -26,16 +29,17 @@ export class Task implements ITask {
     updatedAt: Date;
 
     constructor(data: ITask) {
+        super();
         this.guid = data.guid;
-        this.taskRuleGuid = data.taskRuleGuid;
+        this.taskRuleGuid = data.task_rule_guid;
         this.title = data.title;
         this.description = data.description;
         this.status = data.status;
         this.priority = data.priority;
-        this.assignedTo = data.assignedTo;
-        this.linkedObjectGuid = data.linkedObjectGuid;
-        this.linkedObjectType = data.linkedObjectType;
-        this.createdAt = new Date(data.createdAt);
-        this.updatedAt = new Date(data.updatedAt);
+        this.assignedTo = data.assigned_to;
+        this.linkedObjectGuid = data.linked_object_guid;
+        this.linkedObjectType = data.linked_object_type;
+        this.createdAt = new Date(data.created_at);
+        this.updatedAt = new Date(data.updated_at);
     }
 }

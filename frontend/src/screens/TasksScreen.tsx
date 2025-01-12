@@ -49,26 +49,26 @@ export const TasksScreen = observer(() => {
     const columns: GridColDef[] = [
         { field: "id",                 headerName: "ID",                         width: 320 },
         { field: "guid",               headerName: "GUID",                       width: 320 },
-        { field: "task_rule_guid",     headerName: t("task-rule-guid"),     width: 320 },
-        { field: "details",            headerName: t("details"),            width: 85, renderCell: detailButton },
-        { field: "title",              headerName: t("title"),              width: 320 },
-        { field: "description",        headerName: t("description"),        width: 550 },
-        { field: "status",             headerName: t("status"),             width: 180 },
-        { field: "priority",           headerName: t("priority"),           width: 180 },
-        { field: "assigned_to",        headerName: t("assigned-to"),        width: 320 },
-        { field: "created_at",         headerName: t("created"),            width: 280 },
-        { field: "updated_at",         headerName: t("modified"),           width: 280 },
-        { field: "linked_object_guid", headerName: t("linked-object-guid"), width: 320 },
-        { field: "linked_object_type", headerName: t("linked-object-type"), width: 240 },
+        { field: "taskRuleGuid",       headerName: t("task-rule-guid"),          width: 320 },
+        { field: "details",            headerName: t("details"),                 width: 85, renderCell: detailButton },
+        { field: "title",              headerName: t("title"),                   width: 320 },
+        { field: "description",        headerName: t("description"),             width: 550 },
+        { field: "status",             headerName: t("status"),                  width: 180 },
+        { field: "priority",           headerName: t("priority"),                width: 180 },
+        { field: "assignedTo",         headerName: t("assigned-to"),             width: 320 },
+        { field: "createdAt",          headerName: t("created"),                 width: 280 },
+        { field: "updatedAt",          headerName: t("modified"),                width: 280 },
+        { field: "linkedObjectGuid",   headerName: t("linked-object-guid"),      width: 320 },
+        { field: "linkedObjectType",   headerName: t("linked-object-type"),      width: 240 },
 
     ];
 
     const hiddenColumns = {
         id: false,
         guid: false,
-        task_rule_guid: false,
-        linked_object_guid: false,
-        linked_object_type: false,
+        taskRuleGuid: false,
+        linkedObjectGuid: false,
+        linkedObjectType: false,
     }
 
     return (

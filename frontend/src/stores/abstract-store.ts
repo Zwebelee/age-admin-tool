@@ -108,6 +108,8 @@ export abstract class AbstractStore<T> implements IAbstractStore {
             const data: ItemType[] = response.data;
             data.forEach(item => {
                 this.items.set(item.guid, item as T);
+                //TODO: implement properly! should create a new Item of type T!
+                // along the line "this.items.set(item.guid, new T(item) as T);" but with constructor function
             });
             setTimeout(() => {
                 this.status = "loaded";
