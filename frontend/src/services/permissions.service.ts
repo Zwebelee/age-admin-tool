@@ -7,7 +7,7 @@ export class PermissionsService {
     private permissionsCache: Map<string, IPermission[]> = new Map();
     private readonly apiClient: AxiosInstance;
 
-    constructor(private authStore: AuthStore, ) {
+    constructor(private authStore: AuthStore,) {
         this.apiClient = axios.create({
             baseURL: "http://localhost:5001",
             withCredentials: true, // Allow cookies
@@ -17,14 +17,14 @@ export class PermissionsService {
 
     async fetchPermissions(userGuid: string): Promise<IPermission[]> {
         if (!this.permissionsCache.has(userGuid)) {
-            if (this.authStore.accessToken){
-            const response = await this.apiClient.get(`/toolusers/profile/permissions`, {
-                headers: {
-                    'Authorization': `Bearer ${this.authStore.accessToken}`
-                }
-            });
-            const permissions = response.data;
-            this.permissionsCache.set(userGuid, permissions);
+            if (this.authStore.accessToken) {
+                const response = await this.apiClient.get(`/toolusers/profile/permissions`, {
+                    headers: {
+                        'Authorization': `Bearer ${this.authStore.accessToken}`
+                    }
+                });
+                const permissions = response.data;
+                this.permissionsCache.set(userGuid, permissions);
             }
         }
         return this.permissionsCache.get(userGuid) || [];
@@ -35,7 +35,7 @@ export class PermissionsService {
         return permissions.some(permission => permission.name === permissionName);
     }
 
-    clearPermissionsCache(){
+    clearPermissionsCache() {
         this.permissionsCache.clear();
     }
 }

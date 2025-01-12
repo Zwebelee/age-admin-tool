@@ -79,7 +79,7 @@ export class RootStore {
 
     initializeStoresAfterLogin(){
         // TODO: solve better, Lazy-load stores - hooks for specific data on demand in specific routes where data
-        //  is actually needed
+        //  is actually needed, better separation of auth and toolUserStore, wait for userProfile to be loaded!
         // private loadStore() {
         //     return this._stores[storeName];
         // }

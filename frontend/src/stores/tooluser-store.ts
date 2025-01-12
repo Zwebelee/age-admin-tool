@@ -11,6 +11,7 @@ export class ToolUserStore {
     user: ToolUser | undefined;
     authService: AuthService;
     permissionsService: PermissionsService;
+    userLoaded: boolean = false;
 
     constructor(authService: AuthService, permissionsService: PermissionsService) {
         this.authService = authService;
@@ -23,6 +24,7 @@ export class ToolUserStore {
             const response = await this.authService.getApiClient().get('/toolusers/profile');
             runInAction(() => {
                 this.user = response.data;
+                this.userLoaded = true;
             });
         } catch (error) {
             console.error('Failed to load data', error);

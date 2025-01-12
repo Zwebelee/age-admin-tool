@@ -45,12 +45,12 @@ export class AuthStore {
                 } else {
                     this.accessToken = token;
                     this.refreshCsrfToken = refresh_csrf_token;
-                    this.isLoggedIn = true;
 
                     // Ensure RootStore is fully initialized on site reload
                     Promise.resolve().then(() => {
                         this.rootStore.initializeStoresAfterLogin();
                         this.isLoading = false;
+                        this.isLoggedIn = true;
                     });
                 }
             })
@@ -157,8 +157,6 @@ export class AuthStore {
             this.accessToken = response.data.access_token;
             this.refreshToken = response.data.refresh_token;
             this.refreshCsrfToken = response.data.csrf_token;
-            //TODO: (A) load the permissions ?!
-
             this.setAuthCookie()
             this.isLoggedIn = true;
             this.rootStore.initializeStoresAfterLogin()
@@ -190,11 +188,14 @@ export class AuthStore {
     }
 
     async logout() {
-        //TODO: improve logout - with invalid credentials backend will 401
+        //TODO: improve logout - with invalid credentials backend will 401 - toolUserStore handling
         try {
             const response = await this.authService.getApiClient().delete('/logout');
             if (response.status !== 200) {
             } else {
+                this.rootStore.toolUserStore.user = undefined;
+                this.rootStore.toolUserStore.userLoaded = false;
+                this.rootStore.permissionsStore.clearPermissionsCache();
                 this.resetUserSession();
             }
         } catch (error) {
