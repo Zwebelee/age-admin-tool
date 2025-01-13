@@ -2,6 +2,7 @@ import uuid
 
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
 
 from ..models.agecomponent import Agecomponent
 from ..models.ageportal import Ageportal
@@ -13,6 +14,7 @@ ageportals_bp = Blueprint('ageportals', __name__)
 
 
 @ageportals_bp.route('/ageportals', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portals', 'AGE'],
     'responses': {
@@ -120,6 +122,7 @@ def create_ageportal():
 
 
 @ageportals_bp.route('/ageportals/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portals', 'AGE'],
     'parameters': [
@@ -164,6 +167,7 @@ def get_ageportal(guid):
 
 
 @ageportals_bp.route('/ageportals/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portals', 'AGE'],
     'parameters': [
@@ -237,6 +241,7 @@ def update_ageportal(guid):
 
 
 @ageportals_bp.route('/ageportals/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portals', 'AGE'],
     'parameters': [

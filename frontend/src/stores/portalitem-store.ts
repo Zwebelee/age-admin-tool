@@ -12,8 +12,7 @@ export class PortalItemStore extends AbstractStore<PortalItem> {
         makeObservable(this,{
             status: observable,
             items: observable
-        })
-        this.initialize();
+        });
     }
 
     async initialize() {

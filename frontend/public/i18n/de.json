@@ -70,6 +70,13 @@
         "dark": "Dunkel"
     },
     "logout": "Abmelden",
+    "login": {
+        "title": "Anmelden",
+        "success": "Erfolgreich angemeldet",
+        "failed": "Anmeldung fehlgeschlagen",
+        "invalid_user_or_pwd": "Ungültiger Benutzername oder Passwort"
+    },
+
     "tools": {
         "title": "Werkzeuge",
         "age-editor": {
@@ -84,14 +91,17 @@
     "access": "Zugang",
     "ad-status": "Anzeigestatus",
     "all": "Alle",
+    "assigned-to": "Zugewiesen an",
     "capabilities": "Fähigkeiten",
     "capacity-gb": "Kapazität in GB",
     "categories": "Kategorien",
+    "completed": "Abgeschlossen",
     "content-count": "Anzahl Inhalte",
     "content-status": "Inhaltlicher Status",
     "created": "Erstellt",
     "custom-role": "Benutzerdefinierte Rolle",
     "description": "Beschreibung",
+    "details": "Details",
     "division1": "Abteilung 1",
     "division2": "Abteilung 2",
     "division3": "Abteilung 3",
@@ -120,14 +130,19 @@
     "lastname": "Nachname",
     "leaving-disallowed": "Verlassen nicht erlaubt",
     "license": "Lizenz",
+    "linked-object-guid": "Verknüpfte Objekt-GUID",
+    "linked-object-type": "Verknüpfter Objekttyp",
     "member-count": "Mitgliederzahl",
     "modified": "Geändert",
     "name": "Name",
     "no-charts": "Keine Diagramme vorhanden",
+    "new-comment": "Neuer Kommentar",
     "no-filters": "Keine Filter vorhanden",
+    "no-one": "Niemanden",
     "not-deactivated": "Nicht deaktiviert",
     "operator": "Operator",
     "owner": "Eigentümer",
+    "priority": "Priorität",
     "provider": "Anbieter",
     "reset": "Zurücksetzen",
     "role-id": "Rollen-ID",
@@ -137,6 +152,11 @@
     "storage-usage": "Speichernutzung",
     "size-byte": "Byte Grösse",
     "tags": "Tags",
+    "task-comments": "Kommentare zur Aufgabe",
+    "task-details": "Aufgabendetails",
+    "task-edit": "Aufgabe bearbeiten",
+    "task-information": "Informationen zur Aufgabe",
+    "task-rule-guid": "Aufgabenregel GUID",
     "thumbnail": "Vorschaubild",
     "title": "Titel",
     "type": "Typ",
@@ -145,5 +165,6 @@
     "usertype": "Benutzertyp",
     "value": "Wert",
     "view": "Ansicht",
-    "viewcount": "Ansichtszähler"
+    "viewcount": "Ansichtszähler",
+    "none": "Keine"
 }

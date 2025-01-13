@@ -2,6 +2,8 @@ import uuid
 
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
+
 from ..db import db
 from ..models.taskrule import TaskRule
 
@@ -10,6 +12,7 @@ taskrules_bp = Blueprint('taskrules', __name__)
 
 # Task Rule Routes
 @taskrules_bp.route('/taskrules', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Rules'],
     'responses': {
@@ -35,6 +38,7 @@ def get_task_rules():
 
 
 @taskrules_bp.route('/taskrules', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Rules'],
     'parameters': [
@@ -88,6 +92,7 @@ def create_task_rule():
 
 
 @taskrules_bp.route('/taskrules/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Rules'],
     'parameters': [
@@ -127,6 +132,7 @@ def get_task_rule(guid):
 
 
 @taskrules_bp.route('/taskrules/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Rules'],
     'parameters': [
@@ -182,6 +188,7 @@ def update_task_rule(guid):
 
 
 @taskrules_bp.route('/taskrules/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Rules'],
     'parameters': [

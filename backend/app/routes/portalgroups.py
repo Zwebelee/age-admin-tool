@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
 
 from app.models.portalgroup import Portalgroup
 
@@ -7,6 +8,7 @@ portalgroups_bp = Blueprint('portalgroups', __name__)
 
 
 @portalgroups_bp.route('/portalgroups', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Groups', 'AGE', 'AGE - Portal'],
     'responses': {
@@ -52,6 +54,7 @@ def get_groups():
 
 
 @portalgroups_bp.route('/portalgroups/<guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Groups', 'AGE', 'AGE - Portal'],
     'parameters': [

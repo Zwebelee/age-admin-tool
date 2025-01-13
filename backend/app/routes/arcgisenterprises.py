@@ -2,6 +2,8 @@ import uuid
 
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
+
 from ..db import db
 from ..models.arcgisenterprise import Arcgisenterprise
 from ..utils.validate_required_fields import validate_required_fields
@@ -10,6 +12,7 @@ arcgisenterprises_bp = Blueprint('arcgisenterprises', __name__)
 
 
 @arcgisenterprises_bp.route('/arcgisenterprises', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'responses': {
@@ -46,6 +49,7 @@ def get_arcgisenterprises():
 
 
 @arcgisenterprises_bp.route('/arcgisenterprises', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'parameters': [
@@ -104,6 +108,7 @@ def create_arcgisenterprise():
 
 
 @arcgisenterprises_bp.route('/arcgisenterprises/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'parameters': [
@@ -144,6 +149,7 @@ def get_arcgisenterprise(guid):
 
 
 @arcgisenterprises_bp.route('/arcgisenterprises/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'parameters': [
@@ -205,6 +211,7 @@ def update_arcgisenterprise(guid):
 
 
 @arcgisenterprises_bp.route('/arcgisenterprises/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Enterprises', 'AGE'],
     'parameters': [

@@ -12,8 +12,7 @@ export class AgeportalStore extends AbstractStore<AgePortal> {
         makeObservable(this, {
             status: observable,
             items: observable
-        })
-        this.initialize();
+        });
     }
 
     async initialize() {

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token, get_csrf_token
 from ..models.tooluser import ToolUser
 
 login_bp = Blueprint('login', __name__)
@@ -47,13 +47,14 @@ login_bp = Blueprint('login', __name__)
 def login():
     username = request.json.get('username')
     password = request.json.get('password')
-
     tooluser = ToolUser.query.filter_by(username=username).first()
+
     if tooluser and tooluser.check_password(password):
+        # expiration is defined in jwt-manager via environment variable
         access_token = create_access_token(identity=username)
         refresh_token = create_refresh_token(identity=username)
-        # response.set_cookie('refresh_token', refresh_token, httponly=True, secure=True, samesite='Strict')
-        return jsonify(access_token=access_token, refresh_token=refresh_token), 200
+        csrf_token = get_csrf_token(refresh_token)
+        return jsonify(access_token=access_token, refresh_token=refresh_token, csrf_token=csrf_token), 200
 
     else:
         return jsonify({"message": "Invalid username or password"}), 401

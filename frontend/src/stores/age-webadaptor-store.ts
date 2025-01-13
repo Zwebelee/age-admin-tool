@@ -12,8 +12,7 @@ export class AgeWebadaptorStore extends AbstractStore<AgeWebAdaptor> {
         makeObservable(this,{
             status: observable,
             items: observable
-        })
-        this.initialize();
+        });
     }
 
     async initialize() {

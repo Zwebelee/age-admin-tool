@@ -1,4 +1,4 @@
-import {computed, makeObservable, observable, ObservableMap, runInAction} from "mobx";
+import {action, computed, makeObservable, observable, ObservableMap, runInAction} from "mobx";
 import {Age} from "../models/age.ts";
 import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
@@ -18,8 +18,10 @@ import {PortaluserStore} from "./portaluser-store.ts";
 import {PortalItemStore} from "./portalitem-store.ts";
 import {PortalGroupStore} from "./portalgroup-store.ts";
 import {PortalGroup} from "../models/portalgroup.ts";
+import { LoggerService } from "../services/logger.service.ts";
+import {Task} from "../models/task.ts";
 
-export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup;
+export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup | Task;
 export type StoreType =
     AgeStore
     | AgeDatastoreStore
@@ -67,9 +69,11 @@ export abstract class AbstractStore<T> implements IAbstractStore {
      */
         // items = observable.map<string, ItemType>();
     items: ObservableMap<string, T> = observable.map<string, T>();
+    selectedItem: T | null = null;
     status: status = "loading";
     filters: string[] = [];
     protected authService: AuthService;
+    protected logger: LoggerService = LoggerService.getInstance();
 
     abstract getEndpoint(): string;
 
@@ -77,7 +81,12 @@ export abstract class AbstractStore<T> implements IAbstractStore {
     protected constructor(autService: AuthService) {
         this.authService = autService;
         makeObservable(this, {
-            visibleItems: computed
+            visibleItems: computed,
+
+            selectedItem: observable,
+            setSelectedItem: action,
+            resetSelectedItem: action
+
         })
         //TODO: is makeOberserable not supported for derived classes and visibileItems has to be  makeObservable in each
         // class which extends abstractstore?
@@ -87,6 +96,14 @@ export abstract class AbstractStore<T> implements IAbstractStore {
         return [...this.items.values()];
     }
 
+    setSelectedItem(item: T | null) {
+        this.selectedItem = item;
+    }
+
+    resetSelectedItem() {
+        this.selectedItem = null;
+    }
+
     async loadItems() {
         this.status = "loading";
         try {
@@ -94,13 +111,15 @@ export abstract class AbstractStore<T> implements IAbstractStore {
             const data: ItemType[] = response.data;
             data.forEach(item => {
                 this.items.set(item.guid, item as T);
+                //TODO: implement properly! should create a new Item of type T!
+                // along the line "this.items.set(item.guid, new T(item) as T);" but with constructor function
             });
             setTimeout(() => {
                 this.status = "loaded";
                 //TODO: REMOVE LATER !!! JUST TO SEE THE LOADED :)
             }, 5000);
         } catch (error) {
-            console.error('Failed to load data', error);
+            this.logger.error('Failed to load data', error);
             this.status = "error";
         }
     }
