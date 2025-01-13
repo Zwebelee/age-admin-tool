@@ -1,7 +1,7 @@
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
 import {NoFilters} from "../components/inside/filters/NoFilters.tsx";
-import {NoCharts} from "../components/inside/charts/NoCharts.tsx";
+import {ContentsScreenCharts} from "../components/inside/charts/ContentsScreenCharts.tsx";
 import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
@@ -71,7 +71,7 @@ export const ContentsScreen = () => {
                 columns={columns}
                 hiddenColumns={hiddenColumns}
                 filter={<NoFilters/>}
-                charts={<NoCharts/>}
+                charts={<ContentsScreenCharts/>}
             ></InsideBox>
         </>
     );

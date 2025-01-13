@@ -21,9 +21,12 @@
         "error": "Erreur"
     },
     "charts": {
+        "contentNumbersByType": "Nombre de contenus par type",
+        "contentStatusNumbersByType": "Nombre de statuts de contenu par type",
         "itemNumbersByValue": "Nombre d’articles par valeur",
         "licenceNumbersByType": "Nombre de licences par type",
         "roleNumbersByType": "Nombre de rôles par type",
+        "sharingNumbersByType": "Nombre de partages par type",
         "statusNumbersByType": "Nombre de statuts par type",
         "storeageNumbersByValue": "Nombre d’utilisations d’entrepôts par valeur"
     },
