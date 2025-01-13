@@ -35,6 +35,7 @@
         border-right: 0 solid var(--color1);
         border-radius: pxToRem(10) 0 0 pxToRem(10);
         background: var(--color1);
+        overflow: hidden;
         @include media("sm") {
             width: 100%;
             height: pxToRem(7);

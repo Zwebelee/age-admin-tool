@@ -1,0 +1,24 @@
+@import "../../globalFunctions";
+
+.taskDetails {
+    &__list {
+        display: grid;
+        grid: auto auto / 50% 50%;
+        align-items: start;
+        @include media("sm") {
+            grid: auto / 100%;
+        }
+    }
+
+    & .MuiCollapse-wrapper {
+        padding-left: pxToRem(40);
+    }
+
+    &__commentButton {
+        margin: pxToRem(10) 0 pxToRem(5) 0;
+    }
+
+    &__closeButton {
+        margin: 0 pxToRem(12) pxToRem(5) 0;
+    }
+}

@@ -1,5 +1,5 @@
 import uuid
-
+from datetime import datetime
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from flask_jwt_extended import jwt_required
@@ -7,6 +7,7 @@ from flask_jwt_extended import jwt_required
 from ..models.task import Task
 from ..models.taskcomment import TaskComment
 from ..db import db
+from ..models.tasktooluser import task_tooluser
 
 tasks_bp = Blueprint('tasks', __name__)
 
@@ -224,11 +225,29 @@ def create_task():
 def update_task(guid):
     task = Task.query.filter_by(guid=guid).first_or_404()
     data = request.get_json()
+    new_assigned_to = None
     for key, value in data.items():
-        if key in ['task_rule_guid', 'assigned_to', 'linked_object_guid']:
-            value = uuid.UUID(value)
+        if key in ['guid', 'task_rule_guid', 'assigned_to', 'linked_object_guid']:
+            value = uuid.UUID(value) if value else None
+        if key in ['created_at', 'updated_at']:
+            # TODO: improve - solve generic
+            value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m-%d %H:%M:%S')
+
+        if key == 'assigned_to':
+            new_assigned_to = value
+            if not value:
+                db.session.execute(task_tooluser.delete().where(task_tooluser.c.task_guid == guid))
+                setattr(task, 'assigned_to', None)
+                continue
         setattr(task, key, value)
+
     db.session.commit()
+
+    if new_assigned_to:
+        db.session.execute(task_tooluser.delete().where(task_tooluser.c.task_guid == guid))
+        db.session.execute(task_tooluser.insert().values(task_guid=guid, tooluser_guid=new_assigned_to))
+    db.session.commit()
+
     return jsonify(task.to_dict())
 
 
@@ -394,10 +413,17 @@ def get_task_comment(task_guid, guid):
 })
 def create_task_comment(task_guid):
     data = request.get_json()
-    data['task_guid'] = task_guid
-    data['guid'] = uuid.uuid4()
-    if 'tooluser_guid' in data:
-        data['tooluser_guid'] = uuid.UUID(data['tooluser_guid'])
+    for key, value in data.items():
+        if key == 'tooluser_guid':
+            value = uuid.UUID(value)
+        if key == 'created_at':
+            value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m-%d %H:%M:%S')
+        if key == 'task_guid':
+            value = task_guid
+        if key == 'guid':
+            value = uuid.uuid4()
+        data[key] = value
+
     comment = TaskComment(**data)
     db.session.add(comment)
     db.session.commit()
