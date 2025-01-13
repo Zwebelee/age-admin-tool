@@ -8,6 +8,7 @@ from ..models.permission import Permission
 from ..models.rolepermission import role_permission
 from ..models.toolrole import ToolRole
 from ..models.tooluser import ToolUser
+from ..models.tooluserrole import tooluser_role
 
 toolusers_bp = Blueprint('toolusers', __name__)
 
@@ -75,17 +76,25 @@ def get_all_toolusers():
     }
 })
 def add_tooluser():
-    data = request.json
+    data = request.get_json()
     new_tooluser = ToolUser(
         guid=uuid.uuid4(),
         username=data['username'],
         language=data.get('language', 'en'),
-        theme=data.get('theme', 'light')
+        theme=data.get('theme', 'dark'),
+        active_role_guid=uuid.UUID(data.get('active_role_guid')),
+        active_role = None
     )
     new_tooluser.set_password(data['password'])
 
+    active_role = ToolRole.query.get(new_tooluser.active_role_guid)
+    if not active_role:
+        return jsonify({"message": "Role not found"}), 404
+
+    new_tooluser.active_role = active_role
+
     # Assign role to the new user
-    role_name = data.get('role', 'viewer')
+    role_name = data.get('active_role', 'viewer')
     role = ToolRole.query.filter_by(name=role_name).first()
     if role:
         new_tooluser.roles.append(role)
@@ -94,6 +103,7 @@ def add_tooluser():
 
     db.session.add(new_tooluser)
     db.session.commit()
+
     return jsonify(new_tooluser.to_dict()), 201
 
 
