@@ -64,6 +64,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
             if (task) {
                 await taskCommentStore.loadTaskComments(task.guid);
                 const comments = Array.from(taskCommentStore.items.values());
+                comments.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
                 setTaskComments(comments);
             }
         };
@@ -115,10 +116,10 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
     const handleAddComment = async () => {
         if (task && newComment.trim()) {
             const newTaskComment = new TaskComment({
-                guid: "", // Assuming the backend generates the GUID
+                guid: "",
                 taskId: task.guid,
                 comment: newComment,
-                tooluserGuid: toolUserStore.user?.guid || "", // Assuming the current user is the one adding the comment
+                tooluserGuid: toolUserStore.user?.guid || "",
                 createdAt: new Date(),
             });
 

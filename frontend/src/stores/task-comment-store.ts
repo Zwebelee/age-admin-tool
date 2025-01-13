@@ -22,7 +22,14 @@ export class TaskCommentStore extends AbstractStore<TaskComment> {
         this.status = "loading";
         try {
             const response = await this.authService.getApiClient().get(`tasks/${taskGuid}/comments`);
-            const data: TaskComment[] = response.data.map((taskCommentData: any) => new TaskComment(taskCommentData));
+            // TODO: properly serialize / deserialize like "task" model
+            const data: TaskComment[] = response.data.map((taskCommentData: any) => new TaskComment({
+                guid: taskCommentData.guid,
+                taskId: taskCommentData.task_guid,
+                comment: taskCommentData.comment,
+                tooluserGuid: taskCommentData.tooluser_guid,
+                createdAt: new Date(taskCommentData.created_at)
+            }));
             data.forEach(taskCommentItem => {
                 this.items.set(taskCommentItem.guid, taskCommentItem);
             });
@@ -35,7 +42,7 @@ export class TaskCommentStore extends AbstractStore<TaskComment> {
     async addTaskComment(taskGuid: string, taskComment: TaskComment) {
         this.status = "loading";
 
-        // TODO: serialize / deserialize like "task" model
+        // TODO: properly serialize / deserialize like "task" model
         const testtaskComment = JSON.parse(JSON.stringify(taskComment));
         testtaskComment.task_guid = testtaskComment.taskId;
         delete testtaskComment.taskId;
@@ -43,9 +50,6 @@ export class TaskCommentStore extends AbstractStore<TaskComment> {
         delete testtaskComment.tooluserGuid;
         testtaskComment.created_at = testtaskComment.createdAt;
         delete testtaskComment.createdAt;
-        console.log(testtaskComment);
-        testtaskComment.tooluser_guid = ""
-
 
         try {
             const response = await this.authService.getApiClient().post(`tasks/${taskGuid}/comments`, testtaskComment);

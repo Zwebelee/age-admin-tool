@@ -392,22 +392,17 @@ def get_task_comment(task_guid, guid):
 })
 def create_task_comment(task_guid):
     data = request.get_json()
+    for key, value in data.items():
+        if key == 'tooluser_guid':
+            value = uuid.UUID(value)
+        if key == 'created_at':
+            value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m-%d %H:%M:%S')
+        if key == 'task_guid':
+            value = task_guid
+        if key == 'guid':
+            value = uuid.uuid4()
+        data[key] = value
 
-    # task = Task.query.filter_by(guid=guid).first_or_404()
-    # data = request.get_json()
-    # for key, value in data.items():
-    #     if key in ['guid', 'task_rule_guid', 'assigned_to', 'linked_object_guid']:
-    #         value = uuid.UUID(value)
-    #     setattr(task, key, value)
-    # db.session.commit()
-    # return jsonify(task.to_dict())
-
-
-
-    data['task_guid'] = task_guid
-    data['guid'] = uuid.uuid4()
-    if 'tooluser_guid' in data:
-        data['tooluser_guid'] = uuid.UUID(data['tooluser_guid'])
     comment = TaskComment(**data)
     db.session.add(comment)
     db.session.commit()
