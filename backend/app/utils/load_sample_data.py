@@ -3,6 +3,7 @@ import uuid
 from pathlib import Path
 from sqlalchemy import UUID
 
+from app.db import db
 from app.models.agedatastore import Agedatastore
 from app.models.ageportal import Ageportal
 from app.models.ageserver import Ageserver
@@ -19,11 +20,11 @@ from app.models.portalgroup import Portalgroup
 from app.models.tasktooluser import task_tooluser
 from app.models.task import Task
 from app.models.portaluser import PortalUser
-from app.db import db
-
 from app.models.toolrole import ToolRole
 from app.models.tooluser import ToolUser
 from app.models.tooluserrole import tooluser_role
+from app.models.permission import Permission
+from app.models.rolepermission import role_permission
 
 
 def load_sample_data():
@@ -65,22 +66,28 @@ def initialize_sample_data(model, data):
 
 def init_all_sample_data():
     data = load_sample_data()
+
+    # models without relationships
     initialize_sample_data(TaskRule, data["task_rules"])
-    initialize_sample_data(ToolUser, data["toolusers"])
+    initialize_sample_data(Permission, data["permissions"])
+    initialize_sample_data(ToolRole, data["toolroles"])
     initialize_sample_data(PortalUser, data["portalusers"])
-    initialize_sample_data(Task, data["tasks"])
-    initialize_sample_data(TaskComment, data["task_comments"])
     initialize_sample_data(Ageportal, data["ageportals"])
     initialize_sample_data(Portallicense, data["portallicenses"])
     initialize_sample_data(Arcgisenterprise, data["arcgisenterprises"])
-    initialize_sample_data(Agecomponent, data["agecomponents"])
-    initialize_sample_data(Agewebadaptor, data["agewebadaptors"])
     initialize_sample_data(Agedatastore, data["agedatastores"])
     initialize_sample_data(Ageserver, data["ageservers"])
     initialize_sample_data(Ageservice, data["ageservices"])
     initialize_sample_data(Portalgroup, data["portalgroups"])
     initialize_sample_data(Portalitem, data["portalitems"])
+    initialize_sample_data(Agewebadaptor, data["agewebadaptors"])
+
+    # models with relationships
+    initialize_sample_data(ToolUser, data["toolusers"])
+    initialize_sample_data(Task, data["tasks"])
+    initialize_sample_data(TaskComment, data["task_comments"])
+    initialize_sample_data(Agecomponent, data["agecomponents"])
     initialize_sample_data(Portalusercategory, data["portalusercategories"])
     initialize_sample_data(task_tooluser, data["task_tooluser"])
-    initialize_sample_data(ToolRole, data["toolroles"])
     initialize_sample_data(tooluser_role, data["tooluser_role"])
+    initialize_sample_data(role_permission, data["role_permission"])

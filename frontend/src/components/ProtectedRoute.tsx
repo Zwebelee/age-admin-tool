@@ -1,18 +1,21 @@
-import {ReactNode} from "react";
-import {observer} from "mobx-react-lite";
-import {Navigate} from "react-router-dom";
+import {Navigate, Outlet} from "react-router-dom";
 import {useRootStore} from "../stores/root-store.ts";
+import {observer} from "mobx-react-lite";
+import {Loading} from "./loading/Loading.tsx";
 
-interface ProtectedRouteProps {
-    children: ReactNode;
-}
 
-const ProtectedRoute = observer(({children}: ProtectedRouteProps) => {
-    const rootStore = useRootStore();
-    if (!rootStore.authStore.isLoggedIn) {
-        return <Navigate to="/login"/>;
+const ProtectedRoute = observer(() => {
+    const {authStore} = useRootStore();
+
+    if (authStore.isLoading) {
+        return <Loading/>;
     }
-    return <>{children}</>;
+
+    if (!authStore.isLoggedIn) {
+        return <Navigate to="/login" replace/>;
+    }
+
+    return <Outlet/>;
 });
 
 export default ProtectedRoute;

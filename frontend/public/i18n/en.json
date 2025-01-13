@@ -58,6 +58,12 @@
         "dark": "Dark"
     },
     "logout": "Logout",
+    "login" : {
+        "title": "Login",
+        "success": "Login successful",
+        "failed": "Login failed",
+        "invalid_user_or_pwd": "Invalid username or password"
+    },
     "tools": {
         "title": "Tools",
         "age-editor": {

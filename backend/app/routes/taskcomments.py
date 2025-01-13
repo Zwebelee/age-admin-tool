@@ -1,6 +1,8 @@
 import uuid
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
+
 from ..db import db
 from ..models.taskcomment import TaskComment
 
@@ -9,6 +11,7 @@ taskcomments_bp = Blueprint('taskcomments', __name__)
 
 # Get all comments
 @taskcomments_bp.route('/taskcomments', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['Task-Comments'],
     'responses': {
@@ -34,7 +37,9 @@ def get_all_comments():
     comments = TaskComment.query.all()
     return jsonify([comment.to_dict() for comment in comments])
 
+
 @taskcomments_bp.route('/taskcomments', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['Task-Comments'],
     'parameters': [
@@ -82,6 +87,7 @@ def create_comment():
 
 # Get a specific comment by GUID
 @taskcomments_bp.route('/comments/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['Task-Comments'],
     'parameters': [
@@ -124,6 +130,7 @@ def get_comment(guid):
 
 # Update a comment
 @taskcomments_bp.route('/comments/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['Task-Comments'],
     'parameters': [
@@ -184,6 +191,7 @@ def update_comment(guid):
 
 # Delete a comment
 @taskcomments_bp.route('/comments/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['Task-Comments'],
     'parameters': [

@@ -13,6 +13,7 @@ from .routes.arcgisenterprises import arcgisenterprises_bp
 from .routes.home import home_bp
 from .routes.login import login_bp
 from .routes.logout import logout_bp
+from .routes.permissions import permissions_bp
 from .routes.portalgroups import portalgroups_bp
 from .routes.portalitems import portalitems_bp
 from .routes.portallicenses import portallicenses_bp
@@ -24,6 +25,7 @@ from .routes.taskcomments import taskcomments_bp
 from .routes.taskrules import taskrules_bp
 from .routes.tasks import tasks_bp
 from .routes.toolusers import toolusers_bp
+from .routes.validatetoken import validatetoken_bp
 from .utils.load_sample_data import init_all_sample_data
 
 
@@ -52,6 +54,7 @@ class Config:
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
     JWT_ACCESS_TOKEN_EXPIRES = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
     JWT_REFRESH_TOKEN_EXPIRES = int(os.getenv('JWT_REFRESH_TOKEN_EXPIRES'))
+    JWT_REFRESH_COOKIE_NAME = os.getenv('JWT_REFRESH_COOKIE_NAME')
 
 
 def register_extensions(app):
@@ -83,6 +86,8 @@ def register_blueprints(app):
     app.register_blueprint(tasks_bp)
     app.register_blueprint(taskrules_bp)
     app.register_blueprint(taskcomments_bp)
+    app.register_blueprint(validatetoken_bp)
+    app.register_blueprint(permissions_bp)
     return None
 
 

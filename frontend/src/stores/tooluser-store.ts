@@ -1,6 +1,7 @@
 import {AuthService} from "../services/auth.service.ts";
 import {makeAutoObservable, runInAction} from "mobx";
 import {ToolUser} from "../models/tooluser.ts";
+import {PermissionsService} from "../services/permissions.service.ts";
 
 interface ToolUserWithPassword extends ToolUser {
     password: string;
@@ -10,9 +11,12 @@ export class ToolUserStore {
     user: ToolUser | undefined;
     users: ToolUser[] = [];
     authService: AuthService;
+    permissionsService: PermissionsService;
+    userLoaded: boolean = false;
 
-    constructor(authService: AuthService) {
+    constructor(authService: AuthService, permissionsService: PermissionsService) {
         this.authService = authService;
+        this.permissionsService = permissionsService;
         makeAutoObservable(this)
     }
 
@@ -21,6 +25,7 @@ export class ToolUserStore {
             const response = await this.authService.getApiClient().get('/toolusers/profile');
             runInAction(() => {
                 this.user = response.data;
+                this.userLoaded = true;
             });
         } catch (error) {
             console.error('Failed to load data', error);
@@ -57,5 +62,12 @@ export class ToolUserStore {
         } catch (error) {
             console.error('Failed to add user', error);
         }
+    }
+
+    async hasPermission(permissionName: string): Promise<boolean> {
+        if (this.user) {
+            return this.permissionsService.hasPermission(this.user.guid, permissionName);
+        }
+        return false;
     }
 }

@@ -9,9 +9,7 @@ export class TaskRuleStore extends AbstractStore<TaskRule> {
 
     constructor(authService: AuthService) {
         super(authService);
-        makeObservable(this, {})
-        this.initialize().then(() => {
-        });
+        makeObservable(this, {});
     }
 
     async initialize() {

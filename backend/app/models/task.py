@@ -11,7 +11,7 @@ class Task(db.Model):
     task_rule_guid = db.Column(db.UUID, db.ForeignKey('task_rules.guid'), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    status = db.Column(db.String(255), nullable=False, default='pending')
+    status = db.Column(db.String(255), nullable=False, default='pending') 
     priority = db.Column(db.String(255), nullable=False, default='normal')
     assigned_to = db.Column(db.UUID, db.ForeignKey('toolusers.guid'))
     linked_object_guid = db.Column(UUID, nullable=False)

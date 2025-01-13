@@ -18,6 +18,8 @@ import {PortalLicenseFilter} from "./portallicense-filter.tsx";
 import {Task} from "../models/task.ts";
 import {TaskRule} from "../models/taskrule.ts";
 import {TaskComment} from "../models/taskcomment.ts";
+import { permissions } from "../config/permissions.ts";
+import {usePermission} from "../hooks/usePermission.ts";
 
 
 export const TestStoreComponent = observer(() => {
@@ -31,6 +33,7 @@ export const TestStoreComponent = observer(() => {
             <TestUpdateLicense/>
             <TestGeneralStore/>
             <TestStore/>
+            <TestPermissions/>
         </Box>
     );
 });
@@ -343,5 +346,22 @@ const TaskDetails = observer(({ taskId }: { taskId: string }) => {
                 </Box>
             ))}
         </Box>
+    );
+});
+
+const TestPermissions = observer(() => {
+    //TODO: (A) continue crawlback here
+
+    const hasPermission = usePermission(permissions.VIEW_TASKS);
+
+    return (
+        <>
+            <Typography variant="h5">Permission Test</Typography>
+            <Typography variant="h6">Test see this button</Typography>
+            {!hasPermission ? (
+                <Button variant="contained" color="error">Nope</Button>
+            ):(
+            <Button variant="contained" color={"success"}>Yes - Permission Granted</Button>)}
+        </>
     );
 });

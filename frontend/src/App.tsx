@@ -1,5 +1,5 @@
 import {Suspense, useState, useEffect, useRef} from "react";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 
@@ -28,7 +28,7 @@ import {SignInScreen} from "./screens/SignInScreen.tsx";
 
 const AppObserver = observer(() => {
 
-    const {themeStore} = useRootStore()
+    const {themeStore, authStore} = useRootStore();
 
     const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
     const color1 = getColor("--color1");
@@ -139,26 +139,31 @@ const AppObserver = observer(() => {
     return (
         <Suspense fallback="loading">
             <BrowserRouter>
-                <ThemeProvider theme={themeStore.theme ==="light" ? themeLight : themeDark}>
+                <ThemeProvider theme={themeStore.theme === "light" ? themeLight : themeDark}>
                     <CssBaseline/>
-                    <div className={themeStore.theme ==="light" ? "theme--light" : "theme--dark"}>
+                    <div className={themeStore.theme === "light" ? "theme--light" : "theme--dark"}>
                         <div className={animationStopper ? "app animationStopper" : "app"}>
                             <Header toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
-                            <Sidebar/>
+                            {authStore.isLoggedIn && <Sidebar/>}
                             <main className="main">
                                 <div className={toggleMenu ? "main__contentHidden" : "main__content"}>
                                     <Routes>
-                                        <Route path="/" element={<OverviewScreen/>}/>
-                                        <Route path="/users" element={<UsersScreen/>}/>
-                                        <Route path="/contents" element={<ContentsScreen/>}/>
-                                        <Route path="/tasks" element={<TasksScreen/>}/>
-                                        <Route path="/groups" element={<GroupsScreen/>}/>
-                                        <Route path="/components" element={<ComponentsScreen/>}/>
-                                        <Route path="/experimental" element={<ExperimentalScreen/>}/>
-                                        <Route path="/utils" element={<ToolsScreen/>}/>
-                                        <Route path="/my-account" element={<MyAccountScreen />}/>
                                         <Route path="/login" element={<SignInScreen/>}/>
-                                        <Route path="/testsecret" element={<ProtectedRoute><h1>This is the secret screen only available when logged in</h1></ProtectedRoute>}/>
+                                        <Route element={<ProtectedRoute/>}>
+                                            <Route path="/" element={<OverviewScreen/>}/>
+                                            <Route path="/users" element={<UsersScreen/>}/>
+                                            <Route path="/contents" element={<ContentsScreen/>}/>
+                                            <Route path="/tasks" element={<TasksScreen/>}/>
+                                            <Route path="/groups" element={<GroupsScreen/>}/>
+                                            <Route path="/components" element={<ComponentsScreen/>}/>
+                                            <Route path="/experimental" element={<ExperimentalScreen/>}/>
+                                            <Route path="/utils" element={<ToolsScreen/>}/>
+                                            <Route path="/my-account" element={<MyAccountScreen/>}/>
+                                            <Route path="/testsecret"
+                                                   element={<h1>This is the secret screen only available when logged
+                                                       in</h1>}/>
+                                        </Route>
+                                        <Route path="*" element={<Navigate to="/" replace />} /> {/* Catch-all route */}
                                     </Routes>
                                 </div>
                                 <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>

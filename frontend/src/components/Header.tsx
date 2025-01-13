@@ -1,4 +1,5 @@
 import {NavLink} from "react-router-dom";
+import {useLocation } from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {SecondaryMenu} from "./SecondaryMenu.tsx";
 import {MobileMenu} from "./MobileMenu.tsx";
@@ -19,6 +20,9 @@ export const Header = observer((
     {toggleMenu, onClickMenu, onClickLogo }:IHeader ) => {
     const {themeStore} = useRootStore()
     const {t} = useTranslation()
+    const location = useLocation();
+    const isLoginPage = location.pathname === "/login";
+
     const logo = themeStore.theme === 'light' ? logoLight : logoDark;
     return (
         <div className="header">
@@ -31,8 +35,8 @@ export const Header = observer((
                 <h1 className="header__name">{t("app-title")}</h1>
             </div>
             <div className="header__menu">
-                <SecondaryMenu position="secondaryMenuDesktop" onClickMenuItem={() => {}}/>
-                <MobileMenu toggleMenu={toggleMenu} onClickMenu={onClickMenu}/>
+                {!isLoginPage && <SecondaryMenu position="secondaryMenuDesktop" onClickMenuItem={() => {}}/>}
+                {!isLoginPage && <MobileMenu toggleMenu={toggleMenu} onClickMenu={onClickMenu}/>}
             </div>
         </div>
     )

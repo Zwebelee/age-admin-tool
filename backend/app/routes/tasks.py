@@ -2,6 +2,7 @@ import uuid
 from datetime import datetime
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
 
 from ..models.task import Task
 from ..models.taskcomment import TaskComment
@@ -10,8 +11,10 @@ from ..models.tasktooluser import task_tooluser
 
 tasks_bp = Blueprint('tasks', __name__)
 
+
 # Task Routes
 @tasks_bp.route('/tasks', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['Tasks'],
     'responses': {
@@ -43,7 +46,9 @@ def get_tasks():
     tasks = Task.query.all()
     return jsonify([task.to_dict() for task in tasks])
 
+
 @tasks_bp.route('/tasks/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
@@ -89,7 +94,9 @@ def get_task(guid):
     task = Task.query.get_or_404(guid)
     return jsonify(task.to_dict())
 
+
 @tasks_bp.route('/tasks', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
@@ -152,7 +159,9 @@ def create_task():
     db.session.commit()
     return jsonify(task.to_dict()), 201
 
+
 @tasks_bp.route('/tasks/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
@@ -241,7 +250,9 @@ def update_task(guid):
 
     return jsonify(task.to_dict())
 
+
 @tasks_bp.route('/tasks/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['Tasks'],
     'parameters': [
@@ -273,8 +284,10 @@ def delete_task(guid):
     db.session.commit()
     return '', 204
 
+
 # Task Comment Routes
 @tasks_bp.route('/tasks/<uuid:task_guid>/comments', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
@@ -308,7 +321,9 @@ def get_task_comments(task_guid):
     comments = TaskComment.query.filter_by(task_guid=task_guid).all()
     return jsonify([comment.to_dict() for comment in comments])
 
+
 @tasks_bp.route('/tasks/<uuid:task_guid>/comments/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
@@ -354,7 +369,9 @@ def get_task_comment(task_guid, guid):
     comment = TaskComment.query.filter_by(guid=guid, task_guid=task_guid).first_or_404()
     return jsonify(comment.to_dict())
 
+
 @tasks_bp.route('/tasks/<uuid:task_guid>/comments', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
@@ -412,7 +429,9 @@ def create_task_comment(task_guid):
     db.session.commit()
     return jsonify(comment.to_dict()), 201
 
+
 @tasks_bp.route('/tasks/<uuid:task_guid>/comments/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [
@@ -476,7 +495,9 @@ def update_task_comment(task_guid, guid):
     db.session.commit()
     return jsonify(comment.to_dict())
 
+
 @tasks_bp.route('/tasks/<uuid:task_guid>/comments/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['Task Comments'],
     'parameters': [

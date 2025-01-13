@@ -3,7 +3,7 @@ import axios, {AxiosInstance} from "axios";
 import {RootStore} from "../stores/root-store.ts";
 
 export class AuthService {
-    private apiClient: AxiosInstance;
+    private readonly apiClient: AxiosInstance;
 
     constructor(private rootStore: RootStore) {
         this.apiClient = axios.create({
@@ -14,6 +14,9 @@ export class AuthService {
         // Add a request interceptor
         this.apiClient.interceptors.request.use(
             async (config) => {
+                if (config.url == '/refresh') {
+                    return config;
+                }
                 if (this.rootStore.authStore.accessToken) {
                     config.headers["Authorization"] = `Bearer ${this.rootStore.authStore.accessToken}`;
                 }
@@ -26,13 +29,25 @@ export class AuthService {
         this.apiClient.interceptors.response.use(
             (response) => response,
             async (error) => {
-                if (error.response?.status === 401 && error.config && !error.config._retry) {
-                    // Attempt to refresh the token
-                    error.config._retry = true;
-                    await this.rootStore.authStore.refreshAccessToken();
-                    if (this.rootStore.authStore.accessToken) {
-                        error.config.headers["Authorization"] = `Bearer ${this.rootStore.authStore.accessToken}`;
-                        return this.apiClient(error.config);
+                const originalRequest = error.config;
+                if (error.response?.status === 401) {
+                    if (originalRequest.url === '/login') {
+                        return Promise.reject(error);
+                    }
+                    if (originalRequest.url === '/logout') {
+                        return Promise.reject(error);
+                    }
+                    if (originalRequest.url === '/refresh') {
+                        return Promise.reject(error);
+                    }
+
+                    try {
+                        await this.rootStore.authStore.refreshAccessToken();
+                        originalRequest.headers["Authorization"] = `Bearer ${this.rootStore.authStore.accessToken}`;
+                        return this.apiClient(originalRequest);
+                    } catch (refreshError) {
+                        await this.rootStore.authStore.logout();
+                        return Promise.reject(refreshError);
                     }
                 }
                 return Promise.reject(error);
@@ -44,33 +59,3 @@ export class AuthService {
         return this.apiClient;
     }
 }
-//
-// // Add a request interceptor
-// apiClient.interceptors.request.use(
-//     async (config) => {
-//         if (authStore.accessToken) {
-//             config.headers["Authorization"] = `Bearer ${authStore.accessToken}`;
-//         }
-//         return config;
-//     },
-//     (error) => Promise.reject(error)
-// );
-//
-// // Add a response interceptor
-// apiClient.interceptors.response.use(
-//     (response) => response,
-//     async (error) => {
-//         if (error.response?.status === 401 && error.config && !error.config._retry) {
-//             // Attempt to refresh the token
-//             error.config._retry = true;
-//             await authStore.refreshAccessToken();
-//             if (authStore.accessToken) {
-//                 error.config.headers["Authorization"] = `Bearer ${authStore.accessToken}`;
-//                 return apiClient(error.config);
-//             }
-//         }
-//         return Promise.reject(error);
-//     }
-// );
-//
-// export default apiClient;

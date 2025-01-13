@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
 
 from app.models.portalitem import Portalitem
 
@@ -7,6 +8,7 @@ portalitems_bp = Blueprint('portalitems', __name__)
 
 
 @portalitems_bp.route('/portalitems', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Items', 'AGE', 'AGE - Portal'],
     'responses': {
@@ -51,6 +53,7 @@ def get_items():
 
 
 @portalitems_bp.route('/portalitems/<guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Portal - Items', 'AGE', 'AGE - Portal'],
     'parameters': [

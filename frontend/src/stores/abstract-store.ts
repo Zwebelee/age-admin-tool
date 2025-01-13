@@ -1,4 +1,4 @@
-import {action, computed, makeObservable, observable, ObservableMap, runInAction} from "mobx";
+import {computed, makeObservable, observable, ObservableMap, runInAction} from "mobx";
 import {Age} from "../models/age.ts";
 import {PortalUser} from "../models/portaluser.ts";
 import {AuthService} from "../services/auth.service.ts";
@@ -18,6 +18,7 @@ import {PortaluserStore} from "./portaluser-store.ts";
 import {PortalItemStore} from "./portalitem-store.ts";
 import {PortalGroupStore} from "./portalgroup-store.ts";
 import {PortalGroup} from "../models/portalgroup.ts";
+import { LoggerService } from "../services/logger.service.ts";
 import {Task} from "../models/task.ts";
 
 export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup | Task;
@@ -72,6 +73,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
     status: status = "loading";
     filters: string[] = [];
     protected authService: AuthService;
+    protected logger: LoggerService = LoggerService.getInstance();
 
     abstract getEndpoint(): string;
 
@@ -117,7 +119,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
                 //TODO: REMOVE LATER !!! JUST TO SEE THE LOADED :)
             }, 5000);
         } catch (error) {
-            console.error('Failed to load data', error);
+            this.logger.error('Failed to load data', error);
             this.status = "error";
         }
     }

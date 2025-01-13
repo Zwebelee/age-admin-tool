@@ -11,6 +11,8 @@ class ToolUser(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     language = db.Column(db.String(255), nullable=False)
     theme = db.Column(db.String(255), nullable=False)
+    active_role_guid = db.Column(db.UUID, db.ForeignKey('toolroles.guid'), nullable=False)
+    active_role = db.relationship('ToolRole', foreign_keys=[active_role_guid])
     tasks = db.relationship('Task', secondary=task_tooluser, backref='toolusers')
     roles = db.relationship('ToolRole', secondary=tooluser_role, backref='toolusers')
 
@@ -26,6 +28,8 @@ class ToolUser(db.Model):
             "username": self.username,
             "language": self.language,
             "theme": self.theme,
+            "active_role_guid": self.active_role_guid,
+            "active_role_name": self.active_role.name if self.active_role else None,
         }
 
     def __repr__(self):

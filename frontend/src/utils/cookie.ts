@@ -4,6 +4,7 @@ interface Options {
     domain?: string;
     secure?: boolean;
     sameSite?: 'strict' | 'lax' | 'none';
+    httpOnly?: boolean;
 }
 
 class Cookie {
@@ -30,6 +31,10 @@ class Cookie {
 
         if (options.sameSite) {
             cookieString += `samesite=${options.sameSite};`;
+        }
+
+        if (options.httpOnly) {
+            cookieString += `httponly;`;
         }
 
         document.cookie = cookieString;

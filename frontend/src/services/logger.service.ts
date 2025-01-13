@@ -1,4 +1,16 @@
 export class LoggerService {
+    private static instance: LoggerService;
+
+    private constructor() {}
+
+    static getInstance(): LoggerService {
+        if (!LoggerService.instance) {
+            LoggerService.instance = new LoggerService();
+        }
+        return LoggerService.instance;
+    }
+
+
     private static readonly LOG_LEVELS = {
         LOG: 'LOG',
         INFO: 'INFO',

@@ -58,6 +58,13 @@
         "dark": "Dunkel"
     },
     "logout": "Abmelden",
+    "login": {
+        "title": "Anmelden",
+        "success": "Erfolgreich angemeldet",
+        "failed": "Anmeldung fehlgeschlagen",
+        "invalid_user_or_pwd": "Ungültiger Benutzername oder Passwort"
+    },
+
     "tools": {
         "title": "Werkzeuge",
         "age-editor": {

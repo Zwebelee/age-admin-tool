@@ -1676,14 +1676,16 @@
       "username": "Alice",
       "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd",
       "theme": "dark",
-      "language": "en"
+      "language": "en",
+      "active_role_guid": "6566f9fb-590a-40ef-8fbe-5f1ba6582011"
     },
     {
       "guid": "123b4567-b89e-12d3-a456-426625274225",
       "username": "Bob",
       "password_hash": "scrypt:32768:8:1$iYKehYeotyz4ncd3$dae649c882267f78c02573aadac10ae24c404fcfa83ad2c3c2082041a5ae56707f11c1e51d0f432614c3e7aa09e437c1cf0d02efd64b76642c686dde975aeadd",
       "theme": "light",
-      "language": "de"
+      "language": "de",
+      "active_role_guid": "1fa67299-d8e6-42f2-b6a6-73a2a4ce99a1"
     }
   ],
   "tasks": [
@@ -1763,6 +1765,26 @@
     {
       "tooluser_guid": "123b4567-b89e-12d3-a456-426625274225",
       "toolrole_guid": "1fa67299-d8e6-42f2-b6a6-73a2a4ce99a1"
+    }
+  ],
+  "permissions": [
+    {
+      "guid": "123e4567-e89b-12d3-b477-426625274333",
+      "name": "view:toolsmenu"
+    },
+    {
+      "guid": "123e4567-e89b-12d3-b477-426625274334",
+      "name": "view:tasks"
+    }
+  ],
+  "role_permission": [
+    {
+      "toolrole_guid": "6566f9fb-590a-40ef-8fbe-5f1ba6582011",
+      "permission_guid": "123e4567-e89b-12d3-b477-426625274333"
+    },
+    {
+      "toolrole_guid": "6566f9fb-590a-40ef-8fbe-5f1ba6582011",
+      "permission_guid": "123e4567-e89b-12d3-b477-426625274334"
     }
   ],
   "task_comments": [

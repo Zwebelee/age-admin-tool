@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
+
 from ..db import db
 from ..models.tooluser import ToolUser
 
@@ -7,6 +9,7 @@ register_bp = Blueprint('register', __name__)
 
 
 @register_bp.route('/register', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['Authentication'],
     'parameters': [

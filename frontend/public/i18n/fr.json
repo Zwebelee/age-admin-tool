@@ -58,6 +58,12 @@
         "dark": "Sombre"
     },
     "logout": "Déconnexion",
+    "login": {
+        "title": "Connexion",
+        "success": "Connexion réussie",
+        "failed": "Échec de la connexion",
+        "invalid_user_or_pwd": "Nom d'utilisateur ou mot de passe invalide"
+    },
     "tools": {
         "title": "Outils",
         "age-editor": {

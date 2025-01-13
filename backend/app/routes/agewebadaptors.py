@@ -1,6 +1,8 @@
 import uuid
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
+from flask_jwt_extended import jwt_required
+
 from ..models.agecomponent import Agecomponent
 from ..models.agewebadaptor import Agewebadaptor
 from ..db import db
@@ -11,6 +13,7 @@ agewebadaptors_bp = Blueprint('agewebadaptor', __name__)
 
 
 @agewebadaptors_bp.route('/agewebadaptors', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'responses': {
@@ -49,6 +52,7 @@ def get_agewebadaptors():
 
 
 @agewebadaptors_bp.route('/agewebadaptors', methods=['POST'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
@@ -127,6 +131,7 @@ def create_agewebadaptor():
 
 
 @agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
@@ -172,6 +177,7 @@ def get_agewebadaptor(guid):
     return jsonify(agewebadaptor.to_dict())
 
 @agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['PUT'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
@@ -252,6 +258,7 @@ def update_agewebadaptor(guid):
 
 
 @agewebadaptors_bp.route('/agewebadaptors/<uuid:guid>', methods=['DELETE'])
+@jwt_required()
 @swag_from({
     'tags': ['AGE - Webadaptors', 'AGE'],
     'parameters': [
