@@ -22,9 +22,11 @@
     },
     "charts": {
         "itemNumbersByValue": "Number of articles by value",
+        "lastLoginNumbersByDate": "Number of last logins by date",
         "licenceNumbersByType": "Number of licences by type",
         "roleNumbersByType": "Number of roles by type",
-        "statusNumbersByType": "Number of status by type"
+        "statusNumbersByType": "Number of status by type",
+        "storeageNumbersByValue": "Number of storeage usage by value"
     },
     "components": "Components",
     "contents": "Contents",

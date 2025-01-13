@@ -22,9 +22,11 @@
     },
     "charts": {
         "itemNumbersByValue": "Anzahl Artikel nach Wert",
+        "lastLoginNumbersByDate": "Anzahl letzte Anmeldungen nach Datum",
         "licenceNumbersByType": "Anzahl Lizenzen nach Typ",
         "roleNumbersByType": "Anzahl Rollen nach Typ",
-        "statusNumbersByType": "Anzahl Status nach Typ"
+        "statusNumbersByType": "Anzahl Status nach Typ",
+        "storeageNumbersByValue": "Anzahl Speichernutzungen nach Wert"
     },
     "components": "Komponenten",
     "contents": "Inhalte",
