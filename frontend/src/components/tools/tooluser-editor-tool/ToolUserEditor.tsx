@@ -1,25 +1,60 @@
 import {Alert, Button, InputLabel, MenuItem, Paper, Snackbar, TextField, Typography} from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import {observer} from "mobx-react-lite";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
 import './ToolUserEditor.scss';
+import {IToolUserRole, ToolUserRole} from "../../../models/tooluserrole.ts";
+import {ToolUserWithPassword} from "../../../models/tooluser.ts";
 
 export const AgeToolUserEditor = observer(() => {
     const {t} = useTranslation();
-    const {toolUserStore} = useRootStore()
+    const {toolUserStore, logService} = useRootStore()
     const initialFormData = {
         username: '',
         email: '',
         password: '',
         theme: 'dark',
         language: 'en',
-        role: 'viewer'
+        role: ''
+
     }
     const [formData, setFormData] = useState(initialFormData)
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [roles, setRoles] = useState<ToolUserRole[]>([]);
+
+    const capitalizeFirstLetter = (string: string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
+
+    useEffect(() => {
+        const fetchRoles = async () => {
+            try {
+                const response = await toolUserStore.getToolUserRoles();
+                if(response){
+                    const rolesData = response.data.map((role: IToolUserRole) => new ToolUserRole(role));
+                    setRoles(rolesData);
+                    const viewerRole = rolesData.find((role: { name: string; }) => role.name === "viewer");
+                    if (viewerRole) {
+                        setFormData(prevFormData => ({
+                            ...prevFormData,
+                            role: viewerRole.guid
+                        }));
+                    }
+                } else {
+                    setRoles([]);
+                }
+            } catch (error) {
+                logService.error('Error fetching roles:', error);
+                setRoles([]);
+            }
+        };
+
+        fetchRoles().then();
+    }, [toolUserStore]);
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
@@ -41,12 +76,29 @@ export const AgeToolUserEditor = observer(() => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const toolUser = {
-                ...formData,
-                guid: ""
+
+            const toolUserRole= roles.find((role) => role.guid === formData.role);
+            if (!toolUserRole) {
+                logService.error('Role not found');
+                return;
             }
+
+            const toolUser = new ToolUserWithPassword({
+                ...formData,
+                guid: "",
+                active_role: '',
+                active_role_guid: ''
+            });
+            toolUser.activeRole = toolUserRole.name;
+            toolUser.activeRoleGuid = toolUserRole.guid;
+
+
             await toolUserStore.addUser(toolUser);
-            setFormData(initialFormData);
+            const viewerRole = roles.find(role => role.name === "viewer");
+            setFormData({
+                ...initialFormData,
+                role: viewerRole ? viewerRole.guid : ''
+            });
             setSuccessMessage(`${formData.username} created successfully`);
             setTimeout(() => setSuccessMessage(null), 8000);
         } catch (error) {
@@ -139,15 +191,17 @@ export const AgeToolUserEditor = observer(() => {
                         <Select
                             labelId="role-label"
                             id="role"
-                            name={t("role")}
+                            name="role"
                             value={formData.role}
                             label="role"
                             onChange={handleSelectChange}
-                            MenuProps={{classes:{paper:"input-field-label"}}}
+                            MenuProps={{ classes: { paper: "input-field-label" } }}
                         >
-                            <MenuItem value="viewer">Viewer</MenuItem>
-                            <MenuItem value="editor">Editor</MenuItem>
-                            <MenuItem value="admin">Admin</MenuItem>
+                            {roles.map((role) => (
+                                <MenuItem key={role.guid} value={role.guid}>
+                                    {capitalizeFirstLetter(role.name)}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </Grid>
                     <Grid>

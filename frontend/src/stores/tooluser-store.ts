@@ -1,11 +1,8 @@
 import {AuthService} from "../services/auth.service.ts";
 import {makeAutoObservable, runInAction} from "mobx";
-import {ToolUser} from "../models/tooluser.ts";
+import {ToolUser, ToolUserWithPassword} from "../models/tooluser.ts";
 import {PermissionsService} from "../services/permissions.service.ts";
 
-interface ToolUserWithPassword extends ToolUser {
-    password: string;
-}
 
 export class ToolUserStore {
     user: ToolUser | undefined;
@@ -58,7 +55,7 @@ export class ToolUserStore {
 
     async addUser(user: ToolUserWithPassword) {
         try {
-            await this.authService.getApiClient().post('/toolusers', user);
+            await this.authService.getApiClient().post('/toolusers', user.toJSON());
         } catch (error) {
             console.error('Failed to add user', error);
         }
@@ -69,5 +66,13 @@ export class ToolUserStore {
             return this.permissionsService.hasPermission(this.user.guid, permissionName);
         }
         return false;
+    }
+
+    async getToolUserRoles(){
+        try {
+            return await this.authService.getApiClient().get('/toolroles');
+        } catch (error) {
+            console.error('Failed to load data', error);
+        }
     }
 }
