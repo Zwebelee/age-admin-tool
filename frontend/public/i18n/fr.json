@@ -22,7 +22,6 @@
     },
     "charts": {
         "itemNumbersByValue": "Nombre d’articles par valeur",
-        "lastLoginNumbersByDate": "Nombre de dernières connexions par date",
         "licenceNumbersByType": "Nombre de licences par type",
         "roleNumbersByType": "Nombre de rôles par type",
         "statusNumbersByType": "Nombre de statuts par type",

@@ -15,7 +15,6 @@ export const UsersScreenCharts = () => {
         status: item.status,
         itemcount: item.itemcount,
         storeage: item.storeage,
-        lastlogin: item.lastlogin,
     }));
 
     const color1 = utils.rgbaToRgb(utils.getColor("--color1"));
@@ -33,17 +32,15 @@ export const UsersScreenCharts = () => {
     const licenseValue = utils.countProperties(rows, "license");
     const itemValue = utils.countProperties(rows, "itemcount");
     const storeageValue = utils.countProperties(rows, "storeage");
-    const lastloginValue = utils.countProperties(rows, "lastlogin");
 
     const roleLength = roleValue.length;
     const statusLength = statusValue.length;
     const licenseLength = licenseValue.length;
     const itemLength = itemValue.length;
     const storeageLength = storeageValue.length;
-    const lastloginLength = lastloginValue.length;
 
     return (
-        <div>
+        <div className="charts">
             <div>
                 <h3>{t("charts.roleNumbersByType")}</h3>
                 <Chart
@@ -77,13 +74,6 @@ export const UsersScreenCharts = () => {
                 <Chart
                     data={storeageValue}
                     colors={utils.chartColors(themeColor.toString(), color1.toString(), storeageLength)}
-                ></Chart>
-            </div>
-            <div>
-                <h3>{t("charts.lastLoginNumbersByDate")}</h3>
-                <Chart
-                    data={lastloginValue}
-                    colors={utils.chartColors(themeColor.toString(), color1.toString(), lastloginLength)}
                 ></Chart>
             </div>
         </div>

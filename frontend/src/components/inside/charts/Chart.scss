@@ -1,0 +1,23 @@
+@import "../../../globalFunctions";
+
+.charts {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    text-align: center;
+    gap: pxToRem(75) pxToRem(5);
+
+    & .MuiPieArcLabel-root {
+        fill: black;
+        text-shadow: 0 0  3px white,
+                     0 0  6px white,
+                     0 0  9px white,
+                     0 0 12px white,
+                     0 0 15px white,
+                     0 0 18px white,
+                     0 0 21px white,
+                     0 0 24px white,
+                     0 0 27px white,
+                     0 0 30px white;
+    }
+}
