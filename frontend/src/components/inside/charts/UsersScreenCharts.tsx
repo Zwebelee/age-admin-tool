@@ -12,6 +12,8 @@ export const UsersScreenCharts = () => {
         id: item.userid,
         role: item.role,
         license: item.licensetype,
+        status: item.status,
+        itemcount: item.itemcount,
     }));
 
     const color1 = utils.rgbaToRgb(utils.getColor("--color1"));
@@ -25,9 +27,14 @@ export const UsersScreenCharts = () => {
     }
 
     const roleValue = utils.countProperties(rows, "role");
-    const roleLength = roleValue.length;
+    const statusValue = utils.countProperties(rows, "status");
     const licenseValue = utils.countProperties(rows, "license");
+    const itemValue = utils.countProperties(rows, "itemcount");
+
+    const roleLength = roleValue.length;
+    const statusLength = statusValue.length;
     const licenseLength = licenseValue.length;
+    const itemLength = itemValue.length;
 
     return (
         <div>
@@ -39,10 +46,24 @@ export const UsersScreenCharts = () => {
                 ></Chart>
             </div>
             <div>
+                <h3>{t("charts.statusNumbersByType")}</h3>
+                <Chart
+                    data={statusValue}
+                    colors={utils.chartColors(themeColor.toString(), color1.toString(), statusLength)}
+                ></Chart>
+            </div>
+            <div>
                 <h3>{t("charts.licenceNumbersByType")}</h3>
                 <Chart
                     data={licenseValue}
                     colors={utils.chartColors(themeColor.toString(), color1.toString(), licenseLength)}
+                ></Chart>
+            </div>
+            <div>
+                <h3>{t("charts.itemNumbersByValue")}</h3>
+                <Chart
+                    data={itemValue}
+                    colors={utils.chartColors(themeColor.toString(), color1.toString(), itemLength)}
                 ></Chart>
             </div>
         </div>

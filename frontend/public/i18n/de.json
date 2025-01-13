@@ -21,8 +21,10 @@
         "error": "Fehler"
     },
     "charts": {
+        "itemNumbersByValue": "Anzahl Artikel nach Wert",
         "licenceNumbersByType": "Anzahl Lizenzen nach Typ",
-        "roleNumbersByType": "Anzahl Rollen nach Typ"
+        "roleNumbersByType": "Anzahl Rollen nach Typ",
+        "statusNumbersByType": "Anzahl Status nach Typ"
     },
     "components": "Komponenten",
     "contents": "Inhalte",
