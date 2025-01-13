@@ -2,6 +2,7 @@ import {Suspense, useState, useEffect, useRef} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
 import {observer} from "mobx-react-lite";
+import {utils} from "./utils.ts";
 
 import {Alert, LinearProgress} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
@@ -30,19 +31,17 @@ const AppObserver = observer(() => {
 
     const {themeStore} = useRootStore()
 
-    const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
-    const color1 = getColor("--color1");
-    const lightness1 = getColor("--lightness1");
-    const lightness2 = getColor("--lightness2");
-    const lightness3 = getColor("--lightness3");
-    const lightness5 = getColor("--lightness5");
+    const color1 = utils.getColor("--color1");
+    const lightness1 = utils.getColor("--lightness1");
+    const lightness2 = utils.getColor("--lightness2");
+    const lightness3 = utils.getColor("--lightness3");
+    const lightness5 = utils.getColor("--lightness5");
 
-    const getBreakpoint = (breakpoint: string) => parseInt(getComputedStyle(document.body).getPropertyValue(breakpoint), 10);
-    const xs = getBreakpoint("--xs");
-    const sm = getBreakpoint("--sm");
-    const md = getBreakpoint("--md");
-    const lg = getBreakpoint("--lg");
-    const xl = getBreakpoint("--xl");
+    const xs = utils.getBreakpoint("--xs");
+    const sm = utils.getBreakpoint("--sm");
+    const md = utils.getBreakpoint("--md");
+    const lg = utils.getBreakpoint("--lg");
+    const xl = utils.getBreakpoint("--xl");
 
     const [toggleMenu, setToggleMenu] = useState(false);
     const menuSwitch = () => {

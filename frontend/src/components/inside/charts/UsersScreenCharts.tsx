@@ -1,7 +1,8 @@
 import {useRootStore} from "../../../stores/root-store.ts";
-import chartFunctions from "./chartFunctions.ts";
 import {Chart} from "./Chart.tsx";
 import {useTranslation} from "react-i18next";
+import {utils} from "../../../utils.ts";
+
 
 export const UsersScreenCharts = () => {
 
@@ -12,18 +13,17 @@ export const UsersScreenCharts = () => {
         license: item.licensetype,
     }));
 
-    const getColor = (color: string) => getComputedStyle(document.body).getPropertyValue(color);
-    const color1 = chartFunctions.rgbaToRgb(getColor("--color1"));
+    const color1 = utils.rgbaToRgb(utils.getColor("--color1"));
 
     const { themeStore } = useRootStore();
     let themeColor = {};
     if (themeStore.theme === "light") {
-        themeColor = chartFunctions.rgbaToRgb(getColor("--color7"));
+        themeColor = utils.rgbaToRgb(utils.getColor("--color7"));
     } else {
-        themeColor = chartFunctions.rgbaToRgb(getColor("--color2"));
+        themeColor = utils.rgbaToRgb(utils.getColor("--color2"));
     }
 
-    const licenseValue = chartFunctions.countProperties(rows, "license");
+    const licenseValue = utils.countProperties(rows, "license");
     const licenseLength = licenseValue.length;
 
     return (
@@ -31,7 +31,7 @@ export const UsersScreenCharts = () => {
             <h3>{t("charts.licenceNumbersByType")}</h3>
             <Chart
                 data={licenseValue}
-                colors={chartFunctions.chartColors(themeColor.toString(), color1.toString(), licenseLength)}
+                colors={utils.chartColors(themeColor.toString(), color1.toString(), licenseLength)}
             ></Chart>
         </div>
     )
