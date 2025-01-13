@@ -1,7 +1,7 @@
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
 import {NoFilters} from "../components/inside/filters/NoFilters.tsx";
-import {NoCharts} from "../components/inside/charts/NoCharts.tsx";
+import {GroupsScreenCharts} from "../components/inside/charts/GroupsScreenCharts.tsx";
 import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
@@ -79,7 +79,7 @@ export const GroupsScreen = () => {
                 columns={columns}
                 hiddenColumns={hiddenColumns}
                 filter={<NoFilters/>}
-                charts={<NoCharts/>}
+                charts={<GroupsScreenCharts/>}
             ></InsideBox>
         </>
     );

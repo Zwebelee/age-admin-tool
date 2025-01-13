@@ -21,10 +21,12 @@
         "error": "Fehler"
     },
     "charts": {
+        "accessNumbersByType": "Anzahl Zugang nach Typ",
         "contentNumbersByType": "Anzahl Inhalte nach Typ",
         "contentStatusNumbersByType": "Anzahl inhaltlicher Status nach Typ",
         "itemNumbersByValue": "Anzahl Artikel nach Wert",
         "licenceNumbersByType": "Anzahl Lizenzen nach Typ",
+        "groupsNumbersByOwner": "Anzahl Gruppen nach Eigentümer",
         "roleNumbersByType": "Anzahl Rollen nach Typ",
         "sharingNumbersByType": "Anzahl der Teilungen nach Typ",
         "statusNumbersByType": "Anzahl Status nach Typ",

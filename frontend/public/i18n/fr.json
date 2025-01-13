@@ -21,10 +21,12 @@
         "error": "Erreur"
     },
     "charts": {
+        "accessNumbersByType": "Nombre d’accès par type",
         "contentNumbersByType": "Nombre de contenus par type",
         "contentStatusNumbersByType": "Nombre de statuts de contenu par type",
         "itemNumbersByValue": "Nombre d’articles par valeur",
         "licenceNumbersByType": "Nombre de licences par type",
+        "groupsNumbersByOwner": "Nombre de groupes par propriétaire",
         "roleNumbersByType": "Nombre de rôles par type",
         "sharingNumbersByType": "Nombre de partages par type",
         "statusNumbersByType": "Nombre de statuts par type",
