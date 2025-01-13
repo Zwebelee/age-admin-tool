@@ -32,6 +32,31 @@ export class TaskCommentStore extends AbstractStore<TaskComment> {
         }
     }
 
+    async addTaskComment(taskGuid: string, taskComment: TaskComment) {
+        this.status = "loading";
+
+        // TODO: serialize / deserialize like "task" model
+        const testtaskComment = JSON.parse(JSON.stringify(taskComment));
+        testtaskComment.task_guid = testtaskComment.taskId;
+        delete testtaskComment.taskId;
+        testtaskComment.tooluser_guid = testtaskComment.tooluserGuid;
+        delete testtaskComment.tooluserGuid;
+        testtaskComment.created_at = testtaskComment.createdAt;
+        delete testtaskComment.createdAt;
+        console.log(testtaskComment);
+        testtaskComment.tooluser_guid = ""
+
+
+        try {
+            const response = await this.authService.getApiClient().post(`tasks/${taskGuid}/comments`, testtaskComment);
+            const taskCommentItem = new TaskComment(response.data);
+            this.items.set(taskCommentItem.guid, taskCommentItem);
+            this.status = "loaded";
+        } catch (e) {
+            this.status = "error";
+        }
+    }
+
     getEndpoint(): string {
         return "/taskcomments";
     }

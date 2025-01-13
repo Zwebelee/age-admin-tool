@@ -392,6 +392,18 @@ def get_task_comment(task_guid, guid):
 })
 def create_task_comment(task_guid):
     data = request.get_json()
+
+    # task = Task.query.filter_by(guid=guid).first_or_404()
+    # data = request.get_json()
+    # for key, value in data.items():
+    #     if key in ['guid', 'task_rule_guid', 'assigned_to', 'linked_object_guid']:
+    #         value = uuid.UUID(value)
+    #     setattr(task, key, value)
+    # db.session.commit()
+    # return jsonify(task.to_dict())
+
+
+
     data['task_guid'] = task_guid
     data['guid'] = uuid.uuid4()
     if 'tooluser_guid' in data:

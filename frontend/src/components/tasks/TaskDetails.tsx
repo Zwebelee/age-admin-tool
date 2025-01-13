@@ -112,12 +112,20 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
         setNewComment(event.target.value);
     };
 
-    const handleAddComment = () => {
-        // Logic to add a new comment
-        console.log("New comment:", newComment);
-        // TODO continue here
-        // Clear the text field after adding the comment
-        setNewComment("");
+    const handleAddComment = async () => {
+        if (task && newComment.trim()) {
+            const newTaskComment = new TaskComment({
+                guid: "", // Assuming the backend generates the GUID
+                taskId: task.guid,
+                comment: newComment,
+                tooluserGuid: toolUserStore.user?.guid || "", // Assuming the current user is the one adding the comment
+                createdAt: new Date(),
+            });
+
+            await taskCommentStore.addTaskComment(task.guid, newTaskComment);
+            setTaskComments([...taskComments, newTaskComment]);
+            setNewComment("");
+        }
     };
 
 
@@ -275,8 +283,8 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                                     sx={{listStyleType: "disc"}}
                                 >
                                     {taskComments.length > 0 ? (
-                                        taskComments.map(comment => (
-                                            <ListItem key={comment.guid}>
+                                        taskComments.map((comment, index) => (
+                                            <ListItem key={`${comment.guid}-${index}`}>
                                                 <ListItemText
                                                     primary={comment.comment}
                                                     secondary={`By ${toolUsers.find(user => user.guid === comment.tooluserGuid)?.username || "Unknown"} on ${new Date(comment.createdAt).toLocaleString()}`}
