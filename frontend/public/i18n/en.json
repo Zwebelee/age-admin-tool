@@ -21,7 +21,8 @@
         "error": "Error"
     },
     "charts": {
-        "licenceNumbersByType": "Number of licences by type"
+        "licenceNumbersByType": "Number of licences by type",
+        "roleNumbersByType": "Number of roles by type"
     },
     "components": "Components",
     "contents": "Contents",

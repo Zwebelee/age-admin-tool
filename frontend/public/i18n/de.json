@@ -21,7 +21,8 @@
         "error": "Fehler"
     },
     "charts": {
-        "licenceNumbersByType": "Anzahl Lizenzen nach Typ"
+        "licenceNumbersByType": "Anzahl Lizenzen nach Typ",
+        "roleNumbersByType": "Anzahl Rollen nach Typ"
     },
     "components": "Komponenten",
     "contents": "Inhalte",
