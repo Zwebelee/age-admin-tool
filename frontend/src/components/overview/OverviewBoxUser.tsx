@@ -3,7 +3,9 @@ import {useRootStore} from "../../stores/root-store.ts";
 import {OverviewBox} from "./OverviewBox.tsx";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 
+
 export const OverviewBoxUser = observer(() => {
+
     const {portalLicenseStore} = useRootStore()
 
     const usersBoxData = portalLicenseStore.visibleItems.map(item => {
@@ -18,7 +20,7 @@ export const OverviewBoxUser = observer(() => {
     const totalMaxUsers = usersBoxData.reduce((total, current) => total + current.maxValue, 0);
 
     usersBoxData.unshift({
-        name: 'Users',
+        name: "Users",
         value: totalUsers,
         maxValue: totalMaxUsers
     });
