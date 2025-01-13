@@ -20,6 +20,18 @@
         "no": "No",
         "error": "Error"
     },
+    "charts": {
+        "accessNumbersByType": "Number of access by type",
+        "contentNumbersByType": "Number of contents by type",
+        "contentStatusNumbersByType": "Number of content status by type",
+        "itemNumbersByValue": "Number of articles by value",
+        "licenceNumbersByType": "Number of licences by type",
+        "groupsNumbersByOwner": "Number of groups by owner",
+        "roleNumbersByType": "Number of roles by type",
+        "sharingNumbersByType": "Number of sharing by type",
+        "statusNumbersByType": "Number of status by type",
+        "storeageNumbersByValue": "Number of storeage usage by value"
+    },
     "components": "Components",
     "contents": "Contents",
     "creators": "Creators",
@@ -122,6 +134,7 @@
     "member-count": "Member Count",
     "modified": "Modified",
     "name": "Name",
+    "no-charts": "No charts available",
     "new-comment": "New comment",
     "no-filters": "No filters available",
     "no-one": "None",

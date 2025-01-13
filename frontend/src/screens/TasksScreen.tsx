@@ -10,10 +10,11 @@ import {Button} from "@mui/material";
 import {GridColDef} from "@mui/x-data-grid";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import {NoCharts} from "../components/inside/charts/NoCharts.tsx";
 
 
 export const TasksScreen = observer(() => {
-    
+
     const {t} = useTranslation();
     const {taskStore, toolUserStore} = useRootStore()
     const [open, setOpen] = useState(false);
@@ -25,6 +26,9 @@ export const TasksScreen = observer(() => {
             setOpen(true);
         }
     };
+
+
+
 
     const handleClose = () => {
         setOpen(false);
@@ -104,6 +108,7 @@ export const TasksScreen = observer(() => {
                 columns={columns}
                 hiddenColumns={hiddenColumns}
                 filter={<NoFilters/>}
+                charts={<NoCharts/>}
             ></InsideBox>
             <TaskDetailsDialog open={open} onClose={handleClose}/>
         </>

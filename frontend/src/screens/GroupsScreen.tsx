@@ -1,10 +1,12 @@
 import {OverviewBox} from "../components/overview/OverviewBox.tsx";
 import {InsideBox} from "../components/inside/InsideBox.tsx";
+import {NoFilters} from "../components/inside/filters/NoFilters.tsx";
+import {GroupsScreenCharts} from "../components/inside/charts/GroupsScreenCharts.tsx";
 import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
 import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
-import {NoFilters} from "../components/inside/filters/NoFilters.tsx";
+
 
 export const GroupsScreen = () => {
 
@@ -77,6 +79,7 @@ export const GroupsScreen = () => {
                 columns={columns}
                 hiddenColumns={hiddenColumns}
                 filter={<NoFilters/>}
+                charts={<GroupsScreenCharts/>}
             ></InsideBox>
         </>
     );
