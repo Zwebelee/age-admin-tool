@@ -71,6 +71,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
         loadComments().then();
         return () => {
             setTaskComments([]);
+            setAssignedToUser(undefined);
             taskCommentStore.clearItems();
         };
     }, [task, taskCommentStore]);

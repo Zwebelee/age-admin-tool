@@ -219,13 +219,17 @@ def update_task(guid):
     new_assigned_to = None
     for key, value in data.items():
         if key in ['guid', 'task_rule_guid', 'assigned_to', 'linked_object_guid']:
-            value = uuid.UUID(value)
+            value = uuid.UUID(value) if value else None
         if key in ['created_at', 'updated_at']:
-            #TODO: improve - solve generic
+            # TODO: improve - solve generic
             value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m-%d %H:%M:%S')
 
         if key == 'assigned_to':
             new_assigned_to = value
+            if not value:
+                db.session.execute(task_tooluser.delete().where(task_tooluser.c.task_guid == guid))
+                setattr(task, 'assigned_to', None)
+                continue
         setattr(task, key, value)
 
     db.session.commit()
@@ -233,7 +237,7 @@ def update_task(guid):
     if new_assigned_to:
         db.session.execute(task_tooluser.delete().where(task_tooluser.c.task_guid == guid))
         db.session.execute(task_tooluser.insert().values(task_guid=guid, tooluser_guid=new_assigned_to))
-        db.session.commit()
+    db.session.commit()
 
     return jsonify(task.to_dict())
 
