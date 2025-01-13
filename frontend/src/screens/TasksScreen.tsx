@@ -15,7 +15,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 export const TasksScreen = observer(() => {
     
     const {t} = useTranslation();
-    const {taskStore} = useRootStore()
+    const {taskStore, toolUserStore} = useRootStore()
     const [open, setOpen] = useState(false);
 
     const handleDialogOpen = (guid: string) => {
@@ -31,6 +31,11 @@ export const TasksScreen = observer(() => {
         taskStore.resetSelectedItem();
     };
 
+    const getUsernameByGuid = (guid: string) => {
+        const user = toolUserStore.users.find(user => user.guid === guid);
+        return user ? user.username : guid;
+    };
+
     const detailButton = (params: any) => {
         return (
             <Button
@@ -44,6 +49,7 @@ export const TasksScreen = observer(() => {
     const rows = taskStore.visibleItems.map((item) => ({
         id: item.guid,
         ...item,
+        assignedTo: getUsernameByGuid(item.assignedTo ?? "")
     }));
 
     const columns: GridColDef[] = [
