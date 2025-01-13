@@ -1,6 +1,6 @@
 export interface ITaskComment {
     guid: string;
-    taskId: number;
+    taskId: string;
     comment: string;
     tooluserGuid?: string;
     createdAt: Date;
@@ -8,7 +8,7 @@ export interface ITaskComment {
 
 export class TaskComment implements ITaskComment {
     guid: string;
-    taskId: number;
+    taskId: string;
     comment: string;
     tooluserGuid?: string;
     createdAt: Date;

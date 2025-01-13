@@ -1731,6 +1731,14 @@
     {
       "task_guid": "03fd0f1b-ae9c-49c5-bb21-d317a0d57858",
       "tooluser_guid": "123e4567-e89b-12d3-a456-426625274225"
+    },
+    {
+      "task_guid": "26b038a9-3fe7-444f-937c-ac4396431ddc",
+      "tooluser_guid": "123e4567-e89b-12d3-a456-426625274225"
+    },
+    {
+      "task_guid": "c5c567a5-937a-4a7e-9157-de8303af9df8",
+      "tooluser_guid": "123e4567-e89b-12d3-a456-426625274225"
     }
   ],
   "toolroles": [

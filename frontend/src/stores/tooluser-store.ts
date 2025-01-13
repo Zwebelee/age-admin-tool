@@ -8,6 +8,7 @@ interface ToolUserWithPassword extends ToolUser {
 
 export class ToolUserStore {
     user: ToolUser | undefined;
+    users: ToolUser[] = [];
     authService: AuthService;
 
     constructor(authService: AuthService) {
@@ -20,6 +21,19 @@ export class ToolUserStore {
             const response = await this.authService.getApiClient().get('/toolusers/profile');
             runInAction(() => {
                 this.user = response.data;
+            });
+        } catch (error) {
+            console.error('Failed to load data', error);
+        }
+    }
+
+    async loadUsers() {
+        //TODO: solve better!
+        try {
+            const response = await this.authService.getApiClient().get('/toolusers');
+            const data: ToolUser[] = response.data.map((user: any) => new ToolUser(user));
+            runInAction(() => {
+                this.users = data;
             });
         } catch (error) {
             console.error('Failed to load data', error);
