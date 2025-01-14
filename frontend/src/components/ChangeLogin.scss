@@ -1,0 +1,43 @@
+@import "../globalFunctions";
+
+.changeLogin {
+    border: pxToRem(7) solid var(--color1-1);
+    border-radius: pxToRem(7);
+    background-color: var(--lightness1-1);
+
+    &__title {
+        padding: pxToRem(12) pxToRem(18) pxToRem(20);
+        margin: 0;
+        font-size: pxToRem(20);
+        font-weight: 500;
+        color: var(--lightness2);
+        background-color: var(--color1-1);
+    }
+
+    &__user {
+        font-size: pxToRem(20);
+    }
+
+    &__form {
+        margin: 0 auto;
+        padding: pxToRem(30) 0 pxToRem(50) 0;
+        width: pxToRem(500);
+        @include media("sm") {
+            width: 85%;
+        }
+    }
+
+    &__status {
+        min-height: pxToRem(70);
+        text-align: center;
+        font-weight: 500;
+    }
+
+    &__success {
+        color: var(--success);
+    }
+
+    &__error {
+        color: var(--error);
+    }
+}

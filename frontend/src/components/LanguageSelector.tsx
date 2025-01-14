@@ -24,7 +24,6 @@ export const LanguageSelector = observer(() => {
             labelId="language-select-label"
             id="language-select"
             value={languageStore.language}
-            label="Language"
             onChange={onChangeLanguage}
         >
             {languages.map(item =>

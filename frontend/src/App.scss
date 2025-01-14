@@ -65,6 +65,9 @@ h1 {
         font-size: pxToRem(18);
     }
 }
+h2 {
+    text-align: center;
+}
 .theme--dark {
     background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */
     background-image: image-set(
