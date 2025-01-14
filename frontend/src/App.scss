@@ -18,7 +18,7 @@ body {
           "sidebar main" auto /
           pxToRem(100) auto;
     align-content: start;
-    min-height: calc(100vh - pxToRem(40));
+    min-height: calc(100vh - #{pxToRem(40)});
     min-width: pxToRem(300);
     max-width: pxToRem(1800);
     border-radius: pxToRem(10);
@@ -28,10 +28,10 @@ body {
         grid: "header header" auto
               "main main" auto /
               auto;
-        min-height: calc(100vh - pxToRem(24));
+        min-height: calc(100vh - #{pxToRem(24)});
     }
     @include media("sm") {
-        min-height: calc(100vh - pxToRem(14));
+        min-height: calc(100vh - #{pxToRem(14)});
     }
     @include media("xs") {
         min-height: 100vh;
