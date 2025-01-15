@@ -50,7 +50,7 @@ export const AgeToolUserEditor = observer(() => {
         };
 
         fetchRoles().then();
-    }, [toolUserStore]);
+    }, [logService, toolUserStore]);
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
@@ -207,7 +207,7 @@ export const AgeToolUserEditor = observer(() => {
             </form>
             <Snackbar
                 open={!!successMessage}
-                autoHideDuration={800000}
+                autoHideDuration={8000}
                 onClose={() => setSuccessMessage(null)}
                 anchorOrigin={{vertical: 'top', horizontal: 'center'}}
             >
