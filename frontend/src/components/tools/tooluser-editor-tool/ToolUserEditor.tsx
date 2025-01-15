@@ -215,10 +215,10 @@ export const AgeToolUserEditor = observer(() => {
                     onClose={() => setSuccessMessage(null)}
                     severity="success"
                     sx={{
-                        width: '100%',
-                        fontSize: '1.5rem',
-                        fontWeight: 'bold',
-                        padding: '16px'
+                        width: "100%",
+                        fontSize: "1.5rem",
+                        fontWeight: "bold",
+                        padding: "1rem"
                     }}
                 >
                     {successMessage}

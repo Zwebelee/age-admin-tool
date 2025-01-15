@@ -1,10 +1,10 @@
 /* Heights */
 :root {
-    --insideDataMainXL:    386.5px; // Data Table, Data Charts:   40 + 135 + 50 + 139.5 + 12 + 10
-    --insideDataMainMD:    382.7px; // Data Table, Data Charts:   24 + 100 + 30 + 206.7 + 12 + 10
-    --insideDataMainSM:    382.7px; // Data Table, Data Charts:   14 + 100 + 20 + 206.7 + 12 + 7 + 13 + 10
-    --insideDataFiltersXL: 378.5px; // Data Filters, Data Handle: 40 + 135 + 50 + 139.5 + 12 + 2
-    --insideDataFiltersMD: 374.7px; // Data Filters, Data Handle: 24 + 100 + 30 + 206.7 + 12 + 2
+    --insideDataMainXL:    24.15625rem; // Data Table, Data Charts:   40 + 135 + 50 + 139.5 + 12 + 10          = 386.5px
+    --insideDataMainMD:    23.91875rem; // Data Table, Data Charts:   24 + 100 + 30 + 206.7 + 12 + 10          = 382.7px
+    --insideDataMainSM:    23.91875rem; // Data Table, Data Charts:   14 + 100 + 20 + 206.7 + 12 + 7 + 13 + 10 = 382.7px
+    --insideDataFiltersXL: 23.65625rem; // Data Filters, Data Handle: 40 + 135 + 50 + 139.5 + 12 + 2           = 378.5px
+    --insideDataFiltersMD: 23.41875rem; // Data Filters, Data Handle: 24 + 100 + 30 + 206.7 + 12 + 2           = 374.7px
 }
 
 

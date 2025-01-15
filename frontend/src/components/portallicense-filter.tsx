@@ -35,7 +35,7 @@ export const PortalLicenseFilter = observer(() => {
 
     if (licenseStore.isLoaded) {
         return (
-            <Box sx={{border: '3px solid blue', margin: '2px', padding: '10px', borderRadius: '8px'}}>
+            <Box sx={{border: "0.1875rem solid blue", margin: "0.125rem", padding: "0.625rem", borderRadius: "0.5rem"}}>
                 <Typography variant="h5">License VisItems</Typography>
                 <FormControl fullWidth>
                     <InputLabel id="filter-select-label">Filter by Name</InputLabel>
