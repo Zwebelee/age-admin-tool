@@ -139,10 +139,31 @@ export const UserSettings = observer(() => {
                 <SignInMask redirectUrl={""}/> :
                 (showChangeLogin ?
                     <ChangeLogin onCancel={handlePasswordChangeCancel}/> :
-                    <List sx={{width: '100%', backgroundColor: "grey"}}
-                          subheader={<ListSubheader>{t("settings")}</ListSubheader>}>
+                    <List
+                        sx={{
+                            width: "100%",
+                            border: "0.4375rem solid var(--color1-1)",
+                            borderRadius: "0.4375rem",
+                            backgroundColor: "var(--lightness1-1)",
+
+                            "& .MuiListItem-root": {
+                                minHeight: "4.375rem !important",
+                            }
+                        }}
+                        subheader={
+                            <ListSubheader
+                                sx={{
+                                    padding: "0.1875rem 1.125rem 0.625rem",
+                                    fontSize: "1.25rem",
+                                    color: "var(--lightness2)",
+                                    backgroundColor: "var(--color1-1)",
+                                }}
+                            >
+                                {t("settings")}
+                            </ListSubheader>}
+                    >
                         <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
-                            <ListItemText primary={user?.username}/>
+                            <ListItemText primary={user?.username} sx={{ textAlign: "right" }}/>
                         </SettingListItem>
                         <Divider/>
                         <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("active_role")}
@@ -151,7 +172,6 @@ export const UserSettings = observer(() => {
                                 labelId="role-select-label"
                                 id="role-select"
                                 value={userRole}
-                                label={t("active_role")}
                                 onChange={handleChange}
                             >
                                 {roles.map(item =>
@@ -170,10 +190,12 @@ export const UserSettings = observer(() => {
                         <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
                             <LanguageSelector/>
                         </SettingListItem>
+                        <Divider/>
                         <SettingListItem icon={<LockResetIcon/>} tooltip={t("change_password")}
                                          primary={t("change_password")}>
                             <Button onClick={handlePasswordChange} variant="contained">{t("change_password")}</Button>
                         </SettingListItem>
+                        <Divider/>
                         <SettingListItem icon={<LogoutIcon/>} tooltip={t("logout")} primary={t("logout")}>
                             <Button onClick={handleLogout} variant="contained">{t("logout")}</Button>
                         </SettingListItem>
