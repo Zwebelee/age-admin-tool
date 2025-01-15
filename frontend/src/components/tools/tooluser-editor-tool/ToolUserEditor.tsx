@@ -205,8 +205,22 @@ export const AgeToolUserEditor = observer(() => {
                     </Grid>
                 </Grid>
             </form>
-            <Snackbar open={!!successMessage} autoHideDuration={8000} onClose={() => setSuccessMessage(null)}>
-                <Alert onClose={() => setSuccessMessage(null)} severity="success">
+            <Snackbar
+                open={!!successMessage}
+                autoHideDuration={800000}
+                onClose={() => setSuccessMessage(null)}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert
+                    onClose={() => setSuccessMessage(null)}
+                    severity="success"
+                    sx={{
+                        width: '100%',
+                        fontSize: '1.5rem',
+                        fontWeight: 'bold',
+                        padding: '16px'
+                    }}
+                >
                     {successMessage}
                 </Alert>
             </Snackbar>
