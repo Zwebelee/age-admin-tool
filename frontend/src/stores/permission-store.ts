@@ -20,6 +20,7 @@ export class PermissionsStore {
             runInAction(() => {
                 this.permissions.set(userGuid, permissions);
                 this.isLoading = false;
+
             });
         } catch (error) {
             this.logger.error('Failed to load permissions', error);

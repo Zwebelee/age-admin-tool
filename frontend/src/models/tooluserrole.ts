@@ -23,5 +23,4 @@ export class ToolUserRole {
             name: this.name
         }
     }
-
 }

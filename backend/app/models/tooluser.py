@@ -28,8 +28,8 @@ class ToolUser(db.Model):
             "username": self.username,
             "language": self.language,
             "theme": self.theme,
-            "active_role_guid": self.active_role_guid,
-            "active_role_name": self.active_role.name if self.active_role else None,
+            "active_role": {"guid": self.active_role.guid, "name": self.active_role.name} if self.active_role else None,
+            "roles": [{"guid": role.guid, "name": role.name} for role in self.roles],
         }
 
     def __repr__(self):

@@ -1,10 +1,12 @@
+import {IToolUserRole, ToolUserRole} from "./tooluserrole.ts";
+
 export interface IToolUser {
     guid: string,
     username: string,
     language: string,
     theme: string,
-    active_role_guid: string,
-    active_role: string
+    active_role: IToolUserRole
+    roles: IToolUserRole[];
 }
 
 export interface IToolUserWithPassword extends IToolUser {
@@ -16,16 +18,16 @@ export class ToolUser {
     username: string;
     language: string;
     theme: string;
-    activeRoleGuid: string;
-    activeRole: string;
+    activeRole: ToolUserRole;
+    roles: ToolUserRole[];
 
     constructor(data: IToolUser) {
         this.guid = data.guid;
         this.username = data.username;
         this.language = data.language;
         this.theme = data.theme;
-        this.activeRoleGuid = data.active_role_guid;
-        this.activeRole = data.active_role;
+        this.activeRole = new ToolUserRole(data.active_role);
+        this.roles = data.roles.map(role => new ToolUserRole(role));
     }
 
     fromJSON(data: IToolUser): void {
@@ -33,8 +35,8 @@ export class ToolUser {
         this.username = data.username;
         this.language = data.language;
         this.theme = data.theme;
-        this.activeRoleGuid = data.active_role_guid;
-        this.activeRole = data.active_role;
+        this.activeRole = new ToolUserRole(data.active_role);
+        this.roles = data.roles.map(role => new ToolUserRole(role));
     }
 
     toJSON(): IToolUser {
@@ -43,12 +45,11 @@ export class ToolUser {
             username: this.username,
             language: this.language,
             theme: this.theme,
-            active_role_guid: this.activeRoleGuid,
-            active_role: this.activeRole
+            active_role: this.activeRole,
+            roles: this.roles.map(role => role.toJSON())
         };
     }
 }
-
 
 
 export class ToolUserWithPassword extends ToolUser {

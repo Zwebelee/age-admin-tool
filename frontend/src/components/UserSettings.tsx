@@ -25,6 +25,8 @@ import {ToolUser} from "../models/tooluser.ts";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import {ChangeLogin} from "./ChangeLogin.tsx";
+import {utils} from "../utils.ts";
+import {ToolUserRole} from "../models/tooluserrole.ts";
 
 interface SettingListItemProps {
     icon: ReactElement;
@@ -48,12 +50,15 @@ const SettingListItem = ({icon, tooltip, primary, children}: SettingListItemProp
 
 export const UserSettings = observer(() => {
 
-    const {toolUserStore, authStore, themeStore, languageStore} = useRootStore()
+    const {toolUserStore, authStore, themeStore, languageStore, permissionsStore} = useRootStore()
     const {t} = useTranslation();
 
-    const [userRole, setUserRole] = useState("admin")
+    const [user, setUser] = useState<ToolUser | null>(null);
     const [switchChecked, setSwitchChecked] = useState([themeStore.theme] as string[]);
     const [showChangeLogin, setShowChangeLogin] = useState(false);
+    const userRoles = user?.roles || [];
+    const activeRole = user?.activeRole || new ToolUserRole({guid: "", name: ""});
+
 
     const handleLogout = () => {
         authStore.logout().then();
@@ -75,8 +80,17 @@ export const UserSettings = observer(() => {
         });
     };
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setUserRole(event.target.value as string);
+    const handleChange = async (event: SelectChangeEvent) => {
+        const selectedRoleGuid = event.target.value as string;
+        const selectedRole = userRoles.find(role => role.guid === selectedRoleGuid);
+        if (selectedRole) {
+            permissionsStore.clearPermissionsCache();
+            await toolUserStore.switchActiveRole(selectedRole);
+            if (toolUserStore.user) {
+                await permissionsStore.loadPermissions(toolUserStore.user.guid);
+            }
+            setUser(toolUserStore.user || null);
+        }
     };
 
     const handlePasswordChange = () => {
@@ -87,12 +101,6 @@ export const UserSettings = observer(() => {
         setShowChangeLogin(false);
     };
 
-    const roles = [
-        {value: "admin", label: "Admin"},
-        {value: "user", label: "User"}
-    ] //TODO: integrate role-model
-
-    const [user, setUser] = useState<ToolUser | null>(null);
 
     //TODO: Improve - load user only once, combine effects, maybe use customHook
     // known issue: switch to light mode not properly handled (saved)
@@ -100,12 +108,13 @@ export const UserSettings = observer(() => {
         if (authStore.isLoggedIn) {
             toolUserStore.loadUser().then(() => {
                 setUser(toolUserStore.user || null);
-                if (toolUserStore.user?.theme) {
-                    themeStore.setTheme(toolUserStore.user.theme as "light" | "dark");
-                    setSwitchChecked([toolUserStore.user.theme]);
+                const toolUser = toolUserStore.user;
+                if (toolUser?.theme) {
+                    themeStore.setTheme(toolUser.theme as "light" | "dark");
+                    setSwitchChecked([toolUser.theme]);
                 }
-                if (toolUserStore.user?.language) {
-                    languageStore.switchLanguage(toolUserStore.user.language as "de" | "fr" | "en");
+                if (toolUser?.language) {
+                    languageStore.switchLanguage(toolUser.language as "de" | "fr" | "en");
                 }
             });
         }
@@ -113,7 +122,7 @@ export const UserSettings = observer(() => {
 
     useEffect(() => {
         if (user) {
-            const updatedUser = {...user};
+            const updatedUser = user;
             let shouldUpdate = false;
 
             if (user.language !== languageStore.language) {
@@ -163,21 +172,27 @@ export const UserSettings = observer(() => {
                             </ListSubheader>}
                     >
                         <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
-                            <ListItemText primary={user?.username} sx={{ textAlign: "right" }}/>
+                            <ListItemText primary={user?.username} sx={{textAlign: "right"}}/>
                         </SettingListItem>
                         <Divider/>
                         <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("active_role")}
                                          primary={t("active_role")}>
-                            <Select
-                                labelId="role-select-label"
-                                id="role-select"
-                                value={userRole}
-                                onChange={handleChange}
-                            >
-                                {roles.map(item =>
-                                    <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
-                                )}
-                            </Select>
+                            {userRoles.length > 1 ? (
+                                <Select
+                                    labelId="role-select-label"
+                                    id="role-select"
+                                    value={activeRole.guid}
+                                    onChange={handleChange}
+                                >
+                                    {userRoles.map(role =>
+                                        <MenuItem key={role.guid}
+                                                  value={role.guid}>{utils.capitalizeFirstLetter(role.name)}</MenuItem>
+                                    )}
+                                </Select>
+                            ) : (
+                                <ListItemText primary={utils.capitalizeFirstLetter(activeRole.name)}
+                                              sx={{textAlign: "right"}}/>
+                            )}
                         </SettingListItem>
                         <Divider/>
                         <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>

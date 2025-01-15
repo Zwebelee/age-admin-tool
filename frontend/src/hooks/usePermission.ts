@@ -13,7 +13,7 @@ export const usePermission = (permissionName: string) => {
             setHasPermission(permissionsStore.hasPermission(userGuid, permissionName));
         }
     };
-    checkPermission();
+    checkPermission().then();
     }, [permissionsStore, userGuid, permissionName]);
 
     return hasPermission;

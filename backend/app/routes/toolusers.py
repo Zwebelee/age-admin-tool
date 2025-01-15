@@ -422,6 +422,17 @@ def update_user_profile():
     tooluser.username = data.get('username', tooluser.username)
     tooluser.language = data.get('language', tooluser.language)
     tooluser.theme = data.get('theme', tooluser.theme)
+
+    # Update active_role if provided
+    active_role = data.get('active_role')
+    if active_role:
+        active_role_guid = uuid.UUID(active_role.get('guid'))
+        active_role = ToolRole.query.get(active_role_guid)
+        if not active_role:
+            return jsonify({"message": "Role not found"}), 404
+        tooluser.active_role_guid = active_role_guid
+        tooluser.active_role = active_role
+
     db.session.commit()
     return jsonify(tooluser.to_dict()), 200
 
