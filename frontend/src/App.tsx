@@ -15,7 +15,6 @@ import {ContentsScreen} from "./screens/ContentsScreen.tsx";
 import {TasksScreen} from "./screens/TasksScreen.tsx";
 import {GroupsScreen} from "./screens/GroupsScreen.tsx";
 import {ComponentsScreen} from "./screens/ComponentsScreen.tsx";
-import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
 import {ToolsScreen} from "./screens/ToolsScreen.tsx";
 import {MyAccountScreen} from "./screens/MyAccountScreen.tsx";
 
@@ -155,12 +154,8 @@ const AppObserver = observer(() => {
                                             <Route path="/tasks" element={<TasksScreen/>}/>
                                             <Route path="/groups" element={<GroupsScreen/>}/>
                                             <Route path="/components" element={<ComponentsScreen/>}/>
-                                            <Route path="/experimental" element={<ExperimentalScreen/>}/>
                                             <Route path="/utils" element={<ToolsScreen/>}/>
                                             <Route path="/my-account" element={<MyAccountScreen/>}/>
-                                            <Route path="/testsecret"
-                                                   element={<h1>This is the secret screen only available when logged
-                                                       in</h1>}/>
                                         </Route>
                                         <Route path="*" element={<Navigate to="/" replace/>}/> {/* Catch-all route */}
                                     </Routes>
