@@ -11,7 +11,7 @@ export const OverviewBoxGroups = observer(() => {
         data: [{
             name: "Groups",
             value: 242,
-        },{
+        }, {
             name: "Administrativ",
             value: 56,
         }, {

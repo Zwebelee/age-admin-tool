@@ -3,11 +3,11 @@ import {utils} from "../../utils.ts";
 import "./OverviewData.scss";
 
 
-export const OverviewData = ({ color, name, value, maxValue }: {
-        color: string;
-        name: string,
-        value: number,
-        maxValue?: number,
+export const OverviewData = ({color, name, value, maxValue}: {
+    color: string;
+    name: string,
+    value: number,
+    maxValue?: number,
 }) => {
     const {t} = useTranslation();
     const dynamicClass = "overviewData__item overviewData" + color;
@@ -24,4 +24,4 @@ export const OverviewData = ({ color, name, value, maxValue }: {
             </div>
         </div>
     );
-    };
+};

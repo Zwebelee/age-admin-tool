@@ -3,11 +3,11 @@ import "./OverviewCard.scss";
 
 import {OverviewData} from "./OverviewData.tsx";
 
-export const OverviewCard = ({ card, icon, color, data }: {
-        card: string,
-        icon: JSX.Element,
-        color: string,
-        data: Array<{ name: string; value: number; maxValue?: number; }>
+export const OverviewCard = ({card, icon, color, data}: {
+    card: string,
+    icon: JSX.Element,
+    color: string,
+    data: Array<{ name: string; value: number; maxValue?: number; }>
 }) => {
     const {t} = useTranslation();
     return (
