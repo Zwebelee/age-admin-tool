@@ -21,7 +21,5 @@ export class Age extends AbstractModel {
         this.name = data.name;
         this.alias = data.alias;
         this.description = data.description;
-
-        // TODO: makeAutoObservable(this);
     }
 }

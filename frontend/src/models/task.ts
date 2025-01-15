@@ -1,4 +1,4 @@
-import { AbstractModel } from "./abstract-models.ts";
+import {AbstractModel} from "./abstract-models.ts";
 
 export interface ITask {
     guid: string;

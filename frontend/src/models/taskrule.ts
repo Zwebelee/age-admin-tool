@@ -1,11 +1,13 @@
+//TODO: Implement TaskRule - Store, Model, Service, Component
+
 export interface ITaskRule {
     guid: string;
     name: string;
     description: string;
     action: string;
-    ruleConditions: any;
-    whitelist?: any;
-    blacklist?: any;
+    ruleConditions: string;
+    whitelist?: string;
+    blacklist?: string;
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -16,9 +18,9 @@ export class TaskRule implements ITaskRule {
     name: string;
     description: string;
     action: string;
-    ruleConditions: any;
-    whitelist?: any;
-    blacklist?: any;
+    ruleConditions: string;
+    whitelist?: string;
+    blacklist?: string;
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
