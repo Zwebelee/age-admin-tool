@@ -218,7 +218,7 @@ export const AgeToolUserEditor = observer(() => {
                         width: '100%',
                         fontSize: '1.5rem',
                         fontWeight: 'bold',
-                        padding: '16px'
+                        padding: '1rem'
                     }}
                 >
                     {successMessage}
