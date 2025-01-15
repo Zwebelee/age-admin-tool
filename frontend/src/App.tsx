@@ -162,7 +162,7 @@ const AppObserver = observer(() => {
                                                    element={<h1>This is the secret screen only available when logged
                                                        in</h1>}/>
                                         </Route>
-                                        <Route path="*" element={<Navigate to="/" replace />} /> {/* Catch-all route */}
+                                        <Route path="*" element={<Navigate to="/" replace/>}/> {/* Catch-all route */}
                                     </Routes>
                                 </div>
                                 <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>
