@@ -8,6 +8,7 @@ import {useTranslation} from "react-i18next";
 import './ToolUserEditor.scss';
 import {IToolUserRole, ToolUserRole} from "../../../models/tooluserrole.ts";
 import {ToolUserWithPassword} from "../../../models/tooluser.ts";
+import {utils} from "../../../utils.ts";
 
 export const AgeToolUserEditor = observer(() => {
     const {t} = useTranslation();
@@ -24,11 +25,6 @@ export const AgeToolUserEditor = observer(() => {
     const [formData, setFormData] = useState(initialFormData)
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [roles, setRoles] = useState<ToolUserRole[]>([]);
-
-    const capitalizeFirstLetter = (string: string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    };
-
 
     useEffect(() => {
         const fetchRoles = async () => {
@@ -86,11 +82,9 @@ export const AgeToolUserEditor = observer(() => {
             const toolUser = new ToolUserWithPassword({
                 ...formData,
                 guid: "",
-                active_role: '',
-                active_role_guid: ''
+                active_role: toolUserRole,
+                roles: [toolUserRole]
             });
-            toolUser.activeRole = toolUserRole.name;
-            toolUser.activeRoleGuid = toolUserRole.guid;
 
 
             await toolUserStore.addUser(toolUser);
@@ -199,7 +193,7 @@ export const AgeToolUserEditor = observer(() => {
                         >
                             {roles.map((role) => (
                                 <MenuItem key={role.guid} value={role.guid}>
-                                    {capitalizeFirstLetter(role.name)}
+                                    {utils.capitalizeFirstLetter((role.name))}
                                 </MenuItem>
                             ))}
                         </Select>
