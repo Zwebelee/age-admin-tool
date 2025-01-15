@@ -10,15 +10,14 @@ import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlin
 import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInputComponentOutlined";
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import {permissions} from "../config/permissions.ts";
-import {usePermission} from "../hooks/usePermission.ts";
 import {useRootStore} from "../stores/root-store.ts";
 import { observer } from "mobx-react-lite";
 
 
 export const MainMenu = observer(({position, onClickMenuItem = () => {}}: {position: string, onClickMenuItem: () => void}) => {
     const {t} = useTranslation();
-    const {toolUserStore} = useRootStore();
-    const hasPermission = usePermission(permissions.VIEW_TASKS)
+    const {toolUserStore, permissionsStore} = useRootStore();
+    const hasPermission = permissionsStore.hasPermission(toolUserStore.user?.guid || "", permissions.VIEW_TASKS);
 
     const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "mainMenu__navLink mainMenu__navLink--active" : "mainMenu__navLink"}`;
 

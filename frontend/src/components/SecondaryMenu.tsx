@@ -6,7 +6,6 @@ import HomeRepairServiceOutlinedIcon from '@mui/icons-material/HomeRepairService
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import {observer} from "mobx-react-lite";
 import {useRootStore} from "../stores/root-store";
-import {usePermission} from "../hooks/usePermission.ts";
 import {permissions} from "../config/permissions.ts";
 
 
@@ -15,8 +14,9 @@ export const SecondaryMenu = observer(({position, onClickMenuItem}: {
     onClickMenuItem: () => void
 }) => {
     const {t} = useTranslation();
-    const {toolUserStore} = useRootStore();
-    const hasPermission = usePermission(permissions.VIEW_TASKS)
+    const {toolUserStore, permissionsStore} = useRootStore();
+    const hasPermission = permissionsStore.hasPermission(toolUserStore.user?.guid || "", permissions.VIEW_TASKS);
+
     const isActive = ({isActive}: {
         isActive: boolean
     }) => `${isActive ? "secondaryMenu__navLink secondaryMenu__navLink--active" : "secondaryMenu__navLink"}`;

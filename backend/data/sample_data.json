@@ -1763,6 +1763,10 @@
       "toolrole_guid": "6566f9fb-590a-40ef-8fbe-5f1ba6582011"
     },
     {
+      "tooluser_guid": "123e4567-e89b-12d3-a456-426625274225",
+      "toolrole_guid": "1fa67299-d8e6-42f2-b6a6-73a2a4ce99a1"
+    },
+    {
       "tooluser_guid": "123b4567-b89e-12d3-a456-426625274225",
       "toolrole_guid": "1fa67299-d8e6-42f2-b6a6-73a2a4ce99a1"
     }

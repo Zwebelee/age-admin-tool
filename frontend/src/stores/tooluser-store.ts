@@ -1,7 +1,8 @@
 import {AuthService} from "../services/auth.service.ts";
 import {makeAutoObservable, runInAction} from "mobx";
-import {ToolUser, ToolUserWithPassword} from "../models/tooluser.ts";
+import {IToolUser, ToolUser, ToolUserWithPassword} from "../models/tooluser.ts";
 import {PermissionsService} from "../services/permissions.service.ts";
+import { ToolUserRole } from "../models/tooluserrole.ts";
 
 
 export class ToolUserStore {
@@ -21,7 +22,7 @@ export class ToolUserStore {
         try {
             const response = await this.authService.getApiClient().get('/toolusers/profile');
             runInAction(() => {
-                this.user = response.data;
+                this.user = new ToolUser(response.data);
                 this.userLoaded = true;
             });
         } catch (error) {
@@ -33,7 +34,7 @@ export class ToolUserStore {
         //TODO: solve better!
         try {
             const response = await this.authService.getApiClient().get('/toolusers');
-            const data: ToolUser[] = response.data.map((user: any) => new ToolUser(user));
+            const data: ToolUser[] = response.data.map((user: IToolUser) => new ToolUser(user));
             runInAction(() => {
                 this.users = data;
             });
@@ -44,9 +45,10 @@ export class ToolUserStore {
 
     async updateUser(user: ToolUser) {
         try {
-            await this.authService.getApiClient().put('/toolusers/profile', user);
+            const userData = user.toJSON();
+            const response = await this.authService.getApiClient().put('/toolusers/profile', userData);
             runInAction(() => {
-                this.user = user;
+                this.user = new ToolUser(response.data);
             });
         } catch (error) {
             console.error('Failed to update user', error);
@@ -73,6 +75,15 @@ export class ToolUserStore {
             return await this.authService.getApiClient().get('/toolroles');
         } catch (error) {
             console.error('Failed to load data', error);
+        }
+    }
+
+    async switchActiveRole(newActiveRole: ToolUserRole): Promise<void> {
+        if (this.user) {
+            if (newActiveRole) {
+                this.user.activeRole = newActiveRole;
+                await this.updateUser(this.user);
+            }
         }
     }
 }

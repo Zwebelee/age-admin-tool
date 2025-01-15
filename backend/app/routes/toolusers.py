@@ -77,24 +77,25 @@ def get_all_toolusers():
 })
 def add_tooluser():
     data = request.get_json()
+    active_role_data = data.get('active_role')
+    active_role_guid = uuid.UUID(active_role_data.get('guid'))
+
+    active_role = ToolRole.query.get(active_role_guid)
+    if not active_role:
+        return jsonify({"message": "Role not found"}), 404
+
     new_tooluser = ToolUser(
         guid=uuid.uuid4(),
         username=data['username'],
         language=data.get('language', 'en'),
         theme=data.get('theme', 'dark'),
-        active_role_guid=uuid.UUID(data.get('active_role_guid')),
-        active_role = None
+        active_role_guid=active_role_guid,
+        active_role=active_role
     )
     new_tooluser.set_password(data['password'])
 
-    active_role = ToolRole.query.get(new_tooluser.active_role_guid)
-    if not active_role:
-        return jsonify({"message": "Role not found"}), 404
-
-    new_tooluser.active_role = active_role
-
     # Assign role to the new user
-    role_name = data.get('active_role', 'viewer')
+    role_name = active_role_data.get('name', 'viewer')
     role = ToolRole.query.filter_by(name=role_name).first()
     if role:
         new_tooluser.roles.append(role)
@@ -422,6 +423,17 @@ def update_user_profile():
     tooluser.username = data.get('username', tooluser.username)
     tooluser.language = data.get('language', tooluser.language)
     tooluser.theme = data.get('theme', tooluser.theme)
+
+    # Update active_role if provided
+    active_role = data.get('active_role')
+    if active_role:
+        active_role_guid = uuid.UUID(active_role.get('guid'))
+        active_role = ToolRole.query.get(active_role_guid)
+        if not active_role:
+            return jsonify({"message": "Role not found"}), 404
+        tooluser.active_role_guid = active_role_guid
+        tooluser.active_role = active_role
+
     db.session.commit()
     return jsonify(tooluser.to_dict()), 200
 
