@@ -12,7 +12,7 @@ export class PortalUserStatusFilter {
         }
         return portalusers.filter((p) => {
             const key = `status-${p.status}`;
-            // show portaluser when filter key matches
+            // show status when filter key matches
             return filters.includes(key);
         });
     }

@@ -12,7 +12,7 @@ export class PortalUserLicenseFilter {
         }
         return portalusers.filter((p) => {
             const key = `licensetype-${p.licensetype}`;
-            // show portaluser when filter key matches
+            // show license when filter key matches
             return filters.includes(key);
         });
     }

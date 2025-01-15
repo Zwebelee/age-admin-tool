@@ -14,7 +14,7 @@ export class PortalUserStorageFilter {
 
         return portalusers.filter((p) => {
             return filters.some((filter) => {
-                const [_filterField, operator, value] = filter.split('-');
+                const [, operator, value] = filter.split('-');
 
 
                 const itemCount = p.storeage;
