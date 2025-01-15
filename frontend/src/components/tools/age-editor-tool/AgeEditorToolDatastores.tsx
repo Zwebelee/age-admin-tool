@@ -21,16 +21,16 @@ export const AgeEditorToolDatastores = observer(() => {
     };
 
     const fields = [
-        { name: 'name', label: 'Name', type: 'text', disabled: false, default: '' },
-        { name: 'description', label: 'Description', type: 'text', disabled: false, default: '' },
-        { name: 'alias', label: 'Alias', type: 'text', disabled: false, default: '' },
-        { name: 'type', label: 'Type', type: 'text', disabled: false, default: '' },
-        { name: 'ishosted', label: 'Is Hosted', type: 'checkbox', disabled: false, default: false },
-        { name: 'url', label: 'URL', type: 'text', disabled: false, default: '' },
-        { name: 'status', label: 'Status', type: 'text', disabled: false, default: '' },
-        { name: 'capacity_gb', label: 'Capacity (GB)', type: 'number', disabled: false, default: 0 },
-        { name: 'used_gb', label: 'Used (GB)', type: 'number', disabled: false, default: 0 },
-        { name: 'guid', label: 'GUID', type: 'text', disabled: true, default: '' }
+        {name: 'name', label: 'Name', type: 'text', disabled: false, default: ''},
+        {name: 'description', label: 'Description', type: 'text', disabled: false, default: ''},
+        {name: 'alias', label: 'Alias', type: 'text', disabled: false, default: ''},
+        {name: 'type', label: 'Type', type: 'text', disabled: false, default: ''},
+        {name: 'ishosted', label: 'Is Hosted', type: 'checkbox', disabled: false, default: false},
+        {name: 'url', label: 'URL', type: 'text', disabled: false, default: ''},
+        {name: 'status', label: 'Status', type: 'text', disabled: false, default: ''},
+        {name: 'capacity_gb', label: 'Capacity (GB)', type: 'number', disabled: false, default: 0},
+        {name: 'used_gb', label: 'Used (GB)', type: 'number', disabled: false, default: 0},
+        {name: 'guid', label: 'GUID', type: 'text', disabled: true, default: ''}
     ];
 
     const defaultItem = new AgeDataStore({
@@ -40,7 +40,7 @@ export const AgeEditorToolDatastores = observer(() => {
         "type": "Relational Database",
         "ishosted": false,
         "description": "Sample Data Store",
-        "url": "http://example.com/datastorexy",
+        "url": "https://example.com/datastorexy",
         "status": "active",
         "capacity_gb": 800,
         "used_gb": 599

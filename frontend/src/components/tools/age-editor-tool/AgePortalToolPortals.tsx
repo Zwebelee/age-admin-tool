@@ -2,7 +2,7 @@ import {AgeEditorToolTemplateCard} from "./AgeEditorToolTemplateCard.tsx";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {useState} from "react";
-import { Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {AgePortal} from "../../../models/age-portal.ts";
 import {AgeEditorToolAddButton} from "./AgeEditorToolAddButton.tsx";
@@ -24,7 +24,7 @@ export const AgeEditorToolPortals = observer(() => {
         {name: 'alias', label: 'Alias', type: 'text', disabled: false, default: "GIS - Core Portal"},
         {name: 'name', label: 'Name', type: 'text', disabled: false, default: "sampleagp-v099t.domain.ch:6443"},
         {name: 'description', label: 'Description', type: 'text', disabled: false, default: "Enterprise Portal"},
-        {name: 'url', label: 'URL', type: 'text', disabled: false, default: "http://example.com/coreportal"},
+        {name: 'url', label: 'URL', type: 'text', disabled: false, default: "https://example.com/coreportal"},
         {name: 'type', label: 'Type', type: 'text', disabled: false, default: "portal"},
         {name: 'ishosted', label: 'Is Hosted', type: 'checkbox', disabled: false, default: true},
         {name: 'status', label: 'Status', type: 'text', disabled: false, default: "active"},
@@ -36,7 +36,7 @@ export const AgeEditorToolPortals = observer(() => {
         name: "sampleagp-v099t.domain.ch:6443",
         alias: "GIS - Core Portal",
         description: "Enterprise Portal",
-        url: "http://example.com/coreportal",
+        url: "https://example.com/coreportal",
         type: "portal",
         ishosted: true,
         status: "active"

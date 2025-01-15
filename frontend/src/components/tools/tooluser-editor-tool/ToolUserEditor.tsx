@@ -30,7 +30,7 @@ export const AgeToolUserEditor = observer(() => {
         const fetchRoles = async () => {
             try {
                 const response = await toolUserStore.getToolUserRoles();
-                if(response){
+                if (response) {
                     const rolesData = response.data.map((role: IToolUserRole) => new ToolUserRole(role));
                     setRoles(rolesData);
                     const viewerRole = rolesData.find((role: { name: string; }) => role.name === "viewer");
@@ -73,7 +73,7 @@ export const AgeToolUserEditor = observer(() => {
         e.preventDefault();
         try {
 
-            const toolUserRole= roles.find((role) => role.guid === formData.role);
+            const toolUserRole = roles.find((role) => role.guid === formData.role);
             if (!toolUserRole) {
                 logService.error('Role not found');
                 return;
@@ -96,7 +96,7 @@ export const AgeToolUserEditor = observer(() => {
             setSuccessMessage(`${formData.username} created successfully`);
             setTimeout(() => setSuccessMessage(null), 8000);
         } catch (error) {
-            console.error('Error creating user:', error);
+            logService.error('Error creating user:', error);
         }
     };
 
@@ -158,7 +158,7 @@ export const AgeToolUserEditor = observer(() => {
                             value={formData.theme}
                             label="Theme"
                             onChange={handleSelectChange}
-                            MenuProps={{classes:{paper:"input-field-label"}}}
+                            MenuProps={{classes: {paper: "input-field-label"}}}
                         >
                             <MenuItem value="dark">{t("theme.dark")}</MenuItem>
                             <MenuItem value="light">{t("theme.light")}</MenuItem>
@@ -173,7 +173,7 @@ export const AgeToolUserEditor = observer(() => {
                             value={formData.language}
                             label="Language"
                             onChange={handleSelectChange}
-                            MenuProps={{classes:{paper:"input-field-label"}}}
+                            MenuProps={{classes: {paper: "input-field-label"}}}
                         >
                             <MenuItem value="en">{t("languages.en")}</MenuItem>
                             <MenuItem value="de">{t("languages.de")}</MenuItem>
@@ -189,7 +189,7 @@ export const AgeToolUserEditor = observer(() => {
                             value={formData.role}
                             label="role"
                             onChange={handleSelectChange}
-                            MenuProps={{ classes: { paper: "input-field-label" } }}
+                            MenuProps={{classes: {paper: "input-field-label"}}}
                         >
                             {roles.map((role) => (
                                 <MenuItem key={role.guid} value={role.guid}>
@@ -209,7 +209,7 @@ export const AgeToolUserEditor = observer(() => {
                 open={!!successMessage}
                 autoHideDuration={800000}
                 onClose={() => setSuccessMessage(null)}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                anchorOrigin={{vertical: 'top', horizontal: 'center'}}
             >
                 <Alert
                     onClose={() => setSuccessMessage(null)}

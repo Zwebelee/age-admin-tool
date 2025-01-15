@@ -23,13 +23,31 @@ export const AgePortalToolWebadaptors = observer(() => {
     const fields = [
         {name: 'machineName', label: 'Machine Name', type: 'text', disabled: false, default: "TESTNAME-V099T"},
         {name: 'machineIP', label: 'Machine IP', type: 'text', disabled: false, default: "33.88.99.11"},
-        {name: 'webAdaptorURL', label: 'Web Adaptor URL', type: 'text', disabled: false, default: "https://sampe.webadaptor.ch/core-blabli"},
+        {
+            name: 'webAdaptorURL',
+            label: 'Web Adaptor URL',
+            type: 'text',
+            disabled: false,
+            default: "https://sampe.webadaptor.ch/core-blabli"
+        },
         {name: 'id', label: 'ID', type: 'text', disabled: true, default: "e6f238b1-9412-412f-b37c-12b028becfaf"},
         {name: 'description', label: 'Description', type: 'text', disabled: false, default: ""},
         {name: 'httpPort', label: 'HTTP Port', type: 'number', disabled: false, default: 99},
         {name: 'httpsPort', label: 'HTTPS Port', type: 'number', disabled: false, default: 444},
-        {name: 'refreshServerListInterval', label: 'Refresh Server List Interval', type: 'number', disabled: false, default: 1},
-        {name: 'reconnectServerOnFailureInterval', label: 'Reconnect Server On Failure Interval', type: 'number', disabled: false, default: 1},
+        {
+            name: 'refreshServerListInterval',
+            label: 'Refresh Server List Interval',
+            type: 'number',
+            disabled: false,
+            default: 1
+        },
+        {
+            name: 'reconnectServerOnFailureInterval',
+            label: 'Reconnect Server On Failure Interval',
+            type: 'number',
+            disabled: false,
+            default: 1
+        },
         {name: 'guid', label: 'GUID', type: 'text', disabled: true, default: "123e4567-e89b-12d3-a456-426614333011"},
     ];
 

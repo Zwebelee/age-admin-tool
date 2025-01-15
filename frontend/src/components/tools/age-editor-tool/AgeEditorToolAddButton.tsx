@@ -10,12 +10,12 @@ interface AgeEditorToolAddButtonProps {
 export const AgeEditorToolAddButton = observer(({onClick}: AgeEditorToolAddButtonProps) => {
     const {t} = useTranslation();
     return (
-        <Grid sx={{display:'flex', justifyContent:'end'}}>
+        <Grid sx={{display: 'flex', justifyContent: 'end'}}>
             <Button
-            variant="contained"
-            onClick={onClick}
-            sx={{width:'auto'}}
-        >{t("actions.add.title")}</Button>
+                variant="contained"
+                onClick={onClick}
+                sx={{width: 'auto'}}
+            >{t("actions.add.title")}</Button>
         </Grid>
     )
 });

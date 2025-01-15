@@ -21,6 +21,7 @@ import {PortalGroup} from "../models/portalgroup.ts";
 import { LoggerService } from "../services/logger.service.ts";
 import {Task} from "../models/task.ts";
 
+//TODO: Improve - lift to generics ItemType<T> and StoreType<T> and use in AbstractStore
 export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup | Task;
 export type StoreType =
     AgeStore

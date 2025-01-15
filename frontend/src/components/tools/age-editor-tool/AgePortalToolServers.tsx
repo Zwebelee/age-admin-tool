@@ -22,7 +22,13 @@ export const AgePortalToolServers = observer(() => {
 
     const fields = [
         {name: 'name', label: 'Name', type: 'text', disabled: false, default: "sampleserver-v088t.domain.ch:6444"},
-        {name: 'adminUrl', label: 'Admin URL', type: 'text', disabled: false, default: "https://sampleserver-v088t.domain.ch:6444/arcgis"},
+        {
+            name: 'adminUrl',
+            label: 'Admin URL',
+            type: 'text',
+            disabled: false,
+            default: "https://sampleserver-v088t.domain.ch:6444/arcgis"
+        },
         {name: 'url', label: 'URL', type: 'text', disabled: false, default: "https://webadaptor.sample.ch/gisstuff"},
         {name: 'isHosted', label: 'Is Hosted', type: 'checkbox', disabled: false, default: true},
         {name: 'serverType', label: 'Server Type', type: 'text', disabled: false, default: "ArcGIS"},

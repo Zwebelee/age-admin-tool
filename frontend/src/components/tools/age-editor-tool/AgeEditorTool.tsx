@@ -21,7 +21,7 @@ const tools = [
 
 export const AgeEditorTool = observer(() => {
     const {t} = useTranslation();
-    const gridsize = [3,9]
+    const gridsize = [3, 9]
 
     const [selectedTool, setSelectedTool] = useState<string>(tools[0].name);
 
@@ -39,7 +39,7 @@ export const AgeEditorTool = observer(() => {
                         {tools.map((tool, index) => (
                             <ListItem key={index}>
                                 <Button
-                                    style={{display:'flex', flexGrow: 1}}
+                                    style={{display: 'flex', flexGrow: 1}}
                                     variant={selectedTool === tool.name ? "contained" : "outlined"}
                                     onClick={() => handleSelectTool(tool.name)}
                                 >{tool.name}</Button>
@@ -50,7 +50,7 @@ export const AgeEditorTool = observer(() => {
                 <Grid size={gridsize[1]}>
                     {tools.map(tool => (
                         selectedTool === tool.name && (<tool.component key={tool.name}/>
-                    )))}
+                        )))}
                 </Grid>
             </Grid>
         </>
