@@ -4,18 +4,22 @@ import {useRootStore} from "../../stores/root-store.ts";
 import {deDE, frFR} from "@mui/x-data-grid/locales";
 import "./DataTable.scss";
 
-interface dataTableProps {
+export interface HiddenColumns {
+    [key: string]: boolean;
+}
+
+interface dataTableProps<T> {
     color: string;
     display: boolean;
-    rows: any;
+    rows: T[];
     columns: GridColDef[];
-    hiddenColumns: any;
+    hiddenColumns: HiddenColumns;
     filterView: boolean;
 }
 
 
-export const DataTable = observer(({
-    color, display, rows = [], columns = [], hiddenColumns = {}, filterView }: dataTableProps
+export const DataTable = observer(<T,>({
+    color, display, rows = [], columns = [], hiddenColumns = {}, filterView }: dataTableProps<T>
 ) => {
 
     const dynamicClass1 = display ? "dataTable dataTable" + color : "dataTableHidden";

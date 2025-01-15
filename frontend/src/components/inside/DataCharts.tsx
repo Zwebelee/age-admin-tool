@@ -8,7 +8,7 @@ interface dataChartsProps {
 }
 
 
-export const DataCharts = ({ color, display, filterView, charts }: dataChartsProps) => {
+export const DataCharts = ({color, display, filterView, charts}: dataChartsProps) => {
     const dynamicClass1 = display ? "dataCharts dataCharts" + color : "dataChartsHidden";
     const dynamicClass2 = filterView ? dynamicClass1 + " dataCharts--filtersVisible" : dynamicClass1;
     return (

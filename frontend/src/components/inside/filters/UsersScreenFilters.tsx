@@ -10,7 +10,7 @@ import {observer} from "mobx-react-lite";
 import {FilterAccordion} from "./FilterAccordion.tsx";
 import Grid from "@mui/material/Grid2";
 import {Button} from "@mui/material";
-import { useState } from "react";
+import {useState} from "react";
 
 export const UsersScreenFilters = observer(() => {
     const {t} = useTranslation();
@@ -23,7 +23,7 @@ export const UsersScreenFilters = observer(() => {
     }
 
     return (
-        <Grid container key= {resetKey} sx={{
+        <Grid container key={resetKey} sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
