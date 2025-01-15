@@ -102,8 +102,8 @@ export const UserSettings = observer(() => {
     };
 
 
-    //TODO: Improve - load user only once, combine effects, maybe use customHook
-    // known issue: switch to light mode not properly handled (saved)
+    //TODO: Improve - load user only once on startup/authentication!
+    // use "load" on a store, in general no api-fetches in useEffects!
     useEffect(() => {
         if (authStore.isLoggedIn) {
             toolUserStore.loadUser().then(() => {
