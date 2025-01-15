@@ -4,7 +4,7 @@ import "./NoCharts.scss";
 
 export const NoCharts = () => {
 
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     return (
         <div className="noCharts">

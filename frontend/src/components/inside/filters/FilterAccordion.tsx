@@ -204,7 +204,8 @@ export const FilterAccordion = ({
                             filterMode === "date" ? dateMode : null}
             </FormControl>
             {resetButton &&
-                <IconButton onClick={handleReset} sx={{margin: "0 0.4375rem 0.4375rem 0.4375rem"}}><RestartAltIcon/></IconButton>
+                <IconButton onClick={handleReset}
+                            sx={{margin: "0 0.4375rem 0.4375rem 0.4375rem"}}><RestartAltIcon/></IconButton>
             }
         </Accordion>
     );

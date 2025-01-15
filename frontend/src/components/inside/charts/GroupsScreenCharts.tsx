@@ -6,8 +6,8 @@ import {utils} from "../../../utils.ts";
 
 export const GroupsScreenCharts = () => {
 
-    const { t } = useTranslation();
-    const { portalGroupStore } = useRootStore();
+    const {t} = useTranslation();
+    const {portalGroupStore} = useRootStore();
     const rows = portalGroupStore.visibleItems.map((item) => ({
         tableId: item.id,
         owner: item.owner,
@@ -17,7 +17,7 @@ export const GroupsScreenCharts = () => {
 
     const color1 = utils.rgbaToRgb(utils.getColor("--color1"));
 
-    const { themeStore } = useRootStore();
+    const {themeStore} = useRootStore();
     let themeColor = {};
     if (themeStore.theme === "light") {
         themeColor = utils.rgbaToRgb(utils.getColor("--color10"));

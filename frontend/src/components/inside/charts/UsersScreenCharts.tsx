@@ -6,8 +6,8 @@ import {utils} from "../../../utils.ts";
 
 export const UsersScreenCharts = () => {
 
-    const { t } = useTranslation();
-    const { portalUserStore } = useRootStore();
+    const {t} = useTranslation();
+    const {portalUserStore} = useRootStore();
     const rows = portalUserStore.visibleItems.map((item) => ({
         id: item.userid,
         role: item.role,
@@ -19,8 +19,8 @@ export const UsersScreenCharts = () => {
 
     const color1 = utils.rgbaToRgb(utils.getColor("--color1"));
 
-    const { themeStore } = useRootStore();
-    let themeColor = {};
+    const {themeStore} = useRootStore();
+    let themeColor;
     if (themeStore.theme === "light") {
         themeColor = utils.rgbaToRgb(utils.getColor("--color7"));
     } else {

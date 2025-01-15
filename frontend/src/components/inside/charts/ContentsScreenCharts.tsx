@@ -6,8 +6,8 @@ import {utils} from "../../../utils.ts";
 
 export const ContentsScreenCharts = () => {
 
-    const { t } = useTranslation();
-    const { portalItemStore } = useRootStore();
+    const {t} = useTranslation();
+    const {portalItemStore} = useRootStore();
     const rows = portalItemStore.visibleItems.map((item) => ({
         tableId: item.id,
         type: item.type,
@@ -17,8 +17,8 @@ export const ContentsScreenCharts = () => {
 
     const color1 = utils.rgbaToRgb(utils.getColor("--color1"));
 
-    const { themeStore } = useRootStore();
-    let themeColor = {};
+    const {themeStore} = useRootStore();
+    let themeColor;
     if (themeStore.theme === "light") {
         themeColor = utils.rgbaToRgb(utils.getColor("--color8"));
     } else {
