@@ -1,20 +1,47 @@
-.input-field-label {
-  .MuiInputLabel-root {
-    color: var(--lightness2);
-  }
-  .MuiInputBase-root{
-    width:100%;
-  }
-  .MuiSelect-outlined {
-    color: var(--lightness2);
-  }
-  .MuiSvgIcon-root {
-    color: var(--lightness2);
-  }
+@import "../../../globalFunctions";
 
-  .MuiList-root {
-    color: var(--lightness1);
-  }
+.toolUserEditor {
+    border: pxToRem(7) solid var(--color1-1);
+    border-radius: pxToRem(7);
+    background-color: var(--lightness1-1);
+
+    &__titlebox {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: pxToRem(1) pxToRem(1) pxToRem(9) pxToRem(18);
+        margin: 0;
+        background-color: var(--color1-1);
+    }
+
+    &__title {
+        padding-top: pxToRem(11);
+        margin: 0;
+        font-size: pxToRem(20);
+        font-weight: 500;
+        color: var(--lightness2);
+    }
+
+    &__close {
+        height: pxToRem(50);
+    }
 }
 
-
+.input-field-label {
+    .MuiInputLabel-root {
+        color: var(--lightness2);
+    }
+    .MuiInputBase-root{
+        width: 100%;
+    }
+    .MuiSelect-outlined {
+        color: var(--lightness2);
+    }
+    .MuiSvgIcon-root {
+        color: var(--lightness2);
+    }
+    .MuiList-root {
+        color: var(--lightness1);
+    }
+}

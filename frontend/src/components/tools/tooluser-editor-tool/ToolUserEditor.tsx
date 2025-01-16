@@ -1,25 +1,31 @@
-import {Alert, Button, InputLabel, MenuItem, Paper, Snackbar, TextField, Typography} from "@mui/material";
-import Grid from '@mui/material/Grid2';
+import {Alert, Button, InputLabel, MenuItem, Snackbar, TextField} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import {observer} from "mobx-react-lite";
 import React, {useEffect, useState} from "react";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
-import './ToolUserEditor.scss';
+import "./ToolUserEditor.scss";
 import {IToolUserRole, ToolUserRole} from "../../../models/tooluserrole.ts";
 import {ToolUserWithPassword} from "../../../models/tooluser.ts";
 import {utils} from "../../../utils.ts";
+import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
-export const AgeToolUserEditor = observer(() => {
+interface cardCloseProps {
+    cardClose: () => void
+}
+
+
+export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
     const {t} = useTranslation();
     const {toolUserStore, logService} = useRootStore()
     const initialFormData = {
-        username: '',
-        email: '',
-        password: '',
-        theme: 'dark',
-        language: 'en',
-        role: ''
+        username: "",
+        email: "",
+        password: "",
+        theme: "dark",
+        language: "en",
+        role: ""
 
     }
     const [formData, setFormData] = useState(initialFormData)
@@ -44,7 +50,7 @@ export const AgeToolUserEditor = observer(() => {
                     setRoles([]);
                 }
             } catch (error) {
-                logService.error('Error fetching roles:', error);
+                logService.error("Error fetching roles:", error);
                 setRoles([]);
             }
         };
@@ -75,7 +81,7 @@ export const AgeToolUserEditor = observer(() => {
 
             const toolUserRole= roles.find((role) => role.guid === formData.role);
             if (!toolUserRole) {
-                logService.error('Role not found');
+                logService.error("Role not found");
                 return;
             }
 
@@ -91,21 +97,24 @@ export const AgeToolUserEditor = observer(() => {
             const viewerRole = roles.find(role => role.name === "viewer");
             setFormData({
                 ...initialFormData,
-                role: viewerRole ? viewerRole.guid : ''
+                role: viewerRole ? viewerRole.guid : ""
             });
             setSuccessMessage(`${formData.username} created successfully`);
             setTimeout(() => setSuccessMessage(null), 8000);
         } catch (error) {
-            console.error('Error creating user:', error);
+            console.error("Error creating user:", error);
         }
     };
 
 
     return (
-        <Paper sx={{padding: 16, backgroundColor: "var(--lightness1-3)"}}>
-            <Typography variant="h6" gutterBottom>
-                {t("tools.tooluser-editor.description")}
-            </Typography>
+        <div className="toolUserEditor">
+            <div className="toolUserEditor__titlebox">
+                <h3 className="toolUserEditor__title">{t("tools.tooluser-editor.description")}</h3>
+                <Button className="toolUserEditor__close" onClick={cardClose}>
+                    {t("actions.close")}&nbsp;<HighlightOffOutlinedIcon fontSize="large"/>
+                </Button>
+            </div>
             <form onSubmit={handleSubmit}>
                 <Grid container direction={"column"} spacing={2}>
                     <Grid>
@@ -209,7 +218,7 @@ export const AgeToolUserEditor = observer(() => {
                 open={!!successMessage}
                 autoHideDuration={800000}
                 onClose={() => setSuccessMessage(null)}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
                 <Alert
                     onClose={() => setSuccessMessage(null)}
@@ -224,6 +233,6 @@ export const AgeToolUserEditor = observer(() => {
                     {successMessage}
                 </Alert>
             </Snackbar>
-        </Paper>
+        </div>
     );
 });
