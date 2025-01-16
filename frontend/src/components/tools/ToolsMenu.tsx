@@ -1,14 +1,14 @@
 import {observer} from "mobx-react-lite";
 import {useTranslation} from "react-i18next";
-import Grid from '@mui/material/Grid2';
+import Grid from "@mui/material/Grid2";
 import {ToolDetailScreen} from "../../screens/ToolDetailScreen.tsx";
 import React, {useState} from "react";
 import {Button} from "@mui/material";
 import {ToolCard} from "./ToolCard.tsx";
-import PeopleIcon from "@mui/icons-material/People";
 import {AgeEditorTool} from "./age-editor-tool/AgeEditorTool.tsx";
 import {AgeToolUserEditor} from "./tooluser-editor-tool/ToolUserEditor.tsx";
-import ApartmentIcon from '@mui/icons-material/Apartment';
+import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
+import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
 
 
 export const ToolsMenu = observer(() => {
@@ -17,14 +17,14 @@ export const ToolsMenu = observer(() => {
 
     const toolList = [
         <ToolCard
-            icon={ApartmentIcon}
+            icon={ApartmentOutlinedIcon}
             title={t("tools.age-editor.title")}
             description={t("tools.age-editor.description")}
             tool={<AgeEditorTool/>}
             key={1}
         />,
         <ToolCard
-            icon={PeopleIcon}
+            icon={GroupAddOutlinedIcon}
             title={t("tools.tooluser-editor.title")}
             description={t("tools.tooluser-editor.description")}
             tool={<AgeToolUserEditor/>}
@@ -59,11 +59,8 @@ export const ToolsMenu = observer(() => {
                                 size={{xs: 12, sm: 6, md: 4, lg: 3}}
                                 onClick={() => handleToolCardClick(toolCard)}
                                 sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    '& > *': {
-                                        flex: 1
-                                    }
+                                    display: "flex",
+                                    flexDirection: "column",
                                 }}
                             >
                                 {toolCard}
