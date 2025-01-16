@@ -51,44 +51,65 @@ docker-compose down
 Projectsetup with: https://nx.dev/getting-started/tutorials/react-standalone-tutorial
 
 # 📋 TODO & Kown Issues
-- Generell
-  - [ ] Add Tests (Front + Backend)
-  - [ ] Adjust Business-Object-Model
-- Frontend
-  - [ ] Add Storybook
-  - [ ] Abstract Store/Models & Root-Store
-    - Implement proper generics for ItemType<T> / StoreType<T> (abstract-store & abstract-model incl. generic (de-)serialization) so we use actual Model-Object and not just Dict-Objects (e.g. model/task.ts)
-    - Abstract-Store / Stores:
-      - replace any with the ItemType<T>
-      - //TODO: (on abstract store) implement properly! should create a new Item of type T! Not just a Dict-Object
-      - // TODO: solve better, Lazy-load stores - hooks/services for specific data on demand in specific routes where data
-      - //TODO: Overthink handling of "all Users"
 
-  - AbstractModel
-    - sdfsdf
-  - Update store-initialization and stores-"item-loading" functionality - Wait with render until user/profile is loaded, at start only load what is needed, not ALL stores at start (lazy)
-  - Remove useEffects for data-fetching (e.g. taskDetails / usersettings)
-  - Extend ModelClasses with minimal-shared-props and proper type/class for age-components
-  - [ ] Implement generic or abstract "Filter" (e.g. for string / number / date / boolean) 
-  - [ ] Implement additional Models (permisson, role, taskrules, taskrulestore, ...)
-  - [ ] Load all Overview-Component-Data
-  - Auth & Cookies
-    - //TODO: (CookieHandling) load the refresh-cookiename from dotenv -> env in the root directoy or better let backend set cookies
-    - //TODO: accesstoken -> better save in session storage / memory
-    - //TODO: these cookies should be set by the backend and recieved by the frontend
-    - //TODO: MUST to be set! but backend not ready yet (refresh_token)
-    - //TODO: improve logout - with invalid credentials backend will 401 - toolUserStore handling
+<details>
+  <summary> Details </summary>
+  <blockquote>
 
-    - AccordionFilterCOmponent
-      - - Clean Accordion-Filter reset wit proper InitialValues-> 
-      - + remove any -> linked to ItemType<T> in store
-   - Add MOre //TODO: Implement TaskRule - Store, Model, Service, Component
+  <details>
+  <summary> General </summary>
+  <blockquote>
 
-- Backend
-  - [ ] Implement "Role/Permission-Check" for get/post/put/delete
-  - [ ] Update Swagger-Documentation
-  -     - //TODO: these cookies should be set by the backend and recieved by the frontend
-  - //TODO: handling in backend -> revoke tokens, set new salt, send new tokens
-  - // Backend hardening (protect routes, actually check permissions in backend)
+- [ ] Add Tests (Front + Backend)
+- [ ] Adjust Business-Object-Model
+- [ ] Implement additional Models/Stores (taskrules, taskrulestore, ...)
 
+  </blockquote>
+  </details>
+  
+  <details>
+  <summary> Frontend </summary>
+  <blockquote>
 
+- [ ] Init and Data-Loading
+  - Update store-initialization and stores-"item-loading" functionality - Render "loading" until user/profile is
+    loaded
+  - Lazy-Loading -> Only load what is actually needed, load on routes not ALL stores at start (lazy)
+  - Remove "useEffect" for data-fetching (e.g. taskDetails / usersettings)
+- [ ] Abstract Store, Abstract Models & Root-Store
+  - Implement proper generics for ItemType<T> / StoreType<T> (abstract-store & abstract-model incl. generic (de-)
+    serialization) so we use actual "Model-Object" and not just "Dict-Objects" (e.g. model/task.ts)
+  - Update e.g. "items" and methods in the abstract store with the proper type --> ItemType<T> instead of any
+  - use (de-)serialization for load/delete/update items from backend-dict-objects to actual Model-Objects
+- [ ] Abstract Model
+  - Integrate abstract / generic toJSON / fromJSON for (de-)serialization
+- [ ] Auth & Cookies
+  - receive cookies and their settings (httponly/expiration) from backend (e.g. refresh_token)
+  - get cookienames from .env / dotenv
+  - use sessionstorage or memry for access token
+  - refresh_token -> update to httponly (MUST!), receive from backend as soon as ready
+  - improve logout - with invalid credentials backend will 401 - toolUserStore handling
+- [ ] Components
+  - Fix type on "AccordionFilterComponent" (e.g. ItemType<T> instead of "any"), update the proper "reset to init value"
+  - Implement generic or abstract reusable "Filter" (e.g. for string / number / date / boolean)
+- [ ] Try "Storybook"
+
+  </blockquote>
+  </details>
+  
+  <details>
+  <summary> Backend </summary>
+  <blockquote>
+
+- [ ] Update Security
+  - [ ] Set/send cookies from backend with headers (refresh->http only)/expiration - not frontend
+  - [ ] Proper revoke tokens on Role-or PWD Change/Logout, use "salt" to hash passwords
+  - [ ] Protect Routes/Method by Role/Permission - Implement "Role/Permission-Check" for get/post/put/delete
+  - [ ] Protect]
+- [ ] Update Swagger-Documentation
+
+  </blockquote>
+  </details>
+
+  </blockquote>
+</details>
