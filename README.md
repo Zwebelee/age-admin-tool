@@ -51,25 +51,44 @@ docker-compose down
 Projectsetup with: https://nx.dev/getting-started/tutorials/react-standalone-tutorial
 
 # 📋 TODO & Kown Issues
-- [ ] Add Tests
-- [ ] Add CI/CD
-- [ ] Add more features
-- [ ] Add more documentation
- 
---> Genereell:
---> BOM überdenken
---> Loading verbessern (Nicht generisch alle Stores laden sondern dann wenn es auch etwas braucht)
---> Load User / Profile )
---- dont use "useEffect" for data fetching(-> nicht in taskDetails / oder "usersettings"!
---> Durchgehen für alle Modelle die Objeckte Serializsieren / Deserialisierne wie am Beispiel tooluser -> Konkrete Modell-Objecte verwenden udn nicht einfach nur dict
---> Modelle überarbeiten, besserer abstract-model mit den defaults (e.g. funktion für generisches fromJSON & toJSON)
--->generic/abstract Filter -> für string / number /date / boolean, als abstract filter
---> use customHooks (e.g. usePermission)
---> models erweitern mit permissions role / rolepermission! /und TaskRules / TsakRuleStore
-//TODO: Extend ModelClasses with minimal-shared-props and proper type/class for age-components
-// TODO: load other data for overview screens
+- Generell
+  - [ ] Add Tests (Front + Backend)
+  - [ ] Adjust Business-Object-Model
+- Frontend
+  - [ ] Add Storybook
+  - [ ] Abstract Store/Models & Root-Store
+    - Implement proper generics for ItemType<T> / StoreType<T> (abstract-store & abstract-model incl. generic (de-)serialization) so we use actual Model-Object and not just Dict-Objects (e.g. model/task.ts)
+    - Abstract-Store / Stores:
+      - replace any with the ItemType<T>
+      - //TODO: (on abstract store) implement properly! should create a new Item of type T! Not just a Dict-Object
+      - // TODO: solve better, Lazy-load stores - hooks/services for specific data on demand in specific routes where data
+      - //TODO: Overthink handling of "all Users"
+
+  - AbstractModel
+    - sdfsdf
+  - Update store-initialization and stores-"item-loading" functionality - Wait with render until user/profile is loaded, at start only load what is needed, not ALL stores at start (lazy)
+  - Remove useEffects for data-fetching (e.g. taskDetails / usersettings)
+  - Extend ModelClasses with minimal-shared-props and proper type/class for age-components
+  - [ ] Implement generic or abstract "Filter" (e.g. for string / number / date / boolean) 
+  - [ ] Implement additional Models (permisson, role, taskrules, taskrulestore, ...)
+  - [ ] Load all Overview-Component-Data
+  - Auth & Cookies
+    - //TODO: (CookieHandling) load the refresh-cookiename from dotenv -> env in the root directoy or better let backend set cookies
+    - //TODO: accesstoken -> better save in session storage / memory
+    - //TODO: these cookies should be set by the backend and recieved by the frontend
+    - //TODO: MUST to be set! but backend not ready yet (refresh_token)
+    - //TODO: improve logout - with invalid credentials backend will 401 - toolUserStore handling
+
+    - AccordionFilterCOmponent
+      - - Clean Accordion-Filter reset wit proper InitialValues-> 
+      - + remove any -> linked to ItemType<T> in store
+   - Add MOre //TODO: Implement TaskRule - Store, Model, Service, Component
+
+- Backend
+  - [ ] Implement "Role/Permission-Check" for get/post/put/delete
+  - [ ] Update Swagger-Documentation
+  -     - //TODO: these cookies should be set by the backend and recieved by the frontend
+  - //TODO: handling in backend -> revoke tokens, set new salt, send new tokens
+  - // Backend hardening (protect routes, actually check permissions in backend)
 
 
-spezifisch:
-- Clean Accordion-Filter reset wit proper InitialValues-> 
--IMprove abstract store as proper generic! (e.g. ItemTypes<T> = ....)
