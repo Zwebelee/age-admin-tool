@@ -314,7 +314,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                                 />
                                 <div className="taskDetails__commentButton">
                                     <Button variant={"contained"} onClick={handleAddComment}>
-                                        {t("new-comment")}
+                                        {t("actions.add.title")}
                                     </Button>
                                 </div>
                             </AccordionDetails>
