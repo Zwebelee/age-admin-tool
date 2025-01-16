@@ -1,10 +1,13 @@
 /* Heights */
 :root {
-    --insideDataMainXL:    24.15625rem; // Data Table, Data Charts:   40 + 135 + 50 + 139.5 + 12 + 10          = 386.5px
-    --insideDataMainMD:    23.91875rem; // Data Table, Data Charts:   24 + 100 + 30 + 206.7 + 12 + 10          = 382.7px
-    --insideDataMainSM:    23.91875rem; // Data Table, Data Charts:   14 + 100 + 20 + 206.7 + 12 + 7 + 13 + 10 = 382.7px
-    --insideDataFiltersXL: 23.65625rem; // Data Filters, Data Handle: 40 + 135 + 50 + 139.5 + 12 + 2           = 378.5px
-    --insideDataFiltersMD: 23.41875rem; // Data Filters, Data Handle: 24 + 100 + 30 + 206.7 + 12 + 2           = 374.7px
+    --insideDataMainXL:    24.15625rem; // Data Table, Data Charts:   40 + 135 + 50 + 139.5 + 12 + 10           = 386.50px
+    --insideDataMainMD:    23.91875rem; // Data Table, Data Charts:   24 + 100 + 30 + 206.7 + 12 + 10           = 382.70px
+    --insideDataMainSM:    23.91875rem; // Data Table, Data Charts:   14 + 100 + 20 + 206.7 + 12 + 7 + 13 + 10  = 382.70px
+    --insideDataFiltersXL: 23.65625rem; // Data Filters, Data Handle: 40 + 135 + 50 + 139.5 + 12 + 2            = 378.50px
+    --insideDataFiltersMD: 23.41875rem; // Data Filters, Data Handle: 24 + 100 + 30 + 206.7 + 12 + 2            = 374.70px
+    --insideBoxXL:         23.42750rem; // Tools, My Account:         40 + 135 + 50 + 36 + 39.84 + 14 + 50 + 10 = 374.84px
+    --insideBoxMD:         18.99000rem; // Tools, My Account:         24 + 100 + 30 + 36 + 39.84 + 14 + 50 + 10 = 303.84px
+    --insideBoxSM:         16.95000rem; // Tools, My Account:         14 + 100 + 20 + 30 + 33.2 + 14 + 50 + 10  = 271.20px
 }
 
 

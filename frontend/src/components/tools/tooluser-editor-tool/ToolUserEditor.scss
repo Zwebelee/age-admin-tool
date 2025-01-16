@@ -21,15 +21,35 @@
         font-size: pxToRem(20);
         font-weight: 500;
         color: var(--lightness2);
+        @include media("sm") {
+            font-size: pxToRem(16);
+        }
     }
 
     &__close {
         height: pxToRem(50);
     }
 
+    &__closeText {
+        @include media("sm") {
+            display: none;
+        }
+    }
+
+    &__content {
+        height: calc(100vh - var(--insideBoxXL));
+        min-height: pxToRem(550);
+        overflow-y: scroll;
+        @include media("md") {
+            height: calc(100vh - var(--insideBoxMD));
+        }
+        @include media("sm") {
+            height: calc(100vh - var(--insideBoxSM));
+        }
+    }
+
     &__form {
-        margin: 0 auto;
-        padding: pxToRem(50) 0;
+        margin: pxToRem(50) auto;
         width: pxToRem(500);
         @include media("sm") {
             width: 85%;

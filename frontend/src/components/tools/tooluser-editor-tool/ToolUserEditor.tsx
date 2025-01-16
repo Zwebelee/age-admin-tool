@@ -112,113 +112,115 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
             <div className="toolUserEditor__titlebox">
                 <h3 className="toolUserEditor__title">{t("tools.tooluser-editor.description")}</h3>
                 <Button className="toolUserEditor__close" onClick={cardClose}>
-                    {t("actions.close")}&nbsp;<HighlightOffOutlinedIcon fontSize="large"/>
+                    <span className="toolUserEditor__closeText">{t("actions.close")}&nbsp;</span><HighlightOffOutlinedIcon fontSize="large"/>
                 </Button>
             </div>
-            <form className="toolUserEditor__form" onSubmit={handleSubmit}>
-                <Grid container direction={"column"} spacing={2}>
-                    <Grid>
-                        <TextField
-                            id="username"
-                            name="username"
-                            label={t("username")}
-                            variant="outlined"
-                            value={formData.username}
-                            onChange={handleChange}
-                            fullWidth
-                            required
-                            className="input-field-label"
-                        />
+            <div className="toolUserEditor__content">
+                <form className="toolUserEditor__form" onSubmit={handleSubmit}>
+                    <Grid container direction={"column"} spacing={2}>
+                        <Grid>
+                            <TextField
+                                id="username"
+                                name="username"
+                                label={t("username")}
+                                variant="outlined"
+                                value={formData.username}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                                className="input-field-label"
+                            />
+                        </Grid>
+                        <Grid>
+                            <TextField
+                                id="email"
+                                name="email"
+                                label="Email"
+                                type="email"
+                                variant="outlined"
+                                value={formData.email}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                                className="input-field-label"
+                            />
+                        </Grid>
+                        <Grid>
+                            <TextField
+                                id="password"
+                                name="password"
+                                label={t("password")}
+                                type="password"
+                                variant="outlined"
+                                value={formData.password}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                                className="input-field-label"
+                            />
+                        </Grid>
+                        <Grid className="input-field-label">
+                            <InputLabel id="theme-label">{t("theme.title")}</InputLabel>
+                            <Select
+                                labelId="theme-label"
+                                id="theme"
+                                name="theme"
+                                value={formData.theme}
+                                onChange={handleSelectChange}
+                                MenuProps={{classes:{paper:"input-field-label"}}}
+                            >
+                                <MenuItem value="dark">{t("theme.dark")}</MenuItem>
+                                <MenuItem value="light">{t("theme.light")}</MenuItem>
+                            </Select>
+                        </Grid>
+                        <Grid className="input-field-label">
+                            <InputLabel id="language-label">{t("language")}</InputLabel>
+                            <Select
+                                labelId="language-label"
+                                id="language"
+                                name="language"
+                                value={formData.language}
+                                onChange={handleSelectChange}
+                                MenuProps={{classes:{paper:"input-field-label"}}}
+                            >
+                                <MenuItem value="en">{t("languages.en")}</MenuItem>
+                                <MenuItem value="de">{t("languages.de")}</MenuItem>
+                                <MenuItem value="fr">{t("languages.fr")}</MenuItem>
+                            </Select>
+                        </Grid>
+                        <Grid className="input-field-label">
+                            <InputLabel id="role-label">{t("role")}</InputLabel>
+                            <Select
+                                labelId="role-label"
+                                id="role"
+                                name="role"
+                                value={formData.role}
+                                onChange={handleSelectChange}
+                                MenuProps={{ classes: { paper: "input-field-label" } }}
+                            >
+                                {roles.map((role) => (
+                                    <MenuItem key={role.guid} value={role.guid}>
+                                        {utils.capitalizeFirstLetter((role.name))}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </Grid>
+                        <Grid>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                                sx={{
+                                    marginTop: "1.875rem",
+                                }}
+                            >
+                                {t("actions.create") + " " + t("user")}
+                            </Button>
+                        </Grid>
                     </Grid>
-                    <Grid>
-                        <TextField
-                            id="email"
-                            name="email"
-                            label="Email"
-                            type="email"
-                            variant="outlined"
-                            value={formData.email}
-                            onChange={handleChange}
-                            fullWidth
-                            required
-                            className="input-field-label"
-                        />
-                    </Grid>
-                    <Grid>
-                        <TextField
-                            id="password"
-                            name="password"
-                            label={t("password")}
-                            type="password"
-                            variant="outlined"
-                            value={formData.password}
-                            onChange={handleChange}
-                            fullWidth
-                            required
-                            className="input-field-label"
-                        />
-                    </Grid>
-                    <Grid className="input-field-label">
-                        <InputLabel id="theme-label">{t("theme.title")}</InputLabel>
-                        <Select
-                            labelId="theme-label"
-                            id="theme"
-                            name="theme"
-                            value={formData.theme}
-                            onChange={handleSelectChange}
-                            MenuProps={{classes:{paper:"input-field-label"}}}
-                        >
-                            <MenuItem value="dark">{t("theme.dark")}</MenuItem>
-                            <MenuItem value="light">{t("theme.light")}</MenuItem>
-                        </Select>
-                    </Grid>
-                    <Grid className="input-field-label">
-                        <InputLabel id="language-label">{t("language")}</InputLabel>
-                        <Select
-                            labelId="language-label"
-                            id="language"
-                            name="language"
-                            value={formData.language}
-                            onChange={handleSelectChange}
-                            MenuProps={{classes:{paper:"input-field-label"}}}
-                        >
-                            <MenuItem value="en">{t("languages.en")}</MenuItem>
-                            <MenuItem value="de">{t("languages.de")}</MenuItem>
-                            <MenuItem value="fr">{t("languages.fr")}</MenuItem>
-                        </Select>
-                    </Grid>
-                    <Grid className="input-field-label">
-                        <InputLabel id="role-label">{t("role")}</InputLabel>
-                        <Select
-                            labelId="role-label"
-                            id="role"
-                            name="role"
-                            value={formData.role}
-                            onChange={handleSelectChange}
-                            MenuProps={{ classes: { paper: "input-field-label" } }}
-                        >
-                            {roles.map((role) => (
-                                <MenuItem key={role.guid} value={role.guid}>
-                                    {utils.capitalizeFirstLetter((role.name))}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </Grid>
-                    <Grid>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                            sx={{
-                                marginTop: "1.875rem",
-                            }}
-                        >
-                            {t("actions.create") + " " + t("user")}
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
+                </form>
+            </div>
             <Snackbar
                 open={!!successMessage}
                 autoHideDuration={800000}
