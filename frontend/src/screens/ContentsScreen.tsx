@@ -10,8 +10,8 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 
 export const ContentsScreen = () => {
 
-    const { t } = useTranslation();
-    const { portalItemStore } = useRootStore();
+    const {t} = useTranslation();
+    const {portalItemStore} = useRootStore();
     const rows = portalItemStore.visibleItems.map((item) => ({
         tableId: item.id,
         ...item,

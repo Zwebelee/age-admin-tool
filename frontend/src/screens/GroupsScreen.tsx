@@ -10,8 +10,8 @@ import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlin
 
 export const GroupsScreen = () => {
 
-    const { t } = useTranslation();
-    const { portalGroupStore} = useRootStore();
+    const {t} = useTranslation();
+    const {portalGroupStore} = useRootStore();
     const rows = portalGroupStore.visibleItems.map((item) => ({
         tableId: item.id,
         ...item,
@@ -56,7 +56,7 @@ export const GroupsScreen = () => {
                 data={[{
                     name: "Groups",
                     value: 242,
-                },{
+                }, {
                     name: "Administrativ",
                     value: 56,
                 }, {
