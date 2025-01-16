@@ -16,7 +16,7 @@
     }
 
     &__title {
-        padding-top: pxToRem(11);
+        padding-top: pxToRem(3);
         margin: 0;
         font-size: pxToRem(20);
         font-weight: 500;
@@ -26,22 +26,23 @@
     &__close {
         height: pxToRem(50);
     }
+
+    &__form {
+        margin: 0 auto;
+        padding: pxToRem(50) 0;
+        width: pxToRem(500);
+        @include media("sm") {
+            width: 85%;
+        }
+    }
 }
 
 .input-field-label {
-    .MuiInputLabel-root {
-        color: var(--lightness2);
-    }
     .MuiInputBase-root{
         width: 100%;
     }
-    .MuiSelect-outlined {
-        color: var(--lightness2);
-    }
-    .MuiSvgIcon-root {
-        color: var(--lightness2);
-    }
-    .MuiList-root {
-        color: var(--lightness1);
-    }
+}
+.MuiGrid2-root > .MuiInputLabel-root {
+    font-size: pxToRem(13);
+    padding-bottom: pxToRem(5);
 }

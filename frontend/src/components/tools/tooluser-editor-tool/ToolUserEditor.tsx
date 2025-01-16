@@ -5,11 +5,11 @@ import React, {useEffect, useState} from "react";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
-import "./ToolUserEditor.scss";
 import {IToolUserRole, ToolUserRole} from "../../../models/tooluserrole.ts";
 import {ToolUserWithPassword} from "../../../models/tooluser.ts";
 import {utils} from "../../../utils.ts";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
+import "./ToolUserEditor.scss";
 
 interface cardCloseProps {
     cardClose: () => void
@@ -115,7 +115,7 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
                     {t("actions.close")}&nbsp;<HighlightOffOutlinedIcon fontSize="large"/>
                 </Button>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form className="toolUserEditor__form" onSubmit={handleSubmit}>
                 <Grid container direction={"column"} spacing={2}>
                     <Grid>
                         <TextField
@@ -165,7 +165,6 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
                             id="theme"
                             name="theme"
                             value={formData.theme}
-                            label="Theme"
                             onChange={handleSelectChange}
                             MenuProps={{classes:{paper:"input-field-label"}}}
                         >
@@ -180,7 +179,6 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
                             id="language"
                             name="language"
                             value={formData.language}
-                            label="Language"
                             onChange={handleSelectChange}
                             MenuProps={{classes:{paper:"input-field-label"}}}
                         >
@@ -196,7 +194,6 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
                             id="role"
                             name="role"
                             value={formData.role}
-                            label="role"
                             onChange={handleSelectChange}
                             MenuProps={{ classes: { paper: "input-field-label" } }}
                         >
@@ -208,7 +205,15 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
                         </Select>
                     </Grid>
                     <Grid>
-                        <Button type="submit" variant="contained" color="primary" fullWidth>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            sx={{
+                                marginTop: "1.875rem",
+                            }}
+                        >
                             {t("actions.create") + " " + t("user")}
                         </Button>
                     </Grid>
@@ -223,11 +228,16 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
                 <Alert
                     onClose={() => setSuccessMessage(null)}
                     severity="success"
+                    variant="filled"
                     sx={{
                         width: "100%",
                         fontSize: "1.5rem",
                         fontWeight: "bold",
-                        padding: "1rem"
+                        padding: "1.5rem 3rem",
+                        alignItems: "center",
+                        "& .MuiAlert-icon": {
+                            fontSize: "3rem",
+                        }
                     }}
                 >
                     {successMessage}
