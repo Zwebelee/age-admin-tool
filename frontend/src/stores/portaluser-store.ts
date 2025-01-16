@@ -53,10 +53,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
                 data.forEach(portaluser => {
                     this.items.set(portaluser.guid, portaluser);
                 })
-                // this.items.set(data.guid, data);
-                setTimeout(() => {
-                    this.status = "loaded";
-                }, 5000);
+                this.status = "loaded";
             });
         } catch (error) {
             this.logger.error('Failed to load data', error);
