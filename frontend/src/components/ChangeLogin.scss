@@ -6,7 +6,7 @@
     background-color: var(--lightness1-1);
 
     &__title {
-        padding: pxToRem(12) pxToRem(18) pxToRem(20);
+        padding: pxToRem(11) pxToRem(18) pxToRem(19);
         margin: 0;
         font-size: pxToRem(20);
         font-weight: 500;
@@ -16,6 +16,21 @@
 
     &__user {
         font-size: pxToRem(20);
+    }
+
+    &__content {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        height: calc(100vh - var(--insideBoxXL));
+        min-height: pxToRem(550);
+        overflow-y: scroll;
+        @include media("md") {
+            height: calc(100vh - var(--insideBoxMD));
+        }
+        @include media("sm") {
+            height: calc(100vh - var(--insideBoxSM));
+        }
     }
 
     &__form {

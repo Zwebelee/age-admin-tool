@@ -69,65 +69,67 @@ export const ChangeLogin = observer(({onCancel}: ChangeLoginProps) => {
     return (
         <div className="changeLogin">
             <h3 className="changeLogin__title">{t("change_password")}</h3>
-            <form className="changeLogin__form">
-                <p className="changeLogin__user">{t("user")}: {toolUserStore.user ? toolUserStore.user.username : "User-Error"}</p>
-                <TextField
-                    label={t("password")}
-                    type="password"
-                    name="password"
-                    value={formState.password}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    required
-                />
-                <TextField
-                    label={t("new_password")}
-                    type="password"
-                    name="newPassword"
-                    value={formState.newPassword}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    required
-                />
-                <TextField
-                    label={t("new_password_confirmation")}
-                    type="password"
-                    name="confirmPassword"
-                    value={formState.confirmPassword}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    required
-                />
-                <div className="changeLogin__status">
-                    <p className="changeLogin__success">{formState.success && <span>{formState.success}</span>}</p>
-                    <p className="changeLogin__error">{formState.error && <span>{formState.error}</span>}</p>
-                </div>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleChangeLogin}
-                    fullWidth
-                    sx={{
-                        margin: "0.3125rem auto",
-                    }}
-                >
-                    {t("change_password")}
-                </Button>
-                <Button
-                    onClick={onCancel}
-                    color="error"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                        margin: "0.3125rem auto",
-                    }}
-                >
-                    {t("actions.cancel")}
-                </Button>
-            </form>
+            <div className="changeLogin__content">
+                <form className="changeLogin__form">
+                    <p className="changeLogin__user">{t("user")}: {toolUserStore.user ? toolUserStore.user.username : "User-Error"}</p>
+                    <TextField
+                        label={t("password")}
+                        type="password"
+                        name="password"
+                        value={formState.password}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label={t("new_password")}
+                        type="password"
+                        name="newPassword"
+                        value={formState.newPassword}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label={t("new_password_confirmation")}
+                        type="password"
+                        name="confirmPassword"
+                        value={formState.confirmPassword}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <div className="changeLogin__status">
+                        <p className="changeLogin__success">{formState.success && <span>{formState.success}</span>}</p>
+                        <p className="changeLogin__error">{formState.error && <span>{formState.error}</span>}</p>
+                    </div>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleChangeLogin}
+                        fullWidth
+                        sx={{
+                            margin: "0.3125rem auto",
+                        }}
+                    >
+                        {t("change_password")}
+                    </Button>
+                    <Button
+                        onClick={onCancel}
+                        color="error"
+                        variant="contained"
+                        fullWidth
+                        sx={{
+                            margin: "0.3125rem auto",
+                        }}
+                    >
+                        {t("actions.cancel")}
+                    </Button>
+                </form>
+            </div>
         </div>
     );
 });
