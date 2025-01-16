@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {utils} from "../../utils.ts";
+import {utils} from "../../utils/utils.ts";
 import "./OverviewData.scss";
 
 

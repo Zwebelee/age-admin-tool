@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 import './ToolUserEditor.scss';
 import {IToolUserRole, ToolUserRole} from "../../../models/tooluserrole.ts";
 import {ToolUserWithPassword} from "../../../models/tooluser.ts";
-import {utils} from "../../../utils.ts";
+import {utils} from "../../../utils/utils.ts";
 
 export const AgeToolUserEditor = observer(() => {
     const {t} = useTranslation();

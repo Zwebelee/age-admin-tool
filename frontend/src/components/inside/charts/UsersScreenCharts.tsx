@@ -1,7 +1,7 @@
 import {useRootStore} from "../../../stores/root-store.ts";
 import {Chart} from "./Chart.tsx";
 import {useTranslation} from "react-i18next";
-import {utils} from "../../../utils.ts";
+import {utils} from "../../../utils/utils.ts";
 
 
 export const UsersScreenCharts = () => {

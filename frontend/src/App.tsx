@@ -2,7 +2,7 @@ import {Suspense, useState, useEffect, useRef} from "react";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
 import {observer} from "mobx-react-lite";
-import {utils} from "./utils.ts";
+import {utils} from "./utils/utils.ts";
 
 import {Alert, LinearProgress} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles";

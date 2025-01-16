@@ -25,7 +25,7 @@ import {ToolUser} from "../models/tooluser.ts";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import {ChangeLogin} from "./ChangeLogin.tsx";
-import {utils} from "../utils.ts";
+import {utils} from "../utils/utils.ts";
 import {ToolUserRole} from "../models/tooluserrole.ts";
 
 interface SettingListItemProps {
