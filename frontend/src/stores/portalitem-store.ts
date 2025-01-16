@@ -9,7 +9,7 @@ export class PortalItemStore extends AbstractStore<PortalItem> {
 
     constructor(authService: AuthService) {
         super(authService);
-        makeObservable(this,{
+        makeObservable(this, {
             status: observable,
             items: observable
         });

@@ -192,6 +192,7 @@ export class AuthStore {
         try {
             const response = await this.authService.getApiClient().delete('/logout');
             if (response.status !== 200) {
+                this.logger.warn("Proper Logout failed", response);
             } else {
                 this.rootStore.toolUserStore.user = undefined;
                 this.rootStore.toolUserStore.userLoaded = false;
@@ -199,6 +200,7 @@ export class AuthStore {
                 this.resetUserSession();
             }
         } catch (error) {
+            this.logger.error("Proper Logout failed", error);
             this.resetUserSession()
         }
     }

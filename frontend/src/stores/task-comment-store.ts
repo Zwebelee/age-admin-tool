@@ -33,6 +33,7 @@ export class TaskCommentStore extends AbstractStore<TaskComment> {
             });
             this.status = "loaded";
         } catch (e) {
+            this.logger.error("Failed to load task comments", e);
             this.status = "error";
         }
     }
@@ -55,6 +56,7 @@ export class TaskCommentStore extends AbstractStore<TaskComment> {
             this.items.set(taskCommentItem.guid, taskCommentItem);
             this.status = "loaded";
         } catch (e) {
+            this.logger.error("Failed to add task comment", e);
             this.status = "error";
         }
     }

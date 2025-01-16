@@ -47,7 +47,6 @@ export class RootStore {
     taskCommentStore: TaskCommentStore;
 
     get init() {
-        // TODO: Handle initialization
         return true;
     }
 
@@ -77,16 +76,9 @@ export class RootStore {
         this.taskCommentStore = new TaskCommentStore(this.authService);
     }
 
-    initializeStoresAfterLogin(){
-        // TODO: solve better, Lazy-load stores - hooks for specific data on demand in specific routes where data
+    initializeStoresAfterLogin() {
+        // TODO: solve better, Lazy-load stores - hooks/services for specific data on demand in specific routes where data
         //  is actually needed, better separation of auth and toolUserStore, wait for userProfile to be loaded!
-        // private loadStore() {
-        //     return this._stores[storeName];
-        // }
-        //
-        // get ageStore() {
-        //     return this.loadStore();
-        // }
 
         this.ageStore.initialize().then();
         this.portalUserStore.initialize().then();

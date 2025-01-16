@@ -1,7 +1,7 @@
 import {makeObservable, observable, action} from "mobx";
 import {AbstractStore} from "./abstract-store.ts";
-import { PortalLicense } from "../models/portallicense.ts";
-import { AuthService } from "../services/auth.service.ts";
+import {PortalLicense} from "../models/portallicense.ts";
+import {AuthService} from "../services/auth.service.ts";
 import {PortallicenseNameFilter} from "../filters/portallicense-name-filter.ts";
 
 export class PortalLicenseStore extends AbstractStore<PortalLicense> {
@@ -14,7 +14,6 @@ export class PortalLicenseStore extends AbstractStore<PortalLicense> {
         makeObservable(this, {
             portalLicense: observable,
             items: observable,
-            // visibleItems: computed, //TODO: remove if it works within abstracts-store
             loadData: action,
             status: observable,
             filters: observable

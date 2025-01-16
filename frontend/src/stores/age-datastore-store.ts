@@ -10,12 +10,12 @@ export class AgeDatastoreStore extends AbstractStore<AgeDataStore> {
 
     constructor(authService: AuthService) {
         super(authService);
-        makeObservable(this,{
+        makeObservable(this, {
             status: observable,
             items: observable
         });
-
     }
+
     async initialize() {
         await this.loadItems();
 

@@ -14,15 +14,15 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
 
     items = observable.map<string, PortalUser>();
 
-    constructor(authService: AuthService){
+    constructor(authService: AuthService) {
         super(authService);
         makeObservable(this, {
             status: observable,
             items: observable,
             filters: observable
-            //TODO: add visibleItems, filters, addItem, removeItem, sync items,...
         });
     }
+
     async initialize() {
         await this.loadData();
     }
@@ -33,7 +33,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
 
     get visibleItems(): PortalUser[] {
         let filtered = [...this.items.values()];
-        if(this.filters && this.filters.length > 0) {
+        if (this.filters && this.filters.length > 0) {
             filtered = PortalUserRoleFilter.apply(filtered, this.filters);
             filtered = PortalUserStatusFilter.apply(filtered, this.filters);
             filtered = PortalUserLicenseFilter.apply(filtered, this.filters);
@@ -48,7 +48,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
         this.status = "loading";
         try {
             const response = await this.authService.getApiClient().get(this.getEndpoint());
-            const data: PortalUser[]= response.data;
+            const data: PortalUser[] = response.data;
             runInAction(() => {
                 data.forEach(portaluser => {
                     this.items.set(portaluser.guid, portaluser);
@@ -59,7 +59,7 @@ export class PortaluserStore extends AbstractStore<PortalUser> {
                 }, 5000);
             });
         } catch (error) {
-            console.error('Failed to load data', error);
+            this.logger.error('Failed to load data', error);
             this.status = "error";
         }
     }

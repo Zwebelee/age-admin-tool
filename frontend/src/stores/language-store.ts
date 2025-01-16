@@ -20,16 +20,16 @@ export class LanguageStore implements ILanguageStore {
         const languageCookie = getLocalStorageItem('language');
         if (this.toolUserStore.user?.language) {
             this.language = this.toolUserStore.user.language as "de" | "fr" | "en";
-        } else if(languageCookie === 'de' || languageCookie === 'fr' || languageCookie === 'en') {
+        } else if (languageCookie === 'de' || languageCookie === 'fr' || languageCookie === 'en') {
             this.language = languageCookie;
         }
-        i18n.changeLanguage(this.language);
+        i18n.changeLanguage(this.language).then();
     }
 
 
     switchLanguage = (language: "de" | "fr" | "en") => {
         this.language = language;
-        i18n.changeLanguage(this.language);
+        i18n.changeLanguage(this.language).then();
         setLocalStorageItem('language', this.language)
     }
 }

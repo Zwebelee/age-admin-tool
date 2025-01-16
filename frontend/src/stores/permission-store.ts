@@ -1,6 +1,6 @@
-import { makeAutoObservable, runInAction } from 'mobx';
-import { PermissionsService } from '../services/permissions.service';
-import { IPermission } from '../models/permissions';
+import {makeAutoObservable, runInAction} from 'mobx';
+import {PermissionsService} from '../services/permissions.service';
+import {IPermission} from '../models/permissions';
 import {LoggerService} from "../services/logger.service.ts";
 
 export class PermissionsStore {

@@ -1,5 +1,5 @@
-import { makeObservable, observable, runInAction } from "mobx";
-import { Age } from "../models/age.ts";
+import {makeObservable, observable, runInAction} from "mobx";
+import {Age} from "../models/age.ts";
 import {AbstractStore} from "./abstract-store.ts";
 import {AuthService} from "../services/auth.service.ts";
 

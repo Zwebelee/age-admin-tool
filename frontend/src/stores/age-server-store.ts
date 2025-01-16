@@ -1,5 +1,5 @@
-import { AbstractStore } from "./abstract-store.ts";
-import { makeObservable, observable } from "mobx";
+import {AbstractStore} from "./abstract-store.ts";
+import {makeObservable, observable} from "mobx";
 import {AgeServer} from "../models/age-server.ts";
 import {AuthService} from "../services/auth.service.ts";
 
@@ -9,7 +9,7 @@ export class AgeserverStore extends AbstractStore<AgeServer> {
 
     constructor(authService: AuthService) {
         super(authService);
-        makeObservable(this,{
+        makeObservable(this, {
             status: observable,
             items: observable
         });
