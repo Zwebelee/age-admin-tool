@@ -22,7 +22,6 @@ import {PermissionsStore} from "./permission-store.ts";
 import {PermissionsService} from "../services/permissions.service.ts";
 
 export class RootStore {
-    // init stores
     authStore: AuthStore;
     authService: AuthService;
     logService: LoggerService;
