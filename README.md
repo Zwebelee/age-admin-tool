@@ -89,6 +89,7 @@ Projectsetup with: https://nx.dev/getting-started/tutorials/react-standalone-tut
   - use sessionstorage or memry for access token
   - refresh_token -> update to httponly (MUST!), receive from backend as soon as ready
   - improve logout - with invalid credentials backend will 401 - toolUserStore handling
+  - improve "hasPermission" and fully block routes/actions if !hasPermission
 - [ ] Components
   - Fix type on "AccordionFilterComponent" (e.g. ItemType<T> instead of "any"), update the proper "reset to init value"
   - Implement generic or abstract reusable "Filter" (e.g. for string / number / date / boolean)
