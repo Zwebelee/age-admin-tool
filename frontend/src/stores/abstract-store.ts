@@ -48,7 +48,8 @@ export type status = "loading" | "loaded" | "error";
 
 export interface IAbstractStore {
     filters: string[];
-    items: any; //TODO any ?!?
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    items: any; //TODO use ItemType<T> as soon as ready
     loadItems(): Promise<void>
 
     getEndpoint(): string;
@@ -107,10 +108,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
                 // along the line "this.items.set(item.guid, new T(item) as T);" but with constructor function
                 this.items.set(item.guid, item as T);
             });
-            setTimeout(() => {
-                this.status = "loaded";
-                //TODO: REMOVE LATER !!! JUST TO SEE THE LOADED :)
-            }, 5000);
+            this.status = "loaded";
         } catch (error) {
             this.logger.error('Failed to load data', error);
             this.status = "error";
