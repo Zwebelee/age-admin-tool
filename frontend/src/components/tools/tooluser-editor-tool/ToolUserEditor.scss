@@ -37,6 +37,9 @@
     }
 
     &__content {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: safe center;
         height: calc(100vh - var(--insideBoxXL));
         min-height: pxToRem(550);
         overflow-y: scroll;
@@ -49,7 +52,8 @@
     }
 
     &__form {
-        margin: pxToRem(50) auto;
+        margin: auto;
+        padding: pxToRem(50) 0;
         width: pxToRem(500);
         @include media("sm") {
             width: 85%;
