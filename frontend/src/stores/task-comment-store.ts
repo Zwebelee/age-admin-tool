@@ -3,6 +3,16 @@ import {AbstractStore} from "./abstract-store.ts";
 import {makeObservable, observable} from "mobx";
 import {AuthService} from "../services/auth.service.ts";
 
+interface tempTaskComment {
+    guid: string;
+    task_guid: string;
+    taskId: string;
+    comment: string;
+    tooluserGuid?: string;
+    tooluser_guid?: string;
+    createdAt: Date;
+    created_at:string;
+}
 
 export class TaskCommentStore extends AbstractStore<TaskComment> {
     items = observable.map<string, TaskComment>();
@@ -21,7 +31,7 @@ export class TaskCommentStore extends AbstractStore<TaskComment> {
         try {
             const response = await this.authService.getApiClient().get(`tasks/${taskGuid}/comments`);
             // TODO: properly serialize / deserialize like "task" model
-            const data: TaskComment[] = response.data.map((taskCommentData: any) => new TaskComment({
+            const data: TaskComment[] = response.data.map((taskCommentData: tempTaskComment) => new TaskComment({
                 guid: taskCommentData.guid,
                 taskId: taskCommentData.task_guid,
                 comment: taskCommentData.comment,
