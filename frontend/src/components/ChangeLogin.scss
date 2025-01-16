@@ -35,7 +35,7 @@
 
     &__form {
         margin: 0 auto;
-        padding: pxToRem(30) 0 pxToRem(50) 0;
+        padding: pxToRem(20) 0 pxToRem(40) 0;
         width: pxToRem(500);
         @include media("sm") {
             width: 85%;
