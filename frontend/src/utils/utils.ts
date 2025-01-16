@@ -1,4 +1,4 @@
-interface countPropertiesProps<T=unknown> {
+export interface countPropertiesProps<T=unknown> {
     [key: string]: T;
 }
 
