@@ -1,26 +1,26 @@
 import {useRootStore} from "../../../stores/root-store.ts";
 import {Chart} from "./Chart.tsx";
 import {useTranslation} from "react-i18next";
-import {utils} from "../../../utils.ts";
+import {countPropertiesProps, utils} from "../../../utils/utils.ts";
 
 
 export const UsersScreenCharts = () => {
 
-    const { t } = useTranslation();
-    const { portalUserStore } = useRootStore();
-    const rows = portalUserStore.visibleItems.map((item) => ({
+    const {t} = useTranslation();
+    const {portalUserStore} = useRootStore();
+    const rows: countPropertiesProps<string>[] = portalUserStore.visibleItems.map((item) => ({
         id: item.userid,
         role: item.role,
         license: item.licensetype,
         status: item.status,
-        itemcount: item.itemcount,
-        storeage: item.storeage,
+        itemcount: item.itemcount.toString(),
+        storeage: item.storeage.toString(),
     }));
 
     const color1 = utils.rgbaToRgb(utils.getColor("--color1"));
 
-    const { themeStore } = useRootStore();
-    let themeColor = {};
+    const {themeStore} = useRootStore();
+    let themeColor;
     if (themeStore.theme === "light") {
         themeColor = utils.rgbaToRgb(utils.getColor("--color7"));
     } else {

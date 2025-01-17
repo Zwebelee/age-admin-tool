@@ -2,23 +2,25 @@ import {useState} from "react";
 
 import {DataFilters} from "./DataFilters.tsx";
 import {DataHandle} from "./DataHandle.tsx";
-import {DataTable} from "./DataTable.tsx";
+import {DataTable, HiddenColumns} from "./DataTable.tsx";
 import {DataCharts} from "./DataCharts.tsx";
 import {DataView} from "./DataView.tsx";
 import "./InsideBox.scss";
 import {GridColDef} from "@mui/x-data-grid";
 
-interface InsideBoxProps {
+interface InsideBoxProps<T> {
     color: string;
-    rows: any;
+    rows: T[];
     columns: GridColDef[];
-    hiddenColumns: any;
+    hiddenColumns: HiddenColumns;
     filter: JSX.Element;
     charts: JSX.Element;
 }
 
 
-export const InsideBox = ({ color, rows, columns, hiddenColumns, filter, charts }: InsideBoxProps) => {
+export const InsideBox = <T,>({
+                                  color, rows, columns, hiddenColumns, filter, charts
+}: InsideBoxProps<T>) => {
 
     const [innerView, setInnerView] = useState("table");
     const [filterView, setFilterView] = useState(false);

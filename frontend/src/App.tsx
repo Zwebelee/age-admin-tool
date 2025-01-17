@@ -2,7 +2,7 @@ import {Suspense, useState, useEffect, useRef} from "react";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {RootStore, RootStoreProvider, useRootStore} from "./stores/root-store.ts";
 import {observer} from "mobx-react-lite";
-import {utils} from "./utils.ts";
+import {utils} from "./utils/utils.ts";
 
 import {Alert, LinearProgress} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
@@ -15,7 +15,6 @@ import {ContentsScreen} from "./screens/ContentsScreen.tsx";
 import {TasksScreen} from "./screens/TasksScreen.tsx";
 import {GroupsScreen} from "./screens/GroupsScreen.tsx";
 import {ComponentsScreen} from "./screens/ComponentsScreen.tsx";
-import {ExperimentalScreen} from "./screens/ExperimentalScreen.tsx";
 import {ToolsScreen} from "./screens/ToolsScreen.tsx";
 import {MyAccountScreen} from "./screens/MyAccountScreen.tsx";
 
@@ -29,7 +28,7 @@ import {SignInScreen} from "./screens/SignInScreen.tsx";
 
 const AppObserver = observer(() => {
 
-    const {themeStore, authStore} = useRootStore();
+    const {themeStore, authStore, toolUserStore} = useRootStore();
 
     const color1 = utils.getColor("--color1");
     const lightness1 = utils.getColor("--lightness1");
@@ -143,7 +142,7 @@ const AppObserver = observer(() => {
                     <div className={themeStore.theme === "light" ? "theme--light" : "theme--dark"}>
                         <div className={animationStopper ? "app animationStopper" : "app"}>
                             <Header toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
-                            {authStore.isLoggedIn && <Sidebar/>}
+                            {authStore.isLoggedIn && toolUserStore.user && <Sidebar/>}
                             <main className="main">
                                 <div className={toggleMenu ? "main__contentHidden" : "main__content"}>
                                     <Routes>
@@ -155,14 +154,10 @@ const AppObserver = observer(() => {
                                             <Route path="/tasks" element={<TasksScreen/>}/>
                                             <Route path="/groups" element={<GroupsScreen/>}/>
                                             <Route path="/components" element={<ComponentsScreen/>}/>
-                                            <Route path="/experimental" element={<ExperimentalScreen/>}/>
                                             <Route path="/utils" element={<ToolsScreen/>}/>
                                             <Route path="/my-account" element={<MyAccountScreen/>}/>
-                                            <Route path="/testsecret"
-                                                   element={<h1>This is the secret screen only available when logged
-                                                       in</h1>}/>
                                         </Route>
-                                        <Route path="*" element={<Navigate to="/" replace />} /> {/* Catch-all route */}
+                                        <Route path="*" element={<Navigate to="/" replace/>}/> {/* Catch-all route */}
                                     </Routes>
                                 </div>
                                 <div className={toggleMenu ? "main__mobileMenu" : "main__mobileMenuHidden"}>

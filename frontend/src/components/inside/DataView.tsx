@@ -5,7 +5,7 @@ import ViewListOutlinedIcon from "@mui/icons-material/ViewListOutlined";
 import PieChartOutlinedIcon from "@mui/icons-material/PieChartOutlined";
 
 
-export const DataView = ( {viewSwitch}: {viewSwitch: (view: string) => void }) => {
+export const DataView = ({viewSwitch}: { viewSwitch: (view: string) => void }) => {
     const {t} = useTranslation();
     return (
         <div className="dataView">

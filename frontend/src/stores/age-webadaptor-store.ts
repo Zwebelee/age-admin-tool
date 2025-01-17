@@ -9,7 +9,7 @@ export class AgeWebadaptorStore extends AbstractStore<AgeWebAdaptor> {
 
     constructor(authService: AuthService) {
         super(authService);
-        makeObservable(this,{
+        makeObservable(this, {
             status: observable,
             items: observable
         });

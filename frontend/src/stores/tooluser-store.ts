@@ -2,19 +2,22 @@ import {AuthService} from "../services/auth.service.ts";
 import {makeAutoObservable, runInAction} from "mobx";
 import {IToolUser, ToolUser, ToolUserWithPassword} from "../models/tooluser.ts";
 import {PermissionsService} from "../services/permissions.service.ts";
-import { ToolUserRole } from "../models/tooluserrole.ts";
+import {ToolUserRole} from "../models/tooluserrole.ts";
+import {LoggerService} from "../services/logger.service.ts";
 
 
 export class ToolUserStore {
-    user: ToolUser | undefined;
+    user: ToolUser | undefined = undefined;
     users: ToolUser[] = [];
     authService: AuthService;
     permissionsService: PermissionsService;
     userLoaded: boolean = false;
+    logger: LoggerService;
 
     constructor(authService: AuthService, permissionsService: PermissionsService) {
         this.authService = authService;
         this.permissionsService = permissionsService;
+        this.logger = LoggerService.getInstance();
         makeAutoObservable(this)
     }
 
@@ -26,12 +29,12 @@ export class ToolUserStore {
                 this.userLoaded = true;
             });
         } catch (error) {
-            console.error('Failed to load data', error);
+            this.logger.error('Failed to load data', error);
         }
     }
 
     async loadUsers() {
-        //TODO: solve better!
+        //TODO: Overthink handling of "all Users"
         try {
             const response = await this.authService.getApiClient().get('/toolusers');
             const data: ToolUser[] = response.data.map((user: IToolUser) => new ToolUser(user));
@@ -39,7 +42,7 @@ export class ToolUserStore {
                 this.users = data;
             });
         } catch (error) {
-            console.error('Failed to load data', error);
+            this.logger.error('Failed to load data', error);
         }
     }
 
@@ -51,7 +54,7 @@ export class ToolUserStore {
                 this.user = new ToolUser(response.data);
             });
         } catch (error) {
-            console.error('Failed to update user', error);
+            this.logger.error('Failed to update user', error);
         }
     }
 
@@ -59,7 +62,7 @@ export class ToolUserStore {
         try {
             await this.authService.getApiClient().post('/toolusers', user.toJSON());
         } catch (error) {
-            console.error('Failed to add user', error);
+            this.logger.error('Failed to add user', error);
         }
     }
 
@@ -70,11 +73,11 @@ export class ToolUserStore {
         return false;
     }
 
-    async getToolUserRoles(){
+    async getToolUserRoles() {
         try {
             return await this.authService.getApiClient().get('/toolroles');
         } catch (error) {
-            console.error('Failed to load data', error);
+            this.logger.error('Failed to load data', error);
         }
     }
 

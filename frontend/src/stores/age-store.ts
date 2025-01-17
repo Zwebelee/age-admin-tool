@@ -1,5 +1,5 @@
-import { makeObservable, observable, runInAction } from "mobx";
-import { Age } from "../models/age.ts";
+import {makeObservable, observable, runInAction} from "mobx";
+import {Age} from "../models/age.ts";
 import {AbstractStore} from "./abstract-store.ts";
 import {AuthService} from "../services/auth.service.ts";
 
@@ -35,7 +35,7 @@ export class AgeStore extends AbstractStore<Age> {
                 this.status = "loaded";
             });
         } catch (error) {
-            console.error('Failed to load data', error);
+            this.logger.error('Failed to load data', error);
             this.status = "error";
         }
     }

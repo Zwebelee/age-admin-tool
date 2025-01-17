@@ -1,4 +1,4 @@
-//TODO: separate into different files
+//TODO: separate into different files and use as ObjectModules
 
 export interface IPermission {
     guid: string;

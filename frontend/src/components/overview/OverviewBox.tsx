@@ -3,7 +3,7 @@ import "./OverviewBox.scss";
 import {NavLink} from "react-router-dom";
 import {OverviewCard} from "./OverviewCard.tsx";
 
-export const OverviewBox = ({ card, icon, color, link, data }: {
+export const OverviewBox = ({card, icon, color, link, data}: {
     card: string,
     icon: JSX.Element,
     color: string,

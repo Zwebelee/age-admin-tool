@@ -11,15 +11,20 @@ import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInpu
 import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import {permissions} from "../config/permissions.ts";
 import {useRootStore} from "../stores/root-store.ts";
-import { observer } from "mobx-react-lite";
+import {observer} from "mobx-react-lite";
 
 
-export const MainMenu = observer(({position, onClickMenuItem = () => {}}: {position: string, onClickMenuItem: () => void}) => {
+export const MainMenu = observer(({
+                                      position, onClickMenuItem = () => {
+    }
+                                  }: { position: string, onClickMenuItem: () => void }) => {
     const {t} = useTranslation();
     const {toolUserStore, permissionsStore} = useRootStore();
     const hasPermission = permissionsStore.hasPermission(toolUserStore.user?.guid || "", permissions.VIEW_TASKS);
 
-    const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "mainMenu__navLink mainMenu__navLink--active" : "mainMenu__navLink"}`;
+    const isActive = ({isActive}: {
+        isActive: boolean
+    }) => `${isActive ? "mainMenu__navLink mainMenu__navLink--active" : "mainMenu__navLink"}`;
 
 
     return (
@@ -49,14 +54,15 @@ export const MainMenu = observer(({position, onClickMenuItem = () => {}}: {posit
                         </div>
                     </NavLink>
                 </li>
-                {toolUserStore.userLoaded && hasPermission && (<li className="mainMenu__listItem mainMenu__listItem--color4">
-                    <NavLink className={isActive} to="/tasks" onClick={onClickMenuItem}>
-                        <div className="mainMenu__innerListItem">
-                            <span className="mainMenu__icon"><TaskAltOutlinedIcon/></span>
-                            {t("tasks")}
-                        </div>
-                    </NavLink>
-                </li>)}
+                {toolUserStore.userLoaded && hasPermission && (
+                    <li className="mainMenu__listItem mainMenu__listItem--color4">
+                        <NavLink className={isActive} to="/tasks" onClick={onClickMenuItem}>
+                            <div className="mainMenu__innerListItem">
+                                <span className="mainMenu__icon"><TaskAltOutlinedIcon/></span>
+                                {t("tasks")}
+                            </div>
+                        </NavLink>
+                    </li>)}
                 <li className="mainMenu__listItem mainMenu__listItem--color5">
                     <NavLink className={isActive} to="/groups" onClick={onClickMenuItem}>
                         <div className="mainMenu__innerListItem">
@@ -83,5 +89,5 @@ export const MainMenu = observer(({position, onClickMenuItem = () => {}}: {posit
                 </li>
             </ul>
         </nav>
-)
+    )
 });

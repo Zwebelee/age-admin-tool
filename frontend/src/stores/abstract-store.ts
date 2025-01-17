@@ -18,10 +18,21 @@ import {PortaluserStore} from "./portaluser-store.ts";
 import {PortalItemStore} from "./portalitem-store.ts";
 import {PortalGroupStore} from "./portalgroup-store.ts";
 import {PortalGroup} from "../models/portalgroup.ts";
-import { LoggerService } from "../services/logger.service.ts";
+import {LoggerService} from "../services/logger.service.ts";
 import {Task} from "../models/task.ts";
 
-export type ItemType = Age | AgePortal | AgeDataStore | AgeServer | AgeWebAdaptor | PortalUser | PortalLicense | PortalItem | PortalGroup | Task;
+//TODO: Improve - lift to generics ItemType<T> and StoreType<T> and use in AbstractStore
+export type ItemType =
+    Age
+    | AgePortal
+    | AgeDataStore
+    | AgeServer
+    | AgeWebAdaptor
+    | PortalUser
+    | PortalLicense
+    | PortalItem
+    | PortalGroup
+    | Task;
 export type StoreType =
     AgeStore
     | AgeDatastoreStore
@@ -36,8 +47,9 @@ export type StoreType =
 export type status = "loading" | "loaded" | "error";
 
 export interface IAbstractStore {
-    filters: string[]; //TODO any ?!?
-    items: any; //TODO any ?!?
+    filters: string[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    items: any; //TODO use ItemType<T> as soon as ready
     loadItems(): Promise<void>
 
     getEndpoint(): string;
@@ -54,20 +66,6 @@ export interface IAbstractStore {
 }
 
 export abstract class AbstractStore<T> implements IAbstractStore {
-
-    /**
-     * TODO: Add more functionality:
-     * sort
-     * filter
-     * status
-     * selectedItem
-     * ...
-     */
-
-    /**
-     * Loaded items (local store)
-     */
-        // items = observable.map<string, ItemType>();
     items: ObservableMap<string, T> = observable.map<string, T>();
     selectedItem: T | null = null;
     status: status = "loading";
@@ -82,14 +80,10 @@ export abstract class AbstractStore<T> implements IAbstractStore {
         this.authService = autService;
         makeObservable(this, {
             visibleItems: computed,
-
             selectedItem: observable,
             setSelectedItem: action,
             resetSelectedItem: action
-
         })
-        //TODO: is makeOberserable not supported for derived classes and visibileItems has to be  makeObservable in each
-        // class which extends abstractstore?
     }
 
     get visibleItems(): T[] {
@@ -110,14 +104,11 @@ export abstract class AbstractStore<T> implements IAbstractStore {
             const response = await this.authService.getApiClient().get(this.getEndpoint());
             const data: ItemType[] = response.data;
             data.forEach(item => {
-                this.items.set(item.guid, item as T);
-                //TODO: implement properly! should create a new Item of type T!
+                //TODO: implement properly! should create a new Item of type T! Not just a Dict-Object
                 // along the line "this.items.set(item.guid, new T(item) as T);" but with constructor function
+                this.items.set(item.guid, item as T);
             });
-            setTimeout(() => {
-                this.status = "loaded";
-                //TODO: REMOVE LATER !!! JUST TO SEE THE LOADED :)
-            }, 5000);
+            this.status = "loaded";
         } catch (error) {
             this.logger.error('Failed to load data', error);
             this.status = "error";
@@ -132,7 +123,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
                 this.items.set(newItem.guid, newItem);
             });
         } catch (error) {
-            console.error('Failed to add item', error);
+            this.logger.error('Failed to add item', error);
         }
     }
 
@@ -144,7 +135,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
                 this.items.set(updatedItem.guid, updatedItem);
             });
         } catch (error) {
-            console.error('Failed to update item', error);
+            this.logger.error('Failed to update item', error);
         }
     }
 
@@ -155,7 +146,7 @@ export abstract class AbstractStore<T> implements IAbstractStore {
                 this.items.delete(item.guid);
             });
         } catch (error) {
-            console.error('Failed to delete item', error);
+            this.logger.error('Failed to delete item', error);
         }
     }
 

@@ -71,6 +71,8 @@ export const FilterAccordion = ({
     }
 
     const filterOptions = Array.from(new Set(Array.from(
+        //TODO: update ItemTypes on abstract store ItemType<T> as soon as ready
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         store.items.values()).map((item: any) => item[storeFilterField])));
 
     const handleAccordionChange = (_event: React.SyntheticEvent, newIsExpanded: boolean) => {
@@ -204,7 +206,8 @@ export const FilterAccordion = ({
                             filterMode === "date" ? dateMode : null}
             </FormControl>
             {resetButton &&
-                <IconButton onClick={handleReset} sx={{margin: "0 0.4375rem 0.4375rem 0.4375rem"}}><RestartAltIcon/></IconButton>
+                <IconButton onClick={handleReset}
+                            sx={{margin: "0 0.4375rem 0.4375rem 0.4375rem"}}><RestartAltIcon/></IconButton>
             }
         </Accordion>
     );

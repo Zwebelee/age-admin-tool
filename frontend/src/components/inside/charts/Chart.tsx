@@ -6,6 +6,7 @@ interface DataItem {
     key: string;
     count: number;
 }
+
 interface ChartProps {
     data: DataItem[];
     colors: string[];
@@ -41,7 +42,7 @@ export const Chart = ({data, colors}: ChartProps) => {
                     },
                 ]}
                 slotProps={{
-                    legend: { hidden: true },
+                    legend: {hidden: true},
                 }}
             />
         </div>

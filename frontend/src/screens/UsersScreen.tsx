@@ -33,15 +33,15 @@ export const UsersScreen = observer(() => {
 
 
     /* Inside Box */
-    const { t } = useTranslation();
-    const { portalUserStore } = useRootStore();
+    const {t} = useTranslation();
+    const {portalUserStore} = useRootStore();
     const rows = portalUserStore.visibleItems.map((item) => ({
         id: item.userid,
         ...item,
     }));
     const columns: GridColDef[] = [
-        { field: "id",          headerName: "ID",                    width:  80 },
-        { field: "guid",        headerName: "GUID",                  width: 320 },
+        { field: "id",          headerName: "ID",               width:  80 },
+        { field: "guid",        headerName: "GUID",             width: 320 },
         { field: "firstname",   headerName: t("firstname"),     width: 180 },
         { field: "lastname",    headerName: t("lastname"),      width: 180 },
         { field: "fullname",    headerName: t("fullname"),      width: 180 },

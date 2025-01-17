@@ -11,10 +11,10 @@ import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInpu
 export const ComponentsScreen = () => {
 
     /* Inside Box */
-    const { t } = useTranslation();
-    const { ageWebAdaptorStore, ageServerStore, agePortalStore, ageDataStoreStore } = useRootStore();
+    const {t} = useTranslation();
+    const {ageWebAdaptorStore, ageServerStore, agePortalStore, ageDataStoreStore} = useRootStore();
 
-    //TODO: Extend ModelClasses with minimal-shared-props and proper type/class
+    //TODO: Extend ModelClasses with minimal-shared-props and proper type/class for age-components
     const webAdaptorItems = ageWebAdaptorStore.visibleItems.map((item) => ({
         ...item,
         type: "Web Adaptor",
@@ -60,11 +60,11 @@ export const ComponentsScreen = () => {
     }));
 
     const columns: GridColDef[] = [
-        { field: "id",          headerName: "GUID",                width:  80 },
-        { field: "type",        headerName: t("type"),        width: 240 },
-        { field: "name",        headerName: t("name"),        width: 240 },
-        { field: "status",      headerName: t("status"),      width: 180 },
-        { field: "description", headerName: t("description"), width: 240 }
+        {field: "id", headerName: "GUID", width: 80},
+        {field: "type", headerName: t("type"), width: 240},
+        {field: "name", headerName: t("name"), width: 240},
+        {field: "status", headerName: t("status"), width: 180},
+        {field: "description", headerName: t("description"), width: 240}
     ];
     const hiddenColumns = {
         id: false,

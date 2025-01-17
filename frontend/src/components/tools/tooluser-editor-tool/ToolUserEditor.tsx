@@ -7,7 +7,7 @@ import {useRootStore} from "../../../stores/root-store.ts";
 import {useTranslation} from "react-i18next";
 import {IToolUserRole, ToolUserRole} from "../../../models/tooluserrole.ts";
 import {ToolUserWithPassword} from "../../../models/tooluser.ts";
-import {utils} from "../../../utils.ts";
+import {utils} from "../../../utils/utils.ts";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import "./ToolUserEditor.scss";
 import "../ToolsMenu.scss";
@@ -15,6 +15,7 @@ import "../ToolsMenu.scss";
 interface cardCloseProps {
     cardClose: () => void
 }
+
 
 
 export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
@@ -37,7 +38,7 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
         const fetchRoles = async () => {
             try {
                 const response = await toolUserStore.getToolUserRoles();
-                if(response){
+                if (response) {
                     const rolesData = response.data.map((role: IToolUserRole) => new ToolUserRole(role));
                     setRoles(rolesData);
                     const viewerRole = rolesData.find((role: { name: string; }) => role.name === "viewer");
@@ -57,7 +58,7 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
         };
 
         fetchRoles().then();
-    }, [toolUserStore]);
+    }, [logService, toolUserStore]);
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
@@ -80,7 +81,7 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
         e.preventDefault();
         try {
 
-            const toolUserRole= roles.find((role) => role.guid === formData.role);
+            const toolUserRole = roles.find((role) => role.guid === formData.role);
             if (!toolUserRole) {
                 logService.error("Role not found");
                 return;
@@ -103,7 +104,7 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
             setSuccessMessage(`${formData.username} created successfully`);
             setTimeout(() => setSuccessMessage(null), 8000);
         } catch (error) {
-            console.error("Error creating user:", error);
+            logService.error("Error creating user:", error);
         }
     };
 
@@ -225,7 +226,7 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
             </div>
             <Snackbar
                 open={!!successMessage}
-                autoHideDuration={800000}
+                autoHideDuration={8000}
                 onClose={() => setSuccessMessage(null)}
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >

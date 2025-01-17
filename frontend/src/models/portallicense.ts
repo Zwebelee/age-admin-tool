@@ -1,4 +1,5 @@
 import {AbstractModel} from "./abstract-models.ts";
+
 export interface PortalLicenseProps {
     guid: string;
     id: string;
@@ -10,7 +11,7 @@ export interface PortalLicenseProps {
     currentusers: number;
 }
 
-export class PortalLicense extends AbstractModel{
+export class PortalLicense extends AbstractModel {
     class: string = 'PortalLicense';
     guid: string;
     id: string;
@@ -32,37 +33,4 @@ export class PortalLicense extends AbstractModel{
         this.maxusers = props.maxusers;
         this.currentusers = props.currentusers;
     }
-
 }
-
-// export class PortalLicense extends AbstractModel {
-//     class: string = 'PortalLicense';
-//
-//     guid: string ='';
-//     id: string ='';
-//     name: string='';
-//     description?: string='';
-//     level: string='';
-//     state: string='';
-//     maxusers: number = 0;
-//     currentusers: number= 0;
-//
-//     constructor(props?: PortalLicenseProps) {
-//         super()
-//         if (props){
-//             Object.assign(this, props);
-//         }
-//         makeObservable(this, {
-//             guid: observable,
-//             id: observable,
-//             name: observable,
-//             description: observable,
-//             level: observable,
-//             state: observable,
-//             maxusers: observable,
-//             currentusers: observable,
-//         })
-//     }
-//
-// }
-

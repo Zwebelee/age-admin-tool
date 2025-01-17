@@ -7,7 +7,7 @@ import {useState} from "react";
 import {TaskDetailsDialog} from "../components/tasks/TaskDetails.tsx";
 import {useTranslation} from "react-i18next";
 import {Button} from "@mui/material";
-import {GridColDef} from "@mui/x-data-grid";
+import {GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {NoCharts} from "../components/inside/charts/NoCharts.tsx";
@@ -27,9 +27,6 @@ export const TasksScreen = observer(() => {
         }
     };
 
-
-
-
     const handleClose = () => {
         setOpen(false);
         taskStore.resetSelectedItem();
@@ -40,7 +37,7 @@ export const TasksScreen = observer(() => {
         return user ? user.username : guid;
     };
 
-    const detailButton = (params: any) => {
+    const detailButton = (params: GridRenderCellParams) => {
         return (
             <Button
                 size="small"

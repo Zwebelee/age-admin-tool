@@ -24,7 +24,7 @@ import {ToolUser} from "../models/tooluser.ts";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import {ChangeLogin} from "./ChangeLogin.tsx";
-import {utils} from "../utils.ts";
+import {utils} from "../utils/utils.ts";
 import {ToolUserRole} from "../models/tooluserrole.ts";
 import "./UserSettings.scss";
 
@@ -102,8 +102,8 @@ export const UserSettings = observer(() => {
     };
 
 
-    //TODO: Improve - load user only once, combine effects, maybe use customHook
-    // known issue: switch to light mode not properly handled (saved)
+    //TODO: Improve - load user only once on startup/authentication!
+    // use "load" on a store, in general no api-fetches in useEffects!
     useEffect(() => {
         if (authStore.isLoggedIn) {
             toolUserStore.loadUser().then(() => {

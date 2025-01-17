@@ -1,5 +1,5 @@
-interface countPropertiesProps {
-    [key: string]: any;
+export interface countPropertiesProps<T=unknown> {
+    [key: string]: T;
 }
 
 
@@ -63,7 +63,7 @@ const utils = {
         return result;
     },
 
-    countProperties: (data: countPropertiesProps[], property: string): { key: string; count: number }[] => {
+    countProperties: (data: countPropertiesProps<string>[], property: string): { key: string; count: number }[] => {
         const result = data.reduce<Record<string, number>>((acc, item) => {
             const key = item[property];
             if (!key) {
@@ -89,7 +89,7 @@ const utils = {
             throw new Error("Invalid color format");
         }
 
-        const [_, r, g, b] = match;
+        const [, r, g, b] = match;
 
         return `rgb(${r}, ${g}, ${b})`;
     },

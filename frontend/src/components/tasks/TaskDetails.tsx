@@ -43,8 +43,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
     const [assignedToUser, setAssignedToUser] = useState<ToolUser | undefined>(undefined);
     const [newComment, setNewComment] = useState<string>("");
 
-    //TODO: Solve better -> on stores
-    // Load all users
+    //TODO: Solve better -> user Loading and Profile Loading should be on stores and not in a useEffect
     useEffect(() => {
         toolUserStore.loadUsers().then(() => {
             const users = toolUserStore.users;
@@ -315,7 +314,7 @@ export const TaskDetailsDialog = observer(({open, onClose}: TaskDetailsDialogPro
                                 />
                                 <div className="taskDetails__commentButton">
                                     <Button variant={"contained"} onClick={handleAddComment}>
-                                        {t("new-comment")}
+                                        {t("actions.add.title")}
                                     </Button>
                                 </div>
                             </AccordionDetails>

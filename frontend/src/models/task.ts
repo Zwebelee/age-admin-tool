@@ -1,4 +1,4 @@
-import { AbstractModel } from "./abstract-models.ts";
+import {AbstractModel} from "./abstract-models.ts";
 
 export interface ITask {
     guid: string;
@@ -10,7 +10,7 @@ export interface ITask {
     assigned_to?: string;
     linked_object_guid: string;
     linked_object_type?: string;
-    created_at: string; // JSON will usually pass this as a string
+    created_at: string;
     updated_at: string;
 }
 

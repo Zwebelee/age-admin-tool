@@ -66,7 +66,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
     const handleSave = () => {
         if (isNew) {
             //create a new item
-            store.addItem(localItem).then(() => {
+            store.addItem(localItem as ItemType).then(() => {
                 setIsNew(false);
                 setIsEditing(false);
                 if (onCancel) {
@@ -77,7 +77,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
             });
         } else {
             //update
-            store.updateItem(localItem).then(() => {
+            store.updateItem(localItem as ItemType).then(() => {
                 setIsEditing(false)
             }).catch(() => {
                 setIsEditing(false);
@@ -88,7 +88,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
     const handleDelete = () => {
         setDeleting(true);
         setTimeout(() => {
-            store.deleteItem(localItem).then(() => {
+            store.deleteItem(localItem as ItemType).then(() => {
                 setDeleting(false);
                 setOpenDialog(false);
             }).catch(() => {
