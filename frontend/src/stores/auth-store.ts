@@ -34,46 +34,48 @@ export class AuthStore {
 
     async initialize() {
         const token = getCookie(AuthStore.TOKEN_COOKIE_NAME);
-        const refresh_csrf_token = getCookie(AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME);
+        this.refreshCsrfToken = getCookie(AuthStore.REFRESH_CSRF_TOKEN_COOKIE_NAME);
 
         if (token) {
-            // access token present - check if the token is valid
-            this.validateToken(token).then((isValid) => {
-                if (!isValid) {
-                    this.logger.warn('Invalid access-token, logging out');
-                    this.resetUserSession();
-                } else {
-                    this.accessToken = token;
-                    this.refreshCsrfToken = refresh_csrf_token;
-
-                    // Ensure RootStore is fully initialized on site reload
-                    Promise.resolve().then(async () => {
-                        await this.rootStore.toolUserStore.loadUser();
-                        await this.rootStore.permissionsStore.loadPermissions(this.rootStore.toolUserStore.user?.guid || '');
-                        this.rootStore.initializeStoresAfterLogin();
-                        this.isLoading = false;
-                        this.isLoggedIn = true;
-                    });
-                }
-            })
-        } else {
-            if (refresh_csrf_token) {
-                this.refreshCsrfToken = refresh_csrf_token;
-                try {
-                    await this.refreshAccessToken();
-                    Promise.resolve().then(async () => {
-                        await this.rootStore.toolUserStore.loadUser();
-                        await this.rootStore.permissionsStore.loadPermissions(this.rootStore.toolUserStore.user?.guid || '');
-                        this.rootStore.initializeStoresAfterLogin();
-                        this.isLoading = false;
-                    });
-                } catch (error) {
-                    this.logger.error('Refreshing failed', error)
-                    this.isLoading = false;
-                }
+            const isValid = await this.validateToken(token);
+            if (!isValid) {
+                this.logger.warn('Invalid access-token, logging out');
+                this.resetUserSession();
+            } else {
+                this.accessToken = token;
+                await this.handleSuccessfulLogin();
             }
-            this.isLoading = false;
+        } else if (this.refreshCsrfToken) {
+            try {
+                await this.refreshAccessToken();
+                await this.handleSuccessfulLogin();
+            } catch (error) {
+                this.logger.error('Refreshing failed', error);
+            }
         }
+
+        this.isLoading = false;
+    }
+
+    private async handleSuccessfulLogin() {
+        try {
+            await this.loadUserAndInitialize();
+            this.isLoggedIn = true;
+        } catch (error) {
+            this.logger.error('Failed to complete post-login setup', error);
+        }
+    }
+
+    private async loadUserAndInitialize() {
+        await this.rootStore.toolUserStore.loadUser();
+        const toolUser = this.rootStore.toolUserStore.user;
+        if (!toolUser) {
+            throw new Error('Failed to load user after login');
+        }
+        this.rootStore.themeStore.setTheme(toolUser.theme as "light" | "dark");
+        this.rootStore.languageStore.switchLanguage(toolUser.language as "de" | "fr" | "en");
+        await this.rootStore.permissionsStore.loadPermissions(toolUser.guid);
+        this.rootStore.initializeStoresAfterLogin();
     }
 
     private clearCookies() {
@@ -163,6 +165,13 @@ export class AuthStore {
             this.refreshCsrfToken = response.data.csrf_token;
             this.setAuthCookie()
             await this.rootStore.toolUserStore.loadUser();
+            const toolUser = this.rootStore.toolUserStore.user;
+            if (!toolUser) {
+                this.logger.error('Failed to load user after login');
+                return;
+            }
+            this.rootStore.themeStore.setTheme(toolUser.theme as "light" | "dark");
+            this.rootStore.languageStore.switchLanguage(toolUser.language as "de" | "fr" | "en");
             await this.rootStore.permissionsStore.loadPermissions(this.rootStore.toolUserStore.user?.guid || '');
             this.isLoggedIn = true;
             this.rootStore.initializeStoresAfterLogin()
