@@ -1,0 +1,10 @@
+@import "../../../globalFunctions";
+
+.ageEditorToolAddButton {
+    display: flex;
+    justify-content: center;
+    padding: pxToRem(10);
+    margin-bottom: pxToRem(10);
+    border-radius: pxToRem(7);
+    background: var(--color1-2);
+}

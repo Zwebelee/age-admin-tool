@@ -67,6 +67,9 @@ h1 {
 }
 h2 {
     text-align: center;
+    @include media("sm") {
+        font-size: pxToRem(20);
+    }
 }
 .theme--dark {
     background-image: url("./assets/background-dark.jpg"); /* Fallback "image-set" */

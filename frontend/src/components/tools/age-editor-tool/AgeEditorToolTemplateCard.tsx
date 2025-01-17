@@ -18,7 +18,6 @@ import {ItemType, StoreType} from "../../../stores/abstract-store.ts";
 import {useTranslation} from "react-i18next";
 import {useRootStore} from "../../../stores/root-store.ts";
 
-
 interface AgeEditorToolTemplateCardProps {
     item: ItemType;
     isEditing: boolean;
@@ -74,7 +73,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                     onCancel();
                 }
             }).catch((e) => {
-                logService.error('error during save', e);
+                logService.error("error during save", e);
             });
         } else {
             //update
@@ -113,14 +112,14 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
 
 
     const viewContent = (
-        <Grid container direction={"column"} spacing={0.25}>
+        <Grid container direction={"column"} spacing={0.7}>
             {fields.map((field, index) => (
                 <Typography
                     key={index}
                     variant={index === 0 ? "h6" : "body2"}
                 >{index === 0 ? "" : `${field.label}: `}
-                    {typeof localItem[field.name as keyof ItemType] === 'boolean'
-                        ? (localItem[field.name as keyof ItemType] ? 'true' : 'false')
+                    {typeof localItem[field.name as keyof ItemType] === "boolean"
+                        ? (localItem[field.name as keyof ItemType] ? "true" : "false")
                         : localItem[field.name as keyof ItemType]}
                 </Typography>
             ))}
@@ -128,10 +127,10 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
     )
 
     const editContent = (
-        <Grid container direction={"column"} spacing={1} sx={{xs: 12}}>
+        <Grid container direction={"column"} spacing={3} sx={{xs: 12}}>
             {fields.map((field, index) => (
 
-                field.type === 'checkbox' ? (
+                field.type === "checkbox" ? (
                     <Grid key={index}>
                         <FormControlLabel
                             labelPlacement={"start"}
@@ -161,11 +160,15 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
     )
 
     return (
-        <Card sx={{backgroundColor: 'var(--lightness2-1)'}}>
+        <Card sx={{
+            backgroundColor: "var(--lightness2-2)",
+            padding: "0.75rem",
+            borderRadius: "0.4375rem"
+        }}>
             <CardContent>
                 {isEditing ? editContent : viewContent}
             </CardContent>
-            <CardActions>
+            <CardActions sx={{padding: "0.3rem 1rem 1rem 1rem"}}>
                 {isEditing && <Button variant={"contained"} onClick={handleSave}>{t("actions.save")}</Button>}
                 <Button variant={"contained"}
                         onClick={!isEditing ? handleEditClick : handleCancelEditClick}
@@ -178,7 +181,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                 open={openDialog}
                 onClose={handleCloseDialog}
             >
-                <DialogTitle>Confirm Delete</DialogTitle>
+                <DialogTitle>{t("actions.delete.title-confirm")}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         {t("actions.delete.confirmation")}
@@ -186,10 +189,10 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseDialog} color="primary">
-                        Cancel
+                        {t("actions.cancel")}
                     </Button>
                     <Button onClick={handleDelete} color="error" autoFocus>
-                        Delete
+                        {t("actions.delete.title")}
                     </Button>
                 </DialogActions>
             </Dialog>

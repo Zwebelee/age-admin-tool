@@ -1,6 +1,6 @@
 @import "../globalFunctions";
 
-.changeLogin {
+.userSettings {
     border: pxToRem(7) solid var(--color1-1);
     border-radius: pxToRem(7);
     background-color: var(--lightness1-1);
@@ -14,45 +14,19 @@
         background-color: var(--color1-1);
     }
 
-    &__user {
-        font-size: pxToRem(20);
-    }
-
     &__content {
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
         height: calc(100vh - var(--insideBoxXL));
         min-height: pxToRem(550);
-        overflow-y: scroll;
+        overflow-y: auto;
         @include media("md") {
             height: calc(100vh - var(--insideBoxMD));
         }
         @include media("sm") {
             height: calc(100vh - var(--insideBoxSM));
         }
-    }
 
-    &__form {
-        margin: 0 auto;
-        padding: pxToRem(20) 0 pxToRem(40) 0;
-        width: pxToRem(500);
-        @include media("sm") {
-            width: 85%;
+        .MuiListItem-root {
+            min-height: pxToRem(70);
         }
-    }
-
-    &__status {
-        min-height: pxToRem(70);
-        text-align: center;
-        font-weight: 500;
-    }
-
-    &__success {
-        color: var(--success);
-    }
-
-    &__error {
-        color: var(--error);
     }
 }
