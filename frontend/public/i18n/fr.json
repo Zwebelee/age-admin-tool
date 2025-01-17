@@ -12,6 +12,7 @@
         "create": "Créer",
         "delete": {
             "title": "Supprimer",
+            "title-confirm": "Confirmer la suppression",
             "confirmation": "Voulez-vous vraiment supprimer ceci?"
         },
         "edit": "Éditer",

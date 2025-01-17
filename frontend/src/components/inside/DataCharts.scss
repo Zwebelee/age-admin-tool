@@ -25,7 +25,7 @@
 
     &.dataCharts--filtersVisible {
         @include media("sm") {
-            height: calc((100vh - var(--insideDataMainSM)) / 2 + 7px);
+            height: calc((100vh - var(--insideDataMainSM)) / 2 + #{pxToRem(7)});
         }
     }
 

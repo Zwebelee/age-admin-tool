@@ -12,6 +12,7 @@
         "create": "Erstelle",
         "delete": {
             "title": "Löschen",
+            "title-confirm": "Löschen bestätigen",
             "confirmation": "Möchten Sie dies wirklich löschen?"
         },
         "edit": "Bearbeiten",

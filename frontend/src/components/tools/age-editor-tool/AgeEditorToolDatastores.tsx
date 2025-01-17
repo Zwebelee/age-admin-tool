@@ -2,11 +2,12 @@ import {AgeEditorToolTemplateCard} from "./AgeEditorToolTemplateCard.tsx";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {useState} from "react";
-import {Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {AgeDataStore} from "../../../models/age-datastore.ts";
 import {AgeEditorToolAddButton} from "./AgeEditorToolAddButton.tsx";
 import {useTranslation} from "react-i18next";
+import "./AgeEditorTool.scss";
+
 
 export const AgeEditorToolDatastores = observer(() => {
     const {t} = useTranslation();
@@ -21,16 +22,16 @@ export const AgeEditorToolDatastores = observer(() => {
     };
 
     const fields = [
-        { name: 'name', label: 'Name', type: 'text', disabled: false, default: '' },
-        { name: 'description', label: 'Description', type: 'text', disabled: false, default: '' },
-        { name: 'alias', label: 'Alias', type: 'text', disabled: false, default: '' },
-        { name: 'type', label: 'Type', type: 'text', disabled: false, default: '' },
-        { name: 'ishosted', label: 'Is Hosted', type: 'checkbox', disabled: false, default: false },
-        { name: 'url', label: 'URL', type: 'text', disabled: false, default: '' },
-        { name: 'status', label: 'Status', type: 'text', disabled: false, default: '' },
-        { name: 'capacity_gb', label: 'Capacity (GB)', type: 'number', disabled: false, default: 0 },
-        { name: 'used_gb', label: 'Used (GB)', type: 'number', disabled: false, default: 0 },
-        { name: 'guid', label: 'GUID', type: 'text', disabled: true, default: '' }
+        {name: "name", label: "Name", type: "text", disabled: false, default: ""},
+        {name: "description", label: "Description", type: "text", disabled: false, default: ""},
+        {name: "alias", label: "Alias", type: "text", disabled: false, default: ""},
+        {name: "type", label: "Type", type: "text", disabled: false, default: ""},
+        {name: "ishosted", label: "Is Hosted", type: "checkbox", disabled: false, default: false},
+        {name: "url", label: "URL", type: "text", disabled: false, default: ""},
+        {name: "status", label: "Status", type: "text", disabled: false, default: ""},
+        {name: "capacity_gb", label: "Capacity (GB)", type: "number", disabled: false, default: 0},
+        {name: "used_gb", label: "Used (GB)", type: "number", disabled: false, default: 0},
+        {name: "guid", label: "GUID", type: "text", disabled: true, default: ""}
     ];
 
     const defaultItem = new AgeDataStore({
@@ -52,7 +53,9 @@ export const AgeEditorToolDatastores = observer(() => {
             {!newItem && <AgeEditorToolAddButton onClick={handleToggleAddNew}/>}
             {newItem && (
                 <>
-                    <Typography variant="h6">{t("actions.add.add_new")}: Datastore</Typography>
+                    <h4 className="ageEditorTool__addNewTitle">
+                        {t("actions.add.add_new")}: Datastore
+                    </h4>
                     <AgeEditorToolTemplateCard
                         item={defaultItem}
                         isEditing={true}
@@ -64,8 +67,8 @@ export const AgeEditorToolDatastores = observer(() => {
                 </>
             )}
             {!newItem && ageDataStoreStore.visibleItems.map((item, index) => {
-                    return (
-                        <AgeEditorToolTemplateCard
+                return (
+                    <AgeEditorToolTemplateCard
                             key={index}
                             item={item}
                             isEditing={false}

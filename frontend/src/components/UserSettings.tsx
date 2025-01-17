@@ -5,7 +5,6 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    ListSubheader,
     MenuItem,
     Switch,
     Tooltip
@@ -27,6 +26,7 @@ import LockResetIcon from '@mui/icons-material/LockReset';
 import {ChangeLogin} from "./ChangeLogin.tsx";
 import {utils} from "../utils.ts";
 import {ToolUserRole} from "../models/tooluserrole.ts";
+import "./UserSettings.scss";
 
 interface SettingListItemProps {
     icon: ReactElement;
@@ -148,73 +148,55 @@ export const UserSettings = observer(() => {
                 <SignInMask redirectUrl={""}/> :
                 (showChangeLogin ?
                     <ChangeLogin onCancel={handlePasswordChangeCancel}/> :
-                    <List
-                        sx={{
-                            width: "100%",
-                            border: "0.4375rem solid var(--color1-1)",
-                            borderRadius: "0.4375rem",
-                            backgroundColor: "var(--lightness1-1)",
-
-                            "& .MuiListItem-root": {
-                                minHeight: "4.375rem !important",
-                            }
-                        }}
-                        subheader={
-                            <ListSubheader
-                                sx={{
-                                    padding: "0.1875rem 1.125rem 0.625rem",
-                                    fontSize: "1.25rem",
-                                    color: "var(--lightness2)",
-                                    backgroundColor: "var(--color1-1)",
-                                }}
-                            >
-                                {t("settings")}
-                            </ListSubheader>}
-                    >
-                        <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
-                            <ListItemText primary={user?.username} sx={{textAlign: "right"}}/>
-                        </SettingListItem>
-                        <Divider/>
-                        <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("active_role")}
-                                         primary={t("active_role")}>
-                            {userRoles.length > 1 ? (
-                                <Select
-                                    labelId="role-select-label"
-                                    id="role-select"
-                                    value={activeRole.guid}
-                                    onChange={handleChange}
-                                >
-                                    {userRoles.map(role =>
-                                        <MenuItem key={role.guid}
-                                                  value={role.guid}>{utils.capitalizeFirstLetter(role.name)}</MenuItem>
-                                    )}
-                                </Select>
-                            ) : (
-                                <ListItemText primary={utils.capitalizeFirstLetter(activeRole.name)}
-                                              sx={{textAlign: "right"}}/>
-                            )}
-                        </SettingListItem>
-                        <Divider/>
-                        <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>
-                            <Switch
-                                onChange={handleToggle('dark')}
-                                checked={switchChecked.includes('dark')}
-                            />
-                        </SettingListItem>
-                        <Divider/>
-                        <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
-                            <LanguageSelector/>
-                        </SettingListItem>
-                        <Divider/>
-                        <SettingListItem icon={<LockResetIcon/>} tooltip={t("change_password")}
-                                         primary={t("change_password")}>
-                            <Button onClick={handlePasswordChange} variant="contained">{t("change_password")}</Button>
-                        </SettingListItem>
-                        <Divider/>
-                        <SettingListItem icon={<LogoutIcon/>} tooltip={t("logout")} primary={t("logout")}>
-                            <Button onClick={handleLogout} variant="contained">{t("logout")}</Button>
-                        </SettingListItem>
-                    </List>)
+                    <div className="userSettings">
+                        <h3 className="userSettings__title">{t("settings")}</h3>
+                        <List className="userSettings__content">
+                            <SettingListItem icon={<PersonIcon/>} tooltip={t("username")} primary={t("username")}>
+                                <ListItemText primary={user?.username} sx={{textAlign: "right"}}/>
+                            </SettingListItem>
+                            <Divider/>
+                            <SettingListItem icon={<SupervisorAccountIcon/>} tooltip={t("active_role")}
+                                             primary={t("active_role")}>
+                                {userRoles.length > 1 ? (
+                                    <Select
+                                        labelId="role-select-label"
+                                        id="role-select"
+                                        value={activeRole.guid}
+                                        onChange={handleChange}
+                                    >
+                                        {userRoles.map(role =>
+                                            <MenuItem key={role.guid}
+                                                      value={role.guid}>{utils.capitalizeFirstLetter(role.name)}</MenuItem>
+                                        )}
+                                    </Select>
+                                ) : (
+                                    <ListItemText primary={utils.capitalizeFirstLetter(activeRole.name)}
+                                                  sx={{textAlign: "right"}}/>
+                                )}
+                            </SettingListItem>
+                            <Divider/>
+                            <SettingListItem icon={<DarkModeIcon/>} tooltip={t("darkmode")} primary={t("darkmode")}>
+                                <Switch
+                                    onChange={handleToggle('dark')}
+                                    checked={switchChecked.includes('dark')}
+                                />
+                            </SettingListItem>
+                            <Divider/>
+                            <SettingListItem icon={<LanguageIcon/>} tooltip={t("language")} primary={t("language")}>
+                                <LanguageSelector/>
+                            </SettingListItem>
+                            <Divider/>
+                            <SettingListItem icon={<LockResetIcon/>} tooltip={t("change_password")}
+                                             primary={t("change_password")}>
+                                <Button onClick={handlePasswordChange} variant="contained">{t("change_password")}</Button>
+                            </SettingListItem>
+                            <Divider/>
+                            <SettingListItem icon={<LogoutIcon/>} tooltip={t("logout")} primary={t("logout")}>
+                                <Button onClick={handleLogout} variant="contained">{t("logout")}</Button>
+                            </SettingListItem>
+                            <Divider/>
+                        </List>
+                    </div>)
             }
         </>
     );

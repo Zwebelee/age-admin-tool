@@ -12,6 +12,7 @@
         "create": "Create",
         "delete": {
             "title": "Delete",
+            "title-confirm": "Confirm delete",
             "confirmation": "Do you really want to delete this?"
         },
         "edit": "Edit",

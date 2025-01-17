@@ -2,11 +2,12 @@ import {AgeEditorToolTemplateCard} from "./AgeEditorToolTemplateCard.tsx";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {useState} from "react";
-import {Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {PortalLicense} from "../../../models/portallicense.ts";
 import {AgeEditorToolAddButton} from "./AgeEditorToolAddButton.tsx";
 import {useTranslation} from "react-i18next";
+import "./AgeEditorTool.scss";
+
 
 export const AgeEditorToolPortallicenses = observer(() => {
     const {t} = useTranslation();
@@ -21,14 +22,14 @@ export const AgeEditorToolPortallicenses = observer(() => {
     };
 
     const fields = [
-        {name: 'name', label: 'Name', type: 'text', disabled: false, default: "New License"},
-        {name: 'description', label: 'Description', type: 'text', disabled: false, default: "Sample Description"},
-        {name: 'level', label: 'Level', type: 'text', disabled: false, default: "0"},
-        {name: 'state', label: 'State', type: 'text', disabled: false, default: "active"},
-        {name: 'maxusers', label: 'Max Users', type: 'number', disabled: false, default: 200},
-        {name: 'currentusers', label: 'Current Users', type: 'number', disabled: false, default: 120},
-        {name: 'id', label: 'ID', type: 'text', disabled: true, default: "NewLicenseXT"},
-        {name: 'guid', label: 'GUID', type: 'text', disabled: true, default: ""},
+        {name: "name", label: "Name", type: "text", disabled: false, default: "New License"},
+        {name: "description", label: "Description", type: "text", disabled: false, default: "Sample Description"},
+        {name: "level", label: "Level", type: "text", disabled: false, default: "0"},
+        {name: "state", label: "State", type: "text", disabled: false, default: "active"},
+        {name: "maxusers", label: "Max Users", type: "number", disabled: false, default: 200},
+        {name: "currentusers", label: "Current Users", type: "number", disabled: false, default: 120},
+        {name: "id", label: "ID", type: "text", disabled: true, default: "NewLicenseXT"},
+        {name: "guid", label: "GUID", type: "text", disabled: true, default: ""},
     ];
 
     const defaultPortalLicense = new PortalLicense({
@@ -48,7 +49,9 @@ export const AgeEditorToolPortallicenses = observer(() => {
             {!newItem && <AgeEditorToolAddButton onClick={handleToggleAddNew}/>}
             {newItem && (
                 <>
-                    <Typography variant="h6">{t("actions.add.add_new")}: Portallicense</Typography>
+                    <h4 className="ageEditorTool__addNewTitle">
+                        {t("actions.add.add_new")}: Portallicense
+                    </h4>
                     <AgeEditorToolTemplateCard
                         item={defaultPortalLicense}
                         isEditing={true}
@@ -60,8 +63,8 @@ export const AgeEditorToolPortallicenses = observer(() => {
                 </>
             )}
             {!newItem && portalLicenseStore.visibleItems.map((item, index) => {
-                    return (
-                        <AgeEditorToolTemplateCard
+                return (
+                    <AgeEditorToolTemplateCard
                             key={index}
                             item={item}
                             isEditing={false}
