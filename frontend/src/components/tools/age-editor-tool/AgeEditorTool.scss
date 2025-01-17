@@ -50,7 +50,7 @@
     &__menuListItem {
         @include media("md") {
             width: auto !important;
-            padding: 3px !important;
+            padding: pxToRem(3) !important;
         }
     }
 
