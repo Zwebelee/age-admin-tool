@@ -2,11 +2,12 @@ import {AgeEditorToolTemplateCard} from "./AgeEditorToolTemplateCard.tsx";
 import {useRootStore} from "../../../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
 import {useState} from "react";
-import {Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {AgeServer} from "../../../models/age-server.ts";
 import {AgeEditorToolAddButton} from "./AgeEditorToolAddButton.tsx";
 import {useTranslation} from "react-i18next";
+import "./AgeEditorTool.scss";
+
 
 export const AgePortalToolServers = observer(() => {
     const {t} = useTranslation();
@@ -21,15 +22,15 @@ export const AgePortalToolServers = observer(() => {
     };
 
     const fields = [
-        {name: 'name', label: 'Name', type: 'text', disabled: false, default: "sampleserver-v088t.domain.ch:6444"},
-        {name: 'adminUrl', label: 'Admin URL', type: 'text', disabled: false, default: "https://sampleserver-v088t.domain.ch:6444/arcgis"},
-        {name: 'url', label: 'URL', type: 'text', disabled: false, default: "https://webadaptor.sample.ch/gisstuff"},
-        {name: 'isHosted', label: 'Is Hosted', type: 'checkbox', disabled: false, default: true},
-        {name: 'serverType', label: 'Server Type', type: 'text', disabled: false, default: "ArcGIS"},
-        {name: 'serverRole', label: 'Server Role', type: 'text', disabled: false, default: "HOSTING_SERVER"},
-        {name: 'serverFunction', label: 'Server Function', type: 'text', disabled: false, default: ""},
-        {name: 'id', label: 'ID', type: 'text', disabled: true, default: "jiCabcde3fgWz8Qn"},
-        {name: 'guid', label: 'GUID', type: 'text', disabled: true, default: "123e4567-e89b-12d3-a456-426614174012"},
+        {name: "name", label: "Name", type: "text", disabled: false, default: "sampleserver-v088t.domain.ch:6444"},
+        {name: "adminUrl", label: "Admin URL", type: "text", disabled: false, default: "https://sampleserver-v088t.domain.ch:6444/arcgis"},
+        {name: "url", label: "URL", type: "text", disabled: false, default: "https://webadaptor.sample.ch/gisstuff"},
+        {name: "isHosted", label: "Is Hosted", type: "checkbox", disabled: false, default: true},
+        {name: "serverType", label: "Server Type", type: "text", disabled: false, default: "ArcGIS"},
+        {name: "serverRole", label: "Server Role", type: "text", disabled: false, default: "HOSTING_SERVER"},
+        {name: "serverFunction", label: "Server Function", type: "text", disabled: false, default: ""},
+        {name: "id", label: "ID", type: "text", disabled: true, default: "jiCabcde3fgWz8Qn"},
+        {name: "guid", label: "GUID", type: "text", disabled: true, default: "123e4567-e89b-12d3-a456-426614174012"},
 
     ];
 
@@ -51,7 +52,9 @@ export const AgePortalToolServers = observer(() => {
             {!newItem && <AgeEditorToolAddButton onClick={handleToggleAddNew}/>}
             {newItem && (
                 <>
-                    <Typography variant="h6">{t("actions.add.add_new")}: Server</Typography>
+                    <h4 className="ageEditorTool__addNewTitle">
+                        {t("actions.add.add_new")}: Server
+                    </h4>
                     <AgeEditorToolTemplateCard
                         item={defaultItem}
                         isEditing={true}

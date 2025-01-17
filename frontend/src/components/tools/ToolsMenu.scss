@@ -39,18 +39,4 @@
         }
     }
 
-    &__content {
-        display: flex;
-        flex-flow: column nowrap;
-        height: calc(100vh - var(--insideBoxXL));
-        min-height: pxToRem(550);
-        overflow-y: scroll;
-        @include media("md") {
-            height: calc(100vh - var(--insideBoxMD));
-        }
-        @include media("sm") {
-            height: calc(100vh - var(--insideBoxSM));
-        }
-    }
-
 }

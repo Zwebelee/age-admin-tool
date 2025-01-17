@@ -1,5 +1,4 @@
 import {observer} from "mobx-react-lite";
-import Grid from "@mui/material/Grid2";
 import {Button, List, ListItem} from "@mui/material";
 import {useState} from "react";
 import {AgeEditorToolPortallicenses} from "./AgeEditorToolPortallicenses.tsx";
@@ -29,7 +28,6 @@ interface cardCloseProps {
 
 export const AgeEditorTool = observer(({cardClose}: cardCloseProps) => {
     const {t} = useTranslation();
-    const gridsize = [3,9]
 
     const [selectedTool, setSelectedTool] = useState<string>(tools[0].name);
 
@@ -47,27 +45,24 @@ export const AgeEditorTool = observer(({cardClose}: cardCloseProps) => {
                     <HighlightOffOutlinedIcon fontSize="large"/>
                 </Button>
             </div>
-            <div className="toolsMenu__content ageEditorTool__content">
-                <Grid container spacing={3}>
-                    <Grid size={gridsize[0]}>
-                        <List>
-                            {tools.map((tool, index) => (
-                                <ListItem key={index}>
-                                    <Button
-                                        style={{display:"flex", flexGrow: 1}}
-                                        variant={selectedTool === tool.name ? "contained" : "outlined"}
-                                        onClick={() => handleSelectTool(tool.name)}
-                                    >{tool.name}</Button>
-                                </ListItem>
-                            ))}
-                        </List>
-                    </Grid>
-                    <Grid size={gridsize[1]}>
-                        {tools.map(tool => (
-                            selectedTool === tool.name && (<tool.component key={tool.name}/>
-                        )))}
-                    </Grid>
-                </Grid>
+            <div className="ageEditorTool__content">
+                <div className="ageEditorTool__menu">
+                    <List className="ageEditorTool__menuList">
+                        {tools.map((tool, index) => (
+                            <ListItem key={index} className="ageEditorTool__menuListItem">
+                                <Button className="ageEditorTool__menuButton"
+                                    variant={selectedTool === tool.name ? "contained" : "outlined"}
+                                    onClick={() => handleSelectTool(tool.name)}
+                                >{tool.name}</Button>
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
+                <div className="ageEditorTool__data">
+                    {tools.map(tool => (
+                        selectedTool === tool.name && (<tool.component key={tool.name}/>
+                    )))}
+                </div>
             </div>
         </div>
     )

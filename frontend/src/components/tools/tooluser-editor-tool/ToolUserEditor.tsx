@@ -117,7 +117,7 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
                     </span><HighlightOffOutlinedIcon fontSize="large"/>
                 </Button>
             </div>
-            <div className="toolsMenu__content toolUserEditor__content">
+            <div className="toolUserEditor__content">
                 <form className="toolUserEditor__form" onSubmit={handleSubmit}>
                     <Grid container direction={"column"} spacing={2}>
                         <Grid>
