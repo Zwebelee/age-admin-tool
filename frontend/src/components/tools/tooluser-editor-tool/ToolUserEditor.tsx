@@ -10,7 +10,7 @@ import {ToolUserWithPassword} from "../../../models/tooluser.ts";
 import {utils} from "../../../utils.ts";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import "./ToolUserEditor.scss";
-import "../toolsMenu.scss";
+import "../ToolsMenu.scss";
 
 interface cardCloseProps {
     cardClose: () => void

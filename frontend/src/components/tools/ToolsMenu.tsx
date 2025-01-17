@@ -50,13 +50,6 @@ export const ToolsMenu = observer(() => {
     return (
         <div className="toolsMenu">
             <h2>{t("tools.title")} {activeTool && ` – ${activeTool.props.title}`}</h2>
-            {/*
-            {activeTool && (
-                <Button className="toolsMenu__close" onClick={handleToolCardClose}>
-                    {t("actions.close")}&nbsp;<HighlightOffOutlinedIcon/>
-                </Button>
-            )}
-            */}
             {!activeTool &&
                 <>
                     <Grid container spacing={2}>

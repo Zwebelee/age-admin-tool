@@ -11,7 +11,7 @@ import {AgeEditorToolAGE} from "./AgePortalToolAGE.tsx";
 import {useTranslation} from "react-i18next";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import "./AgeEditorTool.scss";
-import "../toolsMenu.scss";
+import "../ToolsMenu.scss";
 
 const tools = [
     {name: "Enterprise", component: AgeEditorToolAGE},
