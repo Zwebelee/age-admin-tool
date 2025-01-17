@@ -10,6 +10,8 @@ import {AgePortalToolServers} from "./AgePortalToolServers.tsx";
 import {AgeEditorToolAGE} from "./AgePortalToolAGE.tsx";
 import {useTranslation} from "react-i18next";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
+import "./AgeEditorTool.scss";
+import "../toolsMenu.scss";
 
 const tools = [
     {name: "Enterprise", component: AgeEditorToolAGE},
@@ -37,31 +39,36 @@ export const AgeEditorTool = observer(({cardClose}: cardCloseProps) => {
 
 
     return (
-        <>
-            <h1>{t("tools.age-editor.title")}</h1>
-            <Button className="toolUserEditor__close" onClick={cardClose}>
-                {t("actions.close")}&nbsp;<HighlightOffOutlinedIcon fontSize="large"/>
-            </Button>
-            <Grid container spacing={3}>
-                <Grid size={gridsize[0]}>
-                    <List>
-                        {tools.map((tool, index) => (
-                            <ListItem key={index}>
-                                <Button
-                                    style={{display:"flex", flexGrow: 1}}
-                                    variant={selectedTool === tool.name ? "contained" : "outlined"}
-                                    onClick={() => handleSelectTool(tool.name)}
-                                >{tool.name}</Button>
-                            </ListItem>
-                        ))}
-                    </List>
+        <div className="toolsMenu__box ageEditorTool">
+            <div className="toolsMenu__titlebox">
+                <h3 className="toolsMenu__title">{t("tools.age-editor.title")}</h3>
+                <Button className="toolsMenu__close" onClick={cardClose}>
+                    <span className="toolsMenu__closeText">{t("actions.close")}&nbsp;</span>
+                    <HighlightOffOutlinedIcon fontSize="large"/>
+                </Button>
+            </div>
+            <div className="toolsMenu__content ageEditorTool__content">
+                <Grid container spacing={3}>
+                    <Grid size={gridsize[0]}>
+                        <List>
+                            {tools.map((tool, index) => (
+                                <ListItem key={index}>
+                                    <Button
+                                        style={{display:"flex", flexGrow: 1}}
+                                        variant={selectedTool === tool.name ? "contained" : "outlined"}
+                                        onClick={() => handleSelectTool(tool.name)}
+                                    >{tool.name}</Button>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Grid>
+                    <Grid size={gridsize[1]}>
+                        {tools.map(tool => (
+                            selectedTool === tool.name && (<tool.component key={tool.name}/>
+                        )))}
+                    </Grid>
                 </Grid>
-                <Grid size={gridsize[1]}>
-                    {tools.map(tool => (
-                        selectedTool === tool.name && (<tool.component key={tool.name}/>
-                    )))}
-                </Grid>
-            </Grid>
-        </>
+            </div>
+        </div>
     )
 });

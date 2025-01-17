@@ -10,6 +10,7 @@ import {ToolUserWithPassword} from "../../../models/tooluser.ts";
 import {utils} from "../../../utils.ts";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import "./ToolUserEditor.scss";
+import "../toolsMenu.scss";
 
 interface cardCloseProps {
     cardClose: () => void
@@ -108,14 +109,15 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
 
 
     return (
-        <div className="toolUserEditor">
-            <div className="toolUserEditor__titlebox">
-                <h3 className="toolUserEditor__title">{t("tools.tooluser-editor.description")}</h3>
-                <Button className="toolUserEditor__close" onClick={cardClose}>
-                    <span className="toolUserEditor__closeText">{t("actions.close")}&nbsp;</span><HighlightOffOutlinedIcon fontSize="large"/>
+        <div className="toolsMenu__box toolUserEditor">
+            <div className="toolsMenu__titlebox">
+                <h3 className="toolsMenu__title">{t("tools.tooluser-editor.description")}</h3>
+                <Button className="toolsMenu__close" onClick={cardClose}>
+                    <span className="toolsMenu__closeText">{t("actions.close")}&nbsp;
+                    </span><HighlightOffOutlinedIcon fontSize="large"/>
                 </Button>
             </div>
-            <div className="toolUserEditor__content">
+            <div className="toolsMenu__content toolUserEditor__content">
                 <form className="toolUserEditor__form" onSubmit={handleSubmit}>
                     <Grid container direction={"column"} spacing={2}>
                         <Grid>
