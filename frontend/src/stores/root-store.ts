@@ -88,7 +88,6 @@ export class RootStore {
         this.ageWebAdaptorStore.initialize().then();
         this.portalItemStore.initialize().then();
         this.portalGroupStore.initialize().then();
-        this.toolUserStore.loadUser().then();
         this.taskStore.initialize().then();
         this.taskRuleStore.initialize().then();
         this.taskCommentStore.initialize().then();

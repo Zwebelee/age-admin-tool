@@ -47,7 +47,9 @@ export class AuthStore {
                     this.refreshCsrfToken = refresh_csrf_token;
 
                     // Ensure RootStore is fully initialized on site reload
-                    Promise.resolve().then(() => {
+                    Promise.resolve().then(async () => {
+                        await this.rootStore.toolUserStore.loadUser();
+                        await this.rootStore.permissionsStore.loadPermissions(this.rootStore.toolUserStore.user?.guid || '');
                         this.rootStore.initializeStoresAfterLogin();
                         this.isLoading = false;
                         this.isLoggedIn = true;
@@ -59,7 +61,9 @@ export class AuthStore {
                 this.refreshCsrfToken = refresh_csrf_token;
                 try {
                     await this.refreshAccessToken();
-                    Promise.resolve().then(() => {
+                    Promise.resolve().then(async () => {
+                        await this.rootStore.toolUserStore.loadUser();
+                        await this.rootStore.permissionsStore.loadPermissions(this.rootStore.toolUserStore.user?.guid || '');
                         this.rootStore.initializeStoresAfterLogin();
                         this.isLoading = false;
                     });
@@ -158,6 +162,8 @@ export class AuthStore {
             this.refreshToken = response.data.refresh_token;
             this.refreshCsrfToken = response.data.csrf_token;
             this.setAuthCookie()
+            await this.rootStore.toolUserStore.loadUser();
+            await this.rootStore.permissionsStore.loadPermissions(this.rootStore.toolUserStore.user?.guid || '');
             this.isLoggedIn = true;
             this.rootStore.initializeStoresAfterLogin()
         } catch (error) {

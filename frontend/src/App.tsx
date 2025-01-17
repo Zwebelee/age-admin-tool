@@ -28,7 +28,7 @@ import {SignInScreen} from "./screens/SignInScreen.tsx";
 
 const AppObserver = observer(() => {
 
-    const {themeStore, authStore} = useRootStore();
+    const {themeStore, authStore, toolUserStore} = useRootStore();
 
     const color1 = utils.getColor("--color1");
     const lightness1 = utils.getColor("--lightness1");
@@ -142,7 +142,7 @@ const AppObserver = observer(() => {
                     <div className={themeStore.theme === "light" ? "theme--light" : "theme--dark"}>
                         <div className={animationStopper ? "app animationStopper" : "app"}>
                             <Header toggleMenu={toggleMenu} onClickMenu={menuSwitch} onClickLogo={menuClose}/>
-                            {authStore.isLoggedIn && <Sidebar/>}
+                            {authStore.isLoggedIn && toolUserStore.user && <Sidebar/>}
                             <main className="main">
                                 <div className={toggleMenu ? "main__contentHidden" : "main__content"}>
                                     <Routes>

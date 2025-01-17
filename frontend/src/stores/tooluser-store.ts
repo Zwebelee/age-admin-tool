@@ -7,7 +7,7 @@ import {LoggerService} from "../services/logger.service.ts";
 
 
 export class ToolUserStore {
-    user: ToolUser | undefined;
+    user: ToolUser | undefined = undefined;
     users: ToolUser[] = [];
     authService: AuthService;
     permissionsService: PermissionsService;
