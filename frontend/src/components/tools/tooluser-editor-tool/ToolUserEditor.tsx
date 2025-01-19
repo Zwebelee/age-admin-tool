@@ -101,7 +101,7 @@ export const AgeToolUserEditor = observer(({cardClose}: cardCloseProps) => {
                 ...initialFormData,
                 role: viewerRole ? viewerRole.guid : ""
             });
-            setSuccessMessage(`${formData.username} created successfully`);
+            setSuccessMessage(`${formData.username} ${t("created_successfully")}`);
             setTimeout(() => setSuccessMessage(null), 8000);
         } catch (error) {
             logService.error("Error creating user:", error);
