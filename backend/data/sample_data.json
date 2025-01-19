@@ -1122,7 +1122,7 @@
     {
       "guid": "123e4567-e89b-12d3-a456-426614174008",
       "name": "ArcGIS Enterprise",
-      "alias": "GIS - Core",
+      "alias": "GIS – Core",
       "description": "Central Enterprise GIS"
     }
   ],
@@ -1156,7 +1156,7 @@
     {
       "guid": "123e4567-e89b-12d3-a456-426614174010",
       "name": "sampleagp-v099t.domain.ch:6443",
-      "alias": "GIS - Core Portal",
+      "alias": "GIS – Core Portal",
       "description": "Enterprise Portal",
       "url": "http://example.com/coreportal",
       "type": "portal",
