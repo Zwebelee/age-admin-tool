@@ -8,7 +8,6 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
 import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInputComponentOutlined";
-import ScienceOutlinedIcon from "@mui/icons-material/ScienceOutlined";
 import {permissions} from "../config/permissions.ts";
 import {useRootStore} from "../stores/root-store.ts";
 import {observer} from "mobx-react-lite";
@@ -76,14 +75,6 @@ export const MainMenu = observer(({
                         <div className="mainMenu__innerListItem">
                             <span className="mainMenu__icon"><SettingsInputComponentOutlinedIcon/></span>
                             {t("components")}
-                        </div>
-                    </NavLink>
-                </li>
-                <li className="mainMenu__listItem">
-                    <NavLink className={isActive} to="/experimental" onClick={onClickMenuItem}>
-                        <div className="mainMenu__innerListItem">
-                            <span className="mainMenu__icon"><ScienceOutlinedIcon/></span>
-                            {t("experimental")}
                         </div>
                     </NavLink>
                 </li>
