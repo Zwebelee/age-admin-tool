@@ -46,7 +46,7 @@
     "user": "Utilisateur",
     "viewer": "Visionneuse",
     "settings": "Paramètres",
-    "username": "Nom d'utilisateur",
+    "username": "Nom d’utilisateur",
     "role": "Rôle",
     "active_role": "Rôle actif",
     "password": "Mot de passe",
@@ -75,7 +75,7 @@
         "title": "Connexion",
         "success": "Connexion réussie",
         "failed": "Échec de la connexion",
-        "invalid_user_or_pwd": "Nom d'utilisateur ou mot de passe invalide"
+        "invalid_user_or_pwd": "Nom d’utilisateur ou mot de passe invalide"
     },
     "tools": {
         "title": "Outils",
@@ -84,8 +84,8 @@
             "description": "Créer, éditer et supprimer des composants AGE."
         },
         "tooluser-editor": {
-            "title": "Éditeur d'utilisateurs d'outils",
-            "description": "Ajouter de nouveaux utilisateurs d'outils"
+            "title": "Éditeur d’utilisateurs d’outils",
+            "description": "Ajouter de nouveaux utilisateurs d’outils"
         }
     },
     "access": "Accès",
@@ -99,7 +99,7 @@
     "content-count": "Contenu nombre",
     "content-status": "Statut du contenu",
     "created": "Créée",
-    "created_successfully": "Créé avec succès",
+    "created_successfully": "créé avec succès",
     "custom-role": "Rôle personnalisé",
     "description": "Description",
     "details": "Détails",
