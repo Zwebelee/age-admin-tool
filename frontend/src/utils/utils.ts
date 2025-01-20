@@ -41,11 +41,8 @@ const utils = {
         if (middleSteps === -1) {
             return [color1];
         }
-        if (middleSteps < -1) {
-            throw new Error("Number of steps must be higher than 0");
-        }
-        if (middleSteps > 997) {
-            throw new Error("Number of steps must be less than 1000");
+        if (middleSteps < -1 || middleSteps > 997) {
+            return [];
         }
 
         const result: string[] = [rgbToString(rgb1)];

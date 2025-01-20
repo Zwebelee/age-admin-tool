@@ -6,9 +6,10 @@ import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
+import {observer} from "mobx-react-lite";
 
 
-export const ContentsScreen = () => {
+export const ContentsScreen = observer(() => {
 
     const {t} = useTranslation();
     const {portalItemStore} = useRootStore();
@@ -75,4 +76,4 @@ export const ContentsScreen = () => {
             ></InsideBox>
         </>
     );
-};
+});

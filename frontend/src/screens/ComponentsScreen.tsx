@@ -6,9 +6,10 @@ import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
 import SettingsInputComponentOutlinedIcon from "@mui/icons-material/SettingsInputComponentOutlined";
+import {observer} from "mobx-react-lite";
 
 
-export const ComponentsScreen = () => {
+export const ComponentsScreen = observer(() => {
 
     /* Inside Box */
     const {t} = useTranslation();
@@ -106,4 +107,4 @@ export const ComponentsScreen = () => {
             ></InsideBox>
         </>
     );
-};
+});
