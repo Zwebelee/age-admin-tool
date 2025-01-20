@@ -6,9 +6,10 @@ import {useTranslation} from "react-i18next";
 import {useRootStore} from "../stores/root-store.ts";
 import {GridColDef} from "@mui/x-data-grid";
 import HolidayVillageOutlinedIcon from "@mui/icons-material/HolidayVillageOutlined";
+import {observer} from "mobx-react-lite";
 
 
-export const GroupsScreen = () => {
+export const GroupsScreen = observer(() => {
 
     const {t} = useTranslation();
     const {portalGroupStore} = useRootStore();
@@ -83,4 +84,4 @@ export const GroupsScreen = () => {
             ></InsideBox>
         </>
     );
-};
+});

@@ -1,7 +1,8 @@
 import {useTranslation} from "react-i18next";
 import {UserSettings} from "../components/UserSettings.tsx";
+import {observer} from "mobx-react-lite";
 
-export const MyAccountScreen = () => {
+export const MyAccountScreen = observer(() => {
     const {t} = useTranslation();
     return (
         <>
@@ -9,4 +10,4 @@ export const MyAccountScreen = () => {
             <UserSettings/>
         </>
     );
-};
+});
