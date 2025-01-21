@@ -79,4 +79,14 @@
         background: var(--color1-2);
     }
 
+    &__deleteButton .loading {
+        min-height: auto;
+        background-color: transparent;
+        & .MuiCircularProgress-root {
+            color: white;
+            height: pxToRem(25) !important;
+            width: pxToRem(25) !important;
+        }
+    }
+
 }

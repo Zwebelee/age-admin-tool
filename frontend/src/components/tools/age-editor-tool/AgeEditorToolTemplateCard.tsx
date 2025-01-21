@@ -17,6 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {ItemType, StoreType} from "../../../stores/abstract-store.ts";
 import {useTranslation} from "react-i18next";
 import {useRootStore} from "../../../stores/root-store.ts";
+import "./AgeEditorTool.scss";
 
 interface AgeEditorToolTemplateCardProps {
     item: ItemType;
@@ -173,7 +174,7 @@ export const AgeEditorToolTemplateCard = observer((props: AgeEditorToolTemplateC
                 <Button variant={"contained"}
                         onClick={!isEditing ? handleEditClick : handleCancelEditClick}
                 >{isEditing ? t("actions.cancel") : t("actions.edit")}</Button>
-                {!isNew && canDelete && <Button variant="contained" color="error" onClick={handleOpenDialog}>
+                {!isNew && canDelete && <Button className="ageEditorTool__deleteButton" variant="contained" color="error" onClick={handleOpenDialog}>
                     {deleting ? <Loading/> : <DeleteIcon/>}
                 </Button>}
             </CardActions>
