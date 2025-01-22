@@ -11,6 +11,7 @@ class Portallicense(db.Model):
     level = db.Column(db.String(120), nullable=False)
     state = db.Column(db.String(120), nullable=False)
     maxusers = db.Column(db.Integer, nullable=False)
+    currentusers = db.Column(db.Integer, nullable=False)
 
     def to_dict(self):
         return {
@@ -20,7 +21,8 @@ class Portallicense(db.Model):
             "description": self.description,
             "level": self.level,
             "state": self.state,
-            "maxusers": self.maxusers
+            "maxusers": self.maxusers,
+            "currentusers": self.currentusers
         }
 
     def __repr__(self):

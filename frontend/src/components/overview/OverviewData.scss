@@ -1,0 +1,116 @@
+@import "../../globalFunctions";
+
+.overviewData {
+    grid-area: data;
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: auto;
+    gap: pxToRem(7);
+    padding: pxToRem(10) pxToRem(100) pxToRem(10) pxToRem(10);
+    border-radius: pxToRem(5);
+    outline-offset: pxToRem(-3);
+    @include media("md") {
+        padding: pxToRem(10);
+    }
+
+    &__item {
+        min-width: pxToRem(145);
+        padding: pxToRem(10) 0 pxToRem(10) pxToRem(10);
+        border-radius: pxToRem(6);
+        text-align: center;
+        background-color: var(--lightness1-2);
+    }
+
+    &__line {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        border-left: pxToRem(1) solid var(--color1);
+        height: 100%;
+    }
+
+    &--color2 &__line {
+        border-color: var(--color2);
+    }
+
+    &--color3 &__line {
+        border-color: var(--color3);
+    }
+
+    &--color4 &__line {
+        border-color: var(--color4);
+    }
+
+    &--color5 &__line {
+        border-color: var(--color5);
+    }
+
+    &--color6 &__line {
+        border-color: var(--color6);
+    }
+
+    &__name {
+        padding: 0 pxToRem(5);
+        margin: 0;
+        font-size: pxToRem(13);
+        color: var(--lightness2);
+    }
+
+    &__value {
+        padding: 0 pxToRem(5);
+        margin: 0;
+        font-size: pxToRem(20);
+        font-weight: 300;
+    }
+
+    &--color2 &__value {
+        color: var(--color2);
+    }
+
+    &--color3 &__value {
+        color: var(--color3);
+    }
+
+    &--color4 &__value {
+        color: var(--color4);
+    }
+
+    &--color5 &__value {
+        color: var(--color5);
+    }
+
+    &--color6 &__value {
+        color: var(--color6);
+    }
+
+}
+
+.overviewScreen .overviewData {
+    display: grid;
+    grid: auto-flow / 1fr 1fr;
+    align-content: start;
+    padding: pxToRem(10);
+
+    &__item {
+        max-height: pxToRem(109.5);
+        min-width: auto;
+    }
+
+    &__name {
+        padding: 0 pxToRem(5) pxToRem(20) pxToRem(5);
+        @include media("xl") {
+            font-size: pxToRem(12);
+        }
+    }
+
+    &__value {
+        padding: pxToRem(20) pxToRem(5) 0 pxToRem(5);
+        @include media("xl") {
+            font-size: pxToRem(18);
+        }
+        @include media("lg") {
+            font-size: pxToRem(16);
+        }
+    }
+}
+

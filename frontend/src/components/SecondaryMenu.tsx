@@ -4,30 +4,42 @@ import {useTranslation} from "react-i18next";
 import "./SecondaryMenu.scss";
 import HomeRepairServiceOutlinedIcon from '@mui/icons-material/HomeRepairServiceOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import {observer} from "mobx-react-lite";
+import {useRootStore} from "../stores/root-store";
+import {permissions} from "../config/permissions.ts";
 
 
-const isActive = ({isActive}: { isActive: boolean }) => `${isActive ? "secondaryMenu__navLink secondaryMenu__navLink--active" : "secondaryMenu__navLink"}`;
-
-export const SecondaryMenu = () => {
+export const SecondaryMenu = observer(({position, onClickMenuItem}: {
+    position: string,
+    onClickMenuItem: () => void
+}) => {
     const {t} = useTranslation();
+    const {toolUserStore, permissionsStore} = useRootStore();
+    const hasPermission = permissionsStore.hasPermission(toolUserStore.user?.guid || "", permissions.VIEW_TASKS);
+
+    const isActive = ({isActive}: {
+        isActive: boolean
+    }) => `${isActive ? "secondaryMenu__navLink secondaryMenu__navLink--active" : "secondaryMenu__navLink"}`;
     return (
-        <nav className="secondaryMenu">
-            <div>
-                <ul className="secondaryMenu__list">
-                    <li className="secondaryMenu__listItem">
-                        <NavLink className={isActive} to="/tools">
+        <nav className={"secondaryMenu " + position}>
+            <ul className="secondaryMenu__list">
+                {toolUserStore.userLoaded && hasPermission && (<li className="secondaryMenu__listItem">
+                    <NavLink className={isActive} to="/utils" onClick={onClickMenuItem}>
+                        <div className="secondaryMenu__innerListItem">
                             <span className="secondaryMenu__icon"><HomeRepairServiceOutlinedIcon/></span>
-                            {t("tools")}
-                        </NavLink>
-                    </li>
-                    <li className="secondaryMenu__listItem">
-                        <NavLink className={isActive} to="/my-account">
+                            {t("tools.title")}
+                        </div>
+                    </NavLink>
+                </li>)}
+                <li className="secondaryMenu__listItem">
+                    <NavLink className={isActive} to="/my-account" onClick={onClickMenuItem}>
+                        <div className="secondaryMenu__innerListItem">
                             <span className="secondaryMenu__icon"><PersonOutlineOutlinedIcon/></span>
                             {t("my-account")}
-                        </NavLink>
-                    </li>
-                </ul>
-            </div>
+                        </div>
+                    </NavLink>
+                </li>
+            </ul>
         </nav>
     )
-}
+});

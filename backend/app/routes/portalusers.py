@@ -1,15 +1,68 @@
 from flask import Blueprint, jsonify, request
 from flasgger import swag_from
-from sqlalchemy import UUID
+from flask_jwt_extended import jwt_required
 
-from app.models.portaluser import Portaluser
+from app.models.portaluser import PortalUser
 
 portalusers_bp = Blueprint('portalusers', __name__)
 
 
-@portalusers_bp.route('/portalusers/statistics')
+@portalusers_bp.route('/portalusers', methods=['GET'])
+@jwt_required()
 @swag_from({
-    'tags': ['Portalusers'],
+    'tags': ['AGE - Portal - Users', 'AGE', 'AGE - Portal'],
+    'responses': {
+        200: {
+            'description': 'List of portalusers',
+            'schema': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'guid': {'type': 'string'},
+                        'userid': {'type': 'string'},
+                        'username': {'type': 'string'},
+                        'lastname': {'type': 'string'},
+                        'firstname': {'type': 'string'},
+                        'fullname': {'type': 'string'},
+                        'email': {'type': 'string'},
+                        'homepage': {'type': 'string'},
+                        'description': {'type': 'string'},
+                        'status': {'type': 'string'},
+                        'lastlogin': {'type': 'string'},
+                        'modified': {'type': 'string'},
+                        'created': {'type': 'string'},
+                        'provider': {'type': 'string'},
+                        'role': {'type': 'string'},
+                        'roleid': {'type': 'string'},
+                        'customrole': {'type': 'string'},
+                        'disabled': {'type': 'boolean'},
+                        'licensetype': {'type': 'string'},
+                        'usertype': {'type': 'string'},
+                        'access': {'type': 'string'},
+                        'storeage': {'type': 'integer'},
+                        'itemcount': {'type': 'integer'},
+                        'groupcount': {'type': 'integer'},
+                        'adstatus': {'type': 'string'},
+                        'department': {'type': 'string'},
+                        'agency': {'type': 'string'},
+                        'division': {'type': 'string'},
+                        'team': {'type': 'string'}
+                    }
+                }
+            }
+        }
+    }
+})
+def get_users():
+    portalusers = PortalUser.query.all()
+    return jsonify([portaluser.to_dict() for portaluser in portalusers])
+
+
+@portalusers_bp.route('/portalusers/statistics', methods=['GET'])
+@jwt_required()
+@swag_from({
+    'tags': ['AGE - Portal - Users', 'AGE', 'AGE - Portal'],
     'parameters': [
         {
             'name': 'type',
@@ -46,17 +99,18 @@ def get_portaluser_statistics():
 
     if stat_type == 'count':
         if status:
-            count = Portaluser.query.filter_by(status=status).count()
+            count = PortalUser.query.filter_by(status=status).count()
         else:
-            count = Portaluser.query.count()
+            count = PortalUser.query.count()
         return jsonify({"count": count})
     return jsonify({"message": "Invalid statistic type"}), 400
 
 
 # route for getting a single portaluser
-@portalusers_bp.route('/portaluser/<guid>')
+@portalusers_bp.route('/portalusers/<guid>', methods=['GET'])
+@jwt_required()
 @swag_from({
-    'tags': ['Portalusers'],
+    'tags': ['AGE - Portal - Users', 'AGE', 'AGE - Portal'],
     'parameters': [
         {
             'name': 'guid',
@@ -69,7 +123,7 @@ def get_portaluser_statistics():
     ],
     'responses': {
         200: {
-            'description': 'Portaluser object retrieved successfully',
+            'description': 'PortalUser object retrieved successfully',
             'schema': {
                 'type': 'object',
                 'properties': {
@@ -98,68 +152,15 @@ def get_portaluser_statistics():
                     'itemcount': {'type': 'integer'},
                     'groupcount': {'type': 'integer'},
                     'adstatus': {'type': 'string'},
-                    'division1': {'type': 'string'},
-                    'division2': {'type': 'string'},
-                    'division3': {'type': 'string'},
-                    'division4': {'type': 'string'}
+                    'department': {'type': 'string'},
+                    'section': {'type': 'string'},
+                    'division': {'type': 'string'},
+                    'team': {'type': 'string'}
                 }
             }
         }
     }
 })
 def get_portaluser_by_guid(guid):
-    portaluser = Portaluser.query.get(UUID(guid))
-    if portaluser is None:
-        return jsonify({"message": "Portaluser not found"}), 404
+    portaluser = PortalUser.query.get_or_404(guid)
     return jsonify(portaluser.to_dict())
-
-
-@portalusers_bp.route('/portalusers')
-@swag_from({
-    'tags': ['Portalusers'],
-    'responses': {
-        200: {
-            'description': 'List of portalusers',
-            'schema': {
-                'type': 'array',
-                'items': {
-                    'type': 'object',
-                    'properties': {
-                        'guid': {'type': 'string'},
-                        'userid': {'type': 'string'},
-                        'username': {'type': 'string'},
-                        'lastname': {'type': 'string'},
-                        'firstname': {'type': 'string'},
-                        'fullname': {'type': 'string'},
-                        'email': {'type': 'string'},
-                        'homepage': {'type': 'string'},
-                        'description': {'type': 'string'},
-                        'status': {'type': 'string'},
-                        'lastlogin': {'type': 'string'},
-                        'modified': {'type': 'string'},
-                        'created': {'type': 'string'},
-                        'provider': {'type': 'string'},
-                        'role': {'type': 'string'},
-                        'roleid': {'type': 'string'},
-                        'customrole': {'type': 'string'},
-                        'disabled': {'type': 'boolean'},
-                        'licensetype': {'type': 'string'},
-                        'usertype': {'type': 'string'},
-                        'access': {'type': 'string'},
-                        'storeage': {'type': 'integer'},
-                        'itemcount': {'type': 'integer'},
-                        'groupcount': {'type': 'integer'},
-                        'adstatus': {'type': 'string'},
-                        'division1': {'type': 'string'},
-                        'division2': {'type': 'string'},
-                        'division3': {'type': 'string'},
-                        'division4': {'type': 'string'}
-                    }
-                }
-            }
-        }
-    }
-})
-def get_users():
-    portalusers = Portaluser.query.all()
-    return jsonify([portaluser.to_dict() for portaluser in portalusers])

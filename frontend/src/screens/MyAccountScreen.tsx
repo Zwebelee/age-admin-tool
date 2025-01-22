@@ -1,12 +1,13 @@
 import {useTranslation} from "react-i18next";
 import {UserSettings} from "../components/UserSettings.tsx";
+import {observer} from "mobx-react-lite";
 
-export const MyAccountScreen = ({ toggleTheme, onChange }: { toggleTheme: boolean; onChange: () => void }) => {
+export const MyAccountScreen = observer(() => {
     const {t} = useTranslation();
     return (
-        <main>
+        <>
             <h2>{t("my-account")}</h2>
-            <UserSettings toggleTheme={toggleTheme} onChange={onChange}/>
-        </main>
+            <UserSettings/>
+        </>
     );
-};
+});

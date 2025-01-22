@@ -1,7 +1,14 @@
 @import "../globalFunctions";
 
+.mainMenuDesktop {
+    grid-area: sidebar;
+    @include media("md") {
+        display: none;
+    }
+}
 .mainMenu {
-    width: pxToRem(100);
+    height: 100%;
+    min-height: calc(100vh - #{pxToRem(175)});
     border-radius: 0 0 0 pxToRem(10);
     background-color: var(--color1-1);
 
@@ -17,25 +24,29 @@
         position: relative;
     }
 
+    &__innerListItem {
+        padding: pxToRem(10) 0;
+    }
+
     &__navLink {
         display: block;
-        padding: pxToRem(10) 0;
+        border-radius: pxToRem(8);
+        outline-offset: pxToRem(-8);
         text-decoration: none;
         color: var(--lightness2);
-        transition: var(--transition1);
-        &:hover,
-        &:focus {
-            color: var(--color1);
-        }
+        transition: all var(--transition1);
+
         &:hover .mainMenu__icon,
         &:focus .mainMenu__icon {
-            color: var(--lightness2);
+            color: var(--lightness1);
             background-color: var(--color1);
             transform: scale(1.1);
         }
-        &--active {
+
+        &--active .mainMenu__innerListItem {
             background-color: var(--lightness1-2);
         }
+
         &--active::after {
             content: "";
             position: absolute;
@@ -56,6 +67,73 @@
         margin: pxToRem(5) auto;
         border-radius: 50%;
         background-color: var(--lightness2-1);
-        transition: var(--transition1);
+        transition: all var(--transition1);
+    }
+
+    &__listItem--color2 &__navLink--active::after,
+    &__listItem--color2 &__navLink:hover .mainMenu__icon,
+    &__listItem--color2 &__navLink:focus .mainMenu__icon {
+        background-color: var(--color2);
+    }
+
+    &__listItem--color3 &__navLink--active::after,
+    &__listItem--color3 &__navLink:hover .mainMenu__icon,
+    &__listItem--color3 &__navLink:focus .mainMenu__icon {
+        background-color: var(--color3);
+    }
+
+    &__listItem--color4 &__navLink--active::after,
+    &__listItem--color4 &__navLink:hover .mainMenu__icon,
+    &__listItem--color4 &__navLink:focus .mainMenu__icon {
+        background-color: var(--color4);
+    }
+
+    &__listItem--color5 &__navLink--active::after,
+    &__listItem--color5 &__navLink:hover .mainMenu__icon,
+    &__listItem--color5 &__navLink:focus .mainMenu__icon {
+        background-color: var(--color5);
+    }
+
+    &__listItem--color6 &__navLink--active::after,
+    &__listItem--color6 &__navLink:hover .mainMenu__icon,
+    &__listItem--color6 &__navLink:focus .mainMenu__icon {
+        background-color: var(--color6);
+    }
+}
+.mainMenuMobile {
+    display: none;
+    min-height: 100%;
+    width: 100%;
+    border: pxToRem(1) solid var(--color1);
+    border-radius: pxToRem(10);
+    @include media("md") {
+        display: block;
+    }
+
+    & .mainMenu__list {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: left;
+    }
+
+    & .mainMenu__listItem {
+        padding: 0 pxToRem(10);
+        margin: pxToRem(5);
+    }
+
+    & .mainMenu__navLink {
+        height: pxToRem(100);
+        width: pxToRem(100);
+
+        &--active .mainMenu__innerListItem {
+            border-radius: pxToRem(5);
+        }
+
+        &--active::after {
+            height: pxToRem(5.5);
+            width: pxToRem(85);
+            top: pxToRem(97.25);
+            left: pxToRem(17.5);
+        }
     }
 }

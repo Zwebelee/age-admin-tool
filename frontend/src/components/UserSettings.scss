@@ -1,0 +1,32 @@
+@import "../globalFunctions";
+
+.userSettings {
+    border: pxToRem(7) solid var(--color1-1);
+    border-radius: pxToRem(7);
+    background-color: var(--lightness1-1);
+
+    &__title {
+        padding: pxToRem(11) pxToRem(18) pxToRem(19);
+        margin: 0;
+        font-size: pxToRem(20);
+        font-weight: 500;
+        color: var(--lightness2);
+        background-color: var(--color1-1);
+    }
+
+    &__content {
+        height: calc(100vh - var(--insideBoxXL));
+        min-height: pxToRem(550);
+        overflow-y: auto;
+        @include media("md") {
+            height: calc(100vh - var(--insideBoxMD));
+        }
+        @include media("sm") {
+            height: calc(100vh - var(--insideBoxSM));
+        }
+
+        .MuiListItem-root {
+            min-height: pxToRem(70);
+        }
+    }
+}

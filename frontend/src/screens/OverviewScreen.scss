@@ -1,0 +1,16 @@
+@import "../globalFunctions";
+
+.overviewScreen {
+    display: grid;
+    grid: auto-flow / 1fr 1fr 1fr;
+    gap: pxToRem(20);
+    @include media("xl") {
+        gap: pxToRem(10);
+    }
+    @include media("lg") {
+        grid: auto-flow / 1fr 1fr;
+    }
+    @include media("sm") {
+        grid: auto-flow / 1fr;
+    }
+}

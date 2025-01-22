@@ -1,7 +1,8 @@
 # load and init env first
 from dotenv import load_dotenv
+import os
 
-load_dotenv()
+load_dotenv('../.env')
 
 import argparse
 from app.app import create_app
@@ -13,4 +14,4 @@ args = parser.parse_args()
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(host="0.0.0.0", port=int("5001"), debug=args.debug)
+    app.run(host="0.0.0.0", port=int(os.getenv('BACKEND_OUTPORT')), debug=args.debug)

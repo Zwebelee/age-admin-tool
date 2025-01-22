@@ -19,6 +19,11 @@ SWAGGER_CONFIG = {
         {
             'name': 'Arcgisenterprise',
             'description': 'Operations about arcgisenterprise'
+        },
+        {
+            'name': 'Protected',
+            'description': 'Protected test route'
         }
-    ]
+    ],
+    'doc_expansion': 'none'
 }

@@ -1,0 +1,92 @@
+@import "../../../globalFunctions";
+
+.ageEditorTool {
+
+    &__content {
+        display: grid;
+        grid: "menu data" / pxToRem(225) auto;
+        width: pxToRem(900);
+        margin: 0 auto;
+        height: calc(100vh - var(--insideBoxXL));
+        min-height: pxToRem(550);
+        @include media("lg") {
+            width: 100%;
+        }
+        @include media("md") {
+            grid: "menu" auto
+                  "data" 1fr / auto;
+            height: calc(100vh - var(--insideBoxMD));
+        }
+        @include media("sm") {
+            height: calc(100vh - var(--insideBoxSM));
+        }
+    }
+
+    &__menu {
+        grid-area: menu;
+        padding: pxToRem(20) pxToRem(10);
+        @include media("lg") {
+            padding: pxToRem(20) pxToRem(5) pxToRem(20) pxToRem(15);
+        }
+        @include media("md") {
+            padding: 0 pxToRem(2);
+            background: var(--color1-1);
+        }
+    }
+
+    &__menuList {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        border-radius: pxToRem(7);
+        background: var(--color1-1);
+        @include media("md") {
+            flex-flow: row wrap;
+            justify-content: center;
+            background: none;
+        }
+    }
+
+    &__menuListItem {
+        @include media("md") {
+            width: auto !important;
+            padding: pxToRem(3) !important;
+        }
+    }
+
+    &__menuButton {
+        width: 100%;
+    }
+
+    &__data {
+        grid-area: data;
+        padding: pxToRem(20) pxToRem(10);
+        overflow-y: scroll;
+        @include media("md") {
+            padding: pxToRem(35) pxToRem(25);
+        }
+        @include media("sm") {
+            padding: pxToRem(25) pxToRem(15);
+        }
+    }
+
+    &__addNewTitle {
+        padding: pxToRem(15);
+        margin: 0 0 pxToRem(10) 0;
+        border-radius: pxToRem(7);
+        font-size: pxToRem(18);
+        text-align: center;
+        background: var(--color1-2);
+    }
+
+    &__deleteButton .loading {
+        min-height: auto;
+        background-color: transparent;
+        & .MuiCircularProgress-root {
+            color: white;
+            height: pxToRem(25) !important;
+            width: pxToRem(25) !important;
+        }
+    }
+
+}

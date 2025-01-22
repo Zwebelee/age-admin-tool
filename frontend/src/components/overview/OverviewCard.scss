@@ -1,0 +1,156 @@
+@import "../../globalFunctions";
+
+.overviewCard {
+    display: grid;
+    grid: "data title" pxToRem(129.5) /
+          auto pxToRem(300);
+    position: relative;
+    border-radius: pxToRem(6);
+    background-color: var(--color1-1);
+    background-image: linear-gradient(to left, var(--color1), transparent);
+    @include media("md") {
+        grid: "title"
+              "data " pxToRem(129.5);
+        background-image: none;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        right: pxToRem(300);
+        width: pxToRem(100);
+        height: pxToRem(129.5);
+        background: linear-gradient(to right, transparent 0%, var(--color1) 90%);
+        @include media("md") {
+            display: none;
+        }
+    }
+
+    &__title {
+        grid-area: title;
+        display: flex;
+        flex-flow: row-reverse nowrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: pxToRem(25);
+        padding: pxToRem(10) pxToRem(20) pxToRem(10) pxToRem(0);
+        border-radius: 0 pxToRem(6) pxToRem(6) 0;
+        background-color: var(--color1);
+        @include media("md") {
+            padding: pxToRem(2) pxToRem(15) pxToRem(2) pxToRem(2);
+            border-radius: pxToRem(6);
+            background-color: transparent;
+            background-image: linear-gradient(to left, var(--color1), transparent);
+        }
+    }
+
+    &__icon {
+        display: block;
+        width: pxToRem(80);
+        height: pxToRem(80);
+        padding: pxToRem(22) 0;
+        border-radius: 50%;
+        text-align: center;
+        color: var(--lightness2);
+        background-color: var(--lightness1-3);
+        @include media("md") {
+            width: pxToRem(50);
+            height: pxToRem(50);
+            padding: pxToRem(12) 0;
+        }
+    }
+
+    &__icon .MuiSvgIcon-root {
+        @include media("md") {
+            font-size: pxToRem(22);
+        }
+    }
+
+    &__name {
+        color: var(--lightness2);
+        font-size: pxToRem(24);
+        font-weight: 400;
+        @include media("md") {
+            font-size: pxToRem(20);
+        }
+    }
+}
+
+.overviewScreen .overviewCard {
+    grid: "data title" /
+          auto pxToRem(114);
+    min-height: overviewDataRows(0, 20, 109.5, 7);
+    background-image: none;
+    @include media("xl") {
+        grid: "data title" /
+              auto pxToRem(100);
+        min-height: overviewDataRows(0, 20, 105, 7);
+    }
+    @include media("lg") {
+        grid: "data title" /
+              auto pxToRem(90);
+        min-height: overviewDataRows(0, 20, 102, 7);
+    }
+    @include media("md") {
+        grid: "title" pxToRem(75)
+              "data";
+        min-height: overviewDataRows(75, 20, 102, 7);
+    }
+    @include media("sm") {
+        min-height: auto;
+    }
+
+    &::after {
+        display: none;
+    }
+
+    &__title {
+        flex-flow: column nowrap;
+        justify-content: center;
+        gap: 0;
+        padding: pxToRem(5);
+        border-radius: pxToRem(6);
+        background-color: transparent;
+        background-image: linear-gradient(to bottom, var(--color1), transparent);
+        @include media("md") {
+            flex-flow: row-reverse nowrap;
+            justify-content: flex-start;
+            gap: pxToRem(10);
+            height: pxToRem(75);
+            padding: pxToRem(10);
+            background-image: linear-gradient(to left, var(--color1), transparent);
+        }
+    }
+
+    &__icon {
+        @include media("xl") {
+            width: pxToRem(70);
+            height: pxToRem(70);
+            padding: pxToRem(18) 0;
+        }
+        @include media("lg") {
+            width: pxToRem(50);
+            height: pxToRem(50);
+            padding: pxToRem(12) 0;
+        }
+    }
+
+    &__icon .MuiSvgIcon-root {
+        @include media("lg") {
+            font-size: pxToRem(22);
+        }
+    }
+
+    &__name {
+        font-size: pxToRem(16);
+        @include media("xl") {
+            font-size: pxToRem(14);
+        }
+        @include media("lg") {
+            font-size: pxToRem(12);
+        }
+        @include media("md") {
+            font-size: pxToRem(16);
+        }
+    }
+}

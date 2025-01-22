@@ -1,0 +1,35 @@
+@import "../../globalFunctions";
+
+.dataView {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: pxToRem(10);
+    bottom: pxToRem(20);
+    right: pxToRem(42);
+    padding: pxToRem(5) pxToRem(5) pxToRem(5) pxToRem(15);
+    border-radius: pxToRem(50);
+    background: var(--lightness1-1);
+
+    &__name {
+        margin: 0;
+    }
+
+    &__button {
+        width: pxToRem(35);
+        height: pxToRem(35);
+        border: none;
+        border-radius: 50%;
+        outline-offset: pxToRem(2);
+        color: var(--lightness2);
+        background: var(--lightness2-1);
+        cursor: pointer;
+        transition: all var(--transition1);
+    }
+
+    &__button:hover,
+    &__button:focus {
+        background: var(--color1);
+        transform: scale(1.1);
+    }
+}

@@ -1,0 +1,23 @@
+@import "../../globalFunctions";
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: calc(#{pxToRem(10)} + overviewDataRows(0, 20, 109.5, 7));
+    border-radius: pxToRem(10);
+    background-color: var(--color1-1);
+    @include media("xl") {
+        min-height: calc(#{pxToRem(10)} + overviewDataRows(0, 20, 105, 7));
+    }
+    @include media("lg") {
+        min-height: calc(#{pxToRem(10)} + overviewDataRows(0, 20, 102, 7));
+    }
+    @include media("md") {
+        min-height: calc(#{pxToRem(10)} + overviewDataRows(75, 20, 102, 7));
+    }
+    @include media("sm") {
+        min-height: pxToRem(316);
+    }
+}
