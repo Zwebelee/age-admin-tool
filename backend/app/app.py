@@ -27,6 +27,7 @@ from .routes.tasks import tasks_bp
 from .routes.tooluserroles import toolroles_bp
 from .routes.toolusers import toolusers_bp
 from .routes.validatetoken import validatetoken_bp
+from .services.EnterprisePortal import PortalSession
 from .utils.load_sample_data import init_all_sample_data
 
 
@@ -100,6 +101,14 @@ def create_app():
     app.config.from_object(Config)
     register_extensions(app)
     register_blueprints(app)
+
+    # Initialize portal session #TODO: rename to EnterprisePortal or something...
+    # TODO: warn / error if login fails....
+    app.portal_session = PortalSession(
+        os.getenv('PORTAL_URL'),
+        os.getenv('PORTAL_ADMIN_USERNAME'),
+        os.getenv('PORTAL_ADMIN_PASSWORD')
+    )
 
     with app.app_context():
         db.create_all()
